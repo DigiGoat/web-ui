@@ -16,7 +16,7 @@
       "request": "launch",
       "preLaunchTask": "npm: test",
       "postDebugTask": "terminate: test",
-      "url": "http://localhost:9876/debug.html"
+      "url": "http://localhost:9876/debug.html?random=false"
     }
   ]
 }
