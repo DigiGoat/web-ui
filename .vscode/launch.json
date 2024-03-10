@@ -7,6 +7,7 @@
       "type": "pwa-msedge",
       "request": "launch",
       "preLaunchTask": "npm: start",
+      "postDebugTask": "terminate: start",
       "url": "http://localhost:4200/"
         },
     {
@@ -14,6 +15,7 @@
       "type": "msedge",
       "request": "launch",
       "preLaunchTask": "npm: test",
+      "postDebugTask": "terminate: test",
       "url": "http://localhost:9876/debug.html"
     }
   ]
