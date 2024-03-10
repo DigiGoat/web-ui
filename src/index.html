@@ -5,9 +5,22 @@
   <title>WebUi</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel=“prefetch” href=“./assets/resources/bucks.json as=“fetch”>
+<link rel=“prefetch” href=“./assets/resources/does.json as=“fetch”>
+<link rel=“prefetch” href=“./assets/resources/externals.json as=“fetch”>
+<script>
+  function setTheme() {
+    document.documentElement.setAttribute("data-bs-theme", window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }
+  setTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').onchange = setTheme;
+</script>
 </head>
-<body>
+<body class="color-scheme-main">
+  <noscript>
+    <h1 class="text-center">Please Enable Javascript To View This Site</h1>
+    <h3 class="text-center">Click <a href="https://www.wikihow.com/Enable-JavaScript" target="_blank">Here</a>If You Don't Know How</h3>
+  </noscript>
   <app-root></app-root>
 </body>
 </html>
