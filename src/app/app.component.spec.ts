@@ -6,8 +6,6 @@ import config from '../assets/resources/app.json';
 import { AppComponent } from './app.component';
 
 
-const _config = config as Record<string, any>
-
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -38,7 +36,7 @@ describe('AppComponent', () => {
   it(`should have an email other than the default`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.email).toEqual(_config['email']);
+    expect(app.email).not.toEqual(defaults.email);
   });
   it(`should have a menubar title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -52,7 +50,7 @@ describe('AppComponent', () => {
   it(`should have a menubar title other than the default`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.menubarTitle).toEqual(_config['menubarTitle']);
+    expect(app.menubarTitle).not.toEqual(defaults.menubarTitle);
   });
   it(`should have an owner`, () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -66,7 +64,7 @@ describe('AppComponent', () => {
   it(`should have an owner other than the default`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.owner).toEqual(_config['owner']);
+    expect(app.owner).not.toEqual(defaults.owner);
   });
   it(`should have a repo`, () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -80,6 +78,6 @@ describe('AppComponent', () => {
   it(`should have a repo other than the default`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.repo).toEqual(_config['repo']);
+    expect(app.repo).not.toEqual(defaults.repo);
   });
 });

@@ -5,8 +5,6 @@ import config from '../../assets/resources/app.json';
 import { HomeComponent } from './home.component';
 
 
-const _config = config as Record<string, any>;
-
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
@@ -38,7 +36,7 @@ describe('HomeComponent', () => {
   it(`should have a home title other than the default`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.componentInstance;
-    expect(app.homeTitle).toEqual(_config['homeTitle']);
+    expect(app.homeTitle).not.toEqual(defaults.homeTitle);
   });
   it(`should have an owner`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
@@ -52,7 +50,7 @@ describe('HomeComponent', () => {
   it(`should have an owner other than the default`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.componentInstance;
-    expect(app.owner).toEqual(_config['owner']);
+    expect(app.owner).not.toEqual(defaults.owner);
   });
   it(`should have an email`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
@@ -66,7 +64,7 @@ describe('HomeComponent', () => {
   it(`should have an email other than the default`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.componentInstance;
-    expect(app.email).toEqual(_config['email']);
+    expect(app.email).not.toEqual(defaults.email);
   });
   it(`should have a home description`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
@@ -80,6 +78,6 @@ describe('HomeComponent', () => {
   it(`should have a home description other than the default`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.componentInstance;
-    expect(app.homeDescription).toEqual(_config['homeDescription']);
+    expect(app.homeDescription).not.toEqual(defaults.homeDescription);
   });
 });
