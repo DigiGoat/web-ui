@@ -1,0 +1,32 @@
+<!--<app-goat-modal _title="Does" [goats]="does" *ngIf="does.length"></app-goat-modal>-->
+<div class="container" *ngIf="!err && !noGoats">
+  <h1 class="text-center">{{type}}</h1>
+  <h5 class="text-center">Click on a {{type.slice(0, -1)}} Below For More Info</h5>
+  <div class="row row-cols-auto row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center" *ngIf="goats.length">
+    <div class="col py-3" *ngFor="let goat of goats">
+      <app-goat-card [goat]="goat ?? {}"></app-goat-card>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center" *ngIf="!goats.length">
+    <div class="col py-3" *ngFor="let placeholder of [1,2,3,4,5,6,7,8]">
+      <div class="card color-scheme-secondary">
+        <div class="card-img-top rounded px-3 pt-3 ratio ratio-16x9 placeholder"></div>
+        <div class="card-body color-scheme-secondary">
+          <div class="container color-scheme-tertiary pb-3 placeholder-glow text-center">
+            <h5 class="card-title text-center placeholder">SOME ANIMALS NAME</h5>
+            <br>
+            <h6 class="card-subtitle pb-2 text-center placeholder">"Nickname"</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="err">
+  <h3 class="text-center">Failed To Load Does With Error: {{err.status}} - {{err.statusText}}</h3>
+  <h6 class="text-center">Please Check Your Connection And Try Again Later.</h6>
+</div>
+<div *ngIf="noGoats">
+  <h3 class="text-center">No {{this.type}} Found</h3>
+  <h6 class="text-center">Please Try Again Later.</h6>
+</div>
