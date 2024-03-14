@@ -1,0 +1,29 @@
+<div class="card color-scheme-secondary" *ngIf="goat">
+  <div #placeholderParent class="px-3 pt-3 placeholder-wave">
+    <img *ngIf="imageSrc" #image [ngSrc]="imageSrc" [alt]="nickname ?? name"
+      class="card-img-top rounded border placeholder object-fit-cover"
+      (load)="image.classList.remove('placeholder'); placeholderParent.classList.remove('placeholder-wave');" priority width="400"
+      height="200">
+  </div>
+  <div class="card-body color-scheme-secondary" [id]="id">
+    <div class="container color-scheme-tertiary pb-3">
+      <a class="stretched-link" [routerLink]="nickname ?? id"></a>
+      <h5 class="card-title text-center">{{name}}</h5>
+      <h6 class="card-subtitle pb-2 text-center" *ngIf="nickname">"{{nickname}}"</h6>
+      <div class="card-text text-center text-truncate-3" *ngIf="description" [innerHTML]="description">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card color-scheme-secondary" *ngIf="!goat">
+  <div class="px-3 pt-3 placeholder-glow">
+    <img class="card-img-top rounded placeholder" width="400" height="200">
+  </div>
+  <div class="card-body color-scheme-secondary">
+    <div class="container color-scheme-tertiary pb-3 placeholder-glow text-center">
+      <h5 class="card-title text-center placeholder">SOME ANIMALS NAME</h5>
+      <br>
+      <h6 class="card-subtitle pb-2 text-center placeholder">"Nickname"</h6>
+    </div>
+  </div>
+</div>
