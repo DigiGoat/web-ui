@@ -24,7 +24,7 @@ export class GoatCardComponent implements OnInit {
     this.nickname = this.goat?.nickname;
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
-    this.imageSrc = this.id ? this.imageService.getImage(this.id) : this.imageService.notFound;
+    this.imageSrc = this.imageService.getImage([this.id, this.name, this.nickname]);
   }
   notFound = this.imageService.notFound;
 }

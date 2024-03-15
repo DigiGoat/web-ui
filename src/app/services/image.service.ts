@@ -10,10 +10,11 @@ export class ImageService {
   private imageMap: ImageMap = imageMap as any;
 
   constructor() { }
-  getImage(id?: string) {
-    const key = Object.keys(this.imageMap).find(directory => directory === id);
+  getImage(searchQueries: (string | undefined)[]) {
+    const key = Object.keys(this.imageMap).find(directory => searchQueries.includes(directory));
     if (key && this.imageMap[key].length) {
-      return `./assets/images/${this.imageMap[key].find(image => image.cover) || this.imageMap[key][0]}`;
+      const image = this.imageMap[key].find(image => image.cover) || this.imageMap[key][0];
+      return `./assets/images/${key}/${image.file}`;
     } else {
       return this.notFound;
     }
@@ -23,7 +24,7 @@ export class ImageService {
 }
 type ImageMap = {
   [directory: string]: {
-    image: string,
+    file: string,
     description?: string;
     cover?: true;
   }[];
