@@ -1,4 +1,4 @@
-import { ImageService } from 'src/app/services/image.service';
+import { ImageEntry, ImageService } from 'src/app/services/image.service';
 
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
@@ -18,20 +18,20 @@ export class GoatCardComponent implements OnInit, AfterViewInit {
   nickname?: string;
   description?: string;
   id?: string;
-  imageSrc?: string;
+  image?: ImageEntry;
   ngOnInit(): void {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
-    this.imageSrc = this.imageService.getImage([this.id, this.name, this.nickname]);
+    this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
   }
-  @ViewChild('image') image?: ElementRef<HTMLImageElement>;
+  @ViewChild('imageRef') imageRef?: ElementRef<HTMLImageElement>;
   ngAfterViewInit() {
-    this.image?.nativeElement.addEventListener('error', () => {
+    this.imageRef?.nativeElement.addEventListener('error', () => {
       console.warn(`[${this.nickname ?? this.name ?? this.id}]`, 'Failed to load image');
-      if (this.image) {
-        this.image.nativeElement.src = this.imageService.notFound;
+      if (this.imageRef) {
+        this.imageRef.nativeElement.src = this.imageService.NotFound.file;
       }
     }, { once: true });
   };
