@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ng serve",
+      "name": "Serve",
       "type": "pwa-msedge",
       "request": "launch",
       "preLaunchTask": "npm: start",
@@ -11,7 +11,7 @@
       "url": "http://localhost:4200/"
         },
     {
-      "name": "ng test",
+      "name": "Test",
       "type": "msedge",
       "request": "launch",
       "preLaunchTask": "npm: test",
