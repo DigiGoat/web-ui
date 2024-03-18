@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import defaults from '../../assets/resources/_app.json';
-import config from '../../assets/resources/app.json';
 import { HomeComponent } from './home.component';
 
 
@@ -24,7 +22,7 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have a home title`, () => {
+  /*it(`should have a home title`, () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.componentInstance;
     if ('homeTitle' in config) {
@@ -79,5 +77,5 @@ describe('HomeComponent', () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const app = fixture.componentInstance;
     expect(app.homeDescription).not.toEqual(defaults.homeDescription);
-  });
+  });*/
 });

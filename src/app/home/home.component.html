@@ -1,10 +1,10 @@
 <div class="w-100 text-center">
   <img ngSrc="./assets/icons/android-chrome-192x192.png" width="150" height="150" class="text-center" priority>
 </div>
-<h1 class="text-center">{{homeTitle}}</h1>
-<h5 class="text-center">{{owner}}</h5>
-<h6 class="text-center"><a [href]="'mailto:' + email">{{email}}</a></h6>
+<h1 class="text-center">{{app.homeTitle}}</h1>
+<h5 class="text-center">{{app.owner}}</h5>
+<h6 class="text-center"><a [href]="'mailto:' + app.email">{{app.email}}</a></h6>
 <!--<h2 class="text-center">Bloom Family Farm Nigerians</h2>-->
 <div class="container">
-  <p class="text-center" [innerHTML]="homeDescription"></p>
+  <p class="text-center" [innerHTML]="app.homeDescription"></p>
 </div>

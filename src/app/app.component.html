@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <img ngSrc="./assets/icons/android-chrome-192x192.png" alt="Logo" class="d-inline-block align-text-top" width="70" height="70" priority>
     <a class="navbar-brand" routerLink="/">
-      <p class="h4" [innerHTML]="menubarTitle"></p>
+      <p class="h4" [innerHTML]="app.menubarTitle"></p>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,12 +36,12 @@
 <!-- Footer with link to source code -->
 <footer class="bd-footer color-scheme-secondary">
   <br>
-  <div class="text-center"> {{owner}} <br>
-    <a [href]="'mailto:' + email">{{email}}</a>
+  <div class="text-center"> {{app.owner}} <br>
+    <a [href]="'mailto:' + app.email">{{app.email}}</a>
   </div><br>
   <div class="container  text-center" style="min-height: 5vh;">This Site Was Created and Is Maintained By <a
       href="https://github.com/bloomkd46-webmaster" target="_blank">Bloomkd46</a>
-    <br>See The Source Code On <a [href]="repo" target="_blank">Github</a>
+    <br>See The Source Code On <a [href]="app.repo" target="_blank">Github</a>
   </div>
   <br>
   </footer>
