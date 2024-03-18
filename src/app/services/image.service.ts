@@ -27,5 +27,4 @@ type ImageMap = {
 export type ImageEntry = {
   file: string,
   description?: string;
-  cover?: true;
 };
