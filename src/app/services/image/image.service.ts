@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import imageMap from '../../assets/images/map.json';
+import imageMap from '../../../assets/images/map.json';
 
 
 @Injectable({
@@ -13,7 +13,7 @@ export class ImageService {
   getImage(searchQueries: (string | undefined)[]) {
     const key = Object.keys(this.imageMap).find(directory => searchQueries.includes(directory));
     if (key && this.imageMap[key].length) {
-      const image = this.imageMap[key].find(image => image.cover) || this.imageMap[key][0];
+      const image = this.imageMap[key][0];
       return { ...image, file: `/assets/images/${key}/${image.file}` };
     }
     return this.NotFound;

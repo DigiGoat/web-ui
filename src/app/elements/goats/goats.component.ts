@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Goat } from 'src/app/services/goat.service';
+import { Goat } from 'src/app/services/goat/goat.service';
 
 import { Component, Input, OnInit } from '@angular/core';
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import app from '../../assets/resources/app.json';
-import { AppService } from '../services/app.service';
+import { AppService } from '../services/app/app.service';
 
 
 @Component({

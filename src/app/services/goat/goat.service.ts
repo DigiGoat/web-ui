@@ -1,5 +1,3 @@
-import type { Awards, OwnedGoats } from 'adga';
-
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
