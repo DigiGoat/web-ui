@@ -21,32 +21,8 @@
       }
     },
     {
-      "type": "npm",
-      "script": "test",
-      "isBackground": true,
-      "problemMatcher": {
-        "owner": "typescript",
-        "pattern": "$tsc",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "(.*?)"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation complete"
-          }
-        }
-      }
-    },
-    {
       "label": "terminate: start",
       "command": "echo ${input:start}", // the 'start' command that's defined in the inputs list
-      "type": "shell",
-      "problemMatcher": []
-    },
-    {
-      "label": "terminate: test",
-      "command": "echo ${input:test}", // the 'start' command that's defined in the inputs list
       "type": "shell",
       "problemMatcher": []
     }
@@ -57,12 +33,6 @@
       "type": "command",
       "command": "workbench.action.tasks.terminate",
       "args": "npm: start" // the name of the task to be terminated when the 'start' command is executed.
-    },
-    {
-      "id": "test",
-      "type": "command",
-      "command": "workbench.action.tasks.terminate",
-      "args": "npm: test" // the name of the task to be terminated when the 'start' command is executed.
     }
       ]
 }
