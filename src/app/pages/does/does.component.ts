@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { GoatService } from '../services/goat/goat.service';
+import { GoatService } from '../../services/goat/goat.service';
 
 
 @Component({
