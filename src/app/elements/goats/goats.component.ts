@@ -16,12 +16,11 @@ export class GoatsComponent implements OnInit {
   public err?: HttpErrorResponse;
   public noGoats = false;
   constructor() { }
-  @Input() goats?: Goat[];
-  @Input() goatGetter?: Observable<Goat[]>;
-  @Input() name?: string;
+  public goats?: Goat[];
+  @Input({ required: true, alias: 'goats' }) getter!: Observable<Goat[]>;
+  @Input({ required: true }) name!: string;
   ngOnInit() {
-    if (!this.goats?.length && this.goatGetter) {
-      this.goatGetter.subscribe({
+    this.getter.subscribe({
         next: goats => {
         if (!goats.length) {
           this.noGoats = true;
@@ -29,9 +28,6 @@ export class GoatsComponent implements OnInit {
         this.goats = goats;
         },
         error: err => this.err = err
-      });
-    } else if (!this.goatGetter) {
-      console.error('No Getter Function Provided, This Is A Software Error');
-    }
+    });
   }
 }

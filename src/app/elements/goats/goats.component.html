@@ -1,7 +1,7 @@
 <!--<app-goat-modal _title="Does" [goats]="does" *ngIf="does.length"></app-goat-modal>-->
 <div class="container" *ngIf="!err && !noGoats">
   <h1 class="text-center">{{name}}</h1>
-  <h5 class="text-center">Click on a {{name?.slice(0, -1)}} Below For More Info</h5>
+  <h5 class="text-center">Click on a {{name.slice(0, -1)}} Below For More Info</h5>
   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
     <div class="col py-3" *ngFor="let goat of (goats?.length ? goats : undefined)">
       <app-goat-card [goat]="goat"></app-goat-card>
