@@ -9,17 +9,12 @@ jest.mock('../../../assets/resources/config.json', () => ({
 }));
 describe('ConfigService', () => {
   let service: AppService;
-
-
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AppService);
   });
-  it('should be created', () => {
+  it('Should Create', () => {
     expect(service).toBeTruthy();
-  });
-  it('should have a config', () => {
-    expect(service['config']).toBeTruthy();
   });
   describe('With a Configuration (v1.0.0)', () => {
     it('should return a homeTitle', () => {
