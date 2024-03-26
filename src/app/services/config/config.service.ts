@@ -9,7 +9,7 @@ import config from '../../../assets/resources/config.json';
 })
 export class AppService {
   private app: Record<string, any> = config;
-  public defaults = defaults.pop()!;
+  private defaults = defaults.pop()!;
   get homeTitle(): string {
     if (this.app['homeTitle']) {
       return this.app['homeTitle'];
