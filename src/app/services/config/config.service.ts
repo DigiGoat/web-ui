@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import defaults from '../../../assets/resources/config.defaults.json';
 import config from '../../../assets/resources/config.json';
 
 
@@ -9,47 +8,46 @@ import config from '../../../assets/resources/config.json';
 })
 export class AppService {
   private config: Record<string, any> = config;
-  private defaults = defaults.pop()!;
   get homeTitle(): string {
     if (this.config['homeTitle']) {
       return this.config['homeTitle'];
     } else {
-      return this.defaults.homeTitle;
+      return 'Dairy Goat Farm';
     }
   };
   get owner(): string {
     if (this.config['owner']) {
       return this.config['owner'];
     } else {
-      return this.defaults.owner;
+      return 'First & Last Name';
     }
   }
   get email(): string {
     if (this.config['email']) {
       return this.config['email'];
     } else {
-      return this.defaults.email;
+      return 'someone@email.com';
     }
   }
   get homeDescription(): string {
     if (this.config['homeDescription']) {
       return this.config['homeDescription'];
     } else {
-      return this.defaults.homeDescription;
+      return 'Our Farm is home to ...';
     }
   }
   get repo(): string {
     if (this.config['repo']) {
       return this.config['repo'];
     } else {
-      return this.defaults.repo;
+      return 'https://github.com/DigiGoat/your-website';
     }
   }
   get menubarTitle(): string {
     if (this.config['menubarTitle']) {
       return this.config['menubarTitle'];
     } else {
-      return this.defaults.menubarTitle;
+      return 'Dairy Goat <br> Farm';
     }
   }
 }
