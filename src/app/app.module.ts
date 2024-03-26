@@ -5,10 +5,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DoesComponent } from './does/does.component';
 import { GoatCardComponent } from './elements/goat-card/goat-card.component';
 import { GoatsComponent } from './elements/goats/goats.component';
-import { HomeComponent } from './home/home.component';
+import { DoesComponent } from './pages/does/does.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({

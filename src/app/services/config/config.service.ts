@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import defaults from '../../../assets/resources/_app.json';
-import app from '../../../assets/resources/app.json';
+import defaults from '../../../assets/resources/config.defaults.json';
+import config from '../../../assets/resources/config.json';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  private app: Record<string, any> = app ?? {};
-  private defaults = defaults.pop()!;
+  private app: Record<string, any> = config;
+  public defaults = defaults.pop()!;
   get homeTitle(): string {
     if (this.app['homeTitle']) {
       return this.app['homeTitle'];

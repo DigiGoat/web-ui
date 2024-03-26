@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AppService } from '../../services/app/app.service';
+import { AppService } from '../../services/config/config.service';
 
 
 @Component({
