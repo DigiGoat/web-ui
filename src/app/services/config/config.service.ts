@@ -8,46 +8,46 @@ import config from '../../../assets/resources/config.json';
   providedIn: 'root'
 })
 export class AppService {
-  private app: Record<string, any> = config;
+  private config: Record<string, any> = config;
   private defaults = defaults.pop()!;
   get homeTitle(): string {
-    if (this.app['homeTitle']) {
-      return this.app['homeTitle'];
+    if (this.config['homeTitle']) {
+      return this.config['homeTitle'];
     } else {
       return this.defaults.homeTitle;
     }
   };
   get owner(): string {
-    if (this.app['owner']) {
-      return this.app['owner'];
+    if (this.config['owner']) {
+      return this.config['owner'];
     } else {
       return this.defaults.owner;
     }
   }
   get email(): string {
-    if (this.app['email']) {
-      return this.app['email'];
+    if (this.config['email']) {
+      return this.config['email'];
     } else {
       return this.defaults.email;
     }
   }
   get homeDescription(): string {
-    if (this.app['homeDescription']) {
-      return this.app['homeDescription'];
+    if (this.config['homeDescription']) {
+      return this.config['homeDescription'];
     } else {
       return this.defaults.homeDescription;
     }
   }
   get repo(): string {
-    if (this.app['repo']) {
-      return this.app['repo'];
+    if (this.config['repo']) {
+      return this.config['repo'];
     } else {
       return this.defaults.repo;
     }
   }
   get menubarTitle(): string {
-    if (this.app['menubarTitle']) {
-      return this.app['menubarTitle'];
+    if (this.config['menubarTitle']) {
+      return this.config['menubarTitle'];
     } else {
       return this.defaults.menubarTitle;
     }
