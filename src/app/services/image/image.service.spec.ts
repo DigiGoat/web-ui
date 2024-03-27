@@ -31,6 +31,9 @@ describe('ImageService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+  it('should contain ImageNotFound as a public const', () => {
+    expect(service.NotFound).toMatchSnapshot();
+  });
   describe('getImage()', () => {
     it('should match an image when provided with a nickname', () => {
       const image = service.getImage(['FAKE_NICKNAME', nickname, 'FAKE_ID']);
@@ -47,8 +50,28 @@ describe('ImageService', () => {
       expect(image.file).toEqual('/assets/images/ImageNotFound.png');
       expect(image.description).toEqual('The Requested Image Does Not Exist');
     });
-    it('should contain ImageNotFound as a public const', () => {
-      expect(service.NotFound).toMatchSnapshot();
+  });
+  describe('getImages()', () => {
+    it('should match images when provided with a nickname', () => {
+      const images = service.getImages(['FAKE_NICKNAME', nickname, 'FAKE_ID']);
+      expect(images).toHaveLength(1);
+      const image = images[0];
+      expect(image.file).toEqual(`/assets/images/${nickname}/${nicknameFile}`);
+      expect(image.description).toBeUndefined();
+    });
+    it('should match images when provided with an id', () => {
+      const images = service.getImages(['FAKE_ID', id, 'FAKE_NICKNAME']);
+      expect(images).toHaveLength(1);
+      const image = images[0];
+      expect(image.file).toEqual(`/assets/images/${id}/${idFile}`);
+      expect(image.description).toEqual(idDescription);
+    });
+    it('should return ImageNotFound path if the image does not exist', () => {
+      const images = service.getImages(['FAKE_ID', 'FAKE_NICKNAME']);
+      expect(images).toHaveLength(1);
+      const image = images[0];
+      expect(image.file).toEqual('/assets/images/ImageNotFound.png');
+      expect(image.description).toEqual('The Requested Image Does Not Exist');
     });
   });
 });
