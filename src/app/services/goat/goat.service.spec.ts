@@ -17,7 +17,7 @@ describe('GoatService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('Does', () => {
+  describe('public does', () => {
     beforeAll(() => expect(service.does).toBeTruthy());
     it('should return an Observable array', () => {
       const testData = [{}, {}, {}, {}, {}];
