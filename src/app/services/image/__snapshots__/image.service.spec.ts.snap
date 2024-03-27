@@ -1,13 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImageService getImage() should contain ImageNotFound as a public const 1`] = `
-{
-  "description": "The Requested Image Does Not Exist",
-  "file": "/assets/images/ImageNotFound.png",
-}
-`;
-
-exports[`ImageService should contain ImageNotFound as a public const 1`] = `
+exports[`ImageService const NotFound: NotFound 1`] = `
 {
   "description": "The Requested Image Does Not Exist",
   "file": "/assets/images/ImageNotFound.png",

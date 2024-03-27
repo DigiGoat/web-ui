@@ -31,8 +31,8 @@ describe('ImageService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  it('should contain ImageNotFound as a public const', () => {
-    expect(service.NotFound).toMatchSnapshot();
+  test('const NotFound', () => {
+    expect(service.NotFound).toMatchSnapshot('NotFound');
   });
   describe('getImage()', () => {
     it('should match an image when provided with a nickname', () => {
