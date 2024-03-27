@@ -9,5 +9,5 @@ import { ConfigService } from '../../services/config/config.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(public app: ConfigService) { }
+  constructor(public config: ConfigService) { }
 }

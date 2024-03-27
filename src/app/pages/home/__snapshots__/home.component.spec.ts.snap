@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeComponent should render 1`] = `
+<app-home
+  config={[Function Object]}
+>
+  <div
+    class="w-100 text-center"
+  >
+    <img
+      class="text-center"
+      height="150"
+      ngsrc="./assets/icons/android-chrome-192x192.png"
+      priority=""
+      width="150"
+    />
+  </div><h1
+    class="text-center"
+  >
+    TEST_TITLE
+  </h1><h5
+    class="text-center"
+  >
+    TEST_OWNER
+  </h5><h6
+    class="text-center"
+  >
+    <a
+      href="mailto:TEST_EMAIL"
+    >
+      TEST_EMAIL
+    </a>
+  </h6><div
+    class="container"
+  >
+    <p
+      class="text-center"
+    >
+      TEST_DESCRIPTION
+    </p>
+  </div>
+</app-home>
+`;
