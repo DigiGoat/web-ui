@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AppService } from './config.service';
+import { ConfigService } from './config.service';
 
 
 jest.mock('../../../assets/resources/config.json', () => ({
@@ -8,10 +8,10 @@ jest.mock('../../../assets/resources/config.json', () => ({
   default: {},
 }));
 describe('ConfigService', () => {
-  let service: AppService;
+  let service: ConfigService;
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AppService);
+    service = TestBed.inject(ConfigService);
   });
   it('Should Create', () => {
     expect(service).toBeTruthy();

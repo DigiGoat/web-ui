@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AppService } from '../../services/config/config.service';
+import { ConfigService } from '../../services/config/config.service';
 
 
 @Component({
@@ -9,5 +9,5 @@ import { AppService } from '../../services/config/config.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(public app: AppService) { }
+  constructor(public app: ConfigService) { }
 }

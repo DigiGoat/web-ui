@@ -6,7 +6,7 @@ import config from '../../../assets/resources/config.json';
 @Injectable({
   providedIn: 'root'
 })
-export class AppService {
+export class ConfigService {
   private config: Record<string, any> = config;
   get homeTitle(): string {
     if (this.config['homeTitle']) {
