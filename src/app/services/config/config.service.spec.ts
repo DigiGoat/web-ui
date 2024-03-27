@@ -16,90 +16,86 @@ describe('ConfigService', () => {
   it('Should Create', () => {
     expect(service).toBeTruthy();
   });
-  describe('homeTitle()', () => {
-    it('should return a homeTitle from the config', () => {
-      service['config'] = { homeTitle: 'TEST' };
+  describe('With a Configuration (v1.0.0)', () => {
+    beforeEach(() => {
+      service['config'] = {
+        homeTitle: 'TEST_TITLE',
+        owner: 'TEST_OWNER',
+        email: 'TEST_EMAIL',
+        homeDescription: 'TEST_DESCRIPTION',
+        repo: 'TEST_REPO',
+        menubarTitle: 'TEST_MENUBAR_TITLE',
+      };
+    });
+    test('get homeTitle()', () => {
       const spy = jest.spyOn(service, 'homeTitle', 'get');
       const homeTitle = service.homeTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(homeTitle).toBe('TEST');
+      expect(homeTitle).toBe('TEST_TITLE');
     });
-    it('should return a homeTitle from the defaults', () => {
+    test('get owner()', () => {
+      const spy = jest.spyOn(service, 'owner', 'get');
+      const owner = service.owner;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(owner).toBe('TEST_OWNER');
+    });
+    test('get email()', () => {
+      const spy = jest.spyOn(service, 'email', 'get');
+      const email = service.email;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(email).toBe('TEST_EMAIL');
+    });
+    test('get homeDescription()', () => {
+      const spy = jest.spyOn(service, 'homeDescription', 'get');
+      const homeDescription = service.homeDescription;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(homeDescription).toBe('TEST_DESCRIPTION');
+    });
+    test('get repo()', () => {
+      const spy = jest.spyOn(service, 'repo', 'get');
+      const repo = service.repo;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(repo).toBe('TEST_REPO');
+    });
+    test('get menubarTitle()', () => {
+      const spy = jest.spyOn(service, 'menubarTitle', 'get');
+      const menubarTitle = service.menubarTitle;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(menubarTitle).toBe('TEST_MENUBAR_TITLE');
+    });
+  });
+  describe('Without a Configuration', () => {
+    test('get homeTitle()', () => {
       const spy = jest.spyOn(service, 'homeTitle', 'get');
       const homeTitle = service.homeTitle;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(homeTitle).toBe('Dairy Goat Farm');
     });
-  });
-  describe('owner()', () => {
-    it('should return a owner from the config', () => {
-      service['config'] = { owner: 'TEST' };
-      const spy = jest.spyOn(service, 'owner', 'get');
-      const owner = service.owner;
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(owner).toBe('TEST');
-    });
-    it('should return a owner from the defaults', () => {
+    test('get owner()', () => {
       const spy = jest.spyOn(service, 'owner', 'get');
       const owner = service.owner;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(owner).toBe('First & Last Name');
     });
-  });
-  describe('email()', () => {
-    it('should return a email from the config', () => {
-      service['config'] = { email: 'TEST' };
-      const spy = jest.spyOn(service, 'email', 'get');
-      const email = service.email;
-      expect(spy).toHaveBeenCalledTimes(1);
-          expect(email).toBe('TEST');
-        });
-    it('should return a email from the defaults', () => {
+    test('get email()', () => {
       const spy = jest.spyOn(service, 'email', 'get');
       const email = service.email;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(email).toBe('someone@email.com');
     });
-  });
-  describe('homeDescription()', () => {
-    it('should return a homeDescription from the config', () => {
-      service['config'] = { homeDescription: 'TEST' };
-      const spy = jest.spyOn(service, 'homeDescription', 'get');
-      const homeDescription = service.homeDescription;
-      expect(spy).toHaveBeenCalledTimes(1);
-          expect(homeDescription).toBe('TEST');
-        });
-    it('should return a homeDescription from the defaults', () => {
+    test('get homeDescription()', () => {
       const spy = jest.spyOn(service, 'homeDescription', 'get');
       const homeDescription = service.homeDescription;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(homeDescription).toBe('Our Farm is home to ...');
     });
-  });
-  describe('repo()', () => {
-    it('should return a repo from the config', () => {
-      service['config'] = { repo: 'TEST' };
-      const spy = jest.spyOn(service, 'repo', 'get');
-      const repo = service.repo;
-      expect(spy).toHaveBeenCalledTimes(1);
-          expect(repo).toBe('TEST');
-        });
-    it('should return a repo from the defaults', () => {
+    test('get repo()', () => {
       const spy = jest.spyOn(service, 'repo', 'get');
       const repo = service.repo;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(repo).toBe('https://github.com/DigiGoat/your-website');
     });
-  });
-  describe('menubarTitle()', () => {
-    it('should return a menubarTitle from the config', () => {
-      service['config'] = { menubarTitle: 'TEST' };
-      const spy = jest.spyOn(service, 'menubarTitle', 'get');
-      const menubarTitle = service.menubarTitle;
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(menubarTitle).toBe('TEST');
-        });
-    it('should return a menubarTitle from the defaults', () => {
+    test('get menubarTitle()', () => {
       const spy = jest.spyOn(service, 'menubarTitle', 'get');
       const menubarTitle = service.menubarTitle;
       expect(spy).toHaveBeenCalledTimes(1);
