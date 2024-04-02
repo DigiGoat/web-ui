@@ -1,6 +1,6 @@
-import { ImageEntry, ImageService } from 'src/app/services/image/image.service';
-
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+import { ImageEntry, ImageService } from '../../services/image/image.service';
 
 
 import type { Goat } from 'src/app/services/goat/goat.service';

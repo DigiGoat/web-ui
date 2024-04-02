@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = `
+<app-goat-card
+  description={[Function String]}
+  goat={[Function Object]}
+  id={[Function String]}
+  image={[Function Object]}
+  imageRef={[Function _ElementRef]}
+  imageService={[Function Object]}
+  name={[Function String]}
+  nickname={[Function String]}
+>
+  <div
+    class="card color-scheme-secondary"
+    test-id="goat"
+  >
+    <div
+      class="px-3 pt-3 placeholder-wave"
+    >
+      <img
+        alt="undefined"
+        class="card-img-top rounded border placeholder object-fit-cover"
+        height="250"
+        priority=""
+        test-id="goat-image"
+        width="400"
+      />
+    </div>
+    <div
+      class="card-body color-scheme-secondary"
+      id="PD12345"
+    >
+      <div
+        class="container color-scheme-tertiary pb-3"
+      >
+        <a
+          class="stretched-link"
+          test-id="goat-link"
+        />
+        <h5
+          class="card-title text-center"
+          test-id="goat-name"
+        >
+          YOUR GOATS ADGA NAME
+        </h5>
+        <h6
+          class="card-subtitle pb-2 text-center"
+          test-id="goat-nickname"
+        >
+          "Your Goats Farm Name"
+        </h6>
+        <div
+          class="card-text text-center text-truncate-3"
+          test-id="goat-description"
+        >
+          A quick description about your goat
+        </div>
+      </div>
+    </div>
+  </div>
+</app-goat-card>
+`;
+
+exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
+<app-goat-card
+  description="undefined"
+  id="undefined"
+  image={[Function Object]}
+  imageRef="undefined"
+  imageService={[Function Object]}
+  name="undefined"
+  nickname="undefined"
+>
+  <div
+    class="card color-scheme-secondary"
+    test-id="placeholder"
+  >
+    <div
+      class="px-3 pt-3 placeholder-glow"
+    >
+      <img
+        class="card-img-top rounded placeholder"
+        height="200"
+        test-id="placeholder-image"
+        width="400"
+      />
+    </div>
+    <div
+      class="card-body color-scheme-secondary"
+    >
+      <div
+        class="container color-scheme-tertiary pb-3 text-center placeholder-wave"
+      >
+        <h5
+          class="card-title text-center placeholder"
+          test-id="placeholder-name"
+        >
+          SOME ANIMALS NAME
+        </h5>
+        <br />
+        <h6
+          class="card-subtitle pb-2 text-center placeholder"
+          test-id="placeholder-nickname"
+        >
+          "Nickname"
+        </h6>
+      </div>
+    </div>
+  </div>
+</app-goat-card>
+`;

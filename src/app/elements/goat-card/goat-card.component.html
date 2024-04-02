@@ -1,29 +1,29 @@
-<div class="card color-scheme-secondary" *ngIf="goat">
+<div class="card color-scheme-secondary" *ngIf="goat" test-id="goat">
   <div #placeholderParent class="px-3 pt-3 placeholder-wave">
     <img *ngIf="image?.file" #imageRef [ngSrc]="image!.file" [alt]="image?.description"
       class="card-img-top rounded border placeholder object-fit-cover"
       (load)="imageRef.classList.remove('placeholder'); placeholderParent.classList.remove('placeholder-wave');" priority width="400"
-      height="250">
+      height="250" test-id="goat-image">
   </div>
   <div class="card-body color-scheme-secondary" [id]="id">
     <div class="container color-scheme-tertiary pb-3">
-      <a class="stretched-link" [routerLink]="nickname ?? id"></a>
-      <h5 class="card-title text-center">{{name}}</h5>
-      <h6 class="card-subtitle pb-2 text-center" *ngIf="nickname">"{{nickname}}"</h6>
-      <div class="card-text text-center text-truncate-3" *ngIf="description" [innerHTML]="description">
+      <a class="stretched-link" [routerLink]="nickname ?? id" test-id="goat-link"></a>
+      <h5 class="card-title text-center" test-id="goat-name">{{name}}</h5>
+      <h6 class="card-subtitle pb-2 text-center" *ngIf="nickname" test-id="goat-nickname">"{{nickname}}"</h6>
+      <div class="card-text text-center text-truncate-3" *ngIf="description" [innerHTML]="description" test-id="goat-description">
       </div>
     </div>
   </div>
 </div>
-<div class="card color-scheme-secondary" *ngIf="!goat">
+<div class="card color-scheme-secondary" *ngIf="!goat" test-id="placeholder">
   <div class="px-3 pt-3 placeholder-glow">
-    <img class="card-img-top rounded placeholder" width="400" height="200">
+    <img class="card-img-top rounded placeholder" width="400" height="200" test-id="placeholder-image">
   </div>
   <div class="card-body color-scheme-secondary">
-    <div class="container color-scheme-tertiary pb-3 placeholder-glow text-center">
-      <h5 class="card-title text-center placeholder">SOME ANIMALS NAME</h5>
+    <div class="container color-scheme-tertiary pb-3 text-center placeholder-wave">
+      <h5 class="card-title text-center placeholder" test-id="placeholder-name">SOME ANIMALS NAME</h5>
       <br>
-      <h6 class="card-subtitle pb-2 text-center placeholder">"Nickname"</h6>
+      <h6 class="card-subtitle pb-2 text-center placeholder" test-id="placeholder-nickname">"Nickname"</h6>
     </div>
   </div>
 </div>
