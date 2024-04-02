@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoatsComponent While loading should match the snapshot 1`] = `
+<app-goats
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <h1
+      class="text-center"
+      test-id="title"
+    >
+      TEST GOATS
+    </h1>
+    <h5
+      class="text-center"
+      test-id="description"
+    >
+      Click on a TEST GOAT Below For More Info
+    </h5>
+    <div
+      class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+    >
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+      <div
+        class="col py-3"
+        test-id="placeholder-cards"
+      >
+        <app-goat-card />
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With a Error should match the snapshot 1`] = `
+<app-goats
+  err={[Function Object]}
+  getter={[Function Observable]}
+  name={[Function String]}
+  noGoats="false"
+>
+  <div
+    test-id="error"
+  >
+    <h3
+      class="text-center"
+      test-id="error-title"
+    >
+      Failed To Load TEST GOATS With Error: -1 - TEST_ERROR
+    </h3>
+    <h6
+      class="text-center"
+      test-id="error-description"
+    >
+      Please Check Your Connection And Try Again Later.
+    </h6>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With a Goat (v1.0.0) should match the snapshot 1`] = `
+<app-goats
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <h1
+      class="text-center"
+      test-id="title"
+    >
+      TEST GOATS
+    </h1>
+    <h5
+      class="text-center"
+      test-id="description"
+    >
+      Click on a TEST GOAT Below For More Info
+    </h5>
+    <div
+      class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+    >
+      <div
+        class="col py-3"
+        test-id="goat-cards"
+      >
+        <app-goat-card />
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent Without a Goat should match the snapshot 1`] = `
+<app-goats
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats={[Function Boolean]}
+>
+  <div
+    test-id="no-goats"
+  >
+    <h3
+      class="text-center"
+      test-id="no-goats-title"
+    >
+      No TEST GOATS Found
+    </h3>
+    <h6
+      class="text-center"
+      test-id="no-goats-description"
+    >
+      Please Try Again Later.
+    </h6>
+  </div>
+</app-goats>
+`;
