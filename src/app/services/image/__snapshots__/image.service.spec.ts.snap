@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ImageService const NotFound: NotFound 1`] = `
-{
-  "description": "The Requested Image Does Not Exist",
-  "file": "/assets/images/ImageNotFound.png",
-}
-`;

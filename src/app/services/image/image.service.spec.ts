@@ -32,7 +32,10 @@ describe('ImageService', () => {
     expect(service).toBeTruthy();
   });
   test('const NotFound', () => {
-    expect(service.NotFound).toMatchSnapshot('NotFound');
+    expect(service.NotFound).toEqual({
+      description: 'The Requested Image Does Not Exist',
+      file: '/assets/images/ImageNotFound.png',
+    });
   });
   describe('getImage()', () => {
     it('should match an image when provided with a nickname', () => {
