@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DoesComponent should match the snapshot 1`] = `
+<app-does
+  getter={[Function Observable]}
+  goatService={[Function Object]}
+  name={[Function String]}
+>
+  <app-goats />
+</app-does>
+`;
