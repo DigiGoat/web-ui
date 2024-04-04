@@ -18,12 +18,14 @@ export class GoatCardComponent implements OnInit, AfterViewInit {
   nickname?: string;
   description?: string;
   id?: string;
+  born?: string | number;
   image?: ImageEntry;
   ngOnInit(): void {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
+    this.born = this.goat?.dateOfBirth;
     this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
   }
   @ViewChild('imageRef') imageRef?: ElementRef<HTMLImageElement>;

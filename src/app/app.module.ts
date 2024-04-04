@@ -9,6 +9,7 @@ import { GoatCardComponent } from './elements/goat-card/goat-card.component';
 import { GoatsComponent } from './elements/goats/goats.component';
 import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AgePipe } from './pipes/age.pipe';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HomeComponent } from './pages/home/home.component';
     HomeComponent,
     DoesComponent,
     GoatCardComponent,
-    GoatsComponent
+    GoatsComponent,
+    AgePipe
   ],
   imports: [
     BrowserModule,

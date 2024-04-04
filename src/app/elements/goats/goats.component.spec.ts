@@ -11,6 +11,7 @@ const goat = {
   name: 'YOUR GOATS ADGA NAME',
   description: 'A quick description about your goat',
   normalizeId: 'PD12345',
+  dateOfBirth: new Date(Date.now() - (1000 * 3600 * 24)).toString()
 };
 describe('GoatsComponent', () => {
   let component: GoatsComponent;

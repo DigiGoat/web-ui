@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
+import { AgePipe } from '../../pipes/age.pipe';
 
 
 jest.mock('../../services/image/image.service');
@@ -13,7 +14,7 @@ describe('GoatCardComponent', () => {
   beforeEach(async () => {
     imageService.mockClear();
     await TestBed.configureTestingModule({
-      declarations: [GoatCardComponent],
+      declarations: [GoatCardComponent, AgePipe],
       providers: [ImageService],
     })
       .compileComponents();
@@ -45,6 +46,7 @@ describe('GoatCardComponent', () => {
         nickname: 'Your Goats Farm Name',
         name: 'YOUR GOATS ADGA NAME',
         description: 'A quick description about your goat',
+        dateOfBirth: new Date(Date.now() - (1000 * 3600 * 24)).toString(),
         normalizeId: 'PD12345',
       };
       fixture.detectChanges();
@@ -104,6 +106,11 @@ describe('GoatCardComponent', () => {
       const element = html.querySelector('[test-id="goat-name"]') as HTMLHeadingElement;
       expect(element).toBeTruthy();
       expect(element.innerHTML).toBe('YOUR GOATS ADGA NAME');
+    });
+    it('should have an age', () => {
+      const element = html.querySelector('[test-id="goat-age"]') as HTMLHeadingElement;
+      expect(element).toBeTruthy();
+      expect(element.innerHTML).toBe('1 day old');
     });
     it('should have a nickname', () => {
       const element = html.querySelector('[test-id="goat-nickname"]') as HTMLHeadingElement;

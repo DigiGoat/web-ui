@@ -2,6 +2,7 @@
 
 exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = `
 <app-goat-card
+  born={[Function String]}
   description={[Function String]}
   goat={[Function Object]}
   id={[Function String]}
@@ -39,11 +40,17 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
           test-id="goat-link"
         />
         <h5
-          class="card-title text-center"
+          class="card-title text-center mb-0"
           test-id="goat-name"
         >
           YOUR GOATS ADGA NAME
         </h5>
+        <h6
+          class="card-subtitle pb-1 fw-light fst-italic text-center"
+          test-id="goat-age"
+        >
+          1 day old
+        </h6>
         <h6
           class="card-subtitle pb-2 text-center"
           test-id="goat-nickname"
@@ -64,6 +71,7 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
 
 exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
 <app-goat-card
+  born="undefined"
   description="undefined"
   id="undefined"
   image={[Function Object]}

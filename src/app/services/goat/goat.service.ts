@@ -51,6 +51,7 @@ export type Goat = {
   name: string;
   description?: string;
   normalizeId: string;
+  dateOfBirth: string;
 };
 export const Goat = {
   nickname: 'Your Goats Farm Name',
