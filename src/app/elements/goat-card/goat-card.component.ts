@@ -10,7 +10,6 @@ import type { Goat } from 'src/app/services/goat/goat.service';
   styleUrls: ['./goat-card.component.scss']
 })
 export class GoatCardComponent implements OnInit, AfterViewInit {
-
   constructor(private imageService: ImageService) { }
 
   @Input('goat') goat?: Partial<Goat>;
