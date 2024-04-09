@@ -52,6 +52,8 @@ export type Goat = {
   description?: string;
   normalizeId: string;
   dateOfBirth: string;
+  colorAndMarking?: string;
+  animalTattoo?: [{ tattoo: string; tattooLocation: { name: string; }; }, { tattoo: string; tattooLocation: { name: string; }; }];
 };
 export const Goat = {
   nickname: 'Your Goats Farm Name',
