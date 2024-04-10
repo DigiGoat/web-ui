@@ -12,7 +12,7 @@ export class TitleStrategy extends NgTitleStrategy {
   override updateTitle(routerState: RouterStateSnapshot) {
     const title = this.buildTitle(routerState);
     if (title !== undefined) {
-      this.title.setTitle(`${formatTitle(title, routerState)} - ${this.configService.tabTitle}`);
+      this.title.setTitle(`${formatTitle(title, routerState)} · ${this.configService.tabTitle}`);
     } else {
       this.title.setTitle(this.configService.tabTitle);
     }
