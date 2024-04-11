@@ -25,6 +25,7 @@ describe('ConfigService', () => {
         homeDescription: 'TEST_DESCRIPTION',
         repo: 'TEST_REPO',
         menubarTitle: 'TEST_MENUBAR_TITLE',
+        tabTitle: 'TEST_TAB_TITLE',
       };
     });
     test('get homeTitle()', () => {
@@ -63,6 +64,12 @@ describe('ConfigService', () => {
       expect(spy).toHaveBeenCalledTimes(1);
       expect(menubarTitle).toBe('TEST_MENUBAR_TITLE');
     });
+    test('get tabTitle()', () => {
+      const spy = jest.spyOn(service, 'tabTitle', 'get');
+      const tabTitle = service.tabTitle;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(tabTitle).toBe('TEST_TAB_TITLE');
+    });
   });
   describe('Without a Configuration', () => {
     test('get homeTitle()', () => {
@@ -100,6 +107,12 @@ describe('ConfigService', () => {
       const menubarTitle = service.menubarTitle;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(menubarTitle).toBe('Dairy Goat <br> Farm');
+    });
+    test('get tabTitle()', () => {
+      const spy = jest.spyOn(service, 'tabTitle', 'get');
+      const tabTitle = service.tabTitle;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(tabTitle).toBe('Dairy Goat');
     });
   });
 });

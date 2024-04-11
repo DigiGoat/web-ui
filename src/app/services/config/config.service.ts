@@ -50,4 +50,11 @@ export class ConfigService {
       return 'Dairy Goat <br> Farm';
     }
   }
+  get tabTitle(): string {
+    if (this.config['tabTitle']) {
+      return this.config['tabTitle'];
+    } else {
+      return 'Dairy Goat';
+    }
+  }
 }
