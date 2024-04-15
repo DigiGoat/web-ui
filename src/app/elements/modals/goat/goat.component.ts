@@ -1,4 +1,4 @@
-import { Component, Input, type ElementRef, type OnDestroy, type OnInit, ViewChild, type AfterViewInit } from '@angular/core';
+import { Component, Input, type ElementRef, type OnDestroy, type OnInit, ViewChild, type AfterViewInit, ViewChildren } from '@angular/core';
 import type { Goat } from '../../../services/goat/goat.service';
 import { ImageService, type ImageEntry } from '../../../services/image/image.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,6 +42,7 @@ export class GoatModalComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('modal') modalElement!: ElementRef<HTMLDivElement>;
   @ViewChild('carousel') carouselElement!: ElementRef<HTMLDivElement>;
+  @ViewChildren('imageRef') imagRefs?: ElementRef<HTMLImageElement>[];
   private modal!: bootstrap.Modal;
   private carousel!: bootstrap.Carousel;
   ngAfterViewInit() {
@@ -50,6 +51,12 @@ export class GoatModalComponent implements OnInit, OnDestroy, AfterViewInit {
     this.open();
     this.modalElement.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.router.navigate(['../'], { relativeTo: this.route });
+    });
+    this.imagRefs?.forEach(image => {
+      image.nativeElement.addEventListener('error', () => {
+        console.warn(`[${this.nickname ?? this.name ?? this.id}]`, 'Failed to load image');
+        image.nativeElement.src = this.imageService.NotFound.file;
+      }, { once: true });
     });
   }
 
