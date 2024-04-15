@@ -2,8 +2,9 @@
 <div class="container" *ngIf="!err && !noGoats" test-id="goats">
   <h1 class="text-center" test-id="title">{{name}}</h1>
   <h5 class="text-center" test-id="description">Click on a {{name.slice(0, -1)}} Below For More Info</h5>
+  <app-not-found-modal *ngIf="invalidActiveGoat" [searchParam]="invalidActiveGoat"></app-not-found-modal>
   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
-    <div class="col py-3" *ngFor="let goat of (goats?.length ? goats : undefined)" test-id="goat-cards">
+    <div class="col py-3" *ngFor="let goat of goats" test-id="goat-cards">
       <app-goat-card [goat]="goat"></app-goat-card>
     </div>
     <div class="col py-3" *ngFor="let goat of (goats?.length ? undefined : [1,2,3,4,5,6,7,8])" test-id="placeholder-cards">

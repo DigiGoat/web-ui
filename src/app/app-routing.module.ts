@@ -3,7 +3,7 @@ import { RouterModule, Routes, TitleStrategy as NgTitleStrategy } from '@angular
 
 import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
-import { TitleStrategy } from './startegies/TitleStrategy';
+import { TitleStrategy } from './strategies/title.strategy';
 
 
 const routes: Routes = [
