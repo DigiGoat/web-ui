@@ -54,7 +54,7 @@ export class ConfigService {
     if (this.config['tabTitle']) {
       return this.config['tabTitle'];
     } else {
-      return 'Dairy Goat';
+      return 'Dairy Goat Farm';
     }
   }
 }
