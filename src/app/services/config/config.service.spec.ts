@@ -112,7 +112,7 @@ describe('ConfigService', () => {
       const spy = jest.spyOn(service, 'tabTitle', 'get');
       const tabTitle = service.tabTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(tabTitle).toBe('Dairy Goat');
+      expect(tabTitle).toBe('Dairy Goat Farm');
     });
   });
 });
