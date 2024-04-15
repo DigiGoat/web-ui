@@ -6,6 +6,8 @@
   <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
     <div class="col py-3" *ngFor="let goat of goats" test-id="goat-cards">
       <app-goat-card [goat]="goat"></app-goat-card>
+      <app-goat-modal *ngIf="activeGoat && [goat.name, goat.nickname, goat.normalizeId].includes(activeGoat)" [goat]="goat"
+        [searchParam]="activeGoat"></app-goat-modal>
     </div>
     <div class="col py-3" *ngFor="let goat of (goats?.length ? undefined : [1,2,3,4,5,6,7,8])" test-id="placeholder-cards">
       <app-goat-card></app-goat-card>

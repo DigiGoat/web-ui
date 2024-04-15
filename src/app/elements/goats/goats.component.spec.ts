@@ -5,7 +5,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GoatsComponent } from './goats.component';
 
-
 const goat = {
   nickname: 'Your Goats Farm Name',
   name: 'YOUR GOATS ADGA NAME',
