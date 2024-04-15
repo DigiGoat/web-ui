@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild, type AfterViewInit, type ElementRef, type OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-not-found-modal',
@@ -17,9 +16,9 @@ export class GoatModalComponent implements OnDestroy, AfterViewInit {
   }
 
   @ViewChild('modal') modalElement!: ElementRef<HTMLDivElement>;
-  private modal!: Modal;
+  private modal!: bootstrap.Modal;
   ngAfterViewInit() {
-    this.modal = Modal.getOrCreateInstance(this.modalElement.nativeElement);
+    this.modal = bootstrap.Modal.getOrCreateInstance(this.modalElement.nativeElement);
     this.open();
     this.modalElement.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.router.navigate(['../'], { relativeTo: this.route });

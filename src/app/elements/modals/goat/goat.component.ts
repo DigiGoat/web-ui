@@ -1,7 +1,6 @@
 import { Component, Input, type ElementRef, type OnDestroy, type OnInit, ViewChild, type AfterViewInit } from '@angular/core';
 import type { Goat } from '../../../services/goat/goat.service';
 import { ImageService, type ImageEntry } from '../../../services/image/image.service';
-import { Modal, Carousel } from 'bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -43,11 +42,11 @@ export class GoatModalComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('modal') modalElement!: ElementRef<HTMLDivElement>;
   @ViewChild('carousel') carouselElement!: ElementRef<HTMLDivElement>;
-  private modal!: Modal;
-  private carousel!: Carousel;
+  private modal!: bootstrap.Modal;
+  private carousel!: bootstrap.Carousel;
   ngAfterViewInit() {
-    this.modal = Modal.getOrCreateInstance(this.modalElement.nativeElement);
-    this.carousel = Carousel.getOrCreateInstance(this.carouselElement.nativeElement);
+    this.modal = bootstrap.Modal.getOrCreateInstance(this.modalElement.nativeElement);
+    this.carousel = bootstrap.Carousel.getOrCreateInstance(this.carouselElement.nativeElement);
     this.open();
     this.modalElement.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.router.navigate(['../'], { relativeTo: this.route });
