@@ -12,24 +12,26 @@ import { HomeComponent } from './pages/home/home.component';
 import { GoatModalComponent } from './elements/modals/goat/goat.component';
 import { GoatModalComponent as NotFoundGoatModal } from './elements/modals/not-found/not-found.component';
 import { AgePipe } from './pipes/age.pipe';
+import { BucksComponent } from './pages/bucks/bucks.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    BucksComponent,
     DoesComponent,
     GoatCardComponent,
-    GoatsComponent,
     GoatModalComponent,
+    GoatsComponent,
+    HomeComponent,
     NotFoundGoatModal,
     AgePipe
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

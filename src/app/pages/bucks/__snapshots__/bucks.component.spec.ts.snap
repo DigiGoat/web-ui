@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BucksComponent should match the snapshot 1`] = `
+<app-bucks
+  getter={[Function Observable]}
+  goatService={[Function Object]}
+  name={[Function String]}
+>
+  <app-goats />
+</app-bucks>
+`;

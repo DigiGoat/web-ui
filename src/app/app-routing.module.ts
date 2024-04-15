@@ -4,6 +4,7 @@ import { RouterModule, Routes, TitleStrategy as NgTitleStrategy } from '@angular
 import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TitleStrategy } from './strategies/title.strategy';
+import { BucksComponent } from './pages/bucks/bucks.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,11 @@ const routes: Routes = [
     path: 'does', children: [
       { path: '', component: DoesComponent, title: 'Does' },
       { path: ':goat', component: DoesComponent, title: ':goat - Does' }
+    ]
+  }, {
+    path: 'bucks', children: [
+      { path: '', component: BucksComponent, title: 'Bucks' },
+      { path: ':goat', component: BucksComponent, title: ':goat - Bucks' }
     ]
   }
 ];

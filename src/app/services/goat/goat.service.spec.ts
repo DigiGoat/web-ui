@@ -99,4 +99,91 @@ describe('GoatService', () => {
     });
 
   });
+  //Same as the test above, but with bucks
+  describe('public bucks', () => {
+    beforeAll(() => expect(service.bucks).toBeTruthy());
+
+    it('should return an Observable array', () => {
+      const testData = [{}, {}, {}, {}, {}];
+      service.bucks.subscribe(data =>
+        expect(data).toEqual(testData)
+      );
+      const req = http.expectOne('/assets/resources/bucks.json');
+      expect(req.request.method).toEqual('GET');
+      req.flush(testData);
+    });
+
+    it('should retry failed requests 3 times', () => {
+      const testData = [{}, {}, {}, {}, {}];
+      service.bucks.subscribe(data =>
+        expect(data).toEqual(testData)
+      );
+      let req = http.expectOne('/assets/resources/bucks.json');
+      req.flush('Deliberate Error', { status: 404, statusText: 'Not Found' });
+      req = http.expectOne('/assets/resources/bucks.json');
+      req.flush('Deliberate Error', { status: 0, statusText: 'Network Error' });
+      req = http.expectOne('/assets/resources/bucks.json');
+      req.flush(testData);
+    });
+
+    it('should handle server errors', () => {
+      service.bucks.subscribe({
+        error: err => {
+          expect(err.status).toEqual(404);
+          expect(err.statusText).toEqual('Not Found');
+          expect(err.error).toEqual('Deliberate Error');
+        }
+      });
+
+      for (let i = 0; i < 4; i++) {
+        const req = http.expectOne('/assets/resources/bucks.json');
+        req.flush('Deliberate Error', { status: 404, statusText: 'Not Found' });
+      }
+    });
+
+    it('should handle client errors', () => {
+      service.bucks.subscribe({
+        error: err => {
+          expect(err.status).toEqual(0);
+          expect(err.statusText).toEqual('Network Error');
+          expect(err.error).toEqual('Deliberate Error');
+        }
+      });
+
+      for (let i = 0; i < 4; i++) {
+        const req = http.expectOne('/assets/resources/bucks.json');
+        req.flush('Deliberate Error', { status: 0, statusText: 'Network Error' });
+      }
+    });
+
+    it('should cache bucks after first request', () => {
+      const testData = [{}, {}, {}, {}, {}];
+
+      service['_bucks'] = testData as any;
+      service.bucks.subscribe(data =>
+        expect(data).toEqual(testData)
+      );
+      http.expectNone('/assets/resources/bucks.json');
+    });
+
+    it('should ignore cache if empty (even if previous request succeeded)', () => {
+      const testData = [{}, {}, {}, {}, {}];
+      service.bucks.subscribe(data =>
+        expect(data).toEqual([])
+      );
+      const req = http.expectOne('/assets/resources/bucks.json');
+      expect(req.request.method).toEqual('GET');
+      req.flush([]);
+      service.bucks.subscribe(data =>
+        expect(data).toEqual(testData)
+      );
+      const req2 = http.expectOne('/assets/resources/bucks.json');
+      expect(req2.request.method).toEqual('GET');
+      req2.flush(testData);
+    });
+
+    afterEach(() => {
+      http.verify();
+    });
+  });
 });
