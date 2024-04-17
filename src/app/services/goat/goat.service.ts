@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GoatService {
+  private readonly urlPrefix = !('document' in this) ? 'http://localhost:4200' : '';
 
 
   constructor(private http: HttpClient) { }
@@ -18,7 +19,7 @@ export class GoatService {
       console.debug('Loaded Does From Cache', this._does);
       observer.next(this._does);
     } else {
-      this.http.get<Goat[]>('/assets/resources/does.json')
+      this.http.get<Goat[]>(this.urlPrefix + '/assets/resources/does.json')
         .pipe(
           retry(3), // retry a failed request up to 3 times
       )
@@ -50,7 +51,7 @@ export class GoatService {
       console.debug('Loaded Bucks From Cache', this._bucks);
       observer.next(this._bucks);
     } else {
-      this.http.get<Goat[]>('/assets/resources/bucks.json')
+      this.http.get<Goat[]>(this.urlPrefix + '/assets/resources/bucks.json')
         .pipe(
           retry(3), // retry a failed request up to 3 times
         )

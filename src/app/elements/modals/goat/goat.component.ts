@@ -1,4 +1,4 @@
-import { Component, Input, type ElementRef, type OnDestroy, type OnInit, ViewChild, type AfterViewInit, ViewChildren } from '@angular/core';
+import { Component, Input, type ElementRef, type OnDestroy, type OnInit, ViewChild, type AfterViewInit, ViewChildren, afterNextRender, afterRender } from '@angular/core';
 import type { Goat } from '../../../services/goat/goat.service';
 import { ImageService, type ImageEntry } from '../../../services/image/image.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,19 +35,19 @@ export class GoatModalComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.modal.hide();
-    this.modal.dispose();
-    this.carousel.dispose();
+    this.modal?.hide();
+    this.modal?.dispose();
+    this.carousel?.dispose();
   }
 
   @ViewChild('modal') modalElement!: ElementRef<HTMLDivElement>;
   @ViewChild('carousel') carouselElement!: ElementRef<HTMLDivElement>;
   @ViewChildren('imageRef') imagRefs?: ElementRef<HTMLImageElement>[];
-  private modal!: bootstrap.Modal;
-  private carousel!: bootstrap.Carousel;
+  private modal?: bootstrap.Modal;
+  private carousel?: bootstrap.Carousel;
   ngAfterViewInit() {
-    this.modal = bootstrap.Modal.getOrCreateInstance(this.modalElement.nativeElement);
-    this.carousel = bootstrap.Carousel.getOrCreateInstance(this.carouselElement.nativeElement);
+    this.modal = bootstrap?.Modal.getOrCreateInstance(this.modalElement.nativeElement);
+    this.carousel = bootstrap?.Carousel.getOrCreateInstance(this.carouselElement.nativeElement);
     this.open();
     this.modalElement.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.router.navigate(['../'], { relativeTo: this.route });
@@ -61,10 +61,10 @@ export class GoatModalComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   open() {
-    this.modal.show();
+    this.modal?.show();
   }
   close() {
-    this.modal.hide();
+    this.modal?.hide();
   }
 
 }
