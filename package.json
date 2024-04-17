@@ -9,7 +9,8 @@
     "test": "ng test",
     "test:watch": "ng test --watch",
     "serve:ssr": "node dist/web-ui/server/server.mjs",
-    "deploy": "tsc ./scripts/deploy.ts && node ./scripts/deploy.js"
+    "predeploy": "tsc ./scripts/deploy.ts",
+    "deploy": "node ./scripts/deploy.js"
   },
   "private": true,
   "dependencies": {
