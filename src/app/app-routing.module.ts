@@ -5,6 +5,7 @@ import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TitleStrategy } from './strategies/title.strategy';
 import { BucksComponent } from './pages/bucks/bucks.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,9 @@ const routes: Routes = [
       { path: '', component: BucksComponent, title: 'Bucks' },
       { path: ':goat', component: BucksComponent, title: ':goat - Bucks' }
     ]
+  },
+  {
+    path: '**', component: NotFoundComponent, title: 'Not Found'
   }
 ];
 
