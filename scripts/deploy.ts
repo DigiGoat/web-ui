@@ -1,6 +1,6 @@
 import { execSync, spawn } from 'child_process';
-import { readFileSync, writeFileSync, readdirSync, lstatSync, copyFileSync, rmSync } from 'fs';
-import { join, extname } from 'path';
+import { copyFileSync, lstatSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import type { Goat } from '../src/app/services/goat/goat.service';
 
 
@@ -21,7 +21,7 @@ function route() {
     }
   });
   console.debug('> Writing Routes');
-  writeFileSync(join(__dirname, './routes.txt'), routes.join('\n'));
+  writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
 }
 function build() {
   return new Promise<void>((resolve, reject) => {
@@ -71,7 +71,7 @@ function sitemap() {
 
 function cleanup() {
   console.debug('> Deleting Routes.txt');
-  rmSync(join(__dirname, './routes.txt'));
+  rmSync(join(__dirname, '../routes.txt'));
 }
 
 (async () => {
