@@ -3,16 +3,17 @@ import { retry } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PlatformService } from '../platform/platform.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoatService {
-  private readonly urlPrefix = !('document' in this) ? 'http://localhost:4200' : '';
+  private readonly urlPrefix = this.platformService.isServer ? 'http://localhost:4200' : '';
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private platformService: PlatformService) { }
   private _does: Goat[] = [];
   public does = new Observable<Goat[]>(observer => {
     if (this._does.length) {

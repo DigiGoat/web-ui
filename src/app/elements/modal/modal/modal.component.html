@@ -6,8 +6,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body color-scheme-quaternary card">
-        <h5 class="card-title text-center">Not Found</h5>
-        <h6 class="card-subtitle mb-2 text-center">The Requested Goat "{{searchParam}}" Was Not Found</h6>
+        <app-modal-goat-card *ngIf="goat" [goat]="goat"></app-modal-goat-card>
+        <app-modal-not-found *ngIf="!goat" [searchParam]="searchParam"></app-modal-not-found>
       </div>
       <div class="modal-footer color-scheme-tertiary">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

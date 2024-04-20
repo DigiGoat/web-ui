@@ -4,8 +4,9 @@ import { Goat } from 'src/app/services/goat/goat.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 
-import type { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import type { Observable } from 'rxjs';
+import { PlatformService } from '../../services/platform/platform.service';
 
 
 @Component({
@@ -16,26 +17,23 @@ import { ActivatedRoute } from '@angular/router';
 export class GoatsComponent implements OnInit {
   public err?: HttpErrorResponse;
   public noGoats = false;
-  public activeGoat?: string;
-  public invalidActiveGoat?: string;
-  constructor(public route: ActivatedRoute) {
-    this.route.paramMap.subscribe(paramMap => {
-      this.activeGoat = paramMap.get('goat') || undefined;
-    });
+  public activeGoatIndex = -1;
+  public prerender = this.platformService.isServer;
+  public searchParam?: string;
+  constructor(public route: ActivatedRoute, private platformService: PlatformService) {
   }
   public goats?: Goat[];
   @Input({ required: true, alias: 'goats' }) getter!: Observable<Goat[]>;
   @Input({ required: true }) name!: string;
   ngOnInit() {
+    this.searchParam = this.route.snapshot.params['goat'];
     this.getter.subscribe({
       next: goats => {
         if (!goats.length) {
           this.noGoats = true;
         }
         this.goats = goats;
-        if (this.activeGoat && !this.goats.find(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.activeGoat))) {
-          this.invalidActiveGoat = this.activeGoat;
-        }
+        this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
       },
       error: err => this.err = err
     });
