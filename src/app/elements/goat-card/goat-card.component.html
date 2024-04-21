@@ -1,7 +1,7 @@
 <div class="card color-scheme-secondary" *ngIf="goat" test-id="goat">
   <div #placeholderParent class="px-3 pt-3 placeholder-wave">
     <img *ngIf="image?.file" #imageRef [ngSrc]="image!.file" [alt]="image?.description"
-      class="card-img-top rounded border placeholder object-fit-cover"
+      class="card-img-top rounded border placeholder object-fit-contain"
       (load)="imageRef.classList.remove('placeholder'); placeholderParent.classList.remove('placeholder-wave');" width="400"
       height="250" test-id="goat-image">
   </div>
