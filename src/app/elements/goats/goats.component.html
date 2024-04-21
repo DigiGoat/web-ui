@@ -1,9 +1,9 @@
 <!--<app-goat-modal _title="Does" [goats]="does" *ngIf="does.length"></app-goat-modal>-->
 <div class="container" *ngIf="!err && !noGoats" test-id="goats">
-  <div *ngIf="(prerender || bot) && activeGoatIndex > -1">
+  @if ((prerender || bot) && activeGoatIndex > -1) { <div>
     <app-modal-goat-card [goat]="goats![activeGoatIndex]"></app-modal-goat-card>
   </div>
-  <div *ngIf="activeGoatIndex == -1 || (!prerender && !bot)">
+} @else { <div>
     <h1 class="text-center" test-id="title">{{name}}</h1>
     <h5 class="text-center" test-id="description">Click on a {{name.slice(0, -1)}} Below For More Info</h5>
     <app-modal-goat *ngIf="activeGoatIndex === -1 && searchParam && goats" [searchParam]="searchParam"></app-modal-goat>
@@ -17,6 +17,7 @@
       </div>
     </div>
   </div>
+}
 </div>
 <div *ngIf="err" test-id="error">
   <h3 class="text-center" test-id="error-title">Failed To Load {{name}} With Error: {{err.status}} - {{err.statusText}}</h3>
