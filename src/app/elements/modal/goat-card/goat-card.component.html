@@ -9,11 +9,8 @@
     <div class="carousel-inner d-flex align-items-center color-scheme-secondary" style="max-height: 75vh;">
       <div *ngFor="let image of images; index as i" #placeholderParent class="carousel-item placeholder-wave" [class.active]="i === 0">
         <img #imageRef (load)="imageRef.classList.remove('placeholder'); placeholderParent.classList.remove('placeholder-wave');"
-          [ngSrc]="image.file" [alt]="image.description" width="640" height="400" class="placeholder"
-          style="aspect-ratio: 4/3; width: 100%;object-fit:contain;object-position: center;" [priority]="i < 2 || i === images!.length-1">
-      </div>
-      <div *ngFor="let image of images; index as i" class="carousel-item placeholder-wave" class="placeholder" [class.active]="i === 0">
-        <div style="aspect-ratio: 4/3; width: 100%;object-fit:contain;object-position: center;"></div>
+          [ngSrc]="image.file" [alt]="image.description" width="640" height="400" class="placeholder object-fit-contain w-100"
+           [priority]="i < 2 || i === images!.length-1">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#goatImageCarousel" data-bs-slide="prev">
