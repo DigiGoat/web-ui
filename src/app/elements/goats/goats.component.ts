@@ -19,6 +19,7 @@ export class GoatsComponent implements OnInit {
   public noGoats = false;
   public activeGoatIndex = -1;
   public prerender = this.platformService.isServer;
+  public bot = this.platformService.isBot;
   public searchParam?: string;
   constructor(public route: ActivatedRoute, private platformService: PlatformService) {
   }
