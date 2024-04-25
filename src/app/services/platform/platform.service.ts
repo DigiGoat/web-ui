@@ -12,5 +12,5 @@ export class PlatformService {
   public isBot = this.isBrowser && isbot(navigator.userAgent);
 
   constructor(@Inject(PLATFORM_ID)
-  private platformId: any) { }
+  private platformId: Object) { }
 }

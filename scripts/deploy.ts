@@ -40,6 +40,10 @@ function build() {
     startProcess.on('error', (err) => reject(err));
   });
 }
+function cleanup() {
+  console.debug('> Deleting Routes.txt');
+  rmSync(join(__dirname, '../routes.txt'));
+}
 function format404() {
   console.debug('> Moving 404 Page From 404 Dir To Base Dir');
   copyFileSync(join(__dirname, '../dist/web-ui/browser/404/index.html'), join(__dirname, '../dist/web-ui/browser/404.html'));
@@ -69,9 +73,13 @@ function sitemap(url: string) {
   writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `${url.endsWith('/') ? url.slice(0, -1) : url}${entry}`).join('\n'));
 }
 
-function cleanup() {
-  console.debug('> Deleting Routes.txt');
-  rmSync(join(__dirname, '../routes.txt'));
+function robots(url?: string) {
+  console.debug('> Writing robots.txt');
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/robots.txt'),
+    `# Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
+User-agent: *
+Disallow:${url ? `
+Sitemap: ${url.endsWith('/') ? url.slice(0, -1) : url}/sitemap.txt` : ''}`);
 }
 
 (async () => {
@@ -83,12 +91,26 @@ function cleanup() {
   cleanup();
   console.log('Formatting 404...');
   format404();
+  console.log('Generating Sitemap...');
   if ('link' in config && config.link && typeof config.link === 'string') {
-    console.log('Generating Sitemap...');
     sitemap(config.link);
   } else {
     console.warn('NO URL FOUND IN CONFIG!');
     console.warn('Skipping Sitemap Generation');
+  }
+
+  console.log('Generating Robots.txt...');
+  if ('link' in config && config.link && typeof config.link === 'string') {
+    if ((new RegExp('^(https?://)?[^/]+/?$', 'i')).test(config.link)) {
+      robots(config.link);
+    } else {
+      console.warn('URL IN CONFIG IS NOT AT THE BASE OF THE DOMAIN');
+      console.warn('Skipping robots.txt Generation');
+    }
+  } else {
+    console.warn('NO URL FOUND IN CONFIG!');
+    console.warn('Omitting Sitemap From robots.txt');
+    robots();
   }
   console.log('Done.');
 })();
