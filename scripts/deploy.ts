@@ -2,6 +2,7 @@ import { execSync, spawn } from 'child_process';
 import { copyFileSync, lstatSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import type { Goat } from '../src/app/services/goat/goat.service';
+import config from '../src/assets/resources/config.json';
 
 
 function route() {
@@ -30,7 +31,7 @@ function build() {
     startProcess.stdout.on('data', (data) => {
       if (data.includes('Application bundle generation complete.') || data.includes('Port 4200 is already in use.')) {
         console.debug('> Compiling Project');
-        execSync('yarn build');
+        execSync(`yarn build ${('link' in config && config.link && typeof config.link === 'string') ? `--base-href ${config.link.endsWith('/') ? config.link : `${config.link}/`}` : ''}`);
         console.debug('> Stopping Server');
         startProcess.kill();
         resolve();
@@ -45,7 +46,7 @@ function format404() {
   console.debug('> Removing 404 Dir');
   rmSync(join(__dirname, '../dist/web-ui/browser/404/'), { recursive: true });
 }
-function sitemap() {
+function sitemap(url: string) {
   const sitemap: string[] = [];
   const rootDir = join(__dirname, '../dist/web-ui/browser');
 
@@ -65,8 +66,7 @@ function sitemap() {
 
   scanDirectory(rootDir);
   console.debug('> Writing Sitemap');
-  //TODO: Fix `www.some-website.org`
-  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `www.some-website.org${entry}`).join('\n'));
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `${url.endsWith('/') ? url.slice(0, -1) : url}${entry}`).join('\n'));
 }
 
 function cleanup() {
@@ -83,7 +83,12 @@ function cleanup() {
   cleanup();
   console.log('Formatting 404...');
   format404();
-  console.log('Generating Sitemap...');
-  sitemap();
+  if ('link' in config && config.link && typeof config.link === 'string') {
+    console.log('Generating Sitemap...');
+    sitemap(config.link);
+  } else {
+    console.warn('NO URL FOUND IN CONFIG!');
+    console.warn('Skipping Sitemap Generation');
+  }
   console.log('Done.');
 })();
