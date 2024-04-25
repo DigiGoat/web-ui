@@ -57,4 +57,10 @@ export class ConfigService {
       return 'Dairy Goat Farm';
     }
   }
+  get link(): string | undefined {
+    if (this.config['link']) {
+      return this.config['link'];
+    }
+    return undefined;
+  }
 }
