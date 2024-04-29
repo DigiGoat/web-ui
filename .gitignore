@@ -45,5 +45,5 @@ Thumbs.db
 /scripts/**/*.js
 routes.txt
 
-# For whatever reason, building now compiles goat.service in place
-/src/app/**/*.js
+# Testing
+/reports
