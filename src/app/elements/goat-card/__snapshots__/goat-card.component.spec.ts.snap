@@ -21,9 +21,8 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
     >
       <img
         alt="undefined"
-        class="card-img-top rounded border placeholder object-fit-cover"
+        class="card-img-top rounded border placeholder object-fit-contain"
         height="250"
-        priority=""
         test-id="goat-image"
         width="400"
       />
