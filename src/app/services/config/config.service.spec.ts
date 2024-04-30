@@ -26,6 +26,7 @@ describe('ConfigService', () => {
         repo: 'TEST_REPO',
         menubarTitle: 'TEST_MENUBAR_TITLE',
         tabTitle: 'TEST_TAB_TITLE',
+        link: 'TEST_LINK'
       };
     });
     test('get homeTitle()', () => {
@@ -70,49 +71,61 @@ describe('ConfigService', () => {
       expect(spy).toHaveBeenCalledTimes(1);
       expect(tabTitle).toBe('TEST_TAB_TITLE');
     });
+    test('get link()', () => {
+      const spy = jest.spyOn(service, 'link', 'get');
+      const link = service.link;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(link).toBe('TEST_LINK');
+    });
   });
   describe('Without a Configuration', () => {
     test('get homeTitle()', () => {
       const spy = jest.spyOn(service, 'homeTitle', 'get');
       const homeTitle = service.homeTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(homeTitle).toBe('Dairy Goat Farm');
+      expect(homeTitle).toBe('');
     });
     test('get owner()', () => {
       const spy = jest.spyOn(service, 'owner', 'get');
       const owner = service.owner;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(owner).toBe('First & Last Name');
+      expect(owner).toBe('');
     });
     test('get email()', () => {
       const spy = jest.spyOn(service, 'email', 'get');
       const email = service.email;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(email).toBe('someone@email.com');
+      expect(email).toBe('');
     });
     test('get homeDescription()', () => {
       const spy = jest.spyOn(service, 'homeDescription', 'get');
       const homeDescription = service.homeDescription;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(homeDescription).toBe('Our Farm is home to ...');
+      expect(homeDescription).toBe('');
     });
     test('get repo()', () => {
       const spy = jest.spyOn(service, 'repo', 'get');
       const repo = service.repo;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(repo).toBe('https://github.com/DigiGoat/your-website');
+      expect(repo).toBe('');
     });
     test('get menubarTitle()', () => {
       const spy = jest.spyOn(service, 'menubarTitle', 'get');
       const menubarTitle = service.menubarTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(menubarTitle).toBe('Dairy Goat <br> Farm');
+      expect(menubarTitle).toBe('');
     });
     test('get tabTitle()', () => {
       const spy = jest.spyOn(service, 'tabTitle', 'get');
       const tabTitle = service.tabTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(tabTitle).toBe('Dairy Goat Farm');
+      expect(tabTitle).toBe('');
+    });
+    test('get link()', () => {
+      const spy = jest.spyOn(service, 'link', 'get');
+      const link = service.link;
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(link).toBe('');
     });
   });
 });
