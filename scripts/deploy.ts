@@ -2,9 +2,13 @@ import { execSync, spawn } from 'child_process';
 import { copyFileSync, lstatSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import type { Goat } from '../src/app/services/goat/goat.service';
-import config from '../src/assets/resources/config.json';
 
-
+const config: Record<string, any> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
+if (process.argv[2]) {
+  config['link'] = new URL(process.argv[2]).toString();
+  writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
+}
+const url = config['link'] ? new URL(config['link']) : undefined;
 function route() {
   const routes: string[] = ['/404'];
   console.debug('> Identifying Doe Routes');
@@ -31,7 +35,8 @@ function build() {
     startProcess.stdout.on('data', (data) => {
       if (data.includes('Application bundle generation complete.') || data.includes('Port 4200 is already in use.')) {
         console.debug('> Compiling Project');
-        execSync(`yarn build ${('link' in config && config.link && typeof config.link === 'string') ? `--base-href ${config.link.endsWith('/') ? config.link : `${config.link}/`}` : ''}`);
+        const base = url?.pathname;
+        execSync(`yarn build ${base ? `--base-href ${base}${base.endsWith('/') ? '' : '/'}` : ''}`);
         console.debug('> Stopping Server');
         startProcess.kill();
         resolve();
@@ -50,7 +55,7 @@ function format404() {
   console.debug('> Removing 404 Dir');
   rmSync(join(__dirname, '../dist/web-ui/browser/404/'), { recursive: true });
 }
-function sitemap(url: string) {
+function sitemap(link: string) {
   const sitemap: string[] = [];
   const rootDir = join(__dirname, '../dist/web-ui/browser');
 
@@ -70,16 +75,16 @@ function sitemap(url: string) {
 
   scanDirectory(rootDir);
   console.debug('> Writing Sitemap');
-  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `${url.endsWith('/') ? url.slice(0, -1) : url}${entry}`).join('\n'));
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `${link.endsWith('/') ? link.slice(0, -1) : link}${entry}`).join('\n'));
 }
 
-function robots(url?: string) {
+function robots(link?: string) {
   console.debug('> Writing robots.txt');
   writeFileSync(join(__dirname, '../dist/web-ui/browser/robots.txt'),
     `# Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
 User-agent: *
-Disallow:${url ? `
-Sitemap: ${url.endsWith('/') ? url.slice(0, -1) : url}/sitemap.txt` : ''}`);
+Disallow:${link ? `
+Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.txt` : ''}`);
 }
 
 (async () => {
@@ -92,24 +97,24 @@ Sitemap: ${url.endsWith('/') ? url.slice(0, -1) : url}/sitemap.txt` : ''}`);
   console.log('Formatting 404...');
   format404();
   console.log('Generating Sitemap...');
-  if ('link' in config && config.link && typeof config.link === 'string') {
-    sitemap(config.link);
+  if (url) {
+    sitemap(url.toString());
   } else {
     console.warn('NO URL FOUND IN CONFIG!');
-    console.warn('Skipping Sitemap Generation');
+    console.warn('↳ Skipping Sitemap Generation');
   }
 
   console.log('Generating Robots.txt...');
-  if ('link' in config && config.link && typeof config.link === 'string') {
-    if ((new RegExp('^(https?://)?[^/]+/?$', 'i')).test(config.link)) {
-      robots(config.link);
+  if (url) {
+    if (url.pathname === '/') {
+      robots(url.toString());
     } else {
       console.warn('URL IN CONFIG IS NOT AT THE BASE OF THE DOMAIN');
-      console.warn('Skipping robots.txt Generation');
+      console.warn('↳ Skipping robots.txt Generation');
     }
   } else {
     console.warn('NO URL FOUND IN CONFIG!');
-    console.warn('Omitting Sitemap From robots.txt');
+    console.warn('↳ Omitting Sitemap From robots.txt');
     robots();
   }
   console.log('Done.');

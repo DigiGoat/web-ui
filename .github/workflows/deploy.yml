@@ -25,8 +25,17 @@ env:
   # BUILD_PATH: subfolder
 
 jobs:
+  check_pages:
+    runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
+    steps:
+      - name: Check if Pages are enabled
+        id: check
+        run: gh api /repos/$GITHUB_REPOSITORY/pages
   build:
     name: Build
+    needs: check_pages
     runs-on: ubuntu-latest
 
     steps:
@@ -48,7 +57,7 @@ jobs:
         run: yarn install
 
       - name: Build Project
-        run: yarn deploy
+        run: yarn deploy ${{ steps.pages.outputs.base_url }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
