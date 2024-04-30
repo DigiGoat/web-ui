@@ -6,10 +6,10 @@ import { PlatformService } from '../services/platform/platform.service';
 
 @Injectable({ providedIn: 'root' })
 export class TitleStrategy extends NgTitleStrategy {
-  constructor(private readonly title: Title, private configService: ConfigService, private meta: Meta, private platformService: PlatformService) {
+  constructor(private readonly title: Title, private configService: ConfigService, private meta: Meta) {
     super();
   }
-  private readonly tags = ['og:title', 'og:url', 'og:site_name', 'og:type', 'og:description', 'og:image', 'og:image:alt'];
+  private readonly tags = ['og:title', 'og:url', 'og:site_name', 'og:type', 'og:description', 'og:image', 'og:image:alt', 'description'];
   override updateTitle(routerState: RouterStateSnapshot) {
     const title = this.buildTitle(routerState);
     this.tags.forEach(tag => this.meta.getTags(`name="${tag}"`).forEach(_tag => this.meta.removeTagElement(_tag)));
