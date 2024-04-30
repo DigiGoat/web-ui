@@ -13,7 +13,7 @@ import { PlatformService } from '../../../services/platform/platform.service';
   styleUrl: './goat-card.component.scss'
 })
 export class GoatCardComponent implements OnInit, OnDestroy, AfterViewInit, Page {
-  @Input({ alias: 'goat', required: true }) goat?: Partial<Goat>;
+  @Input({ required: true }) goat?: Partial<Goat>;
 
   constructor(public imageService: ImageService, private platformService: PlatformService, private meta: Meta, private configService: ConfigService) { }
   setDescription(): void | Observable<void> {

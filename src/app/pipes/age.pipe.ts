@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AgePipe implements PipeTransform {
 
-  transform(value: any): unknown {
+  transform(value: string): unknown {
     try {
       if (!Date.parse(value)) {
         throw new Error('Failed to parse date');

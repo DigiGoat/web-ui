@@ -7,13 +7,13 @@ import config from '../../../assets/resources/config.json';
   providedIn: 'root'
 })
 export class ConfigService {
-  private config: Record<string, any> = config;
+  private config: Record<string, string> = config;
   get homeTitle(): string {
     if (this.config['homeTitle']) {
       return this.config['homeTitle'];
     }
     return '';
-  };
+  }
   get owner(): string {
     if (this.config['owner']) {
       return this.config['owner'];

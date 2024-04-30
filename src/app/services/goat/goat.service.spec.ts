@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { GoatService } from './goat.service';
+import { GoatService, type Goat } from './goat.service';
 
 
 describe('GoatService', () => {
@@ -73,7 +73,7 @@ describe('GoatService', () => {
     it('should cache does after first request', () => {
       const testData = [{}, {}, {}, {}, {}];
 
-      service['_does'] = testData as any;
+      service['_does'] = testData as Goat[];
       service.does.subscribe(data =>
         expect(data).toEqual(testData)
       );
@@ -159,7 +159,7 @@ describe('GoatService', () => {
     it('should cache bucks after first request', () => {
       const testData = [{}, {}, {}, {}, {}];
 
-      service['_bucks'] = testData as any;
+      service['_bucks'] = testData as Goat[];
       service.bucks.subscribe(data =>
         expect(data).toEqual(testData)
       );

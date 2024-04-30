@@ -27,7 +27,7 @@ describe('DoesComponent', () => {
     goatService.mockImplementation(() => {
       return {
         does: of([])
-      } as any;
+      } as unknown as GoatService;
 
     });
     fixture.detectChanges();

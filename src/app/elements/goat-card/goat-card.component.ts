@@ -12,12 +12,12 @@ import type { Goat } from 'src/app/services/goat/goat.service';
 export class GoatCardComponent implements OnInit, AfterViewInit {
   constructor(private imageService: ImageService) { }
 
-  @Input('goat') goat?: Partial<Goat>;
+  @Input() goat?: Partial<Goat>;
   name?: string;
   nickname?: string;
   description?: string;
   id?: string;
-  born?: string | number;
+  born?: string;
   image?: ImageEntry;
   ngOnInit(): void {
     this.name = this.goat?.name;
@@ -35,6 +35,5 @@ export class GoatCardComponent implements OnInit, AfterViewInit {
         this.imageRef.nativeElement.src = this.imageService.NotFound.file;
       }
     }, { once: true });
-  };
+  }
 }
-

@@ -1,24 +1,20 @@
 <!--<app-goat-modal _title="Does" [goats]="does" *ngIf="does.length"></app-goat-modal>-->
-<div class="container" *ngIf="!err && !noGoats" test-id="goats">
-  @if ((prerender || bot) && activeGoatIndex > -1) { <div>
+<div class="container" *ngIf="!err && !noGoats" test-id="goats"> @if ((prerender || bot) && activeGoatIndex > -1) { <div>
     <app-modal-goat-card [goat]="goats![activeGoatIndex]"></app-modal-goat-card>
-  </div>
-} @else { <div>
+  </div> } @else { <div>
     <h1 class="text-center" test-id="title">{{name}}</h1>
     <h5 class="text-center" test-id="description">Click on a {{name.slice(0, -1)}} Below For More Info</h5>
     <app-modal-goat *ngIf="activeGoatIndex === -1 && searchParam && goats" [searchParam]="searchParam"></app-modal-goat>
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
       <div class="col py-3" *ngFor="let goat of goats; index as i" test-id="goat-cards">
         <app-goat-card [goat]="goat"></app-goat-card>
-        <app-modal-goat *ngIf="i == activeGoatIndex" [goat]="goat" [searchParam]="searchParam!"></app-modal-goat>
-        </div>
-        <div class="col py-3" *ngFor="let goat of (goats?.length ? undefined : [1,2,3,4,5,6,7,8])" test-id="placeholder-cards">
-          <app-goat-card></app-goat-card>
+        <app-modal-goat *ngIf="i === activeGoatIndex" [goat]="goat" [searchParam]="searchParam!"></app-modal-goat>
+      </div>
+      <div class="col py-3" *ngFor="let goat of (goats?.length ? undefined : [1,2,3,4,5,6,7,8])" test-id="placeholder-cards">
+        <app-goat-card></app-goat-card>
       </div>
     </div>
-  </div>
-}
-</div>
+  </div> } </div>
 <div *ngIf="err" test-id="error">
   <h3 class="text-center" test-id="error-title">Failed To Load {{name}} With Error: {{err.status}} - {{err.statusText}}</h3>
   <h6 class="text-center" test-id="error-description">Please Check Your Connection And Try Again Later.</h6>

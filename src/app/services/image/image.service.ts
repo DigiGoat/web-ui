@@ -7,7 +7,7 @@ import imageMap from '../../../assets/images/map.json';
   providedIn: 'root'
 })
 export class ImageService {
-  private imageMap: ImageMap = imageMap as any;
+  private imageMap: ImageMap = imageMap;
 
   constructor() { }
   getImage(searchQueries: (string | undefined)[]) {
