@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { TitleStrategy as NgTitleStrategy, type RouterStateSnapshot } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
-import { PlatformService } from '../services/platform/platform.service';
 
 @Injectable({ providedIn: 'root' })
 export class TitleStrategy extends NgTitleStrategy {
@@ -15,7 +14,7 @@ export class TitleStrategy extends NgTitleStrategy {
     this.tags.forEach(tag => this.meta.getTags(`name="${tag}"`).forEach(_tag => this.meta.removeTagElement(_tag)));
     if (title !== undefined) {
       const titlePrefix = formatTitle(title, routerState);
-      this.title.setTitle(`${titlePrefix} · ${this.configService.tabTitle}`);
+      this.title.setTitle(`${titlePrefix}${this.configService.tabTitle ? ` · ${this.configService.tabTitle}` : ''}`);
       this.meta.addTags([
         { name: 'og:title', content: titlePrefix.split(' · ').shift()! },
         { name: 'og:url', content: this.configService.link ? (new URL(routerState.url, this.configService.link)).toString() : routerState.url },
