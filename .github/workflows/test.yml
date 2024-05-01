@@ -41,3 +41,4 @@ jobs:
           name: ${{ matrix.os }} Test Report
           path: reports/jest-*.xml
           reporter: jest-junit
+          list-tests: 'failed'
