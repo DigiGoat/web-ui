@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewChildren, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, Input, ViewChild, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import type { Page } from '../../../app-routing.module';
@@ -54,17 +54,10 @@ export class GoatCardComponent implements OnInit, OnDestroy, AfterViewInit, Page
   }
 
   @ViewChild('carousel') carouselElement!: ElementRef<HTMLDivElement>;
-  @ViewChildren('imageRef') imageRefs?: ElementRef<HTMLImageElement>[];
   private carousel?: bootstrap.Carousel;
   ngAfterViewInit() {
     if (this.platformService.isBrowser) {
       this.carousel = bootstrap.Carousel.getOrCreateInstance(this.carouselElement.nativeElement);
-      this.imageRefs?.forEach(image => {
-        image.nativeElement.addEventListener('error', () => {
-          console.warn(`[${this.nickname ?? this.name ?? this.id}]`, 'Failed to load image');
-          image.nativeElement.src = this.imageService.NotFound.file;
-        }, { once: true });
-      });
     }
   }
 }

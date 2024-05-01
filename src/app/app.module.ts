@@ -15,6 +15,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ModalComponent } from './elements/modal/modal/modal.component';
 import { GoatCardComponent as GoatCardModalComponent } from './elements/modal/goat-card/goat-card.component';
 import { NotFoundComponent as NotFoundModalComponent } from './elements/modal/not-found/not-found.component';
+import { ImgDirective } from './directives/img/img.directive';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { NotFoundComponent as NotFoundModalComponent } from './elements/modal/no
     ModalComponent,
     GoatCardModalComponent,
     NotFoundModalComponent,
+    ImgDirective
   ],
   imports: [
     BrowserModule,

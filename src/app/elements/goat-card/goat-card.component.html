@@ -1,9 +1,7 @@
 <div class="card color-scheme-secondary" *ngIf="goat" test-id="goat">
-  <div #placeholderParent class="px-3 pt-3 placeholder-wave">
-    <img *ngIf="image?.file" #imageRef [ngSrc]="image!.file" [alt]="image?.description"
-      class="card-img-top rounded border placeholder object-fit-contain"
-      (load)="imageRef.classList.remove('placeholder'); placeholderParent.classList.remove('placeholder-wave');" width="400" height="250"
-      test-id="goat-image">
+  <div class="px-3 pt-3">
+    <img *ngIf="image?.file" [ngSrc]="image!.file" [alt]="image?.description" class="card-img-top rounded border object-fit-contain"
+      width="400" height="250" test-id="goat-image">
   </div>
   <div class="card-body color-scheme-secondary" [id]="id">
     <div class="container color-scheme-tertiary pb-3">
@@ -19,7 +17,7 @@
 </div>
 <div class="card color-scheme-secondary" *ngIf="!goat" test-id="placeholder">
   <div class="px-3 pt-3 placeholder-glow">
-    <img class="card-img-top rounded placeholder" alt="Loading..." width="400" height="200" test-id="placeholder-image">
+    <img class="card-img-top rounded" alt="Loading..." width="400" height="200" test-id="placeholder-image">
   </div>
   <div class="card-body color-scheme-secondary">
     <div class="container color-scheme-tertiary pb-3 text-center placeholder-wave">
