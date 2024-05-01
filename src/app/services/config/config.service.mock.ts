@@ -6,5 +6,4 @@ export const ConfigServiceMock = {
   homeTitle: 'TEST_TITLE',
   menubarTitle: 'TEST_MENUBAR_TITLE',
   owner: 'TEST_OWNER',
-  repo: 'TEST_REPO'
 } as ConfigService;

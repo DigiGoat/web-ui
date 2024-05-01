@@ -23,7 +23,6 @@ describe('ConfigService', () => {
         owner: 'TEST_OWNER',
         email: 'TEST_EMAIL',
         homeDescription: 'TEST_DESCRIPTION',
-        repo: 'TEST_REPO',
         menubarTitle: 'TEST_MENUBAR_TITLE',
         tabTitle: 'TEST_TAB_TITLE',
         link: 'TEST_LINK'
@@ -52,12 +51,6 @@ describe('ConfigService', () => {
       const homeDescription = service.homeDescription;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(homeDescription).toBe('TEST_DESCRIPTION');
-    });
-    test('get repo()', () => {
-      const spy = jest.spyOn(service, 'repo', 'get');
-      const repo = service.repo;
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(repo).toBe('TEST_REPO');
     });
     test('get menubarTitle()', () => {
       const spy = jest.spyOn(service, 'menubarTitle', 'get');
@@ -102,12 +95,6 @@ describe('ConfigService', () => {
       const homeDescription = service.homeDescription;
       expect(spy).toHaveBeenCalledTimes(1);
       expect(homeDescription).toBe('');
-    });
-    test('get repo()', () => {
-      const spy = jest.spyOn(service, 'repo', 'get');
-      const repo = service.repo;
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(repo).toBe('');
     });
     test('get menubarTitle()', () => {
       const spy = jest.spyOn(service, 'menubarTitle', 'get');
