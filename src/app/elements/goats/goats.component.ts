@@ -34,7 +34,9 @@ export class GoatsComponent implements OnInit {
           this.noGoats = true;
         }
         this.goats = goats;
-        this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
+        if (this.searchParam) {
+          this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
+        }
       },
       error: err => this.err = err
     });
