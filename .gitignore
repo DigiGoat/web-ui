@@ -47,3 +47,6 @@ routes.txt
 
 # Testing
 /reports
+
+# Random cach dir that shows up when running `yarn install`
+/.nx
