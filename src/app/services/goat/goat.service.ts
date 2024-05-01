@@ -23,7 +23,7 @@ export class GoatService {
       this.http.get<Goat[]>(this.urlPrefix + '/assets/resources/does.json')
         .pipe(
           retry(3), // retry a failed request up to 3 times
-      )
+        )
         .subscribe({
           next: data => {
             this._does = data;
@@ -87,7 +87,7 @@ export type Goat = {
   normalizeId: string;
   dateOfBirth: string;
   colorAndMarking?: string;
-  animalTattoo?: [{ tattoo: string; tattooLocation: { name: string; }; }, { tattoo: string; tattooLocation: { name: string; }; }];
+  animalTattoo?: [{ tattoo?: string; tattooLocation?: { name?: string; }; }, { tattoo?: string; tattooLocation?: { name?: string; }; }];
 };
 export const Goat = {
   nickname: 'Your Goats Farm Name',
