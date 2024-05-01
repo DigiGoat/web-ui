@@ -32,12 +32,6 @@ export class ConfigService {
     }
     return '';
   }
-  get repo(): string {
-    if (this.config['repo']) {
-      return this.config['repo'];
-    }
-    return '';
-  }
   get menubarTitle(): string {
     if (this.config['menubarTitle']) {
       return this.config['menubarTitle'];

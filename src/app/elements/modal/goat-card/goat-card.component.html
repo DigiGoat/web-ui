@@ -27,7 +27,7 @@
       <span class="fw-bolder">ID</span>: <span class="fw-lighter">{{id}}</span>
       <br>
       <span class="fw-bolder">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos">
-        {{animalTattoo.tattooLocation.name}}:<span class="fw-lighter">{{animalTattoo.tattoo}}</span>
+        {{animalTattoo.tattooLocation?.name}}:<span class="fw-lighter">{{animalTattoo.tattoo}}</span>
       </span>
       <br>
       <span class="fw-bolder">Markings</span>: <span class="fw-lighter">{{colorAndMarking?.toLowerCase()}}</span>
