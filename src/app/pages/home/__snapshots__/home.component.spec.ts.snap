@@ -8,6 +8,7 @@ exports[`HomeComponent should render 1`] = `
     class="w-100 text-center"
   >
     <img
+      alt="Farm Logo"
       class="text-center"
       height="150"
       ngsrc="./assets/icons/android-chrome-192x192.png"
