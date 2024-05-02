@@ -27,12 +27,12 @@ export class ImageService {
     return [this.NotFound];
   }
 
-  public readonly NotFound: ImageEntry = { file: '/assets/images/ImageNotFound.png', description: 'The Requested Image Does Not Exist' };
+  public readonly NotFound: ImageEntry = { file: '/assets/images/ImageNotFound.png', alt: 'The Requested Image Does Not Exist' };
 }
 type ImageMap = {
   [directory: string]: ImageEntry[];
 };
 export type ImageEntry = {
   file: string,
-  description?: string;
+  alt?: string;
 };
