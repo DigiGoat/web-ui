@@ -1,7 +1,7 @@
 <div class="card color-scheme-secondary" *ngIf="goat" test-id="goat">
   <div class="px-3 pt-3">
-    <img *ngIf="image?.file" [ngSrc]="image!.file" [alt]="image?.description" class="card-img-top rounded border object-fit-contain"
-      width="400" height="250" test-id="goat-image">
+    <img *ngIf="image?.file" [ngSrc]="image!.file" [alt]="image?.alt" class="card-img-top rounded border object-fit-contain" width="400"
+      height="250" test-id="goat-image">
   </div>
   <div class="card-body color-scheme-secondary" [id]="id">
     <div class="container color-scheme-tertiary pb-3">
