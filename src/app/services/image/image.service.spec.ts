@@ -33,7 +33,7 @@ describe('ImageService', () => {
   });
   test('const NotFound', () => {
     expect(service.NotFound).toEqual({
-      description: 'The Requested Image Does Not Exist',
+      alt: 'The Requested Image Does Not Exist',
       file: '/assets/images/ImageNotFound.png',
     });
   });
