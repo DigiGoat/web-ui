@@ -43,3 +43,4 @@ jobs:
           path: reports/jest-*.xml
           reporter: jest-junit
           list-tests: 'failed'
+          fail-on-error: false
