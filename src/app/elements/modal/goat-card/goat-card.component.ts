@@ -23,8 +23,8 @@ export class GoatCardComponent implements OnInit, OnDestroy, AfterViewInit, Page
     for (const image of this.images ?? []) {
       this.meta.addTag({ name: 'og:image', content: this.configService.link ? new URL(image.file, this.configService.link).toString() : image.file });
       //this.meta.addTags([{ name: 'og:image:width', content: '400' }, { name: 'og:image:height', content: '200' }], true);
-      if (image.description) {
-        this.meta.addTag({ name: 'og:image:alt', content: image.description });
+      if (image.alt) {
+        this.meta.addTag({ name: 'og:image:alt', content: image.alt });
       }
     }
   }
