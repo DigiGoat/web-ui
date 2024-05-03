@@ -7,8 +7,7 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
   goat={[Function Object]}
   id={[Function String]}
   image={[Function Object]}
-  imageRef={[Function _ElementRef]}
-  imageService={[Function Object]}
+  imageService={[Function ImageService]}
   name={[Function String]}
   nickname={[Function String]}
 >
@@ -20,9 +19,13 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
       class="px-3 pt-3 placeholder-wave"
     >
       <img
-        alt="undefined"
-        class="card-img-top rounded border placeholder object-fit-contain"
+        alt="TEST_IMAGE_ALT"
+        class="card-img-top rounded object-fit-contain placeholder border"
+        fetchpriority="auto"
         height="250"
+        loading="lazy"
+        ng-img="true"
+        src="/assets/images/TEST_NICKNAME/TEST_IMAGE_FILE"
         test-id="goat-image"
         width="400"
       />
@@ -35,6 +38,7 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
         class="container color-scheme-tertiary pb-3"
       >
         <a
+          aria-label="Link to open TEST_NICKNAME's modal (This link cover's the whole element - it does not contain any text)"
           class="stretched-link"
           test-id="goat-link"
         />
@@ -54,7 +58,7 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
           class="card-subtitle pb-2 text-center"
           test-id="goat-nickname"
         >
-          "Your Goats Farm Name"
+          "TEST_NICKNAME"
         </h6>
         <div
           class="card-text text-center text-truncate-3"
@@ -74,8 +78,7 @@ exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
   description="undefined"
   id="undefined"
   image={[Function Object]}
-  imageRef="undefined"
-  imageService={[Function Object]}
+  imageService={[Function ImageService]}
   name="undefined"
   nickname="undefined"
 >
@@ -87,7 +90,8 @@ exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
       class="px-3 pt-3 placeholder-glow"
     >
       <img
-        class="card-img-top rounded placeholder"
+        alt="Loading..."
+        class="card-img-top rounded border placeholder"
         height="200"
         test-id="placeholder-image"
         width="400"

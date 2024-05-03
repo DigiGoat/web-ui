@@ -1,49 +1,42 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { NgOptimizedImage } from '@angular/common';
+import { ImgDirective } from '../../directives/img/img.directive';
+import { AgePipe } from '../../pipes/age.pipe';
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
-import { AgePipe } from '../../pipes/age.pipe';
 
 
-jest.mock('../../services/image/image.service');
-const imageService = jest.mocked(ImageService);
 describe('GoatCardComponent', () => {
   let component: GoatCardComponent;
   let fixture: ComponentFixture<GoatCardComponent>;
 
   beforeEach(async () => {
-    imageService.mockClear();
     await TestBed.configureTestingModule({
-      declarations: [GoatCardComponent, AgePipe],
-      providers: [ImageService],
+      imports: [NgOptimizedImage],
+      declarations: [GoatCardComponent, AgePipe, ImgDirective],
+      providers: [ImageService, ImgDirective],
     })
       .compileComponents();
     fixture = TestBed.createComponent(GoatCardComponent);
     component = fixture.componentInstance;
     TestBed.inject(ImageService);
-
-    imageService.mockImplementation(() => {
-      return {
-        getImage: () => { return { file: 'TEST_IMAGE_FILE' }; },
-        NotFound: { file: 'TEST_NOT_FOUND' }
-      } as any;
-
-    });
+    component['imageService']['imageMap'] = {
+      TEST_NICKNAME: [
+        { file: 'TEST_IMAGE_FILE', alt: 'TEST_IMAGE_ALT' }
+      ]
+    };
   });
 
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
-  it('should call ImageService once', () => {
-    fixture.detectChanges();
-    expect(imageService).toHaveBeenCalledTimes(1);
-  });
   describe('With a Goat (v1.0.0)', () => {
     let html: HTMLElement;
     beforeEach(() => {
       component['goat'] = {
-        nickname: 'Your Goats Farm Name',
+        nickname: 'TEST_NICKNAME',
         name: 'YOUR GOATS ADGA NAME',
         description: 'A quick description about your goat',
         dateOfBirth: new Date(Date.now() - (1000 * 3600 * 24)).toString(),
@@ -64,7 +57,7 @@ describe('GoatCardComponent', () => {
       const element = html.querySelector('[test-id="goat-image"]') as HTMLImageElement & { ngSrc: string; };
       expect(element).toBeTruthy();
       expect(element.classList).toContain('placeholder');
-      expect(element.ngSrc).toBe('TEST_IMAGE_FILE');
+      expect(element.src).toBe('http://localhost/assets/images/TEST_NICKNAME/TEST_IMAGE_FILE');
       expect(element.width).toBe(400);
       expect(element.height).toBe(250);
     });
@@ -82,10 +75,8 @@ describe('GoatCardComponent', () => {
       expect(element).toBeTruthy();
       expect(element.classList).toContain('placeholder');
       expect(element.parentElement!.classList).toContain('placeholder-wave');
-      expect(component.imageRef).toBeTruthy();
       element.dispatchEvent(new Event('error'));
-      expect(element.src).toBe('http://localhost/TEST_NOT_FOUND');
-      element.dispatchEvent(new Event('load'));
+      expect(element.style.backgroundImage).toBe('url(/assets/images/ImageNotFound.png)');
       expect(element.classList).not.toContain('placeholder');
       expect(element.parentElement!.classList).not.toContain('placeholder-wave');
     });
@@ -95,12 +86,12 @@ describe('GoatCardComponent', () => {
       const consoleSpy = jest.spyOn(console, 'warn');
       element.dispatchEvent(new Event('error'));
       expect(consoleSpy).toHaveBeenCalledTimes(1);
-      expect(consoleSpy).toHaveBeenCalledWith('[Your Goats Farm Name]', 'Failed to load image');
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to load image from', 'http://localhost/assets/images/TEST_NICKNAME/TEST_IMAGE_FILE', 'with alt', 'TEST_IMAGE_ALT');
     });
     it('should have a link', () => {
       const element = html.querySelector('[test-id="goat-link"]') as HTMLAnchorElement & { routerLink: string; };
       expect(element).toBeTruthy();
-      expect(element.routerLink).toBe('Your Goats Farm Name');
+      expect(element.routerLink).toBe('TEST_NICKNAME');
     });
     it('should have a name', () => {
       const element = html.querySelector('[test-id="goat-name"]') as HTMLHeadingElement;
@@ -115,7 +106,7 @@ describe('GoatCardComponent', () => {
     it('should have a nickname', () => {
       const element = html.querySelector('[test-id="goat-nickname"]') as HTMLHeadingElement;
       expect(element).toBeTruthy();
-      expect(element.innerHTML).toBe('"Your Goats Farm Name"');
+      expect(element.innerHTML).toBe('"TEST_NICKNAME"');
     });
     it('should have a description', () => {
       const element = html.querySelector('[test-id="goat-description"]') as HTMLDivElement;
