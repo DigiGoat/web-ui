@@ -10,4 +10,11 @@ import { ConfigService } from './services/config/config.service';
 })
 export class AppComponent {
   constructor(public app: ConfigService) { }
+  splitString(string: string) {
+    const splitString = string.split(' ');
+    const half = Math.floor(splitString.length / 2);
+    const firstHalf = splitString.slice(0, half).join(' ');
+    const secondHalf = splitString.slice(half).join(' ');
+    return `${firstHalf}<br>${secondHalf}`;
+  }
 }
