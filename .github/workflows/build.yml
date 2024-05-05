@@ -7,11 +7,10 @@ on:
 
 permissions:
   contents: read
-  actions: read
-  checks: write
+  
 jobs:
-  test:
-    name: Test
+  build:
+    name: Build
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -32,5 +31,5 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Test Project
+      - name: Build Project
         run: yarn deploy

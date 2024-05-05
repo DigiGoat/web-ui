@@ -7,9 +7,9 @@ import type { Goat } from '../src/app/services/goat/goat.service';
 const log = {
   debug: (...message: unknown[]): void => console.debug(chalk.dim('>', ...message)),
   info: (...message: unknown[]): void => console.log(...message),
-  warn: (...message: unknown[]): void => console.warn(chalk.yellow(...message)),
-  error: (...message: unknown[]): void => console.error(chalk.red(...message)),
-  success: (...message: unknown[]): void => console.log(chalk.green(...message))
+  warn: (...message: unknown[]): void => console.warn(chalk.yellowBright('WARNING:', ...message)),
+  error: (...message: unknown[]): void => console.error(chalk.redBright('ERROR:', ...message)),
+  success: (...message: unknown[]): void => console.log(chalk.greenBright(...message))
 };
 
 const config: Record<string, string> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
