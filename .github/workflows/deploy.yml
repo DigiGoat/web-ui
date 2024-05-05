@@ -27,8 +27,6 @@ env:
 jobs:
   check_pages:
     runs-on: ubuntu-latest
-    outputs:
-      enabled: ${{ steps.check.outputs.enabled }}
     steps:
       - name: Check if Pages are enabled
         id: check
