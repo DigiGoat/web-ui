@@ -4,11 +4,12 @@ import { copyFileSync, lstatSync, readFileSync, readdirSync, rmSync, writeFileSy
 import { join } from 'path';
 import type { Goat } from '../src/app/services/goat/goat.service';
 
+const ci = !!process.env['CI'];
 const log = {
   debug: (...message: unknown[]): void => console.debug(chalk.dim('>', ...message)),
   info: (...message: unknown[]): void => console.log(...message),
-  warn: (...message: unknown[]): void => console.warn(chalk.yellowBright('WARNING:', ...message)),
-  error: (...message: unknown[]): void => console.error(chalk.redBright('ERROR:', ...message)),
+  warn: (...message: unknown[]): void => console.warn(`${ci ? '::warning::' : ''}${chalk.yellowBright(...message)}`),
+  error: (...message: unknown[]): void => console.error(`${ci ? '::error::' : ''}${chalk.redBright(...message)}`),
   success: (...message: unknown[]): void => console.log(chalk.greenBright(...message))
 };
 
