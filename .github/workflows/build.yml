@@ -32,4 +32,6 @@ jobs:
         run: yarn install
 
       - name: Build Project
+        env:
+            FORCE_COLOR: 3
         run: yarn deploy
