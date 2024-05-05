@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
@@ -35,7 +35,6 @@ import { AgePipe } from './pipes/age.pipe';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     NgOptimizedImage,
     AppRoutingModule
   ],
