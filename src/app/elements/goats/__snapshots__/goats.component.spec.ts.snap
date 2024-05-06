@@ -1,90 +1,406 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GoatsComponent While loading should match the snapshot 1`] = `
+exports[`GoatsComponent With a valid searchParam With Goat's In a browser should match the snapshot 1`] = `
 <app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
   getter={[Function Observable]}
   goats={[Function Array]}
   name={[Function String]}
   noGoats="false"
+  platformService={[Function Object]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
 >
   <div
     class="container"
     test-id="goats"
   >
-    <h1
-      class="text-center"
-      test-id="title"
-    >
-      TEST GOATS
-    </h1>
-    <h5
-      class="text-center"
-      test-id="description"
-    >
-      Click on a TEST GOAT Below For More Info
-    </h5>
     <div
-      class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+      test-id="browser"
     >
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
+      <h1
+        class="text-center"
+        test-id="name"
       >
-        <app-goat-card />
-      </div>
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
+        TEST GOATS
+      </h1>
+      <h5
+        class="text-center"
+        test-id="prompt"
       >
-        <app-goat-card />
-      </div>
+        Click on a TEST GOAT Below For More Info
+      </h5>
       <div
-        class="col py-3"
-        test-id="placeholder-cards"
+        class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
       >
-        <app-goat-card />
-      </div>
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
-      >
-        <app-goat-card />
-      </div>
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
-      >
-        <app-goat-card />
-      </div>
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
-      >
-        <app-goat-card />
-      </div>
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
-      >
-        <app-goat-card />
-      </div>
-      <div
-        class="col py-3"
-        test-id="placeholder-cards"
-      >
-        <app-goat-card />
+        <div
+          class="col py-3"
+          test-id="goat-cards"
+        >
+          <app-goat-card
+            test-id="goat-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="goat-cards"
+        >
+          <app-goat-card
+            test-id="goat-card"
+          />
+          <app-modal-goat
+            test-id="goat-modal"
+          />
+        </div>
       </div>
     </div>
   </div>
 </app-goats>
 `;
 
-exports[`GoatsComponent With a Error should match the snapshot 1`] = `
+exports[`GoatsComponent With a valid searchParam With Goat's On the server should match the snapshot 1`] = `
 <app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function Object]}
+  prerender={[Function Boolean]}
+  route={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="server"
+    >
+      <app-modal-goat-card
+        test-id="server-card"
+      />
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With a valid searchParam With Goat's With a bot should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot={[Function Boolean]}
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function Object]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="server"
+    >
+      <app-modal-goat-card
+        test-id="server-card"
+      />
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With a valid searchParam With Goat's should render during loading should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="browser"
+    >
+      <h1
+        class="text-center"
+        test-id="name"
+      >
+        TEST GOATS
+      </h1>
+      <h5
+        class="text-center"
+        test-id="prompt"
+      >
+        Click on a TEST GOAT Below For More Info
+      </h5>
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+      >
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With an invalid searchParam With Goat's during loading should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="browser"
+    >
+      <h1
+        class="text-center"
+        test-id="name"
+      >
+        TEST GOATS
+      </h1>
+      <h5
+        class="text-center"
+        test-id="prompt"
+      >
+        Click on a TEST GOAT Below For More Info
+      </h5>
+      <app-modal-goat
+        test-id="not-found-modal"
+      />
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+      >
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With an invalid searchParam With Goat's should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="browser"
+    >
+      <h1
+        class="text-center"
+        test-id="name"
+      >
+        TEST GOATS
+      </h1>
+      <h5
+        class="text-center"
+        test-id="prompt"
+      >
+        Click on a TEST GOAT Below For More Info
+      </h5>
+      <app-modal-goat
+        test-id="not-found-modal"
+      />
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+      >
+        <div
+          class="col py-3"
+          test-id="goat-cards"
+        >
+          <app-goat-card
+            test-id="goat-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="goat-cards"
+        >
+          <app-goat-card
+            test-id="goat-card"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent With an invalid searchParam With a Error should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
   err={[Function Object]}
   getter={[Function Observable]}
   name={[Function String]}
   noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
 >
   <div
     test-id="error"
@@ -97,7 +413,7 @@ exports[`GoatsComponent With a Error should match the snapshot 1`] = `
     </h3>
     <h6
       class="text-center"
-      test-id="error-description"
+      test-id="error-prompt"
     >
       Please Check Your Connection And Try Again Later.
     </h6>
@@ -105,49 +421,18 @@ exports[`GoatsComponent With a Error should match the snapshot 1`] = `
 </app-goats>
 `;
 
-exports[`GoatsComponent With a Goat (v1.0.0) should match the snapshot 1`] = `
+exports[`GoatsComponent With an invalid searchParam Without Goat's should match the snapshot 1`] = `
 <app-goats
-  getter={[Function Observable]}
-  goats={[Function Array]}
-  name={[Function String]}
-  noGoats="false"
->
-  <div
-    class="container"
-    test-id="goats"
-  >
-    <h1
-      class="text-center"
-      test-id="title"
-    >
-      TEST GOATS
-    </h1>
-    <h5
-      class="text-center"
-      test-id="description"
-    >
-      Click on a TEST GOAT Below For More Info
-    </h5>
-    <div
-      class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
-    >
-      <div
-        class="col py-3"
-        test-id="goat-cards"
-      >
-        <app-goat-card />
-      </div>
-    </div>
-  </div>
-</app-goats>
-`;
-
-exports[`GoatsComponent Without a Goat should match the snapshot 1`] = `
-<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
   getter={[Function Observable]}
   goats={[Function Array]}
   name={[Function String]}
   noGoats={[Function Boolean]}
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam={[Function String]}
 >
   <div
     test-id="no-goats"
@@ -160,7 +445,233 @@ exports[`GoatsComponent Without a Goat should match the snapshot 1`] = `
     </h3>
     <h6
       class="text-center"
-      test-id="no-goats-description"
+      test-id="no-goats-prompt"
+    >
+      Please Try Again Later.
+    </h6>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent Without a searchParam With Goat's during loading should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam="undefined"
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="browser"
+    >
+      <h1
+        class="text-center"
+        test-id="name"
+      >
+        TEST GOATS
+      </h1>
+      <h5
+        class="text-center"
+        test-id="prompt"
+      >
+        Click on a TEST GOAT Below For More Info
+      </h5>
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+      >
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="placeholder-cards"
+        >
+          <app-goat-card
+            test-id="placeholder-card"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent Without a searchParam With Goat's should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam="undefined"
+>
+  <div
+    class="container"
+    test-id="goats"
+  >
+    <div
+      test-id="browser"
+    >
+      <h1
+        class="text-center"
+        test-id="name"
+      >
+        TEST GOATS
+      </h1>
+      <h5
+        class="text-center"
+        test-id="prompt"
+      >
+        Click on a TEST GOAT Below For More Info
+      </h5>
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center"
+      >
+        <div
+          class="col py-3"
+          test-id="goat-cards"
+        >
+          <app-goat-card
+            test-id="goat-card"
+          />
+        </div>
+        <div
+          class="col py-3"
+          test-id="goat-cards"
+        >
+          <app-goat-card
+            test-id="goat-card"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent Without a searchParam With a Error should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  err={[Function Object]}
+  getter={[Function Observable]}
+  name={[Function String]}
+  noGoats="false"
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam="undefined"
+>
+  <div
+    test-id="error"
+  >
+    <h3
+      class="text-center"
+      test-id="error-title"
+    >
+      Failed To Load TEST GOATS With Error: -1 - TEST_ERROR
+    </h3>
+    <h6
+      class="text-center"
+      test-id="error-prompt"
+    >
+      Please Check Your Connection And Try Again Later.
+    </h6>
+  </div>
+</app-goats>
+`;
+
+exports[`GoatsComponent Without a searchParam Without Goat's should match the snapshot 1`] = `
+<app-goats
+  activeGoatIndex={[Function Number]}
+  bot="false"
+  getter={[Function Observable]}
+  goats={[Function Array]}
+  name={[Function String]}
+  noGoats={[Function Boolean]}
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function Object]}
+  searchParam="undefined"
+>
+  <div
+    test-id="no-goats"
+  >
+    <h3
+      class="text-center"
+      test-id="no-goats-title"
+    >
+      No TEST GOATS Found
+    </h3>
+    <h6
+      class="text-center"
+      test-id="no-goats-prompt"
     >
       Please Try Again Later.
     </h6>
