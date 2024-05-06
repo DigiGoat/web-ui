@@ -48,9 +48,9 @@ describe('ImageService', () => {
       expect(image.file).toEqual(`/assets/images/${id}/${idFile}`);
       expect(image.alt).toEqual(idDescription);
     });
-    it('should return ImageNotFound path if the image does not exist', () => {
+    it('should return an empty path if the image does not exist', () => {
       const image = service.getImage(['FAKE_ID', 'FAKE_NICKNAME']);
-      expect(image.file).toEqual('/assets/images/ImageNotFound.png');
+      expect(image.file).toEqual('/');
       expect(image.alt).toEqual('The Requested Image Does Not Exist');
     });
   });
@@ -69,11 +69,11 @@ describe('ImageService', () => {
       expect(image.file).toEqual(`/assets/images/${id}/${idFile}`);
       expect(image.alt).toEqual(idDescription);
     });
-    it('should return ImageNotFound path if the image does not exist', () => {
+    it('should return an empty path if the image does not exist', () => {
       const images = service.getImages(['FAKE_ID', 'FAKE_NICKNAME']);
       expect(images).toHaveLength(1);
       const image = images[0];
-      expect(image.file).toEqual('/assets/images/ImageNotFound.png');
+      expect(image.file).toEqual('/');
       expect(image.alt).toEqual('The Requested Image Does Not Exist');
     });
   });
