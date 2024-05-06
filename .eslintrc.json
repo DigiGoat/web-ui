@@ -24,7 +24,11 @@
             "style": "kebab-case"
           }
         ],
-        "@angular-eslint/no-input-rename": "off"
+        "@angular-eslint/no-input-rename": "off",
+        "quotes": [
+          "warn",
+          "single"
+        ]
       }
     },
     {
