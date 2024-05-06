@@ -10,10 +10,16 @@ body.innerHTML = `
   <div class="placeholder-glow">
     <img>
   </div>
-    <div class="placeholder-wave">
+  <div class="placeholder-wave">
     <img>
   </div>
-    <div>
+  <div>
+    <img class="placeholder">
+  </div>
+  <div class="placeholder-glow">
+    <img class="placeholder">
+  </div>
+  <div class="placeholder-wave">
     <img class="placeholder">
   </div>
 `;
@@ -21,7 +27,7 @@ body.innerHTML = `
 describe('ImgDirective', () => {
   let directive: ImgDirective;
   let el: ElementRef<HTMLImageElement>;
-  let element: HTMLImageElement;
+  let html: HTMLImageElement;
   let placeholderSpy: jest.SpyInstance;
   let notFoundSpy: jest.SpyInstance;
   let consoleSpy: jest.SpyInstance;
@@ -43,7 +49,7 @@ describe('ImgDirective', () => {
       notFoundSpy = jest.spyOn(directive, 'notFound');
       consoleSpy = jest.spyOn(console, 'warn');
       directive.ngOnInit();
-      element = el.nativeElement;
+      html = el.nativeElement;
     });
 
     it('should create an instance', () => {
@@ -54,8 +60,8 @@ describe('ImgDirective', () => {
       expect(placeholderSpy).toHaveBeenCalledTimes(1);
       expect(placeholderSpy).toHaveBeenCalledWith(true);
 
-      const classList = element.classList;
-      const parentClassList = element.parentElement!.classList;
+      const classList = html.classList;
+      const parentClassList = html.parentElement!.classList;
 
       expect(classList).toContain('placeholder');
       expect(classList).toContain('border');
@@ -68,14 +74,14 @@ describe('ImgDirective', () => {
 
     it('should remove placeholder class and parent class on load event', () => {
       placeholderSpy.mockClear();
-      element.dispatchEvent(new Event('load'));
+      html.dispatchEvent(new Event('load'));
 
       expect(placeholderSpy).toHaveBeenCalledTimes(1);
       expect(placeholderSpy).toHaveBeenCalledWith(false);
 
 
-      const classList = element.classList;
-      const parentClassList = element.parentElement!.classList;
+      const classList = html.classList;
+      const parentClassList = html.parentElement!.classList;
 
       expect(classList).not.toContain('placeholder');
       expect(classList).not.toContain('border');
@@ -85,20 +91,20 @@ describe('ImgDirective', () => {
 
     it('should log warning and call notFound method on error event', () => {
       placeholderSpy.mockClear();
-      element.dispatchEvent(new Event('error'));
+      html.dispatchEvent(new Event('error'));
 
       expect(consoleSpy).toHaveBeenCalledWith(
         'Failed to load image from',
-        element.src,
+        html.src,
         'with alt',
-        element.alt
+        html.alt
       );
       expect(placeholderSpy).toHaveBeenCalledTimes(1);
       expect(placeholderSpy).toHaveBeenCalledWith(false);
 
       expect(notFoundSpy).toHaveBeenCalledTimes(1);
-      expect(element.style.backgroundImage).toBe(`url(${imageService.NotFound.file})`);
-      expect(element.classList).toContain('not-found');
+      expect(html.style.backgroundImage).toBe(`url(${imageService.NotFound.file})`);
+      expect(html.classList).toContain('not-found');
     });
   });
 });
