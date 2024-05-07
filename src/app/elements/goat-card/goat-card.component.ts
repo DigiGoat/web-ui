@@ -19,6 +19,7 @@ export class GoatCardComponent implements OnInit {
   id?: string;
   born?: string;
   image?: ImageEntry;
+  identifier?: string;
   ngOnInit(): void {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
@@ -26,5 +27,6 @@ export class GoatCardComponent implements OnInit {
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
     this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
+    this.identifier = this.nickname ?? this.id ?? this.name;
   }
 }
