@@ -1,19 +1,19 @@
-<h5 class="card-title text-center" *ngIf="name">{{name}}</h5>
-<h6 class="card-subtitle mb-2 text-center" *ngIf="nickname">"{{nickname}}"</h6>
+<h5 class="card-title text-center" *ngIf="name" test-id="name">{{name}}</h5>
+<h6 class="card-subtitle mb-2 text-center" *ngIf="nickname" test-id="nickname">"{{nickname}}"</h6>
 <div class="card-header color-scheme-quaternary">
   <app-carousel [images]="images" test-id="carousel"></app-carousel>
   <div class="card-text text-center container color-scheme-tertiary rounded-bottom">
     <div class="text-capitalize">
       <div *ngIf="born">
-        <span class="fw-bolder">Born</span>: <span class="fw-lighter">{{born | date:'longDate'}}</span>
+        <span class="fw-bolder">Born</span>: <span class="fw-lighter" test-id="born">{{born | date:'longDate'}}</span>
         <br>
       </div>
       <div *ngIf="id">
-        <span class="fw-bolder">ID</span>: <span class="fw-lighter">{{id}}</span>
+        <span class="fw-bolder">ID</span>: <span class="fw-lighter" test-id="id">{{id}}</span>
         <br>
       </div>
       <div *ngIf="animalTattoos?.length">
-        <span class="fw-bolder">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos">
+        <span class="fw-bolder">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos" test-id="tattoo">
           <span *ngIf="animalTattoo.tattooLocation?.name && animalTattoo.tattoo">
             {{animalTattoo.tattooLocation?.name}}:<span class="fw-lighter">{{animalTattoo.tattoo}}</span>
           </span>
@@ -21,9 +21,9 @@
         <br>
       </div>
       <div *ngIf="colorAndMarking">
-        <span class="fw-bolder">Markings</span>: <span class="fw-lighter">{{colorAndMarking.toLowerCase()}}</span>
+        <span class="fw-bolder">Markings</span>: <span class="fw-lighter" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
       </div>
     </div>
-    {{description}}
+    <span test-id="description" *ngIf="description">{{description}}</span>
   </div>
 </div>

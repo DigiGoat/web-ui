@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
+<app-modal-goat-card
+  animalTattoos={[Function Array]}
+  born={[Function String]}
+  colorAndMarking={[Function String]}
+  description={[Function String]}
+  goat={[Function Object]}
+  id={[Function String]}
+  imageService={[Function ImageService]}
+  images={[Function Array]}
+  meta={[Function Object]}
+  name={[Function String]}
+  nickname={[Function String]}
+>
+  <h5
+    class="card-title text-center"
+    test-id="name"
+  >
+    TEST_NAME
+  </h5><h6
+    class="card-subtitle mb-2 text-center"
+    test-id="nickname"
+  >
+    "TEST_NICKNAME"
+  </h6><div
+    class="card-header color-scheme-quaternary"
+  >
+    <app-carousel
+      test-id="carousel"
+    />
+    <div
+      class="card-text text-center container color-scheme-tertiary rounded-bottom"
+    >
+      <div
+        class="text-capitalize"
+      >
+        <div>
+          <span
+            class="fw-bolder"
+          >
+            Born
+          </span>
+          : 
+          <span
+            class="fw-lighter"
+            test-id="born"
+          >
+            May 8, 2024
+          </span>
+          <br />
+        </div>
+        <div>
+          <span
+            class="fw-bolder"
+          >
+            ID
+          </span>
+          : 
+          <span
+            class="fw-lighter"
+            test-id="id"
+          >
+            TEST_ID
+          </span>
+          <br />
+        </div>
+        <div>
+          <span
+            class="fw-bolder"
+          >
+            Tattoo
+          </span>
+          : 
+          <span
+            test-id="tattoo"
+          >
+            <span>
+               TEST_LOCATION_1:
+              <span
+                class="fw-lighter"
+              >
+                TEST_TATTOO_1
+              </span>
+            </span>
+          </span>
+          <span
+            test-id="tattoo"
+          >
+            <span>
+               TEST_LOCATION_2:
+              <span
+                class="fw-lighter"
+              >
+                TEST_TATTOO_2
+              </span>
+            </span>
+          </span>
+          <br />
+        </div>
+        <div>
+          <span
+            class="fw-bolder"
+          >
+            Markings
+          </span>
+          : 
+          <span
+            class="fw-lighter"
+            test-id="markings"
+          >
+            test_color_and_marking
+          </span>
+        </div>
+      </div>
+      <span
+        test-id="description"
+      >
+        TEST_DESCRIPTION
+      </span>
+    </div>
+  </div>
+</app-modal-goat-card>
+`;
+
+exports[`GoatCardComponent With an Empty Goat should match the snapshot 1`] = `
+<app-modal-goat-card
+  animalTattoos="undefined"
+  born="undefined"
+  colorAndMarking="undefined"
+  description="undefined"
+  goat={[Function Object]}
+  id="undefined"
+  imageService={[Function ImageService]}
+  images={[Function Array]}
+  meta={[Function Object]}
+  name="undefined"
+  nickname="undefined"
+>
+  <div
+    class="card-header color-scheme-quaternary"
+  >
+    <app-carousel
+      test-id="carousel"
+    />
+    <div
+      class="card-text text-center container color-scheme-tertiary rounded-bottom"
+    >
+      <div
+        class="text-capitalize"
+      >
+      </div>
+    </div>
+  </div>
+</app-modal-goat-card>
+`;
