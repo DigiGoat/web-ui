@@ -6,9 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test -w 6",
     "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
     "test:watch": "ng test --watch",
+    "test:file": "yarn test -u --test-path-pattern",
     "serve:ssr": "node dist/web-ui/server/server.mjs",
     "deploy": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/deploy.ts",
     "lint": "ng lint"
