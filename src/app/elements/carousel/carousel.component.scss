@@ -1,0 +1,13 @@
+.carousel-indicators>* {
+  background-color: var(--bs-emphasis-color) !important;
+}
+
+[data-bs-theme=dark] .carousel-control-next-icon,
+[data-bs-theme=dark] .carousel-control-prev-icon {
+  filter: inherit !important; //color: var(--bs-emphasis-color) !important;
+}
+
+[data-bs-theme=light] .carousel-control-next-icon,
+[data-bs-theme=light] .carousel-control-prev-icon {
+  filter: invert(1) grayscale(100) !important; //color: var(--bs-emphasis-color) !important;
+}
