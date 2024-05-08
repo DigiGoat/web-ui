@@ -13,7 +13,7 @@ export class TitleStrategy extends NgTitleStrategy {
     const title = this.buildTitle(routerState);
     this.tags.forEach(tag => this.meta.getTags(`name="${tag}"`).forEach(_tag => this.meta.removeTagElement(_tag)));
     if (title !== undefined) {
-      const titlePrefix = formatTitle(title, routerState);
+      const titlePrefix = this.formatTitle(title, routerState);
       this.title.setTitle(`${titlePrefix}${this.configService.tabTitle ? ` · ${this.configService.tabTitle}` : ''}`);
       this.meta.addTags([
         { name: 'og:title', content: titlePrefix.split(' · ').shift()! },
@@ -24,22 +24,21 @@ export class TitleStrategy extends NgTitleStrategy {
     } else {
       this.title.setTitle(this.configService.tabTitle);
     }
-
   }
-}
-export function formatTitle(title: string, routerState: RouterStateSnapshot): string {
-  return title.replace(/(^|\s):(\w+)(\s|$)/g, (_match, prefix, id, suffix) => {
-    return `${prefix}${getParam(id, routerState)}${suffix}`;
-  }).replaceAll('-', '·');
-}
-export function getParam(param: string, routerState: RouterStateSnapshot) {
-  function findParams(children: RouterStateSnapshot['root']['children']): Record<string, string> {
-    const paramObj = {};
-    if (children[0]?.children.length) {
-      Object.assign(paramObj, findParams(children[0].children));
+  formatTitle(title: string, routerState: RouterStateSnapshot): string {
+    return title.replace(/(^|\s):(\w+)(\s|$)/g, (_match, prefix, id, suffix) => {
+      return `${prefix}${this.getParam(id, routerState)}${suffix}`;
+    }).replaceAll('-', '·');
+  }
+  getParam(param: string, routerState: RouterStateSnapshot) {
+    function findParams(children: RouterStateSnapshot['root']['children']): Record<string, string> {
+      const paramObj = {};
+      if (children[0]?.children.length) {
+        Object.assign(paramObj, findParams(children[0].children));
+      }
+      return Object.assign(paramObj, children[0]?.params);
     }
-    return Object.assign(paramObj, children[0]?.params);
+    const paramMap = findParams(routerState.root.children);
+    return paramMap[param] ?? `:${param}`;
   }
-  const paramMap = findParams(routerState.root.children);
-  return paramMap[param] ?? `:${param}`;
 }
