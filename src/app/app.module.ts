@@ -16,6 +16,7 @@ import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AgePipe } from './pipes/age.pipe';
+import { CarouselComponent } from './elements/carousel/carousel.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AgePipe } from './pipes/age.pipe';
     ModalComponent,
     GoatCardModalComponent,
     NotFoundModalComponent,
-    ImgDirective
+    ImgDirective,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
