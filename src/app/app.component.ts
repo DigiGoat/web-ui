@@ -9,12 +9,16 @@ import { ConfigService } from './services/config/config.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public app: ConfigService) { }
+  constructor(public config: ConfigService) { }
   splitString(string: string) {
     const splitString = string.split(' ');
-    const half = Math.floor(splitString.length / 2);
-    const firstHalf = splitString.slice(0, half).join(' ');
-    const secondHalf = splitString.slice(half).join(' ');
-    return `${firstHalf}<br>${secondHalf}`;
+    if (splitString.length > 1) {
+      const half = Math.floor(splitString.length / 2);
+      const firstHalf = splitString.slice(0, half).join(' ');
+      const secondHalf = splitString.slice(half).join(' ');
+      return `${firstHalf}<br>${secondHalf}`;
+    } else {
+      return splitString[0];
+    }
   }
 }

@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <img ngSrc="./assets/icons/android-chrome-192x192.png" alt="Logo" class="d-inline-block align-text-top" width="70" height="70" priority>
     <a class="navbar-brand ps-2 text-center text-lg-start" routerLink="/">
-      <p class="h4" [innerHTML]="splitString(app.menubarTitle)"></p>
+      <p class="h4" [innerHTML]="splitString(config.menubarTitle)" test-id="menubar"></p>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,8 +36,10 @@
 <!-- Footer with link to source code -->
 <footer class="bd-footer color-scheme-secondary">
   <br>
-  <div class="text-center"> {{app.owner}} <br>
-    <a [href]="'mailto:' + app.email">{{app.email}}</a>
+  <div class="text-center">
+    <span test-id="owner">{{config.owner}}</span>
+    <br>
+    <a [href]="'mailto:' + config.email" test-id="email">{{config.email}}</a>
   </div><br>
   <div class="container  text-center" style="min-height: 5vh;">This Site Was Created and Is Maintained Using <a
       href="https://github.com/DigiGoat" target="_blank">DigiGoat</a>
