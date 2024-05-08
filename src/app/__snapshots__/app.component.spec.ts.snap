@@ -1,0 +1,287 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
+<app-root
+  config={[Function Object]}
+>
+  <header
+    class="navbar navbar-expand-lg sticky-top color-scheme-secondary"
+  >
+    <div
+      class="container-fluid"
+    >
+      <img
+        alt="Logo"
+        class="d-inline-block align-text-top"
+        height="70"
+        ngsrc="./assets/icons/android-chrome-192x192.png"
+        priority=""
+        width="70"
+      />
+      <a
+        class="navbar-brand ps-2 text-center text-lg-start"
+        routerlink="/"
+      >
+        <p
+          class="h4"
+          test-id="menubar"
+        >
+          TEST_MENUBAR_TITLE
+        </p>
+      </a>
+      <button
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-bs-target="#navbarSupportedContent"
+        data-bs-toggle="collapse"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+      >
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0 nav nav-underline nav-fill w-100"
+        >
+          <li
+            class="nav-item"
+          >
+            <a
+              aria-current="page"
+              class="nav-link"
+              data-bs-target=".navbar-collapse.show"
+              data-bs-toggle="collapse"
+              routerlink="/"
+              routerlinkactive="active"
+            >
+              Home
+            </a>
+          </li>
+          <li
+            class="nav-item"
+          >
+            <a
+              aria-current="page"
+              class="nav-link"
+              data-bs-target=".navbar-collapse.show"
+              data-bs-toggle="collapse"
+              routerlink="/does"
+              routerlinkactive="active"
+            >
+              Does
+            </a>
+          </li>
+          <li
+            class="nav-item"
+          >
+            <a
+              aria-current="page"
+              class="nav-link"
+              data-bs-target=".navbar-collapse.show"
+              data-bs-toggle="collapse"
+              routerlink="/bucks"
+              routerlinkactive="active"
+            >
+              Bucks
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header><br /><div
+    class="px-3 py-3"
+    style="min-height: 100vh; max-width: 100vw !important;"
+  >
+    <router-outlet />
+  </div><br /><footer
+    class="bd-footer color-scheme-secondary"
+  >
+    <br />
+    <div
+      class="text-center"
+    >
+      <span
+        test-id="owner"
+      >
+        TEST_OWNER
+      </span>
+      <br />
+      <a
+        href="mailto:TEST_EMAIL"
+        test-id="email"
+      >
+        TEST_EMAIL
+      </a>
+    </div>
+    <br />
+    <div
+      class="container text-center"
+      style="min-height: 5vh;"
+    >
+      This Site Was Created and Is Maintained Using 
+      <a
+        href="https://github.com/DigiGoat"
+        target="_blank"
+      >
+        DigiGoat
+      </a>
+      <br />
+      See The Source Code On 
+      <a
+        href="https://github.com/DigiGoat/web-ui"
+        target="_blank"
+      >
+        Github
+      </a>
+    </div>
+    <br />
+  </footer>
+</app-root>
+`;
+
+exports[`AppComponent Without a Config should match the snapshot 1`] = `
+<app-root
+  config={[Function Object]}
+>
+  <header
+    class="navbar navbar-expand-lg sticky-top color-scheme-secondary"
+  >
+    <div
+      class="container-fluid"
+    >
+      <img
+        alt="Logo"
+        class="d-inline-block align-text-top"
+        height="70"
+        ngsrc="./assets/icons/android-chrome-192x192.png"
+        priority=""
+        width="70"
+      />
+      <a
+        class="navbar-brand ps-2 text-center text-lg-start"
+        routerlink="/"
+      >
+        <p
+          class="h4"
+          test-id="menubar"
+        />
+      </a>
+      <button
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-bs-target="#navbarSupportedContent"
+        data-bs-toggle="collapse"
+        type="button"
+      >
+        <span
+          class="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        id="navbarSupportedContent"
+      >
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0 nav nav-underline nav-fill w-100"
+        >
+          <li
+            class="nav-item"
+          >
+            <a
+              aria-current="page"
+              class="nav-link"
+              data-bs-target=".navbar-collapse.show"
+              data-bs-toggle="collapse"
+              routerlink="/"
+              routerlinkactive="active"
+            >
+              Home
+            </a>
+          </li>
+          <li
+            class="nav-item"
+          >
+            <a
+              aria-current="page"
+              class="nav-link"
+              data-bs-target=".navbar-collapse.show"
+              data-bs-toggle="collapse"
+              routerlink="/does"
+              routerlinkactive="active"
+            >
+              Does
+            </a>
+          </li>
+          <li
+            class="nav-item"
+          >
+            <a
+              aria-current="page"
+              class="nav-link"
+              data-bs-target=".navbar-collapse.show"
+              data-bs-toggle="collapse"
+              routerlink="/bucks"
+              routerlinkactive="active"
+            >
+              Bucks
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header><br /><div
+    class="px-3 py-3"
+    style="min-height: 100vh; max-width: 100vw !important;"
+  >
+    <router-outlet />
+  </div><br /><footer
+    class="bd-footer color-scheme-secondary"
+  >
+    <br />
+    <div
+      class="text-center"
+    >
+      <span
+        test-id="owner"
+      >
+      </span>
+      <br />
+      <a
+        href="mailto:"
+        test-id="email"
+      >
+      </a>
+    </div>
+    <br />
+    <div
+      class="container text-center"
+      style="min-height: 5vh;"
+    >
+      This Site Was Created and Is Maintained Using 
+      <a
+        href="https://github.com/DigiGoat"
+        target="_blank"
+      >
+        DigiGoat
+      </a>
+      <br />
+      See The Source Code On 
+      <a
+        href="https://github.com/DigiGoat/web-ui"
+        target="_blank"
+      >
+        Github
+      </a>
+    </div>
+    <br />
+  </footer>
+</app-root>
+`;
