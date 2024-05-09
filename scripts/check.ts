@@ -60,7 +60,7 @@ async function previewChangelog() {
   log.debug('New Changelog', changelog);
   const changes = oldChangelog ? changelog.substring(0, -oldChangelog.length) : changelog;
   log.info('Changelog changes', changes);
-  github.post(`/repos/${process.env['GITHUB_ACTION_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, `# Changelog Preview:\n\n${changes}`);
+  github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, `# Changelog Preview:\n\n${changes}`);
 }
 (async () => {
   console.log('Checking the version...');
