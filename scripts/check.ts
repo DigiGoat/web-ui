@@ -2,7 +2,7 @@
 import axios from 'axios';
 import chalk from 'chalk';
 import { readFile } from 'fs/promises';
-import { gt } from 'semver';
+import { lte } from 'semver';
 import Git from 'simple-git';
 import packageJson from '../package.json';
 
@@ -36,7 +36,7 @@ async function checkVersion() {
   const version = JSON.parse(await git.show(`${origin}:package.json`)).version;
   log.debug('Old version', version);
   log.debug('New version', packageJson.version);
-  if (gt(packageJson.version, version)) {
+  if (lte(packageJson.version, version)) {
     log.error('The version associated with this pull request is not greater than the previous version');
     success = false;
   }
