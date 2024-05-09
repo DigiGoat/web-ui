@@ -13,7 +13,7 @@
     "serve:ssr": "node dist/web-ui/server/server.mjs",
     "deploy": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/deploy.ts",
     "lint": "ng lint",
-    "check": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/check.ts"
+    "pull-check": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/check.ts"
   },
   "private": true,
   "dependencies": {

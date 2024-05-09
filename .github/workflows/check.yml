@@ -1,10 +1,10 @@
-name: Yarn Check
+name: Check
 
 on:
   pull_request:
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
