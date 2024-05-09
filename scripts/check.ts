@@ -6,7 +6,7 @@ import packageJson from '../package.json';
 import { gt } from 'semver';
 import Git from 'simple-git';
 
-const origin = `${process.env['GITHUB_BASE_REF']}`;
+const origin = `origin/${process.env['GITHUB_BASE_REF']}`;
 
 const ci = !!process.env['CI'];
 const log = {
