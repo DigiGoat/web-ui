@@ -2,7 +2,7 @@
 import axios from 'axios';
 import chalk from 'chalk';
 import { readFile } from 'fs/promises';
-import packageJson from 'package.json';
+import packageJson from '../package.json';
 import { gt } from 'semver';
 import Git from 'simple-git';
 
