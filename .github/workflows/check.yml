@@ -1,4 +1,4 @@
-name: Check
+name: Pre Check
 
 on:
   pull_request:
@@ -21,5 +21,5 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run yarn check
-        run: yarn check
+      - name: Run check
+        run: yarn pull-check
