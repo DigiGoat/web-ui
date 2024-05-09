@@ -2,9 +2,9 @@
 import axios from 'axios';
 import chalk from 'chalk';
 import { readFile } from 'fs/promises';
-import packageJson from '../package.json';
 import { gt } from 'semver';
 import Git from 'simple-git';
+import packageJson from '../package.json';
 
 const origin = `origin/${process.env['GITHUB_BASE_REF']}`;
 
@@ -35,7 +35,7 @@ let success = true;
 async function checkVersion() {
   const version = JSON.parse(await git.show(`${origin}:package.json`)).version;
   if (gt(packageJson.version, version)) {
-    log.error('The package.json version is not updated in the this request');
+    log.error('The version associated with this pull request is not greater than the previous version');
     success = false;
   }
 }
@@ -49,9 +49,12 @@ async function checkSensitiveFiles() {
   }
 }
 async function previewChangelog() {
-  const oldChangelog = await git.show(`${origin}:CHANGELOG.md`);
+  const oldChangelog = await git.show(`${origin}:CHANGELOG.md`).catch(() => {
+    log.warn('The changelog is missing in the base branch');
+
+  });
   const changelog = await readFile('../CHANGELOG.md', 'utf-8');
-  const changes = changelog.substring(0, -oldChangelog.length);
+  const changes = oldChangelog ? changelog.substring(0, -oldChangelog.length) : changelog;
   log.info('Changelog changes', changes);
   github.post(`/repos/${process.env['GITHUB_ACTION_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, `# Changelog Preview:\n\n${changes}`);
 }
