@@ -3,6 +3,11 @@ name: Pre Check
 on:
   pull_request:
 
+# Sets permissions of the GITHUB_TOKEN to allow commenting on the pull request
+permissions:
+  contents: read
+  issues:  write
+
 jobs:
   check:
     runs-on: ubuntu-latest
