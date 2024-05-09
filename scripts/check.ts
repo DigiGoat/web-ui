@@ -34,6 +34,8 @@ const github = axios.create({
 let success = true;
 async function checkVersion() {
   const version = JSON.parse(await git.show(`${origin}:package.json`)).version;
+  log.debug('Old version', version);
+  log.debug('New version', packageJson.version);
   if (gt(packageJson.version, version)) {
     log.error('The version associated with this pull request is not greater than the previous version');
     success = false;
@@ -41,6 +43,7 @@ async function checkVersion() {
 }
 async function checkSensitiveFiles() {
   const diffSummary = await git.diffSummary(origin);
+  log.debug('Diff Summary', diffSummary);
   const sensitiveFiles = diffSummary.files.filter(file => file.file.startsWith('src/assets/'));
   if (sensitiveFiles.length > 0) {
     log.error('Sensitive files have been modified in this pull request');
@@ -51,9 +54,10 @@ async function checkSensitiveFiles() {
 async function previewChangelog() {
   const oldChangelog = await git.show(`${origin}:CHANGELOG.md`).catch(() => {
     log.warn('The changelog is missing in the base branch');
-
   });
+  log.debug('Old Changelog', oldChangelog);
   const changelog = await readFile('CHANGELOG.md', 'utf-8');
+  log.debug('New Changelog', changelog);
   const changes = oldChangelog ? changelog.substring(0, -oldChangelog.length) : changelog;
   log.info('Changelog changes', changes);
   github.post(`/repos/${process.env['GITHUB_ACTION_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, `# Changelog Preview:\n\n${changes}`);
