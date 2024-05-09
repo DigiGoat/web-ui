@@ -53,7 +53,7 @@ async function previewChangelog() {
     log.warn('The changelog is missing in the base branch');
 
   });
-  const changelog = await readFile('../CHANGELOG.md', 'utf-8');
+  const changelog = await readFile('CHANGELOG.md', 'utf-8');
   const changes = oldChangelog ? changelog.substring(0, -oldChangelog.length) : changelog;
   log.info('Changelog changes', changes);
   github.post(`/repos/${process.env['GITHUB_ACTION_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, `# Changelog Preview:\n\n${changes}`);
