@@ -30,7 +30,8 @@ describe('ImageService', () => {
       }],
       [name]: [{
         file: nameFile
-      }]
+      }],
+      empty: []
     };
   });
   it('should be created', () => {
@@ -86,6 +87,14 @@ describe('ImageService', () => {
       const image = images[0];
       expect(image.file).toEqual(`/assets/images/${name}/${nameFile}`);
       expect(image.alt).toBeUndefined();
+    });
+    it('should return notFound if the image is not found', () => {
+      const images = service.getImages(['FAKE_ID', 'FAKE_NICKNAME', 'empty']);
+      expect(images).toHaveLength(1);
+      const image = images[0];
+      expect(image.file).toEqual('/');
+      expect(image.alt).toEqual('The Requested Image Does Not Exist');
+
     });
     it('should return an empty path if the image does not exist', () => {
       const images = service.getImages(['FAKE_ID', 'FAKE_NICKNAME']);
