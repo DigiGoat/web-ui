@@ -49,15 +49,18 @@ async function checkSensitiveFiles() {
   }
 }
 async function previewChangelog() {
-  const oldChangelog = await git.show('origin:CHANGELOG.md');
+  const oldChangelog = await git.show(`${origin}:CHANGELOG.md`);
   const changelog = await readFile('../CHANGELOG.md', 'utf-8');
   const changes = changelog.substring(0, -oldChangelog.length);
   log.info('Changelog changes', changes);
   github.post(`/repos/${process.env['GITHUB_ACTION_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, `# Changelog Preview:\n\n${changes}`);
 }
 (async () => {
+  console.log('Checking the version...');
   await checkVersion();
+  console.log('Checking for sensitive files...');
   await checkSensitiveFiles();
+  console.log('Previewing the changelog...');
   await previewChangelog();
   if (success) {
     log.success('Pre-Check Passed');
