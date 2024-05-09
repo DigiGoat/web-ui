@@ -6,7 +6,7 @@ on:
 # Sets permissions of the GITHUB_TOKEN to allow commenting on the pull request
 permissions:
   contents: read
-  issues:  write
+  pull-requests:   write
 
 jobs:
   check:
