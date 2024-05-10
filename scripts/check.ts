@@ -73,7 +73,7 @@ async function previewChangelog() {
     success = false;
   } else {
     summary.push('- [x] Changelog Check: Changes made to the changelog');
-    summary.push('### Changelog Preview:', changes.split('\n#').join('\n###'));
+    summary.push(`### Changelog Preview:${('\n' + changes).split('\n#').join('\n###')}`);
   }
 }
 (async () => {
