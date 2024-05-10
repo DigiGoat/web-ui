@@ -75,7 +75,6 @@ async function previewChangelog() {
     summary.push('- [x] Changelog Check: Changes made to the changelog');
     summary.push('### Changelog Preview:', changes);
   }
-  github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, { body: `# Changelog Preview:\n\n${changes}` });
 }
 (async () => {
   try {
@@ -85,12 +84,12 @@ async function previewChangelog() {
     await checkSensitiveFiles();
     console.log('Previewing the changelog...');
     await previewChangelog();
-    console.log('Posting the summary...');
-    await postSummary();
     if (success) {
       log.success('Pre-Check Passed');
+      summary.push('# :white_check_mark: Pre-Check Passed :white_check_mark:');
     } else {
       log.error('Pre-Check Failed');
+      summary.push('# :x: Pre-Check Failed :x:');
       process.exitCode = 1;
     }
   } catch (err: unknown) {
@@ -101,9 +100,9 @@ async function previewChangelog() {
       log.error('An unknown error occurred during the pre-checks:', err);
       summary.push(`- [ ] An unknown error occurred during the pre-checks: \`${err}\``);
     }
-    console.log('Posting the summary...');
-    await postSummary();
   }
+  console.log('Posting the summary...');
+  await postSummary();
 })();
 
 async function postSummary() {
