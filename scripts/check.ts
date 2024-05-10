@@ -32,13 +32,17 @@ const github = axios.create({
 
 
 let success = true;
+const summary: string[] = [];
 async function checkVersion() {
   const version = JSON.parse(await git.show(`${origin}:package.json`)).version;
   log.debug('Old version', version);
   log.debug('New version', packageJson.version);
   if (lte(packageJson.version, version)) {
     log.error('The version associated with this pull request is not greater than the previous version');
+    summary.push(`- [ ] Version Check: \`v${version} <= v${packageJson.version}\``);
     success = false;
+  } else {
+    summary.push(`- [x] Version Check: \`v${version} --> v${packageJson.version}\``);
   }
 }
 async function checkSensitiveFiles() {
@@ -47,8 +51,11 @@ async function checkSensitiveFiles() {
   const sensitiveFiles = diffSummary.files.filter(file => file.file.startsWith('src/assets/'));
   if (sensitiveFiles.length > 0) {
     log.error('Sensitive files have been modified in this pull request');
+    summary.push(`- [ ] Sensitive Files Check: Sensitive files modified (\`${sensitiveFiles.join(', ')}\`)`);
     sensitiveFiles.forEach(file => log.warn('Sensitive file modified:', file));
     success = false;
+  } else {
+    summary.push('- [x] Sensitive Files Check: No sensitive files modified');
   }
 }
 async function previewChangelog() {
@@ -60,19 +67,47 @@ async function previewChangelog() {
   log.debug('New Changelog', changelog);
   const changes = oldChangelog ? changelog.substring(0, -oldChangelog.length) : changelog;
   log.info('Changelog changes', changes);
+  if (!changes.length) {
+    log.error('No changes have been made to the changelog');
+    summary.push('- [ ] Changelog Check: No changes made to the changelog');
+    success = false;
+  } else {
+    summary.push('- [x] Changelog Check: Changes made to the changelog');
+    summary.push('### Changelog Preview:', changes);
+  }
   github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, { body: `# Changelog Preview:\n\n${changes}` });
 }
 (async () => {
-  console.log('Checking the version...');
-  await checkVersion();
-  console.log('Checking for sensitive files...');
-  await checkSensitiveFiles();
-  console.log('Previewing the changelog...');
-  await previewChangelog();
-  if (success) {
-    log.success('Pre-Check Passed');
-  } else {
-    log.error('Pre-Check Failed');
-    process.exit(1);
+  try {
+    console.log('Checking the version...');
+    await checkVersion();
+    console.log('Checking for sensitive files...');
+    await checkSensitiveFiles();
+    console.log('Previewing the changelog...');
+    await previewChangelog();
+    console.log('Posting the summary...');
+    await postSummary();
+    if (success) {
+      log.success('Pre-Check Passed');
+    } else {
+      log.error('Pre-Check Failed');
+      process.exitCode = 1;
+    }
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      log.error('An error occurred during the pre-checks:', err);
+      summary.push(`- [ ] An error occurred during the pre-checks: \`${err.message}\``);
+    } else {
+      log.error('An unknown error occurred during the pre-checks:', err);
+      summary.push(`- [ ] An unknown error occurred during the pre-checks: \`${err}\``);
+    }
+    console.log('Posting the summary...');
+    await postSummary();
   }
 })();
+
+async function postSummary() {
+  await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, {
+    body: `# Pre Check Summary:\n\n${summary.join('\n')}`
+  });
+}
