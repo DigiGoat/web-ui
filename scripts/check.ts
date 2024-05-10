@@ -58,14 +58,14 @@ async function checkSensitiveFiles() {
     summary.push('- [x] Sensitive Files Check: No sensitive files modified');
   }
 }
-async function previewChangelog() {
+async function checkChangelog() {
   const oldChangelog = await git.show(`${origin}:CHANGELOG.md`).catch(() => {
     log.warn('The changelog is missing in the base branch');
   });
   log.debug('Old Changelog', oldChangelog);
   const changelog = await readFile('CHANGELOG.md', 'utf-8');
   log.debug('New Changelog', changelog);
-  const changes = oldChangelog ? changelog.split('\n').slice(changelog.split('\n').length - oldChangelog.split('\n').length) : changelog;
+  const changes = oldChangelog ? changelog.split('\n').slice(changelog.split('\n').length - oldChangelog.split('\n').length).join('\n') : changelog;
   log.info('Changelog changes', changes);
   if (!changes.length) {
     log.error('No changes have been made to the changelog');
@@ -83,7 +83,7 @@ async function previewChangelog() {
     console.log('Checking for sensitive files...');
     await checkSensitiveFiles();
     console.log('Previewing the changelog...');
-    await previewChangelog();
+    await checkChangelog();
     if (success) {
       log.success('Pre-Check Passed');
       summary.unshift('# :white_check_mark: Pre-Check Passed :white_check_mark:');
