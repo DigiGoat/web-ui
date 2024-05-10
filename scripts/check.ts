@@ -65,7 +65,7 @@ async function previewChangelog() {
   log.debug('Old Changelog', oldChangelog);
   const changelog = await readFile('CHANGELOG.md', 'utf-8');
   log.debug('New Changelog', changelog);
-  const changes = oldChangelog ? changelog.substring(0, -oldChangelog.length) : changelog;
+  const changes = oldChangelog ? oldChangelog.split('\n').slice(0, changelog.split('\n').length - oldChangelog.split('\n').length) : changelog;
   log.info('Changelog changes', changes);
   if (!changes.length) {
     log.error('No changes have been made to the changelog');
