@@ -32,7 +32,7 @@ const github = axios.create({
 
 
 let success = true;
-const summary: string[] = [];
+const summary = ['## Pre Check Summary:', ''];
 async function checkVersion() {
   const version = JSON.parse(await git.show(`${origin}:package.json`)).version;
   log.debug('Old version', version);
@@ -73,7 +73,7 @@ async function previewChangelog() {
     success = false;
   } else {
     summary.push('- [x] Changelog Check: Changes made to the changelog');
-    summary.push('### Changelog Preview:', changes);
+    summary.push('### Changelog Preview:', changes.split('\n#').join('\n###'));
   }
 }
 (async () => {
@@ -86,10 +86,10 @@ async function previewChangelog() {
     await previewChangelog();
     if (success) {
       log.success('Pre-Check Passed');
-      summary.push('# :white_check_mark: Pre-Check Passed :white_check_mark:');
+      summary.unshift('# :white_check_mark: Pre-Check Passed :white_check_mark:');
     } else {
       log.error('Pre-Check Failed');
-      summary.push('# :x: Pre-Check Failed :x:');
+      summary.unshift('# :x: Pre-Check Failed :x:');
       process.exitCode = 1;
     }
   } catch (err: unknown) {
@@ -107,6 +107,6 @@ async function previewChangelog() {
 
 async function postSummary() {
   await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, {
-    body: `# Pre Check Summary:\n\n${summary.join('\n')}`
+    body: summary.join('\n')
   });
 }
