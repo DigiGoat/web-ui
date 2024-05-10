@@ -31,6 +31,8 @@ jobs:
       - name: Check if Pages are enabled
         id: check
         run: gh api /repos/$GITHUB_REPOSITORY/pages
+        env:
+          GH_TOKEN: ${{ github.token }}
   build:
     name: Build
     needs: check_pages
