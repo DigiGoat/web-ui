@@ -51,7 +51,7 @@ async function checkSensitiveFiles() {
   const sensitiveFiles = diffSummary.files.filter(file => file.file.startsWith('src/assets/'));
   if (sensitiveFiles.length > 0) {
     log.error('Sensitive files have been modified in this pull request');
-    summary.push(`- [ ] Sensitive Files Check: Sensitive files modified (\`${sensitiveFiles.join(', ')}\`)`);
+    summary.push(`- [ ] Sensitive Files Check: Sensitive files modified (\`${sensitiveFiles.map(file => file.file).join(', ')}\`)`);
     sensitiveFiles.forEach(file => log.warn('Sensitive file modified:', file));
     success = false;
   } else {
