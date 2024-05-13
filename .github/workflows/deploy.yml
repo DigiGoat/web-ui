@@ -27,7 +27,7 @@ jobs:
   check_pages:
     runs-on: ubuntu-latest
     outputs:
-      enabled: true
+      enabled: ${{ steps.branch.outputs.enabled && steps.check.outputs.enabled }}
     steps:
       - name: Check if this is the default branch
         id: branch
