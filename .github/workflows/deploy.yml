@@ -45,7 +45,7 @@ jobs:
         run: |
           if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
             echo "::warning:: Pages are disabled, skipping deployment"
-            ehco "enabled=false" >> $GITHUB_OUTPUT
+            echo "enabled=false" >> $GITHUB_OUTPUT
           else
             echo "enabled=true" >> $GITHUB_OUTPUT
           fi
