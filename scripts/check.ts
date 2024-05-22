@@ -107,14 +107,14 @@ async function checkChangelog() {
 })();
 
 async function namePullRequest(changes: string) {
-  await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, {
+  await github.patch(`/repos/${process.env['GITHUB_REPOSITORY']}/issues/${process.env['GITHUB_REF_NAME']!.split('/')[0]}`, {
+    title: packageJson.version,
     body: changes
   });
 }
 
 async function postSummary() {
-  await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/pulls/${process.env['GITHUB_REF_NAME']!.split('/')[0]}`, {
-    title: packageJson.version,
+  await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/pulls/${process.env['GITHUB_REF_NAME']!.split('/')[0]}/comments`, {
     body: summary.join('\n')
   });
 }
