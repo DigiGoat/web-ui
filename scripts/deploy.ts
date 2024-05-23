@@ -105,7 +105,7 @@ function manifest() {
   }
   log.debug('Writing Manifest');
   writeFileSync(join(__dirname, '../dist/web-ui/browser/site.webmanifest'), JSON.stringify({
-    background_color: (config['colors'] as Record<string, string>)['main'],
+    background_color: typeof config['colors'] == 'object' ? config['colors']['main'] : undefined,
     description: config['homeDescription'],
     display: 'standalone',
     icons: icons ? [
