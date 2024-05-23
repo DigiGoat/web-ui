@@ -104,7 +104,7 @@ function manifest() {
     mkdirSync(join(__dirname, '../dist/web-ui/browser/assets/icons/'), { recursive: true });
   }
   log.debug('Writing Manifest');
-  writeFileSync(join(__dirname, '../dist/web-ui/browser/manifest.webmanifest'), JSON.stringify({
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/site.webmanifest'), JSON.stringify({
     background_color: (config['colors'] as Record<string, string>)['main'],
     description: config['homeDescription'],
     display: 'standalone',
