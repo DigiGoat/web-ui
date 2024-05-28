@@ -2,6 +2,10 @@ name: Jest Testing
 
 on:
   push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/test.yml'
+      - 'jest.config.js'
   workflow_dispatch:
 
 permissions:
