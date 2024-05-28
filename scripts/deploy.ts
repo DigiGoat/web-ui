@@ -119,9 +119,9 @@ function manifest() {
         sizes: '512x512',
         type: 'image/png'
       }
-    ].map(icon => url ? url.toString() + (url.toString().endsWith('/') ? '' : '/') + icon.src.slice(2) : icon.src) : [],
+    ].map(icon => url ? url.toString() + (url.toString().endsWith('/') ? 'assets/icons/' : '/assets/icons/') + icon.src.slice(2) : icon.src) : [],
     name: config['homeTitle'],
-    scope: url?.toString().endsWith('/') ? url?.toString() : url?.toString() + '/',
+    scope: url ? (url.toString().endsWith('/') ? url.toString() : url.toString() + '/') : undefined,
     short_name: config['tabTitle'],
     shortcuts: [
       {
@@ -136,7 +136,7 @@ function manifest() {
       shortcut.url = url ? url.pathname + (url.pathname.endsWith('/') ? '' : '/') + shortcut.url.slice(2) : shortcut.url;
       return shortcut;
     }),
-    start_url: url?.pathname.endsWith('/') ? url?.pathname : url?.pathname + '/',
+    start_url: url ? (url.pathname.endsWith('/') ? url.pathname : url.pathname + '/') : undefined,
     theme_color: typeof config['colors'] == 'object' ? config['colors']['secondary'] : 'hsl(230, 100%, 15%)'
   }, null, 2));
 }
