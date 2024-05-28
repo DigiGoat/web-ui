@@ -6,6 +6,11 @@ on:
       - 'src/**'
       - '.github/workflows/test.yml'
       - 'jest.config.ts'
+  pull_request:
+    paths-ignore:
+      - 'src/**'
+      - '.github/workflows/test.yml'
+      - 'jest.config.ts'
   workflow_dispatch:
 
 permissions:
