@@ -5,7 +5,7 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/test.yml'
-      - 'jest.config.js'
+      - 'jest.config.ts'
   workflow_dispatch:
 
 permissions:
