@@ -1,3 +1,6 @@
+# 1.0.1
+* First fully stable version!
+
 ## 1.0.1-beta.23
 * Placeholder affects properly display on images while loading goats
 * Goat details (id, date of birth, etc.) now appear with more contrast (they are much easier to read in light mode now)
