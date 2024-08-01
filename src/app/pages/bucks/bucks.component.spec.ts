@@ -27,7 +27,7 @@ describe('BucksComponent', () => {
     goatService.mockImplementation(() => {
       return {
         bucks: of([])
-      } as any;
+      } as unknown as GoatService;
 
     });
     fixture.detectChanges();

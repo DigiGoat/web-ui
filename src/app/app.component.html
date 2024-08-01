@@ -2,8 +2,8 @@
 <header class="navbar navbar-expand-lg sticky-top color-scheme-secondary">
   <div class="container-fluid">
     <img ngSrc="./assets/icons/android-chrome-192x192.png" alt="Logo" class="d-inline-block align-text-top" width="70" height="70" priority>
-    <a class="navbar-brand" routerLink="/">
-      <p class="h4" [innerHTML]="app.menubarTitle"></p>
+    <a class="navbar-brand ps-2 text-center text-lg-start" routerLink="/">
+      <p class="h4" [innerHTML]="splitString(config.menubarTitle)" test-id="menubar"></p>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,21 +27,26 @@
     </div>
   </div>
 </header>
-<br>
-<!-- Put in minimum height div to put footer at bottom of page -->
-<div class="px-3 py-3" style="min-height: 100vh; max-width: 100vw !important;">
-  <router-outlet></router-outlet>
+<div class="color-scheme-main">
+  <br>
+  <!-- Put in minimum height div to put footer at bottom of page -->
+  <div class="px-3 py-3" style="min-height: 100vh; max-width: 100vw !important;">
+    <router-outlet></router-outlet>
+  </div>
+  <br>
 </div>
-<br>
 <!-- Footer with link to source code -->
 <footer class="bd-footer color-scheme-secondary">
   <br>
-  <div class="text-center"> {{app.owner}} <br>
-    <a [href]="'mailto:' + app.email">{{app.email}}</a>
+  <div class="text-center">
+    <span test-id="owner">{{config.owner}}</span>
+    <br>
+    <a [href]="'mailto:' + config.email" test-id="email">{{config.email}}</a>
   </div><br>
   <div class="container  text-center" style="min-height: 5vh;">This Site Was Created and Is Maintained Using <a
       href="https://github.com/DigiGoat" target="_blank">DigiGoat</a>
-    <br>See The Source Code On <a href="https://github.com/DigiGoat/web-ui" target="_blank">Github</a>
   </div>
   <br>
 </footer>
+<analytics></analytics>
+<color-scheme></color-scheme>

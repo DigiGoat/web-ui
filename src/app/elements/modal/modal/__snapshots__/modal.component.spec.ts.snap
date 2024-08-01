@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalComponent With a Goat should match the snapshot 1`] = `
+<app-modal-goat
+  goat={[Function Object]}
+  modal={[Function Object]}
+  modalElement={[Function _ElementRef]}
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function ActivatedRoute]}
+  router={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    aria-hidden="true"
+    aria-labelledby="exampleModalLabel"
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+  >
+    <div
+      class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+    >
+      <div
+        class="modal-content"
+      >
+        <div
+          class="modal-header color-scheme-tertiary"
+        >
+          <h1
+            class="modal-title fs-5"
+            id="staticBackdropLabel"
+            test-id="searchParam"
+          >
+            TEST_PARAM
+          </h1>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            type="button"
+          />
+        </div>
+        <div
+          class="modal-body color-scheme-quaternary card"
+        >
+          <app-modal-goat-card
+            test-id="goat-card"
+          />
+        </div>
+        <div
+          class="modal-footer color-scheme-tertiary"
+        >
+          <button
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            type="button"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal-goat>
+`;
+
+exports[`ModalComponent Without a Goat should match the snapshot 1`] = `
+<app-modal-goat
+  modal={[Function Object]}
+  modalElement={[Function _ElementRef]}
+  platformService={[Function PlatformService]}
+  prerender="false"
+  route={[Function ActivatedRoute]}
+  router={[Function Object]}
+  searchParam={[Function String]}
+>
+  <div
+    aria-hidden="true"
+    aria-labelledby="exampleModalLabel"
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+  >
+    <div
+      class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+    >
+      <div
+        class="modal-content"
+      >
+        <div
+          class="modal-header color-scheme-tertiary"
+        >
+          <h1
+            class="modal-title fs-5"
+            id="staticBackdropLabel"
+            test-id="searchParam"
+          >
+            TEST_PARAM
+          </h1>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            type="button"
+          />
+        </div>
+        <div
+          class="modal-body color-scheme-quaternary card"
+        >
+          <app-modal-not-found
+            test-id="not-found"
+          />
+        </div>
+        <div
+          class="modal-footer color-scheme-tertiary"
+        >
+          <button
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            type="button"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal-goat>
+`;

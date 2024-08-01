@@ -18,8 +18,8 @@ export class GoatsComponent implements OnInit {
   public err?: HttpErrorResponse;
   public noGoats = false;
   public activeGoatIndex = -1;
-  public prerender = this.platformService.isServer;
-  public bot = this.platformService.isBot;
+  public prerender = false;
+  public bot = false;
   public searchParam?: string;
   constructor(public route: ActivatedRoute, private platformService: PlatformService) {
   }
@@ -27,6 +27,8 @@ export class GoatsComponent implements OnInit {
   @Input({ required: true, alias: 'goats' }) getter!: Observable<Goat[]>;
   @Input({ required: true }) name!: string;
   ngOnInit() {
+    this.prerender = this.platformService.isServer;
+    this.bot = this.platformService.isBot;
     this.searchParam = this.route.snapshot.params['goat'];
     this.getter.subscribe({
       next: goats => {
@@ -34,7 +36,9 @@ export class GoatsComponent implements OnInit {
           this.noGoats = true;
         }
         this.goats = goats;
-        this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
+        if (this.searchParam) {
+          this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
+        }
       },
       error: err => this.err = err
     });

@@ -1,24 +1,36 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>WebUi</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-  function setTheme() {
-    document.documentElement.setAttribute("data-bs-theme", window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  }
-  setTheme();
-  window.matchMedia('(prefers-color-scheme: dark)').onchange = setTheme;
-</script>
-</head>
-<body class="color-scheme-main">
-  <noscript>
-    <h1 class="text-center">Javascript Is Disabled. Some Features May Not Work As Intended</h1>
-    <h3 class="text-center">Click <a href="https://www.wikihow.com/Enable-JavaScript" target="_blank">Here</a> If You Don't Know How To Enable
-      It</h3>
-  </noscript>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>WebUi</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Apple App Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="./assets/icons/site.webmanifest">
+    <link rel="shortcut icon" href="./assets/icons/favicon.ico">
+    <meta name="msapplication-config" content="./assets/icons/browserconfig.xml">
+    <script>
+      function setTheme() {
+        document.documentElement.setAttribute("data-bs-theme", window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      }
+      setTheme();
+      window.matchMedia('(prefers-color-scheme: dark)').onchange = setTheme;
+    </script>
+    <link rel="preload" href="bootstrap.bundle.js" as="script" fetchpriority="high">
+  </head>
+  <body class="color-scheme-main">
+    <noscript>
+      <h3 class="text-center">Javascript Is Disabled. Some Features May Not Work As Intended</h>
+        <h5 class="text-center">Click <a href="https://www.wikihow.com/Enable-JavaScript" target="_blank">Here</a> If You Don't Know How To
+          Enable It</h5>
+    </noscript>
+    <app-root></app-root>
+    <script src="bootstrap.bundle.js" defer></script>
+  </body>
 </html>

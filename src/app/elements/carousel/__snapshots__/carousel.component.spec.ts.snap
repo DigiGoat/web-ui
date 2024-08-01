@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CarouselComponent With Images With a configured link should match the snapshot 1`] = `
+<app-carousel
+  carousel={[Function Object]}
+  carouselElement={[Function _ElementRef]}
+  configService={[Function Object]}
+  images={[Function Array]}
+  meta={[Function Object]}
+  platformService={[Function PlatformService]}
+>
+  <div
+    class="carousel slide"
+    id="goatImageCarousel"
+    test-id="carousel"
+  >
+    <div
+      class="carousel-indicators"
+    >
+      <button
+        aria-current="true"
+        aria-label="Slide 0"
+        class="active"
+        data-bs-slide-to="0"
+        data-bs-target="#goatImageCarousel"
+        test-id="image-tab"
+        type="button"
+      />
+      <button
+        aria-current="false"
+        aria-label="Slide 1"
+        data-bs-slide-to="1"
+        data-bs-target="#goatImageCarousel"
+        test-id="image-tab"
+        type="button"
+      />
+    </div>
+    <div
+      class="carousel-inner d-flex align-items-center color-scheme-secondary"
+      style="max-height: 75vh;"
+    >
+      <div
+        class="carousel-item active"
+      >
+        <img
+          alt="undefined"
+          class="object-fit-contain w-100"
+          height="400"
+          test-id="image"
+          width="640"
+        />
+      </div>
+      <div
+        class="carousel-item"
+      >
+        <img
+          alt="TEST_ALT_1"
+          class="object-fit-contain w-100"
+          height="400"
+          test-id="image"
+          width="640"
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      data-bs-slide="prev"
+      data-bs-target="#goatImageCarousel"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="carousel-control-prev-icon"
+        test-id="control-icons"
+      />
+      <span
+        class="visually-hidden"
+      >
+        Previous
+      </span>
+    </button>
+    <button
+      class="carousel-control-next"
+      data-bs-slide="next"
+      data-bs-target="#goatImageCarousel"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="carousel-control-next-icon"
+        test-id="control-icons"
+      />
+      <span
+        class="visually-hidden"
+      >
+        Next
+      </span>
+    </button>
+  </div>
+</app-carousel>
+`;
+
+exports[`CarouselComponent With Images Without a configured link should match the snapshot 1`] = `
+<app-carousel
+  carousel={[Function Object]}
+  carouselElement={[Function _ElementRef]}
+  configService={[Function Object]}
+  images={[Function Array]}
+  meta={[Function Object]}
+  platformService={[Function PlatformService]}
+>
+  <div
+    class="carousel slide"
+    id="goatImageCarousel"
+    test-id="carousel"
+  >
+    <div
+      class="carousel-indicators"
+    >
+      <button
+        aria-current="true"
+        aria-label="Slide 0"
+        class="active"
+        data-bs-slide-to="0"
+        data-bs-target="#goatImageCarousel"
+        test-id="image-tab"
+        type="button"
+      />
+      <button
+        aria-current="false"
+        aria-label="Slide 1"
+        data-bs-slide-to="1"
+        data-bs-target="#goatImageCarousel"
+        test-id="image-tab"
+        type="button"
+      />
+    </div>
+    <div
+      class="carousel-inner d-flex align-items-center color-scheme-secondary"
+      style="max-height: 75vh;"
+    >
+      <div
+        class="carousel-item active"
+      >
+        <img
+          alt="undefined"
+          class="object-fit-contain w-100"
+          height="400"
+          test-id="image"
+          width="640"
+        />
+      </div>
+      <div
+        class="carousel-item"
+      >
+        <img
+          alt="TEST_ALT_1"
+          class="object-fit-contain w-100"
+          height="400"
+          test-id="image"
+          width="640"
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      data-bs-slide="prev"
+      data-bs-target="#goatImageCarousel"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="carousel-control-prev-icon"
+        test-id="control-icons"
+      />
+      <span
+        class="visually-hidden"
+      >
+        Previous
+      </span>
+    </button>
+    <button
+      class="carousel-control-next"
+      data-bs-slide="next"
+      data-bs-target="#goatImageCarousel"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="carousel-control-next-icon"
+        test-id="control-icons"
+      />
+      <span
+        class="visually-hidden"
+      >
+        Next
+      </span>
+    </button>
+  </div>
+</app-carousel>
+`;

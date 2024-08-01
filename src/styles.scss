@@ -14,3 +14,10 @@
   opacity: 90%;
   transition: opacity 1s ease-in !important;
 }
+
+.not-found {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: inline-block;
+}

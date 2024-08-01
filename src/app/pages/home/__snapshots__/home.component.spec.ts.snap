@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomeComponent should render 1`] = `
+exports[`HomeComponent With a config should match the snapshot 1`] = `
 <app-home
   config={[Function Object]}
+  description={[Function String]}
+  meta={[Function _Meta]}
 >
   <div
     class="w-100 text-center"
@@ -10,21 +12,24 @@ exports[`HomeComponent should render 1`] = `
     <img
       alt="Farm Logo"
       class="text-center"
-      height="150"
+      height="300"
       ngsrc="./assets/icons/android-chrome-192x192.png"
       priority=""
-      width="150"
+      width="300"
     />
   </div><h1
     class="text-center"
+    test-id="title"
   >
     TEST_TITLE
   </h1><h5
     class="text-center"
+    test-id="owner"
   >
     TEST_OWNER
   </h5><h6
     class="text-center"
+    test-id="email"
   >
     <a
       href="mailto:TEST_EMAIL"
@@ -36,9 +41,54 @@ exports[`HomeComponent should render 1`] = `
   >
     <p
       class="text-center"
+      test-id="description"
     >
       TEST_DESCRIPTION
     </p>
+  </div>
+</app-home>
+`;
+
+exports[`HomeComponent Without a config should match the snapshot 1`] = `
+<app-home
+  config={[Function Object]}
+  description=""
+  meta={[Function _Meta]}
+>
+  <div
+    class="w-100 text-center"
+  >
+    <img
+      alt="Farm Logo"
+      class="text-center"
+      height="300"
+      ngsrc="./assets/icons/android-chrome-192x192.png"
+      priority=""
+      width="300"
+    />
+  </div><h1
+    class="text-center"
+    test-id="title"
+  >
+  </h1><h5
+    class="text-center"
+    test-id="owner"
+  >
+  </h5><h6
+    class="text-center"
+    test-id="email"
+  >
+    <a
+      href="mailto:"
+    >
+    </a>
+  </h6><div
+    class="container"
+  >
+    <p
+      class="text-center"
+      test-id="description"
+    />
   </div>
 </app-home>
 `;

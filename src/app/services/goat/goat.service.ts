@@ -3,27 +3,23 @@ import { retry } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PlatformService } from '../platform/platform.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoatService {
-  private readonly urlPrefix = this.platformService.isServer ? 'http://localhost:4200' : '';
-
-
-  constructor(private http: HttpClient, private platformService: PlatformService) { }
+  constructor(private http: HttpClient) { }
   private _does: Goat[] = [];
   public does = new Observable<Goat[]>(observer => {
     if (this._does.length) {
       console.debug('Loaded Does From Cache', this._does);
       observer.next(this._does);
     } else {
-      this.http.get<Goat[]>(this.urlPrefix + '/assets/resources/does.json')
+      this.http.get<Goat[]>('./assets/resources/does.json')
         .pipe(
           retry(3), // retry a failed request up to 3 times
-      )
+        )
         .subscribe({
           next: data => {
             this._does = data;
@@ -52,7 +48,7 @@ export class GoatService {
       console.debug('Loaded Bucks From Cache', this._bucks);
       observer.next(this._bucks);
     } else {
-      this.http.get<Goat[]>(this.urlPrefix + '/assets/resources/bucks.json')
+      this.http.get<Goat[]>('./assets/resources/bucks.json')
         .pipe(
           retry(3), // retry a failed request up to 3 times
         )
@@ -87,7 +83,7 @@ export type Goat = {
   normalizeId: string;
   dateOfBirth: string;
   colorAndMarking?: string;
-  animalTattoo?: [{ tattoo: string; tattooLocation: { name: string; }; }, { tattoo: string; tattooLocation: { name: string; }; }];
+  animalTattoo?: [{ tattoo?: string; tattooLocation?: { name?: string; }; }, { tattoo?: string; tattooLocation?: { name?: string; }; }];
 };
 export const Goat = {
   nickname: 'Your Goats Farm Name',

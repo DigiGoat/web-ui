@@ -14,25 +14,42 @@ export class ImageService {
     const key = Object.keys(this.imageMap).find(directory => searchQueries.includes(directory));
     if (key && this.imageMap[key].length) {
       const image = this.imageMap[key][0];
-      return { ...image, file: `/assets/images/${key}/${image.file}` };
+      return { ...image, file: `./assets/images/${key}/${image.file}` };
     }
-    return this.NotFound;
+    //Intentionally give an invalid link
+    return { ...this.NotFound, file: '/' };
   }
   getImages(searchQueries: (string | undefined)[]) {
-    const key = Object.keys(this.imageMap).find(directory => searchQueries.includes(directory));
-    if (key && this.imageMap[key].length) {
-      const images = this.imageMap[key].map(image => { return { ...image, file: `/assets/images/${key}/${image.file}` }; });
+    const keys = Object.keys(this.imageMap).filter(directory => searchQueries.includes(directory));
+    console.log('keys:', keys);
+    if (keys.length > 1) {
+      const images = [];
+      for (const key of keys) {
+        if (this.imageMap[key].length) {
+          images.push(...this.imageMap[key].map(image => { return { ...image, file: `./assets/images/${key}/${image.file}` }; }));
+        }
+      }
       return images;
+    } else if (keys.length) {
+      const key = keys[0];
+      if (this.imageMap[key].length) {
+        return this.imageMap[key].map(image => { return { ...image, file: `./assets/images/${key}/${image.file}` }; });
+      } else {
+        //Intentionally give an invalid link
+        return [{ ...this.NotFound, file: '/' }];
+      }
+    } else {
+      //Intentionally give an invalid link
+      return [{ ...this.NotFound, file: '/' }];
     }
-    return [this.NotFound];
   }
 
-  public readonly NotFound: ImageEntry = { file: '/assets/images/ImageNotFound.png', description: 'The Requested Image Does Not Exist' };
+  public readonly NotFound: ImageEntry = { file: './assets/images/ImageNotFound.png', alt: 'The Requested Image Does Not Exist' };
 }
 type ImageMap = {
   [directory: string]: ImageEntry[];
 };
 export type ImageEntry = {
   file: string,
-  description?: string;
+  alt?: string;
 };

@@ -1,37 +1,29 @@
-<h5 class="card-title text-center">{{name}}</h5>
-<h6 class="card-subtitle mb-2 text-center">"{{nickname}}"</h6>
+<h5 class="card-title text-center" *ngIf="name" test-id="name">{{name}}</h5>
+<h6 class="card-subtitle mb-2 text-center" *ngIf="nickname" test-id="nickname">"{{nickname}}"</h6>
 <div class="card-header color-scheme-quaternary">
-  <div #carousel id="goatImageCarousel" class="carousel slide">
-    <div class="carousel-indicators">
-      <button *ngFor="let image of images; index as i" type="button" data-bs-target="#goatImageCarousel" [class.active]="i === 0"
-        [attr.aria-current]="i === 0" attr.aria-label="Slide {{i}}" [attr.data-bs-slide-to]="i"></button>
-    </div>
-    <div class="carousel-inner d-flex align-items-center color-scheme-secondary" style="max-height: 75vh;">
-      <div *ngFor="let image of images; index as i" class="carousel-item" [class.active]="i === 0">
-        <img [ngSrc]="image.file" [alt]="image.description" width="640" height="400" class="object-fit-contain w-100"
-          [priority]="i < 2 || i === images!.length-1">
+  <app-carousel [images]="images" test-id="carousel"></app-carousel>
+  <div class="card-text text-center container color-scheme-tertiary rounded-bottom">
+    <div class="text-capitalize">
+      <div *ngIf="born">
+        <span class="fw-bold">Born</span>: <span class="fw-light" test-id="born">{{born | date:'longDate'}}</span>
+        <br>
+      </div>
+      <div *ngIf="id">
+        <span class="fw-bold">ID</span>: <span class="fw-light" test-id="id">{{id}}</span>
+        <br>
+      </div>
+      <div *ngIf="animalTattoos?.length">
+        <span class="fw-bold">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos" test-id="tattoo">
+          <span *ngIf="animalTattoo.tattooLocation?.name && animalTattoo.tattoo">
+            {{animalTattoo.tattooLocation?.name}}:<span class="fw-light">{{animalTattoo.tattoo}}</span>
+          </span>
+        </span>
+        <br>
+      </div>
+      <div *ngIf="colorAndMarking">
+        <span class="fw-bold">Markings</span>: <span class="fw-light" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#goatImageCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#goatImageCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <div class="card-text text-center container color-scheme-tertiary rounded-bottom">
-    <div class="text-capitalize"><span class="fw-bolder">Born</span>: <span class="fw-lighter">{{born | date:'longDate'}}</span>
-      <br>
-      <span class="fw-bolder">ID</span>: <span class="fw-lighter">{{id}}</span>
-      <br>
-      <span class="fw-bolder">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos">
-        {{animalTattoo.tattooLocation.name}}:<span class="fw-lighter">{{animalTattoo.tattoo}}</span>
-      </span>
-      <br>
-      <span class="fw-bolder">Markings</span>: <span class="fw-lighter">{{colorAndMarking?.toLowerCase()}}</span>
-    </div>
-    {{description}}
+    <span test-id="description" *ngIf="description">{{description}}</span>
   </div>
 </div>
