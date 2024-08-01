@@ -5,23 +5,23 @@
   <div class="card-text text-center container color-scheme-tertiary rounded-bottom">
     <div class="text-capitalize">
       <div *ngIf="born">
-        <span class="fw-bolder">Born</span>: <span class="fw-lighter" test-id="born">{{born | date:'longDate'}}</span>
+        <span class="fw-bold">Born</span>: <span class="fw-light" test-id="born">{{born | date:'longDate'}}</span>
         <br>
       </div>
       <div *ngIf="id">
-        <span class="fw-bolder">ID</span>: <span class="fw-lighter" test-id="id">{{id}}</span>
+        <span class="fw-bold">ID</span>: <span class="fw-light" test-id="id">{{id}}</span>
         <br>
       </div>
       <div *ngIf="animalTattoos?.length">
-        <span class="fw-bolder">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos" test-id="tattoo">
+        <span class="fw-bold">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos" test-id="tattoo">
           <span *ngIf="animalTattoo.tattooLocation?.name && animalTattoo.tattoo">
-            {{animalTattoo.tattooLocation?.name}}:<span class="fw-lighter">{{animalTattoo.tattoo}}</span>
+            {{animalTattoo.tattooLocation?.name}}:<span class="fw-light">{{animalTattoo.tattoo}}</span>
           </span>
         </span>
         <br>
       </div>
       <div *ngIf="colorAndMarking">
-        <span class="fw-bolder">Markings</span>: <span class="fw-lighter" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
+        <span class="fw-bold">Markings</span>: <span class="fw-light" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
       </div>
     </div>
     <span test-id="description" *ngIf="description">{{description}}</span>

@@ -134,7 +134,7 @@ exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
     >
       <img
         alt="Loading..."
-        class="card-img-top rounded border"
+        class="card-img-top rounded border placeholder"
         height="200"
         test-id="placeholder-image"
         width="400"

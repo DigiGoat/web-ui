@@ -1,3 +1,8 @@
+## 1.0.1-beta.23
+* Placeholder affects properly display on images while loading goats
+* Goat details (id, date of birth, etc.) now appear with more contrast (they are much easier to read in light mode now)
+* Better detection for goat's images
+
 ## 1.0.1-beta.22
 * Made the bootstrap bundle cachable and high priority
 
