@@ -123,8 +123,8 @@ describe('GoatCardComponent', () => {
     it('should display tattoos', () => {
       const element = html.querySelectorAll('[test-id=tattoo]');
       expect(element).toHaveLength(2);
-      expect(element[0].innerHTML).toContain('<span> TEST_LOCATION_1:<span class="fw-lighter">TEST_TATTOO_1</span></span>');
-      expect(element[1].innerHTML).toContain('<span> TEST_LOCATION_2:<span class="fw-lighter">TEST_TATTOO_2</span></span>');
+      expect(element[0].innerHTML).toContain('<span> TEST_LOCATION_1:<span class="fw-light">TEST_TATTOO_1</span></span>');
+      expect(element[1].innerHTML).toContain('<span> TEST_LOCATION_2:<span class="fw-light">TEST_TATTOO_2</span></span>');
     });
     it('should display markings', () => {
       const element = html.querySelector('[test-id=markings]');
