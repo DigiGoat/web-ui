@@ -1,8 +1,12 @@
-<h5 class="card-title text-center" *ngIf="name" test-id="name">{{name}}</h5>
-<h6 class="card-subtitle mb-2 text-center" *ngIf="nickname" test-id="nickname">"{{nickname}}"</h6>
-<div class="card-header color-scheme-quaternary">
+<div class="card-header color-scheme-tertiary">
+  <h5 class="card-title text-center" *ngIf="name" test-id="name">{{name}}</h5>
+  <h6 class="card-subtitle mb-2 text-center" *ngIf="nickname" test-id="nickname">"{{nickname}}"</h6>
+</div>
+<div class="card-body color-scheme-quaternary">
   <app-carousel [images]="images" test-id="carousel"></app-carousel>
-  <div class="card-text text-center container color-scheme-tertiary rounded-bottom">
+</div>
+<div class="card-footer color-scheme-tertiary">
+  <div class="card-text text-center container rounded-bottom">
     <div class="text-capitalize">
       <div *ngIf="born">
         <span class="fw-bold">Born</span>: <span class="fw-light" test-id="born">{{born | date:'longDate'}}</span>
