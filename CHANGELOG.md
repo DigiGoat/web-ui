@@ -1,3 +1,6 @@
+# 2.0.0-beta.1
+* Added A Pedigree On Each Does Page
+  * This will utilize `related` goats and find the ones that match
 # 1.0.1
 * First fully stable version!
 
