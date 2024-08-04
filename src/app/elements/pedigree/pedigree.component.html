@@ -1,0 +1,89 @@
+<div class="text-center mt-4">
+  <div class="container border rounded-4 desktop-grid" *ngIf="goat.damId || goat.sireId">
+    <div class="row row-cols-2 border-bottom">
+      <span class="col border-end border-3 fw-bolder">Dam:</span>
+      <span class="col fw-bolder">Sire:</span>
+    </div>
+    <div class="row row-cols-2 border-bottom border-3" *ngIf="dam || sire">
+      <span class="col border-end border-3">{{dam?.name}}</span>
+      <span class="col">{{sire?.name}}</span>
+    </div>
+    <div class="row row-cols-2 border-bottom border-3" *ngIf="!dam && !sire">
+      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+    </div>
+    <div class="row row-cols-4 border-bottom">
+      <span class="col fw-bolder border-end border-3">Dam's Dam:</span>
+      <span class="col fw-bolder border-end border-5">Dam's Sire:</span>
+      <span class="col fw-bolder border-end border-3">Sire's Dam:</span>
+      <span class="col fw-bolder ">Sire's Sire:</span>
+    </div>
+    <div class="row row-cols-4" *ngIf="damDam || damSire || sireDam || sireSire">
+      <span class="col border-end border-3">{{damDam?.name}}</span>
+      <span class="col border-end border-5">{{damSire?.name}}</span>
+      <span class="col border-end border-3">{{sireDam?.name}}</span>
+      <span class="col">{{sireSire?.name}}</span>
+    </div>
+    <div class="row row-cols-4" *ngIf="!damDam && !damSire && !sireDam && !sireSire">
+      <span class="col border-end border-3 placeholder-wave placeholder">lorem <br><small>ipsum</small>
+      </span>
+      <span class="col border-end border-5 placeholder-wave placeholder">lorem <br><small>ipsum</small>
+      </span>
+      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+      <span class="col placeholder placeholder-wave">lorem <br><small>ipsum</small>
+      </span>
+    </div>
+  </div>
+  <div class="container border rounded-4 mobile-grid" *ngIf="goat.damId">
+    <div class="row row-cols-1 border-bottom">
+      <span class="col">Dam:</span>
+    </div>
+    <div class="row row-cols-1 border-bottom border-3" *ngIf="dam">
+      <span class="col">{{dam.name}}</span>
+    </div>
+    <div class="row row-cols-1 border-bottom border-3" *ngIf="!dam">
+      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+    </div>
+    <div class="row row-cols-2 border-bottom">
+      <span class="colborder-end border-3">Dam's Dam:</span>
+      <span class="col ">Dam's Sire:</span>
+    </div>
+    <div class="row row-cols-2" *ngIf="damDam || damSire">
+      <span class="col border-end border-3">{{damDam?.name}}</span>
+      <span class="col">{{damSire?.name}} </span>
+    </div>
+    <div class="row row-cols-2" *ngIf="!damDam && !damSire">
+      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+    </div>
+  </div>
+  <br *ngIf="goat.damId && goat.sireId">
+  <div class="container border rounded-4 mobile-grid" *ngIf="goat.sireId">
+    <div class="row row-cols-1 border-bottom">
+      <span class="col">Sire:</span>
+    </div>
+    <div class="row row-cols-1 border-bottom border-3" *ngIf="sire">
+      <span class="col">{{sire.name}}</span>
+    </div>
+    <div class="row row-cols-1 border-bottom border-3" *ngIf="!sire">
+      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+    </div>
+    <div class="row row-cols-2 border-bottom">
+      <span class="col border-end border-3">Sire's Dam:</span>
+      <span class="col">Sire's Sire:</span>
+    </div>
+    <div class="row row-cols-2" *ngIf="sireDam || sireSire">
+      <span class="col border-end border-3">{{sireDam?.name}} </span>
+      <span class="col">{{sireSire?.name}} </span>
+    </div>
+    <div class="row row-cols-2" *ngIf="!sireDam && !sireSire">
+      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+    </div>
+  </div>
+</div>

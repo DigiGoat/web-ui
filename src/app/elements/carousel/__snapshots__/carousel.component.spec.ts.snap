@@ -36,7 +36,7 @@ exports[`CarouselComponent With Images With a configured link should match the s
       />
     </div>
     <div
-      class="carousel-inner d-flex align-items-center color-scheme-secondary"
+      class="carousel-inner d-flex align-items-center"
       style="max-height: 75vh;"
     >
       <div
@@ -136,7 +136,7 @@ exports[`CarouselComponent With Images Without a configured link should match th
       />
     </div>
     <div
-      class="carousel-inner d-flex align-items-center color-scheme-secondary"
+      class="carousel-inner d-flex align-items-center"
       style="max-height: 75vh;"
     >
       <div

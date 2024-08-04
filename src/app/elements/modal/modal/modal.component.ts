@@ -10,7 +10,7 @@ import { PlatformService } from '../../../services/platform/platform.service';
 })
 export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
   prerender = false;
-  @Input() goat?: Partial<Goat>;
+  @Input() goat?: Goat;
   @Input({ required: true }) searchParam!: string;
 
   constructor(public router: Router, public route: ActivatedRoute, private platformService: PlatformService) { }

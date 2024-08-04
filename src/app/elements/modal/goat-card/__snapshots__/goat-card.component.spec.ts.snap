@@ -14,24 +14,32 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
   name={[Function String]}
   nickname={[Function String]}
 >
-  <h5
-    class="card-title text-center"
-    test-id="name"
+  <div
+    class="card-header color-scheme-tertiary"
   >
-    TEST_NAME
-  </h5><h6
-    class="card-subtitle mb-2 text-center"
-    test-id="nickname"
-  >
-    "TEST_NICKNAME"
-  </h6><div
-    class="card-header color-scheme-quaternary"
+    <h5
+      class="card-title text-center"
+      test-id="name"
+    >
+      TEST_NAME
+    </h5>
+    <h6
+      class="card-subtitle mb-2 text-center"
+      test-id="nickname"
+    >
+      "TEST_NICKNAME"
+    </h6>
+  </div><div
+    class="card-body color-scheme-quaternary"
   >
     <app-carousel
       test-id="carousel"
     />
+  </div><div
+    class="card-footer color-scheme-tertiary"
+  >
     <div
-      class="card-text text-center container color-scheme-tertiary rounded-bottom"
+      class="card-text text-center container rounded-bottom"
     >
       <div
         class="text-capitalize"
@@ -120,6 +128,7 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
         TEST_DESCRIPTION
       </span>
     </div>
+    <app-pedigree />
   </div>
 </app-modal-goat-card>
 `;
@@ -139,19 +148,26 @@ exports[`GoatCardComponent With an Empty Goat should match the snapshot 1`] = `
   nickname="undefined"
 >
   <div
-    class="card-header color-scheme-quaternary"
+    class="card-header color-scheme-tertiary"
+  >
+  </div><div
+    class="card-body color-scheme-quaternary"
   >
     <app-carousel
       test-id="carousel"
     />
+  </div><div
+    class="card-footer color-scheme-tertiary"
+  >
     <div
-      class="card-text text-center container color-scheme-tertiary rounded-bottom"
+      class="card-text text-center container rounded-bottom"
     >
       <div
         class="text-capitalize"
       >
       </div>
     </div>
+    <app-pedigree />
   </div>
 </app-modal-goat-card>
 `;
