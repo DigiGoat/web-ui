@@ -74,17 +74,53 @@ export class GoatService {
         });
     }
   });
+  private _related: Goat[] = [];
+  public related = new Observable<Goat[]>(observer => {
+    if (this._related.length) {
+      console.debug('Loaded Related Goats From Cache', this._related);
+      observer.next(this._related);
+    } else {
+      this.http.get<Goat[]>('./assets/resources/related.json')
+        .pipe(
+          retry(3), // retry a failed request up to 3 times
+        )
+        .subscribe({
+          next: data => {
+            this._related = data;
+            console.debug('Loaded Relatives From Server', data);
+            observer.next(data);
+          },
+          error: err => {
+            if (err.status === 0) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.warn('An error occurred:', err.error);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong.
+              console.warn(
+                `Backend returned code ${err.status}, body was: `, err.error);
+            }
+            // Return an observable with a user-facing error message.
+            observer.error(err);
+          }
+        });
+    }
+  });
 }
 //export type Goat = (OwnedGoats['result']['items'][number] & { nickname: string; description: string; awards: Awards['result']['items']; colorAndMarking: string; /*obtained?: string;*/ });
-export type Goat = {
-  nickname?: string;
+export type Goat = Partial<{
+  nickname: string;
   name: string;
-  description?: string;
+  description: string;
   normalizeId: string;
   dateOfBirth: string;
-  colorAndMarking?: string;
-  animalTattoo?: [{ tattoo?: string; tattooLocation?: { name?: string; }; }, { tattoo?: string; tattooLocation?: { name?: string; }; }];
-};
+  colorAndMarking: string;
+  animalTattoo: { tattoo?: string; tattooLocation?: { name?: string; }; }[];
+  id: number;
+  sex: 'Female' | 'Male';
+  damId?: number;
+  sireId?: number;
+}>;
 export const Goat = {
   nickname: 'Your Goats Farm Name',
   name: 'YOUR GOATS ADGA NAME',

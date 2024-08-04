@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DoesComponent should match the snapshot 1`] = `
+<app-pedigree
+  dam="undefined"
+  damDam="undefined"
+  damSire="undefined"
+  goat={[Function Object]}
+  goatService={[Function Object]}
+  sire="undefined"
+  sireDam="undefined"
+  sireSire="undefined"
+>
+  <div
+    class="text-center mt-4"
+  >
+    <br />
+  </div>
+</app-pedigree>
+`;

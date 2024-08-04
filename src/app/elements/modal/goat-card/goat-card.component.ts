@@ -11,7 +11,7 @@ import { ImageService, type ImageEntry } from '../../../services/image/image.ser
   styleUrl: './goat-card.component.scss'
 })
 export class GoatCardComponent implements OnInit, Page {
-  @Input({ required: true }) goat?: Partial<Goat>;
+  @Input({ required: true }) goat!: Goat;
 
   constructor(public imageService: ImageService, private meta: Meta) { }
   setDescription(): void | Observable<void> {
