@@ -2,7 +2,7 @@
 import axios from 'axios';
 import chalk from 'chalk';
 import { readFile } from 'fs/promises';
-import { lte } from 'semver';
+import { lte, major } from 'semver';
 import Git from 'simple-git';
 import packageJson from '../package.json';
 
@@ -54,10 +54,19 @@ async function checkSensitiveFiles() {
   log.debug('Diff Summary', diffSummary);
   const sensitiveFiles = diffSummary.files.filter(file => file.file.startsWith('src/assets/'));
   if (sensitiveFiles.length > 0) {
-    log.error('Sensitive files have been modified in this pull request');
-    summary.push(`- [ ] Sensitive Files Check: Sensitive files modified (\`${sensitiveFiles.map(file => file.file).join(', ')}\`)`);
-    sensitiveFiles.forEach(file => log.warn('Sensitive file modified:', file));
-    success = false;
+    const version = JSON.parse(await git.show(`${origin}:package.json`)).version;
+    log.debug('Old version', version);
+    log.debug('New version', packageJson.version);
+    if (major(packageJson.version) > major(version)) {
+      log.warn('Sensitive files have been modified in this major version bump');
+      summary.push(`- [x] Sensitive Files Check: Sensitive files modified - Ignored Due To Major Version Bump (\`${sensitiveFiles.map(file => file.file).join(', ')}\`)`);
+      sensitiveFiles.forEach(file => log.warn('Sensitive file modified:', file));
+    } else {
+      log.error('Sensitive files have been modified in this pull request');
+      summary.push(`- [ ] Sensitive Files Check: Sensitive files modified (\`${sensitiveFiles.map(file => file.file).join(', ')}\`)`);
+      sensitiveFiles.forEach(file => log.warn('Sensitive file modified:', file));
+      success = false;
+    }
   } else {
     summary.push('- [x] Sensitive Files Check: No sensitive files modified');
   }
