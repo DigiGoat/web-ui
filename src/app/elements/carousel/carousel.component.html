@@ -3,7 +3,7 @@
     <button *ngFor="let image of images; index as i" type="button" data-bs-target="#goatImageCarousel" [class.active]="i === 0"
       [attr.aria-current]="i === 0" attr.aria-label="Slide {{i}}" [attr.data-bs-slide-to]="i" test-id="image-tab"></button>
   </div>
-  <div class="carousel-inner d-flex align-items-center color-scheme-secondary" style="max-height: 75vh;">
+  <div class="carousel-inner d-flex align-items-center" style="max-height: 75vh;">
     <div *ngFor="let image of images; index as i" class="carousel-item" [class.active]="i === 0">
       <img [ngSrc]="image.file" [alt]="image.alt" width="640" height="400" class="object-fit-contain w-100"
         [priority]="i < 2 || i === images!.length-1" test-id="image">

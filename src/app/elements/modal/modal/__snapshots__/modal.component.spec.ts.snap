@@ -25,7 +25,7 @@ exports[`ModalComponent With a Goat should match the snapshot 1`] = `
         class="modal-content"
       >
         <div
-          class="modal-header color-scheme-tertiary"
+          class="modal-header color-scheme-secondary"
         >
           <h1
             class="modal-title fs-5"
@@ -42,14 +42,15 @@ exports[`ModalComponent With a Goat should match the snapshot 1`] = `
           />
         </div>
         <div
-          class="modal-body color-scheme-quaternary card"
+          class="modal-body color-scheme-main"
         >
           <app-modal-goat-card
+            class="card"
             test-id="goat-card"
           />
         </div>
         <div
-          class="modal-footer color-scheme-tertiary"
+          class="modal-footer color-scheme-secondary"
         >
           <button
             class="btn btn-secondary"
@@ -89,7 +90,7 @@ exports[`ModalComponent Without a Goat should match the snapshot 1`] = `
         class="modal-content"
       >
         <div
-          class="modal-header color-scheme-tertiary"
+          class="modal-header color-scheme-secondary"
         >
           <h1
             class="modal-title fs-5"
@@ -106,14 +107,14 @@ exports[`ModalComponent Without a Goat should match the snapshot 1`] = `
           />
         </div>
         <div
-          class="modal-body color-scheme-quaternary card"
+          class="modal-body color-scheme-main"
         >
           <app-modal-not-found
             test-id="not-found"
           />
         </div>
         <div
-          class="modal-footer color-scheme-tertiary"
+          class="modal-footer color-scheme-secondary"
         >
           <button
             class="btn btn-secondary"

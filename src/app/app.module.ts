@@ -12,13 +12,14 @@ import { GoatsComponent } from './elements/goats/goats.component';
 import { GoatCardComponent as GoatCardModalComponent } from './elements/modal/goat-card/goat-card.component';
 import { ModalComponent } from './elements/modal/modal/modal.component';
 import { NotFoundComponent as NotFoundModalComponent } from './elements/modal/not-found/not-found.component';
+import { PedigreeComponent } from './elements/pedigree/pedigree.component';
 import { AnalyticsComponent } from './features/analytics/analytics.component';
+import { ColorSchemeComponent } from './features/color-scheme/color-scheme.component';
 import { BucksComponent } from './pages/bucks/bucks.component';
 import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AgePipe } from './pipes/age.pipe';
-import { ColorSchemeComponent } from './features/color-scheme/color-scheme.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ColorSchemeComponent } from './features/color-scheme/color-scheme.compo
     ImgDirective,
     CarouselComponent,
     AnalyticsComponent,
-    ColorSchemeComponent
+    ColorSchemeComponent,
+    PedigreeComponent
   ],
   imports: [
     BrowserModule,
