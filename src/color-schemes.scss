@@ -49,9 +49,7 @@
 
 /**Colors for devices in light mode*/
 @include color-mode(light) {
-  :root {
-    --bs-link-color-rgb: 10, 85, 195 !important;
-  }
+  --bs-link-color-rgb: 10, 85, 195 !important;
 
   .muted {
     color: --bs-secondary-color !important;
