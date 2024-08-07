@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, type OnInit } from '@angular/core';
 import { type Goat, GoatService } from '../../services/goat/goat.service';
 
@@ -25,5 +26,13 @@ export class PedigreeComponent implements OnInit {
       this.sireSire = goats.find(goat => goat.id === this.sire?.sireId);
     }
     );
+  }
+  getPopoverContent(goat?: Goat) {
+    const datePipe = new DatePipe('en-US');
+    return `<div>
+        <span class="fw-bold">Born</span>: <span class="fw-light">${datePipe.transform(goat?.dateOfBirth, 'longDate')}</span>
+        <br>
+        <span class="fw-bold">ID</span>: <span class="fw-light">${goat?.normalizeId}</span>
+      </div>`;
   }
 }
