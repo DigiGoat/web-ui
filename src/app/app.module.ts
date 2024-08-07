@@ -6,6 +6,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ImgDirective } from './directives/img/img.directive';
+import { PopoverDirective } from './directives/popover/popover.directive';
 import { CarouselComponent } from './elements/carousel/carousel.component';
 import { GoatCardComponent } from './elements/goat-card/goat-card.component';
 import { GoatsComponent } from './elements/goats/goats.component';
@@ -39,7 +40,8 @@ import { AgePipe } from './pipes/age.pipe';
     CarouselComponent,
     AnalyticsComponent,
     ColorSchemeComponent,
-    PedigreeComponent
+    PedigreeComponent,
+    PopoverDirective
   ],
   imports: [
     BrowserModule,

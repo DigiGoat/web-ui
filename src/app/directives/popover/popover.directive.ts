@@ -24,6 +24,9 @@ export class PopoverDirective implements AfterViewInit, OnDestroy {
   @HostBinding('attr.data-bs-trigger') trigger = 'hover focus';
   @HostBinding('attr.data-bs-html') html = true;
   @HostBinding('attr.data-bs-custom-class') customClass = 'bs-popover';
+  @HostBinding('attr.data-bs-placement') placement = 'auto';
+  @HostBinding('attr.data-bs-delay') boundary = '{ "show": 200, "hide": 250 }';
+
   constructor(private el: ElementRef) { }
   ngAfterViewInit(): void {
     this.bsPopover = bootstrap.Popover.getOrCreateInstance(this.el.nativeElement);
