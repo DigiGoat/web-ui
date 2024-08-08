@@ -1,3 +1,9 @@
+# 2.1.0
+* Added the current owner of a goat to the pedigree
+
+## 2.1.0-beta.1
+* Added the current owner to pedigrees!
+
 # 2.0.1
 * Added Popovers To Pedigrees!
 
