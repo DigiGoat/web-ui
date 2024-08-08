@@ -5,8 +5,9 @@
       <span class="col fw-bolder">Sire:</span>
     </div>
     <div class="row row-cols-2 border-bottom border-3" *ngIf="dam || sire">
-      <span class="col border-end border-3">{{dam?.name}}</span>
-      <span class="col">{{sire?.name}}</span>
+      <span class="col border-end border-3" bs-popover popover-title="{{dam?.name}}"
+        [popover-content]="getPopoverContent(dam)">{{dam?.name}}</span>
+      <span class="col" bs-popover popover-title="{{sire?.name}}" [popover-content]="getPopoverContent(sire)">{{sire?.name}}</span>
     </div>
     <div class="row row-cols-2 border-bottom border-3" *ngIf="!dam && !sire">
       <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
@@ -19,10 +20,14 @@
       <span class="col fw-bolder ">Sire's Sire:</span>
     </div>
     <div class="row row-cols-4" *ngIf="damDam || damSire || sireDam || sireSire">
-      <span class="col border-end border-3">{{damDam?.name}}</span>
-      <span class="col border-end border-5">{{damSire?.name}}</span>
-      <span class="col border-end border-3">{{sireDam?.name}}</span>
-      <span class="col">{{sireSire?.name}}</span>
+      <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
+        [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}</span>
+      <span class="col border-end border-5" bs-popover popover-title="{{damSire?.name}}"
+        [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}</span>
+      <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
+        [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}</span>
+      <span class="col" bs-popover popover-title="{{sireSire?.name}}"
+        [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}</span>
     </div>
     <div class="row row-cols-4" *ngIf="!damDam && !damSire && !sireDam && !sireSire">
       <span class="col border-end border-3 placeholder-wave placeholder">lorem <br><small>ipsum</small>
@@ -40,7 +45,7 @@
       <span class="col">Dam:</span>
     </div>
     <div class="row row-cols-1 border-bottom border-3" *ngIf="dam">
-      <span class="col">{{dam.name}}</span>
+      <span class="col" bs-popover popover-title="{{dam.name}}" [popover-content]="getPopoverContent(dam)">{{dam.name}}</span>
     </div>
     <div class="row row-cols-1 border-bottom border-3" *ngIf="!dam">
       <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
@@ -50,8 +55,10 @@
       <span class="col ">Dam's Sire:</span>
     </div>
     <div class="row row-cols-2" *ngIf="damDam || damSire">
-      <span class="col border-end border-3">{{damDam?.name}}</span>
-      <span class="col">{{damSire?.name}} </span>
+      <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
+        [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}</span>
+      <span class="col" bs-popover popover-title="{{damSire?.name}}" [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
+      </span>
     </div>
     <div class="row row-cols-2" *ngIf="!damDam && !damSire">
       <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
@@ -66,7 +73,7 @@
       <span class="col">Sire:</span>
     </div>
     <div class="row row-cols-1 border-bottom border-3" *ngIf="sire">
-      <span class="col">{{sire.name}}</span>
+      <span class="col" bs-popover popover-title="{{sire.name}}" [popover-content]="getPopoverContent(sire)">{{sire.name}}</span>
     </div>
     <div class="row row-cols-1 border-bottom border-3" *ngIf="!sire">
       <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
@@ -76,8 +83,10 @@
       <span class="col">Sire's Sire:</span>
     </div>
     <div class="row row-cols-2" *ngIf="sireDam || sireSire">
-      <span class="col border-end border-3">{{sireDam?.name}} </span>
-      <span class="col">{{sireSire?.name}} </span>
+      <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
+        [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}} </span>
+      <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
+      </span>
     </div>
     <div class="row row-cols-2" *ngIf="!sireDam && !sireSire">
       <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>

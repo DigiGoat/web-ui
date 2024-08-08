@@ -1,3 +1,15 @@
+# 2.0.1
+* Added Popovers To Pedigrees!
+
+## 2.0.1-beta.2
+* Fixed the color of links being hovered over in light mode
+
+## 2.0.1-beta.1
+* Added Popovers To Pedigrees!
+  * They currently only show the dateOfBirth and id (owner and other info coming soon (LA scores, milk test, etc.))
+* Fixed the color of links in light mode
+* Increased the contrast when displaying the tattoo location
+
 # 2.0.0
 * Added Pedigrees!
 

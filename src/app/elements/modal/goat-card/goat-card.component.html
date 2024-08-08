@@ -18,7 +18,7 @@
       </div>
       <div *ngIf="animalTattoos?.length">
         <span class="fw-bold">Tattoo</span>: <span *ngFor="let animalTattoo of animalTattoos" test-id="tattoo">
-          <span *ngIf="animalTattoo.tattooLocation?.name && animalTattoo.tattoo">
+          <span *ngIf="animalTattoo.tattooLocation?.name && animalTattoo.tattoo" class="fw-semibold">
             {{animalTattoo.tattooLocation?.name}}:<span class="fw-light">{{animalTattoo.tattoo}}</span>
           </span>
         </span>
