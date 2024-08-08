@@ -88,6 +88,13 @@ describe('ImageService', () => {
       expect(image.file).toEqual(`./assets/images/${name}/${nameFile}`);
       expect(image.alt).toBeUndefined();
     });
+    it('should match images when provided with multiple search queries', () => {
+      const images = service.getImages([name, id, nickname]);
+      expect(images).toHaveLength(3);
+      expect(images[0].file).toEqual(`./assets/images/${id}/${idFile}`);
+      expect(images[1].file).toEqual(`./assets/images/${nickname}/${nicknameFile}`);
+      expect(images[2].file).toEqual(`./assets/images/${name}/${nameFile}`);
+    });
     it('should return notFound if the image is not found', () => {
       const images = service.getImages(['FAKE_ID', 'FAKE_NICKNAME', 'empty']);
       expect(images).toHaveLength(1);
