@@ -84,7 +84,9 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
           <span
             test-id="tattoo"
           >
-            <span>
+            <span
+              class="fw-semibold"
+            >
                TEST_LOCATION_1:
               <span
                 class="fw-light"
@@ -96,7 +98,9 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
           <span
             test-id="tattoo"
           >
-            <span>
+            <span
+              class="fw-semibold"
+            >
                TEST_LOCATION_2:
               <span
                 class="fw-light"

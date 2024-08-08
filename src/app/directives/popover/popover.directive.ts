@@ -1,6 +1,5 @@
 import { Directive, ElementRef, HostBinding, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
-import type { Popover } from 'bootstrap';
-
+import { Popover } from 'bootstrap';
 @Directive({
   selector: '[bs-popover]'
 })
