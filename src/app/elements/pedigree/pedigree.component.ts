@@ -28,6 +28,7 @@ export class PedigreeComponent implements OnInit {
     );
   }
   getPopoverContent(goat?: Goat) {
+    if (!goat) return '';
     const datePipe = new DatePipe('en-US');
     return `<div>
         <span class="fw-bold">Born</span>: <span class="fw-light">${datePipe.transform(goat?.dateOfBirth, 'longDate')}</span>

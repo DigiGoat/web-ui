@@ -1,7 +1,7 @@
 import { ElementRef } from '@angular/core';
 import { PopoverDirective } from './popover.directive';
 
-const bootstrap = { Popover: { getOrCreateInstance: jest.fn().mockReturnValue({ dispose: jest.fn() }) } };
+const bootstrap = { Popover: { getOrCreateInstance: jest.fn().mockReturnValue({ dispose: jest.fn(), setContent: jest.fn() }) } };
 
 describe('PopoverDirective', () => {
   let directive: PopoverDirective;
@@ -38,16 +38,24 @@ describe('PopoverDirective', () => {
     expect(directive.boundary).toBe('{ "show": 200, "hide": 250 }');
   });
 
-  it('should create Bootstrap popover instance on ngAfterViewInit', () => {
-    const popoverSpy = jest.spyOn(bootstrap.Popover, 'getOrCreateInstance');
-    directive.ngAfterViewInit();
-    expect(popoverSpy).toHaveBeenCalledWith(nativeElement);
-  });
-
-  it('should dispose Bootstrap popover instance on ngOnDestroy', () => {
-    directive.ngAfterViewInit();
-    const disposeSpy = jest.spyOn(directive['bsPopover']!, 'dispose');
-    directive.ngOnDestroy();
-    expect(disposeSpy).toHaveBeenCalled();
+  describe('AfterViewInit', () => {
+    beforeEach(() => {
+      directive.ngAfterViewInit();
+    });
+    it('should create Bootstrap popover instance on ngAfterViewInit', () => {
+      expect(bootstrap.Popover.getOrCreateInstance).toHaveBeenCalledWith(nativeElement);
+    });
+    it('should update Bootstrap popover instance on content change', () => {
+      directive.content = 'New Content';
+      expect(directive['bsPopover']!.setContent).toHaveBeenCalledWith({ '.popover-body': 'New Content' });
+    });
+    it('should update Bootstrap popover instance on title change', () => {
+      directive.title = 'New Title';
+      expect(directive['bsPopover']!.setContent).toHaveBeenCalledWith({ '.popover-header': 'New Title' });
+    });
+    it('should dispose Bootstrap popover instance on ngOnDestroy', () => {
+      directive.ngOnDestroy();
+      expect(directive['bsPopover']!.dispose).toHaveBeenCalled();
+    });
   });
 });
