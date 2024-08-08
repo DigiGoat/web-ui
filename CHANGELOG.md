@@ -1,3 +1,6 @@
+# 2.0.1
+* Added Popovers To Pedigrees!
+
 ## 2.0.1-beta.2
 * Fixed the color of links being hovered over in light mode
 
