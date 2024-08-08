@@ -30,17 +30,16 @@ export class PedigreeComponent implements OnInit {
   getPopoverContent(goat?: Goat) {
     if (!goat) return '';
     const datePipe = new DatePipe('en-US');
-    let popover = '<div>';
+    const popover: string[] = [];
     if (goat.dateOfBirth) {
-      popover += `<span class="fw-bold">Born</span>: <span class="fw-light">${datePipe.transform(goat.dateOfBirth, 'longDate')}</span>`;
+      popover.push(`<span class="fw-bold">Born</span>: <span class="fw-light">${datePipe.transform(goat.dateOfBirth, 'longDate')}</span>`);
     }
     if (goat.normalizeId) {
-      popover += `<br><span class="fw-bold">ID</span>: <span class="fw-light">${goat.normalizeId}</span>`;
+      popover.push(`<span class="fw-bold">ID</span>: <span class="fw-light">${goat.normalizeId}</span>`);
     }
     if (goat.ownerAccount?.displayName) {
-      popover += `<br><span class="fw-bold">Owned By</span>: <span class="fw-light">${goat.ownerAccount.displayName}</span>`;
+      popover.push(`<span class="fw-bold">Owned By</span>: <span class="fw-light">${goat.ownerAccount.displayName}</span>`);
     }
-    popover += '</div>';
-    return popover;
+    return `<div>${popover.join('<br>')}</div>`;
   }
 }

@@ -76,14 +76,11 @@ describe('PedigreeComponent', () => {
   describe('getPopoverContent', () => {
     it('should return the popover content with formatted date and ID', () => {
       const goat = {
-        dateOfBirth: '2022-01-01',
-        normalizeId: 'GOAT123'
+        dateOfBirth: 'January 1, 2022',
+        normalizeId: 'GOAT123',
+        ownerAccount: { displayName: 'Owner' }
       };
-      const expectedContent = `<div>
-        <span class="fw-bold">Born</span>: <span class="fw-light">January 1, 2022</span>
-        <br>
-        <span class="fw-bold">ID</span>: <span class="fw-light">GOAT123</span>
-      </div>`;
+      const expectedContent = `<div><span class="fw-bold">Born</span>: <span class="fw-light">${goat.dateOfBirth}</span><br><span class="fw-bold">ID</span>: <span class="fw-light">${goat.normalizeId}</span><br><span class="fw-bold">Owned By</span>: <span class="fw-light">${goat.ownerAccount?.displayName}</span></div>`;
 
       const actualContent = component.getPopoverContent(goat);
 
