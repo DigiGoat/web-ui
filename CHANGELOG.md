@@ -1,3 +1,6 @@
+# 2.1.1-beta.1
+* Fixed the border that would appear around a goat's images in the modal
+
 # 2.1.0
 * Added the current owner of a goat to the pedigree
 
