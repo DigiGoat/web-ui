@@ -93,8 +93,9 @@ describe('GoatCardComponent', () => {
       fixture.detectChanges();
     });
     it('should set a page description', () => {
-      expect(component['meta'].addTag).toHaveBeenCalledTimes(1);
-      expect(component['meta'].addTag).toHaveBeenCalledWith({ content: 'TEST_DESCRIPTION', name: 'description', property: 'og:description' });
+      expect(component['meta'].addTag).toHaveBeenCalledTimes(2);
+      expect(component['meta'].addTag).toHaveBeenNthCalledWith(1, { content: 'TEST_DESCRIPTION', property: 'og:description' });
+      expect(component['meta'].addTag).toHaveBeenNthCalledWith(2, { content: 'TEST_DESCRIPTION', name: 'description' });
     });
     it('should display a name', () => {
       const element = html.querySelector('[test-id=name]');
