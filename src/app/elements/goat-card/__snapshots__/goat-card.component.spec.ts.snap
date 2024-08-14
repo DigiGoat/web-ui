@@ -3,14 +3,12 @@
 exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = `
 <app-goat-card
   born={[Function String]}
-  configService={[Function ConfigService]}
   description={[Function String]}
   goat={[Function Object]}
   id={[Function String]}
   identifier={[Function String]}
   image={[Function Object]}
   imageService={[Function ImageService]}
-  meta={[Function _Meta]}
   name={[Function String]}
   nickname={[Function String]}
 >
@@ -74,14 +72,12 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
 exports[`GoatCardComponent With an empty Goat should match the snapshot 1`] = `
 <app-goat-card
   born="undefined"
-  configService={[Function ConfigService]}
   description="undefined"
   goat={[Function Object]}
   id="undefined"
   identifier="undefined"
   image={[Function Object]}
   imageService={[Function ImageService]}
-  meta={[Function _Meta]}
   name="undefined"
   nickname="undefined"
 >
@@ -121,13 +117,11 @@ exports[`GoatCardComponent With an empty Goat should match the snapshot 1`] = `
 exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
 <app-goat-card
   born="undefined"
-  configService={[Function ConfigService]}
   description="undefined"
   id="undefined"
   identifier="undefined"
   image={[Function Object]}
   imageService={[Function ImageService]}
-  meta={[Function _Meta]}
   name="undefined"
   nickname="undefined"
 >

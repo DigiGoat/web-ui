@@ -1,3 +1,6 @@
+## 2.1.1-beta.3
+* Reverted images appearing for does/bucks pages as they broke the images when a specific goat is open
+
 ## 2.1.1-beta.2
 * Fixed a potential bug causing the goat's description to not appear on Facebook
 * When sharing your does/bucks page, the images will be included
