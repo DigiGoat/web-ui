@@ -1,16 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { ImageEntry, ImageService } from '../../services/image/image.service';
-
-
+import { Meta } from '@angular/platform-browser';
 import type { Goat } from 'src/app/services/goat/goat.service';
+import { ConfigService } from '../../services/config/config.service';
+import { ImageEntry, ImageService } from '../../services/image/image.service';
 @Component({
   selector: 'app-goat-card',
   templateUrl: './goat-card.component.html',
   styleUrls: ['./goat-card.component.scss']
 })
 export class GoatCardComponent implements OnInit {
-  constructor(private imageService: ImageService) { }
+  constructor(private imageService: ImageService, private meta: Meta, private configService: ConfigService) { }
 
   @Input() goat?: Partial<Goat>;
   name?: string;
@@ -28,5 +27,15 @@ export class GoatCardComponent implements OnInit {
     this.born = this.goat?.dateOfBirth;
     this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
     this.identifier = this.nickname ?? this.id ?? this.name;
+    this.setOGImages();
+  }
+  setOGImages() {
+    if (this.image && this.image.file !== '/') {
+      this.meta.addTag({ property: 'og:image', content: this.configService.link ? new URL(this.image.file, this.configService.link).toString() : this.image.file });
+      //this.meta.addTags([{ name: 'og:image:width', content: '400' }, { name: 'og:image:height', content: '200' }], true);
+      if (this.image.alt) {
+        this.meta.addTag({ property: 'og:image:alt', content: this.image.alt });
+      }
+    }
   }
 }
