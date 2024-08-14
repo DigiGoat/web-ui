@@ -1,4 +1,8 @@
-# 2.1.1-beta.1
+## 2.1.1-beta.2
+* Fixed a potential bug causing the goat's description to not appear on Facebook
+* When sharing your does/bucks page, the images will be included
+
+## 2.1.1-beta.1
 * Fixed the border that would appear around a goat's images in the modal
 
 # 2.1.0
