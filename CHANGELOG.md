@@ -1,3 +1,6 @@
+## 2.1.1-beta.4
+* Added Support For Markdown!
+
 ## 2.1.1-beta.3
 * Reverted images appearing for does/bucks pages as they broke the images when a specific goat is open
 

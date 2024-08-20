@@ -1,3 +1,4 @@
+import axios from 'axios';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
@@ -48,6 +49,38 @@ function route() {
   });
   log.debug('Writing Routes');
   writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
+}
+async function setupMarkdown() {
+  async function renderMarkdown(markdown: string) {
+    return (await axios.post('https://api.github.com/markdown', { text: markdown, mode: 'gfm' })).data as string;
+  }
+  const config = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
+  if (config['homeDescription']) {
+    log.debug('Rendering Markdown For Homepage');
+    config['homeDescription'] = await renderMarkdown(config['homeDescription']);
+    writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
+  }
+  const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
+  if (does.length) {
+    log.debug('Rendering Markdown For Does');
+    for (const doe of does) {
+      if (doe.description) {
+        log.debug(`Rendering Markdown For Doe ${doe.nickname || doe.name || doe.normalizeId}`);
+        doe.description = await renderMarkdown(doe.description);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/does.json'), JSON.stringify(does));
+  }
+  const bucks: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/bucks.json'), 'utf-8'));
+  if (bucks.length) {
+    log.debug('Rendering Markdown For Bucks');
+    for (const buck of bucks) {
+      if (buck.description) {
+        log.debug(`Rendering Markdown For Buck ${buck.nickname || buck.name || buck.normalizeId}`);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/does.json'), JSON.stringify(bucks));
+  }
 }
 function build() {
   log.debug('Compiling Project');
@@ -165,37 +198,40 @@ function browserConfig() {
   log.debug('Writing Browser Config');
   writeFileSync(join(__dirname, '../dist/web-ui/browser/assets/icons/browserconfig.xml'), readFileSync(join(__dirname, '../dist/web-ui/browser/assets/icons/browserconfig.xml'), 'utf-8').replace('/mstile-150x150.png', './mstile-150x150.png'));
 }
-
-log.info('Routing...');
-route();
-log.info('Building...');
-build();
-log.info('Cleaning Up...');
-cleanup();
-log.info('Formatting 404...');
-format404();
-log.info('Generating Sitemap...');
-if (url) {
-  sitemap(url.toString());
-} else {
-  log.error('NO URL FOUND IN CONFIG!');
-  log.warn('↳ Skipping Sitemap Generation');
-}
-log.info('Generating Robots.txt...');
-if (url) {
-  if (url.pathname === '/') {
-    robots(url.toString());
+(async () => {
+  log.info('Routing...');
+  route();
+  log.info('Rendering Markdown...');
+  await setupMarkdown();
+  log.info('Building...');
+  build();
+  log.info('Cleaning Up...');
+  cleanup();
+  log.info('Formatting 404...');
+  format404();
+  log.info('Generating Sitemap...');
+  if (url) {
+    sitemap(url.toString());
   } else {
-    log.error('URL IN CONFIG IS NOT AT THE BASE OF THE DOMAIN');
-    log.warn('↳ Skipping robots.txt Generation');
+    log.error('NO URL FOUND IN CONFIG!');
+    log.warn('↳ Skipping Sitemap Generation');
   }
-} else {
-  log.error('NO URL FOUND IN CONFIG!');
-  log.warn('↳ Omitting Sitemap From robots.txt');
-  robots();
-}
-log.info('Generating Manifest...');
-manifest();
-log.info('Generating Browser Config...');
-browserConfig();
-log.success('Done.');
+  log.info('Generating Robots.txt...');
+  if (url) {
+    if (url.pathname === '/') {
+      robots(url.toString());
+    } else {
+      log.error('URL IN CONFIG IS NOT AT THE BASE OF THE DOMAIN');
+      log.warn('↳ Skipping robots.txt Generation');
+    }
+  } else {
+    log.error('NO URL FOUND IN CONFIG!');
+    log.warn('↳ Omitting Sitemap From robots.txt');
+    robots();
+  }
+  log.info('Generating Manifest...');
+  manifest();
+  log.info('Generating Browser Config...');
+  browserConfig();
+  log.success('Done.');
+})();
