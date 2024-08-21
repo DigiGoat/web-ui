@@ -1,4 +1,7 @@
-## 2.1.1-beta.4
+## 2.1.2-beta.2
+* Added an authentication token when rendering markdown to increase api rate limit
+
+## 2.1.2-beta.1
 * Added Support For Markdown!
 
 ## 2.1.1-beta.3
