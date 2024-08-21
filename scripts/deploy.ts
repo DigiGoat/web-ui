@@ -52,7 +52,14 @@ function route() {
 }
 async function setupMarkdown() {
   async function renderMarkdown(markdown: string) {
-    return (await axios.post('https://api.github.com/markdown', { text: markdown, mode: 'gfm' })).data as string;
+    const headers: Record<string, string> = {
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+    if (process.env['GITHUB_TOKEN']) {
+      headers['Authorization'] = `token ${process.env['GITHUB_TOKEN']}`;
+    }
+    return (await axios.post('https://api.github.com/markdown', { text: markdown, mode: 'gfm' }, { headers })).data as string;
   }
   const config = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
   if (config['homeDescription']) {
