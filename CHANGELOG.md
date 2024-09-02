@@ -1,3 +1,6 @@
+## 2.1.2-beta.3
+* Fixed a bug causing bucks to show up on the does page
+
 ## 2.1.2-beta.2
 * Added an authentication token when rendering markdown to increase api rate limit
 

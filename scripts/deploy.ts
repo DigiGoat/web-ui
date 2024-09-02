@@ -86,7 +86,7 @@ async function setupMarkdown() {
         log.debug(`Rendering Markdown For Buck ${buck.nickname || buck.name || buck.normalizeId}`);
       }
     }
-    writeFileSync(join(__dirname, '../src/assets/resources/does.json'), JSON.stringify(bucks));
+    writeFileSync(join(__dirname, '../src/assets/resources/bucks.json'), JSON.stringify(bucks));
   }
 }
 function build() {
