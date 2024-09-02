@@ -13,7 +13,7 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
       alt="Farm Logo"
       class="text-center"
       height="300"
-      ngsrc="./assets/icons/android-chrome-192x192.png"
+      ngsrc="./assets/icons/android-chrome-512x512.png"
       priority=""
       width="300"
     />
@@ -62,7 +62,7 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
       alt="Farm Logo"
       class="text-center"
       height="300"
-      ngsrc="./assets/icons/android-chrome-192x192.png"
+      ngsrc="./assets/icons/android-chrome-512x512.png"
       priority=""
       width="300"
     />
