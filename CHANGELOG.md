@@ -1,3 +1,6 @@
+## 2.1.2-beta.4
+* Increased the resolution of the logo on the home screen
+
 ## 2.1.2-beta.3
 * Fixed a bug causing bucks to show up on the does page
 
