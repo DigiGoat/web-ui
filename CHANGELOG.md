@@ -1,3 +1,7 @@
+## 2.1.3-beta.1
+* Improved route matching for displaying goats
+* Spaces in names are now replaced with `-` in the URL (e.g. `Digi Goat` becomes `Digi-Goat`). This is to improve SEO and make the URL more readable
+
 ## 2.1.2-beta.4
 * Increased the resolution of the logo on the home screen
 

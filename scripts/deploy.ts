@@ -33,7 +33,7 @@ function route() {
   const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
   does.forEach(doe => {
     if (doe.nickname || doe.name || doe.normalizeId) {
-      const route = `/does/${doe.nickname || doe.name || doe.normalizeId}`;
+      const route = `/does/${doe.nickname || doe.name?.replace(/ /g, '-') || doe.normalizeId}`;
       log.debug(`Adding Doe Route '${route}'`);
       routes.push(route);
     }
@@ -42,7 +42,7 @@ function route() {
   const bucks: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/bucks.json'), 'utf-8'));
   bucks.forEach(buck => {
     if (buck.nickname || buck.name || buck.normalizeId) {
-      const route = `/bucks/${buck.nickname || buck.name || buck.normalizeId}`;
+      const route = `/bucks/${buck.nickname || buck.name?.replace(/ /g, '-') || buck.normalizeId}`;
       log.debug(`Adding Buck Route '${route}'`);
       routes.push(route);
     }
