@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "2.1.5-beta.6",
+  "version": "2.1.5-beta.7",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
