@@ -1,3 +1,6 @@
+## 2.1.5-beta.6
+* Fixed a bug causing the fix-version script not to fail
+
 ## 2.1.5-beta.5
 * Fixed a bug causing the fix-version script not to run
 
