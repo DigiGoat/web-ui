@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "2.1.5-beta.1",
+  "version": "2.1.5-beta.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,7 +14,9 @@
     "deploy": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/deploy.ts",
     "lint": "ng lint",
     "pull-check": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/check.ts",
-    "test-script": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/test.ts"
+    "test-script": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/test.ts",
+    "release": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/release.ts",
+    "fix-version": "ts-node ./scripts/version.ts"
   },
   "private": true,
   "dependencies": {

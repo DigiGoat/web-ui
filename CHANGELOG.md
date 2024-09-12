@@ -1,3 +1,6 @@
+## 2.1.5-beta.2
+* Added missing scripts to the `package.json`
+
 ## 2.1.5-beta.1
 * Updated the release pipeline to speed up the update process
 
