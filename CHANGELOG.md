@@ -1,3 +1,6 @@
+## 2.1.5-beta.1
+* Updated the release pipeline to speed up the update process
+
 ## 2.1.4-beta.1
 * Addressed a deprecation logged by Edge Dev Tools
 
