@@ -52,7 +52,7 @@ async function getChanges() {
   const changes = await getChanges();
   log.debug('Changes:', changes);
   log.info('Publishing Release');
-  await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/releases/`, {
+  await github.post(`/repos/${process.env['GITHUB_REPOSITORY']}/releases`, {
     body: process.env['GITHUB_REF_NAME'] === 'main' ? `# v${version}\n${changes}` : changes,
     draft: false,
     tag_name: version,
