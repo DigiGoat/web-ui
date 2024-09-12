@@ -1,4 +1,4 @@
-name: Release notes
+name: Release
 on:
   workflow_dispatch:
   push:
