@@ -1,3 +1,6 @@
+## 2.1.5-beta.5
+* Fixed a bug causing the fix-version script not to run
+
 ## 2.1.5-beta.4
 * Fixed a bug with the release titles
 
