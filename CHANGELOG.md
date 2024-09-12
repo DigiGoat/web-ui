@@ -1,3 +1,6 @@
+## 2.1.5-beta.7
+* Fixed the releases not associating with the correct commit
+
 ## 2.1.5-beta.6
 * Fixed a bug causing the fix-version script not to fail
 

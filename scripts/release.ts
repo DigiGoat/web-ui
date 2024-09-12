@@ -57,7 +57,8 @@ async function getChanges() {
     draft: false,
     tag_name: version,
     name: version,
-    prerelease: process.env['GITHUB_REF_NAME'] === 'beta'
+    prerelease: process.env['GITHUB_REF_NAME'] === 'beta',
+    target_commitish: process.env['GITHUB_SHA']
   });
   log.success('Published release');
 })();
