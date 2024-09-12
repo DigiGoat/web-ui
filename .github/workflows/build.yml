@@ -29,6 +29,10 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Fix version
+        if: github.ref_name == 'main'
+        run: yarn fix-version
+
       - name: Build Project
         env:
             FORCE_COLOR: 3
