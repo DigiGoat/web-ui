@@ -46,7 +46,7 @@ async function getChanges() {
 
 (async (): Promise<void> => {
   log.info('Getting version');
-  const { version } = packageJson;
+  const version = `v${packageJson.version}`;
   log.debug('Version:', version);
   log.info('Getting changes');
   const changes = await getChanges();
@@ -56,6 +56,7 @@ async function getChanges() {
     body: process.env['GITHUB_REF_NAME'] === 'main' ? `# v${version}\n${changes}` : changes,
     draft: false,
     tag_name: version,
+    name: version,
     prerelease: process.env['GITHUB_REF_NAME'] === 'beta'
   });
   log.success('Published release');

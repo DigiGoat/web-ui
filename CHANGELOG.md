@@ -1,5 +1,8 @@
+## 2.1.5-beta.4
+* Fixed a bug with the release titles
+
 ## 2.1.5-beta.3
-* Attempting to fic a bug causing the release pipeline to fail
+* Attempting to fix a bug causing the release pipeline to fail
 
 ## 2.1.5-beta.2
 * Added missing scripts to the `package.json`
