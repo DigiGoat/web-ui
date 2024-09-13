@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Fix version
+        if: github.base_ref == 'main'
+        run: yarn fix-version
+
       - name: Test Project
         run: yarn test:ci
 

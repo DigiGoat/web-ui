@@ -75,8 +75,14 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Fix version
+        if: github.ref_name == 'main'
+        run: yarn fix-version
+
       - name: Build Project
         run: yarn deploy ${{ steps.pages.outputs.base_url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

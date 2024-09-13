@@ -38,6 +38,13 @@ export class GoatsComponent implements OnInit {
         this.goats = goats;
         if (this.searchParam) {
           this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
+          if (this.activeGoatIndex === -1) {
+            this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase()).includes(this.searchParam?.toLowerCase()));
+          }
+          if (this.activeGoatIndex === -1) {
+            this.searchParam = this.searchParam.replace(/-/g, ' ');
+            this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(this.searchParam?.toLowerCase()));
+          }
         }
       },
       error: err => this.err = err

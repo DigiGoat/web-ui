@@ -1,9 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { ImageEntry, ImageService } from '../../services/image/image.service';
-
-
 import type { Goat } from 'src/app/services/goat/goat.service';
+import { ImageEntry, ImageService } from '../../services/image/image.service';
 @Component({
   selector: 'app-goat-card',
   templateUrl: './goat-card.component.html',
@@ -27,6 +24,6 @@ export class GoatCardComponent implements OnInit {
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
     this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
-    this.identifier = this.nickname ?? this.id ?? this.name;
+    this.identifier = this.nickname ?? this.name?.replace(/ /g, '-') ?? this.id;
   }
 }

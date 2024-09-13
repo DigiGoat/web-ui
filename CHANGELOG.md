@@ -1,3 +1,53 @@
+## 2.1.5-beta.7
+* Fixed the releases not associating with the correct commit
+
+## 2.1.5-beta.6
+* Fixed a bug causing the fix-version script not to fail
+
+## 2.1.5-beta.5
+* Fixed a bug causing the fix-version script not to run
+
+## 2.1.5-beta.4
+* Fixed a bug with the release titles
+
+## 2.1.5-beta.3
+* Attempting to fix a bug causing the release pipeline to fail
+
+## 2.1.5-beta.2
+* Added missing scripts to the `package.json`
+
+## 2.1.5-beta.1
+* Updated the release pipeline to speed up the update process
+
+## 2.1.4-beta.1
+* Addressed a deprecation logged by Edge Dev Tools
+
+## 2.1.3-beta.1
+* Improved route matching for displaying goats
+* Spaces in names are now replaced with `-` in the URL (e.g. `Digi Goat` becomes `Digi-Goat`). This is to improve SEO and make the URL more readable
+
+## 2.1.2-beta.4
+* Increased the resolution of the logo on the home screen
+
+## 2.1.2-beta.3
+* Fixed a bug causing bucks to show up on the does page
+
+## 2.1.2-beta.2
+* Added an authentication token when rendering markdown to increase api rate limit
+
+## 2.1.2-beta.1
+* Added Support For Markdown!
+
+## 2.1.1-beta.3
+* Reverted images appearing for does/bucks pages as they broke the images when a specific goat is open
+
+## 2.1.1-beta.2
+* Fixed a potential bug causing the goat's description to not appear on Facebook
+* When sharing your does/bucks page, the images will be included
+
+## 2.1.1-beta.1
+* Fixed the border that would appear around a goat's images in the modal
+
 # 2.1.0
 * Added the current owner of a goat to the pedigree
 

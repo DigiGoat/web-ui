@@ -30,7 +30,7 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
       "TEST_NICKNAME"
     </h6>
   </div><div
-    class="card-body color-scheme-quaternary"
+    class="card-body color-scheme-quaternary p-0"
   >
     <app-carousel
       test-id="carousel"
@@ -155,7 +155,7 @@ exports[`GoatCardComponent With an Empty Goat should match the snapshot 1`] = `
     class="card-header color-scheme-tertiary"
   >
   </div><div
-    class="card-body color-scheme-quaternary"
+    class="card-body color-scheme-quaternary p-0"
   >
     <app-carousel
       test-id="carousel"
