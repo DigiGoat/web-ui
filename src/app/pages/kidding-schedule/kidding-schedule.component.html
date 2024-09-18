@@ -1,0 +1,22 @@
+<div class="container" *ngIf="!err && !noSchedule" test-id="schedule">
+  <h1 class="text-center" test-id="name">Kidding Schedule:</h1>
+  <h5 class="text-center" test-id="prompt">Click on a Goat Below For More Info</h5>
+  <div *ngIf="schedule">
+    <app-modal-goat *ngIf="searchParam && activeIndex === -1" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
+    <div *ngFor="let breeding of schedule; index as i">
+      <app-breeding [breeding]="breeding" [does]="does" [bucks]="bucks"></app-breeding>
+      <app-modal-goat *ngIf="i === activeIndex" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
+    </div>
+  </div>
+  <div *ngIf="!schedule">
+    <app-breeding *ngFor="let breeding of [1,2,3,4]"></app-breeding>
+  </div>
+</div>
+<div *ngIf="noSchedule" test-id="no-goats">
+  <h3 class="text-center" test-id="no-goats-title">No Kidding Schedule Found</h3>
+  <h6 class="text-center" test-id="no-goats-prompt">Please Try Again Later.</h6>
+</div>
+<div *ngIf="err" test-id="error">
+  <h3 class="text-center" test-id="error-title">Failed To Load Kidding Schedule With Error: {{err.status}} - {{err.statusText}}</h3>
+  <h6 class="text-center" test-id="error-prompt">Please Check Your Connection And Try Again Later.</h6>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, type OnChanges } from '@angular/core';
 import type { Goat } from 'src/app/services/goat/goat.service';
 import { ImageEntry, ImageService } from '../../services/image/image.service';
 @Component({
@@ -6,7 +6,7 @@ import { ImageEntry, ImageService } from '../../services/image/image.service';
   templateUrl: './goat-card.component.html',
   styleUrls: ['./goat-card.component.scss']
 })
-export class GoatCardComponent implements OnInit {
+export class GoatCardComponent implements OnChanges {
   constructor(private imageService: ImageService) { }
 
   @Input() goat?: Partial<Goat>;
@@ -17,7 +17,7 @@ export class GoatCardComponent implements OnInit {
   born?: string;
   image?: ImageEntry;
   identifier?: string;
-  ngOnInit(): void {
+  ngOnChanges() {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
     this.description = this.goat?.description;

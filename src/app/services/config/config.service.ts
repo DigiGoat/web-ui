@@ -7,7 +7,7 @@ import config from '../../../assets/resources/config.json';
   providedIn: 'root'
 })
 export class ConfigService {
-  private config: Record<string, string | Record<string, string | Record<string, string>>> = config;
+  private config: Record<string, string | boolean | Record<string, string | Record<string, string>>> = config;
   get homeTitle(): string {
     if (this.config['homeTitle']) {
       return this.config['homeTitle'] as string;
@@ -61,6 +61,12 @@ export class ConfigService {
       return this.config['colors'] as ColorScheme;
     }
     return {};
+  }
+  get kiddingSchedule(): boolean {
+    if (this.config['kiddingSchedule']) {
+      return this.config['kiddingSchedule'] as boolean;
+    }
+    return false;
   }
 }
 

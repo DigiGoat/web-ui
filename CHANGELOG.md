@@ -1,3 +1,6 @@
+## 3.0.0-beta.1
+* Added a Kidding Schedule page!
+
 ## 2.1.5-beta.7
 * Fixed the releases not associating with the correct commit
 
