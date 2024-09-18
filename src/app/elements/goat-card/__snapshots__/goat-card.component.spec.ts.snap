@@ -116,14 +116,7 @@ exports[`GoatCardComponent With an empty Goat should match the snapshot 1`] = `
 
 exports[`GoatCardComponent Without a Goat should match the snapshot 1`] = `
 <app-goat-card
-  born="undefined"
-  description="undefined"
-  id="undefined"
-  identifier="undefined"
-  image={[Function Object]}
   imageService={[Function ImageService]}
-  name="undefined"
-  nickname="undefined"
 >
   <div
     class="card color-scheme-secondary"

@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ImgDirective } from './directives/img/img.directive';
 import { PopoverDirective } from './directives/popover/popover.directive';
+import { BreedingComponent } from './elements/breeding/breeding.component';
 import { CarouselComponent } from './elements/carousel/carousel.component';
 import { GoatCardComponent } from './elements/goat-card/goat-card.component';
 import { GoatsComponent } from './elements/goats/goats.component';
@@ -19,6 +20,7 @@ import { ColorSchemeComponent } from './features/color-scheme/color-scheme.compo
 import { BucksComponent } from './pages/bucks/bucks.component';
 import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
+import { KiddingScheduleComponent } from './pages/kidding-schedule/kidding-schedule.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AgePipe } from './pipes/age.pipe';
 
@@ -41,7 +43,9 @@ import { AgePipe } from './pipes/age.pipe';
     AnalyticsComponent,
     ColorSchemeComponent,
     PedigreeComponent,
-    PopoverDirective
+    PopoverDirective,
+    KiddingScheduleComponent,
+    BreedingComponent
   ],
   imports: [
     BrowserModule,

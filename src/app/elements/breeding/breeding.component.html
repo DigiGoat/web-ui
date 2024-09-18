@@ -1,0 +1,48 @@
+<div class="row row-cols-1 row-cols-lg-3 color-scheme-tertiary py-3 my-5 justify-content-around" *ngIf="breeding">
+  <div class="col"><app-goat-card [goat]="dam"></app-goat-card></div>
+  <div class="col py-5 text-center">
+    <div *ngIf="!breeding.kidded">
+      <h3>Bred: {{breeding.exposed | date:'longDate'}}</h3>
+      <br>
+      <h3>Due: {{breeding.due | date:'longDate'}}</h3>
+      <br>
+      <!--<div *ngIf="breeding.does || breeding.wethers">
+        <div *ngIf="breeding.does">
+          <h5>Does: ${{breeding.does}}</h5>
+        </div>
+        <div *ngIf="breeding.wethers">
+          <h5>Wethers: ${{breeding.wethers}}</h5>
+        </div>
+        <br>
+      </div>
+      <div *ngIf="breeding.reservations && breeding.reservations.length">
+        <h5>Reservations:</h5>
+        <div class="row justify-content-center">
+          <div class="col" *ngFor="let reservation of breeding.reservations">{{reservation}}</div>
+        </div>
+      </div>
+    </div>-->
+    </div>
+    <div *ngIf="breeding.kidded">
+      <h3>Kidded: {{breeding.kidded | date:'longDate'}}</h3>
+      <!--<h5>See the <a routerLink="/for-sale">For Sale</a> Page For More Info</h5>-->
+    </div>
+    <div [innerHTML]="breeding.description"></div>
+  </div>
+  <div class="col"><app-goat-card [goat]="sire"></app-goat-card></div>
+</div>
+<div class="row color-scheme-tertiary py-3 my-5 justify-content-around" *ngIf="!breeding">
+  <div class="col"><app-goat-card></app-goat-card></div>
+  <div class="col"><app-goat-card></app-goat-card></div>
+  <div class="col-auto pt-5">
+    <div class="placeholder-wave">
+      <h3 class="placeholder">Bred: Unknown</h3>
+      <br>
+      <h3 class="placeholder">Due: Unknown</h3>
+      <br>
+      <div>
+        <h3 class="placeholder">Kidded: Unknown</h3>
+      </div>
+    </div>
+  </div>
+</div>
