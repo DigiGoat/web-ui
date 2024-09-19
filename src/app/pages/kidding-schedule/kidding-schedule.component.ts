@@ -63,9 +63,9 @@ export class KiddingScheduleComponent implements OnInit, Page {
         this.searchParam = this.searchParam.replace(/-/g, ' ');
         this.activeGoat = goats?.find(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(this.searchParam?.toLowerCase()));
       }
-    }
-    if (this.schedule) {
-      this.activeIndex = this.schedule.findIndex(kidding => kidding.dam === this.activeGoat?.normalizeId || kidding.sire === this.activeGoat?.normalizeId);
+      if (this.schedule) {
+        this.activeIndex = this.schedule.findIndex(kidding => kidding.dam === this.activeGoat?.normalizeId || kidding.sire === this.activeGoat?.normalizeId);
+      }
     }
   }
 }
