@@ -1,3 +1,6 @@
+## 3.0.0-beta.4
+* Fixed the kidding schedule's loading animation
+
 ## 3.0.0-beta.3
 * Fixed a bug causing the Kidding Schedule to not display dates if they are invalid
 
