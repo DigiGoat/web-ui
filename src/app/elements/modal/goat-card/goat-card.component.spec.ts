@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import type { Meta } from '@angular/platform-browser';
+import { LongDatePipe } from '../../../pipes/longDate/longDate.pipe';
 import { GoatCardComponent } from './goat-card.component';
 
 describe('GoatCardComponent', () => {
@@ -10,7 +11,7 @@ describe('GoatCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GoatCardComponent]
+      declarations: [GoatCardComponent, LongDatePipe],
     })
       .compileComponents();
 

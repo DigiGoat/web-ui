@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgePipe } from '../../pipes/age.pipe';
+import { AgePipe } from '../../pipes/age/age.pipe';
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
 

@@ -22,7 +22,8 @@ import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
 import { KiddingScheduleComponent } from './pages/kidding-schedule/kidding-schedule.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { AgePipe } from './pipes/age.pipe';
+import { AgePipe } from './pipes/age/age.pipe';
+import { LongDatePipe } from './pipes/longDate/longDate.pipe';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AgePipe } from './pipes/age.pipe';
     PedigreeComponent,
     PopoverDirective,
     KiddingScheduleComponent,
-    BreedingComponent
+    BreedingComponent,
+    LongDatePipe
   ],
   imports: [
     BrowserModule,

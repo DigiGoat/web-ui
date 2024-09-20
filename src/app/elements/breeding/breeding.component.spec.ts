@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { LongDatePipe } from '../../pipes/longDate/longDate.pipe';
 import { BreedingComponent } from './breeding.component';
 
 describe('KiddingComponent', () => {
@@ -8,7 +9,7 @@ describe('KiddingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BreedingComponent]
+      declarations: [BreedingComponent, LongDatePipe]
     })
       .compileComponents();
 

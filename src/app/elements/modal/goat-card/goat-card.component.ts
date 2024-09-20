@@ -25,7 +25,7 @@ export class GoatCardComponent implements OnInit, Page {
   nickname?: string;
   description?: string;
   id?: string;
-  born?: string | number;
+  born?: string;
   animalTattoos?: Goat['animalTattoo'];
   colorAndMarking?: string;
   images!: ImageEntry[];

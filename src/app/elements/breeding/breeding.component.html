@@ -2,9 +2,9 @@
   <div class="col"><app-goat-card [goat]="dam"></app-goat-card></div>
   <div class="col py-5 text-center">
     <div *ngIf="!breeding.kidded">
-      <h3 *ngIf="breeding.exposed">Bred: {{breeding.exposed | date:'longDate'}}</h3>
+      <h3 *ngIf="breeding.exposed">Bred: {{breeding.exposed | longDate}}</h3>
       <br>
-      <h3 *ngIf="breeding.due">Due: {{breeding.due | date:'longDate'}}</h3>
+      <h3 *ngIf="breeding.due">Due: {{breeding.due | longDate}}</h3>
       <br>
       <!--<div *ngIf="breeding.does || breeding.wethers">
         <div *ngIf="breeding.does">
@@ -24,7 +24,7 @@
     </div>-->
     </div>
     <div *ngIf="breeding.kidded">
-      <h3>Kidded: {{breeding.kidded | date:'longDate'}}</h3>
+      <h3>Kidded: {{breeding.kidded | longDate}}</h3>
       <!--<h5>See the <a routerLink="/for-sale">For Sale</a> Page For More Info</h5>-->
     </div>
     <div [innerHTML]="breeding.description"></div>
