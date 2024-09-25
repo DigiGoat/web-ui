@@ -1,5 +1,5 @@
-import { NgModule, type OnInit, type Type } from '@angular/core';
-import { TitleStrategy as NgTitleStrategy, RouterModule, Route as ngRoute } from '@angular/router';
+import { NgModule, type OnInit } from '@angular/core';
+import { TitleStrategy as NgTitleStrategy, Route, RouterModule } from '@angular/router';
 
 import type { Observable } from 'rxjs';
 import { kiddingScheduleGuard } from './guards/kidding-schedule.guard';
@@ -10,10 +10,6 @@ import { KiddingScheduleComponent } from './pages/kidding-schedule/kidding-sched
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { TitleStrategy } from './strategies/title.strategy';
 
-interface Route extends ngRoute {
-  component?: Type<Page>;
-  children?: Route[];
-}
 const routes: Route[] = [
   { path: '', component: HomeComponent, title: 'Home' },
   {

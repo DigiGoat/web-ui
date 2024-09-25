@@ -1,3 +1,8 @@
+## 3.0.1-beta.1
+* Fixed a bug causing the page descriptions to contain HTML
+* Fixed a bug causing the homepage to duplicate the homepage description
+* Added a default description for the homepage
+
 ## 3.0.0-beta.4
 * Fixed the kidding schedule's loading animation
 
