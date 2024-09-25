@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit } from '@angular/core';
+import { Component, ElementRef, Input, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import type { Page } from '../../../app-routing.module';
@@ -13,12 +13,16 @@ import { ImageService, type ImageEntry } from '../../../services/image/image.ser
 export class GoatCardComponent implements OnInit, Page {
   @Input({ required: true }) goat!: Goat;
 
-  constructor(public imageService: ImageService, private meta: Meta) { }
+  constructor(public imageService: ImageService, private meta: Meta, private el: ElementRef<HTMLElement>) { }
   setDescription(): void | Observable<void> {
     if (this.description) {
-      this.meta.addTag({ property: 'og:description', content: this.description });
-      this.meta.addTag({ name: 'description', content: this.description });
+      this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: this.htmlToPlainText(this.description) }]);
     }
+  }
+  htmlToPlainText(html: string): string {
+    const doc = this.el.nativeElement.ownerDocument.createElement('div');
+    doc.innerHTML = html;
+    return doc.textContent || '';
   }
 
   name?: string;

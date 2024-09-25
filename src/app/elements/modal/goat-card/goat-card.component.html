@@ -28,7 +28,7 @@
         <span class="fw-bold">Markings</span>: <span class="fw-light" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
       </div>
     </div>
-    <span test-id="description" *ngIf="description" [innerHTML]="description"></span>
+    <div test-id="description" *ngIf="description" [innerHTML]="description"></div>
   </div>
   <app-pedigree [goat]="goat"></app-pedigree>
 </div>

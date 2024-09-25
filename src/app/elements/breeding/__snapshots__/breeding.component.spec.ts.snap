@@ -94,11 +94,6 @@ exports[`KiddingComponent Without a Kidding should match the snapshot 1`] = `
       <app-goat-card />
     </div>
     <div
-      class="col"
-    >
-      <app-goat-card />
-    </div>
-    <div
       class="col-auto pt-5"
     >
       <div
@@ -124,6 +119,11 @@ exports[`KiddingComponent Without a Kidding should match the snapshot 1`] = `
           </h3>
         </div>
       </div>
+    </div>
+    <div
+      class="col"
+    >
+      <app-goat-card />
     </div>
   </div>
 </app-breeding>
