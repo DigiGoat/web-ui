@@ -1,3 +1,9 @@
+## 3.0.2-beta.1
+* Several SEO improvements
+  * Properly implemented `2.1.1-beta.2` - when sharing the does/bucks page, the images will be included
+  * Added a description for the does & bucks pages
+  * Added a description for the kidding schedule
+
 ## 3.0.1-beta.1
 * Fixed a bug causing the page descriptions to contain HTML
 * Fixed a bug causing the homepage to duplicate the homepage description
