@@ -106,6 +106,38 @@ export class GoatService {
         });
     }
   });
+  private _kidding: Kidding[] = [];
+  public kidding = new Observable<Kidding[]>(observer => {
+    if (this._kidding.length) {
+      console.debug('Loaded Kidding Schedule From Cache', this._kidding);
+      observer.next(this._kidding);
+    } else {
+      this.http.get<Kidding[]>('./assets/resources/kidding-schedule.json')
+        .pipe(
+          retry(3), // retry a failed request up to 3 times
+        )
+        .subscribe({
+          next: data => {
+            this._kidding = data;
+            console.debug('Loaded Kidding Schedule From Server', data);
+            observer.next(data);
+          },
+          error: err => {
+            if (err.status === 0) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.warn('An error occurred:', err.error);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong.
+              console.warn(
+                `Backend returned code ${err.status}, body was: `, err.error);
+            }
+            // Return an observable with a user-facing error message.
+            observer.error(err);
+          }
+        });
+    }
+  });
 }
 //export type Goat = (OwnedGoats['result']['items'][number] & { nickname: string; description: string; awards: Awards['result']['items']; colorAndMarking: string; /*obtained?: string;*/ });
 export type Goat = Partial<{
@@ -121,6 +153,14 @@ export type Goat = Partial<{
   damId: number;
   sireId: number;
   ownerAccount: { displayName?: string; };
+}>;
+export type Kidding = Partial<{
+  dam: string;
+  sire: string;
+  exposed: string;
+  due: string;
+  kidded: string;
+  description: string;
 }>;
 export const Goat = {
   nickname: 'Your Goats Farm Name',

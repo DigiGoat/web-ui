@@ -1,3 +1,13 @@
+## 3.0.0-beta.3
+* Fixed a bug causing the Kidding Schedule to not display dates if they are invalid
+
+## 3.0.0-beta.2
+* Removed the `Bred` and `Due` columns from the Kidding Schedule if there is nothing to display
+* Fixed a bug when the sire is not specified
+
+## 3.0.0-beta.1
+* Added a Kidding Schedule page!
+
 ## 2.1.5-beta.7
 * Fixed the releases not associating with the correct commit
 

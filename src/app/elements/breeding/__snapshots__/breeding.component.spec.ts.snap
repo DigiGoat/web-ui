@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KiddingComponent With a Kidding (v1.0.0) With a previous Kidding should match the snapshot 1`] = `
+<app-breeding
+  breeding={[Function Object]}
+  bucks={[Function Object]}
+  dam={[Function Object]}
+  does={[Function Object]}
+  sire={[Function Object]}
+>
+  <div
+    class="row row-cols-1 row-cols-lg-3 color-scheme-tertiary py-3 my-5 justify-content-around"
+  >
+    <div
+      class="col"
+    >
+      <app-goat-card />
+    </div>
+    <div
+      class="col py-5 text-center"
+    >
+      <div>
+        <h3>
+          Kidded: September 10, 2011
+        </h3>
+      </div>
+      <div>
+        TEST_DETAILS
+      </div>
+    </div>
+    <div
+      class="col"
+    >
+      <app-goat-card />
+    </div>
+  </div>
+</app-breeding>
+`;
+
+exports[`KiddingComponent With a Kidding (v1.0.0) should match the snapshot 1`] = `
+<app-breeding
+  breeding={[Function Object]}
+  bucks={[Function Object]}
+  dam={[Function Object]}
+  does={[Function Object]}
+  sire={[Function Object]}
+>
+  <div
+    class="row row-cols-1 row-cols-lg-3 color-scheme-tertiary py-3 my-5 justify-content-around"
+  >
+    <div
+      class="col"
+    >
+      <app-goat-card />
+    </div>
+    <div
+      class="col py-5 text-center"
+    >
+      <div>
+        <h3>
+          Bred: January 2, 2034
+        </h3>
+        <br />
+        <h3>
+          Due: May 6, 1978
+        </h3>
+        <br />
+      </div>
+      <div>
+        TEST_DETAILS
+      </div>
+    </div>
+    <div
+      class="col"
+    >
+      <app-goat-card />
+    </div>
+  </div>
+</app-breeding>
+`;
+
+exports[`KiddingComponent Without a Kidding should match the snapshot 1`] = `
+<app-breeding
+  breeding="undefined"
+  bucks={[Function Object]}
+  does={[Function Object]}
+>
+  <div
+    class="row color-scheme-tertiary py-3 my-5 justify-content-around"
+  >
+    <div
+      class="col"
+    >
+      <app-goat-card />
+    </div>
+    <div
+      class="col"
+    >
+      <app-goat-card />
+    </div>
+    <div
+      class="col-auto pt-5"
+    >
+      <div
+        class="placeholder-wave"
+      >
+        <h3
+          class="placeholder"
+        >
+          Bred: Unknown
+        </h3>
+        <br />
+        <h3
+          class="placeholder"
+        >
+          Due: Unknown
+        </h3>
+        <br />
+        <div>
+          <h3
+            class="placeholder"
+          >
+            Kidded: Unknown
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-breeding>
+`;

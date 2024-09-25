@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import type { Goat } from '../src/app/services/goat/goat.service';
+import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 
 const ci = !!process.env['CI'];
 const log = {
@@ -87,6 +87,17 @@ async function setupMarkdown() {
       }
     }
     writeFileSync(join(__dirname, '../src/assets/resources/bucks.json'), JSON.stringify(bucks));
+  }
+  const kiddingSchedule: Kidding[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/kidding-schedule.json'), 'utf-8'));
+  if (kiddingSchedule.length) {
+    log.debug('Rendering Markdown For Kidding Schedule');
+    for (const kidding of kiddingSchedule) {
+      if (kidding.description) {
+        log.debug(`Rendering Markdown For Kidding ${kidding.dam} x ${kidding.sire}`);
+        kidding.description = await renderMarkdown(kidding.description);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/kidding-schedule.json'), JSON.stringify(kiddingSchedule));
   }
 }
 function build() {

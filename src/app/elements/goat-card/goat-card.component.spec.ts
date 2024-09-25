@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgePipe } from '../../pipes/age.pipe';
+import { AgePipe } from '../../pipes/age/age.pipe';
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
 
@@ -39,6 +39,7 @@ describe('GoatCardComponent', () => {
         dateOfBirth: new Date(Date.now() - (1000 * 3600 * 24)).toString(),
         normalizeId: 'PD12345',
       };
+      component.ngOnChanges();
       fixture.detectChanges();
       html = fixture.nativeElement;
     });
@@ -90,6 +91,7 @@ describe('GoatCardComponent', () => {
     let html: HTMLElement;
     beforeEach(() => {
       component['goat'] = {};
+      component.ngOnChanges();
       fixture.detectChanges();
       html = fixture.nativeElement;
     });
