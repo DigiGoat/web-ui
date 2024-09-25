@@ -6,6 +6,7 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
   born={[Function String]}
   colorAndMarking={[Function String]}
   description={[Function String]}
+  el={[Function _ElementRef]}
   goat={[Function Object]}
   id={[Function String]}
   imageService={[Function ImageService]}
@@ -126,11 +127,11 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
           </span>
         </div>
       </div>
-      <span
+      <div
         test-id="description"
       >
         TEST_DESCRIPTION
-      </span>
+      </div>
     </div>
     <app-pedigree />
   </div>
@@ -143,6 +144,7 @@ exports[`GoatCardComponent With an Empty Goat should match the snapshot 1`] = `
   born="undefined"
   colorAndMarking="undefined"
   description="undefined"
+  el={[Function _ElementRef]}
   goat={[Function Object]}
   id="undefined"
   imageService={[Function ImageService]}

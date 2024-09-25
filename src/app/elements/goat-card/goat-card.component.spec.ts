@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ActivatedRoute } from '@angular/router';
 import { AgePipe } from '../../pipes/age/age.pipe';
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
 
+jest.mock('@angular/router');
 
 describe('GoatCardComponent', () => {
   let component: GoatCardComponent;
@@ -12,7 +14,7 @@ describe('GoatCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GoatCardComponent, AgePipe],
-      providers: [ImageService],
+      providers: [ImageService, ActivatedRoute],
     })
       .compileComponents();
     fixture = TestBed.createComponent(GoatCardComponent);
@@ -23,6 +25,7 @@ describe('GoatCardComponent', () => {
         { file: 'TEST_IMAGE_FILE', alt: 'TEST_IMAGE_ALT' }
       ]
     };
+    component['route'] = { snapshot: { params: {} } } as any;
   });
 
   it('should create', () => {

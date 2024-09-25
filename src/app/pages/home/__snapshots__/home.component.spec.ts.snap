@@ -4,7 +4,10 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
 <app-home
   config={[Function Object]}
   description={[Function String]}
+  el={[Function _ElementRef]}
+  goatService={[Function GoatService]}
   meta={[Function _Meta]}
+  platformService={[Function PlatformService]}
 >
   <div
     class="w-100 text-center"
@@ -37,14 +40,10 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
       TEST_EMAIL
     </a>
   </h6><div
-    class="container"
+    class="container text-center"
+    test-id="description"
   >
-    <p
-      class="text-center"
-      test-id="description"
-    >
-      TEST_DESCRIPTION
-    </p>
+    TEST_DESCRIPTION
   </div>
 </app-home>
 `;
@@ -53,7 +52,10 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
 <app-home
   config={[Function Object]}
   description=""
+  el={[Function _ElementRef]}
+  goatService={[Function GoatService]}
   meta={[Function _Meta]}
+  platformService={[Function PlatformService]}
 >
   <div
     class="w-100 text-center"
@@ -83,12 +85,8 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
     >
     </a>
   </h6><div
-    class="container"
-  >
-    <p
-      class="text-center"
-      test-id="description"
-    />
-  </div>
+    class="container text-center"
+    test-id="description"
+  />
 </app-home>
 `;

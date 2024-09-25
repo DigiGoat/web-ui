@@ -2,10 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfigService } from '../../services/config/config.service';
 import { ConfigServiceMock, EmptyConfigServiceMock } from '../../services/config/config.service.mock';
+import { GoatService } from '../../services/goat/goat.service';
 import { HomeComponent } from './home.component';
 
 
 jest.mock('../../services/config/config.service');
+jest.mock('../../services/goat/goat.service');
 const configService = jest.mocked(ConfigService);
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -16,7 +18,7 @@ describe('HomeComponent', () => {
     configService.mockClear();
     await TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      providers: [ConfigService],
+      providers: [ConfigService, GoatService],
     })
       .compileComponents();
     fixture = TestBed.createComponent(HomeComponent);
