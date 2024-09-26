@@ -31,9 +31,11 @@ describe('GoatCardComponent', () => {
       component.goat = {};
       fixture.detectChanges();
     });
-    it('should not set a page description', () => {
-      expect(component['meta'].addTags).toHaveBeenCalledTimes(0);
-    });
+    /*
+        it('should not set a page description', () => {
+          expect(component['meta'].addTags).toHaveBeenCalledTimes(0);
+        });
+    */
     it('should not display a name', () => {
       const element = html.querySelector('[test-id=name]');
       expect(element).toBeFalsy();

@@ -1,3 +1,6 @@
+## 3.0.2-beta.2
+* Added default descriptions for the goats if they do not have one
+
 ## 3.0.2-beta.1
 * Several SEO improvements
   * Properly implemented `2.1.1-beta.2` - when sharing the does/bucks page, the images will be included
