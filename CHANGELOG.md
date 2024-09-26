@@ -1,3 +1,6 @@
+## 3.0.2-beta.3
+* Fixed a bug causing the default description on the homepage to not be seen by more advanced web crawlers
+
 ## 3.0.2-beta.2
 * Added default descriptions for the goats if they do not have one
 

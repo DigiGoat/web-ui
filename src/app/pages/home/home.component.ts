@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   setDescription(): void | Observable<void> {
     if (this.description) {
       this.meta.addTags([{ name: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: this.htmlToPlainText(this.description) }]);
-    } else if (this.platformService.isServer) {
+    } else {
       let description = '';
       if (this.config.homeTitle && this.config.owner) {
         description += `${this.config.homeTitle} is owned and operated by ${this.config.owner}. `;
