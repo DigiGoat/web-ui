@@ -5,7 +5,7 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
   config={[Function Object]}
   description={[Function String]}
   el={[Function _ElementRef]}
-  goatService={[Function GoatService]}
+  goatService={[Function Object]}
   meta={[Function _Meta]}
   platformService={[Function PlatformService]}
 >
@@ -53,7 +53,7 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
   config={[Function Object]}
   description=""
   el={[Function _ElementRef]}
-  goatService={[Function GoatService]}
+  goatService={[Function Object]}
   meta={[Function _Meta]}
   platformService={[Function PlatformService]}
 >

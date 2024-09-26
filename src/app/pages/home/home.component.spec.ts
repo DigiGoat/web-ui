@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { of } from 'rxjs';
 import { ConfigService } from '../../services/config/config.service';
 import { ConfigServiceMock, EmptyConfigServiceMock } from '../../services/config/config.service.mock';
 import { GoatService } from '../../services/goat/goat.service';
@@ -24,6 +25,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     TestBed.inject(ConfigService);
     component = fixture.componentInstance;
+    component['goatService'] = { does: of([]), bucks: of([]) } as unknown as GoatService;
     html = fixture.nativeElement;
   });
   it('should create', () => {
