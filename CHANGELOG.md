@@ -1,3 +1,6 @@
+## 3.0.3-beta.1
+* Attempting to implement a more advanced sitemap, allowing for quicker indexing
+
 ## 3.0.2-beta.3
 * Fixed a bug causing the default description on the homepage to not be seen by more advanced web crawlers
 
