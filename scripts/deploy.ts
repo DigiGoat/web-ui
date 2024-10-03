@@ -147,7 +147,7 @@ async function sitemap(link: string) {
 
   const newSitemap: Record<string, string> = {};
   const changedPages: string[] = [];
-  for (const page in sitemap) {
+  for (const page of sitemap) {
     if (!oldSitemap[page]) {
       log.debug(`Page removed: ${page}`);
       changedPages.push(page);
@@ -217,7 +217,7 @@ async function indexNow(pages: string[], link: string) {
 
   try {
     log.debug('Submitting URLs to IndexNow');
-    log.debug(body);
+    log.debug(JSON.stringify(body, null, 2));
     const response = await axios.post(apiUrl, body, {
       headers: {
         'Content-Type': 'application/json'
