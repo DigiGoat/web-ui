@@ -147,8 +147,8 @@ async function sitemap(link: string) {
 
   const newSitemap: Record<string, string> = {};
   const changedPages: string[] = [];
-  for (const page in oldSitemap) {
-    if (!newSitemap[page]) {
+  for (const page in sitemap) {
+    if (!oldSitemap[page]) {
       log.debug(`Page removed: ${page}`);
       changedPages.push(page);
     }
