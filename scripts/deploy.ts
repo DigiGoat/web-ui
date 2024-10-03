@@ -155,7 +155,6 @@ async function sitemap(link: string) {
       const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
       const oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
       const oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
-      log.debug(`Old title: ${oldTitle}, Old meta description: ${oldMetaDescription}`);
 
       const newPagePath = join(rootDir, page, 'index.html');
       log.debug(`Reading new page content from: ${newPagePath}`);
@@ -164,7 +163,6 @@ async function sitemap(link: string) {
       const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
       const newTitle = newTitleMatch ? newTitleMatch[1] : null;
       const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
-      log.debug(`New title: ${newTitle}, New meta description: ${newMetaDescription}`);
 
       if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
         log.debug(`No changes detected for page: ${page}`);

@@ -1,3 +1,6 @@
+## 3.0.3-beta.4
+* Decreased logging while checking for page changes
+
 ## 3.0.3-beta.3
 * Increased the precision of the Last Modified Date in the sitemap
 
