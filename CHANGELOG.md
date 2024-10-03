@@ -1,3 +1,6 @@
+## 3.0.4-beta.4
+* Fixed a bug when submitting pages to IndexNow
+
 ## 3.0.4-beta.3
 * Added more logging to help identify IndexNow bug
 
