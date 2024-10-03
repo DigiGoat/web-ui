@@ -146,6 +146,13 @@ async function sitemap(link: string) {
   log.debug('Writing sitemap.json');
 
   const newSitemap: Record<string, string> = {};
+  const changedPages: string[] = [];
+  for (const page in oldSitemap) {
+    if (!newSitemap[page]) {
+      log.debug(`Page removed: ${page}`);
+      changedPages.push(page);
+    }
+  }
   for (const page of sitemap) {
     const fullPageUrl = `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`;
     try {
@@ -170,11 +177,13 @@ async function sitemap(link: string) {
       } else {
         log.debug(`Changes detected for page: ${page}`);
         newSitemap[page] = new Date().toISOString();
+        changedPages.push(page);
       }
     } catch (error) {
       log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
       log.warn('↳ Generating New Sitemap Entry');
       newSitemap[page] = new Date().toISOString();
+      changedPages.push(page);
     }
   }
 
@@ -188,6 +197,39 @@ async function sitemap(link: string) {
   </url>`).join('')}
 </urlset>`;
   writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.xml'), sitemapXml);
+  if (changedPages.length) {
+    log.info('Notifying IndexNow of Changes');
+    await indexNow(changedPages, link);
+  }
+}
+
+async function indexNow(pages: string[], link: string) {
+  const apiUrl = 'https://api.indexnow.org/indexnow';
+
+  const urls = pages.map(page => `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`);
+  const key = '89236caf22c246bab06048c2994304af';
+  const body = {
+    host: link,
+    key: key,
+    keyLocation: `${link.endsWith('/') ? link.slice(0, -1) : link}${key}.txt`,
+    urlList: urls
+  };
+
+  try {
+    log.debug('Submitting URLs to IndexNow');
+    const response = await axios.post(apiUrl, body, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.status === 200) {
+      log.success('Successfully submitted URLs to IndexNow');
+    } else {
+      log.error('Failed to submit URLs to IndexNow:', response.status, response.statusText);
+    }
+  } catch (error) {
+    log.error('Error submitting URLs to IndexNow:', error);
+  }
 }
 
 function robots(link?: string) {

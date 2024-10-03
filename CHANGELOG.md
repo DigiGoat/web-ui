@@ -1,3 +1,7 @@
+## 3.0.4-beta.1
+* Added support for the IndexNow API!
+  * This will allow for quicker recognition of changes to the site
+
 ## 3.0.3-beta.4
 * Decreased logging while checking for page changes
 

@@ -36,7 +36,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/backgrounds"
+              "src/backgrounds",
+              "src/89236caf22c246bab06048c2994304af.txt"
             ],
             "styles": [
               "src/styles.scss"
