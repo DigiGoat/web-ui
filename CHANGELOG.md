@@ -1,3 +1,6 @@
+## 3.0.4-beta.2
+* Fixed a bug causing the site to think every page was deleted
+
 ## 3.0.4-beta.1
 * Added support for the IndexNow API!
   * This will allow for quicker recognition of changes to the site
