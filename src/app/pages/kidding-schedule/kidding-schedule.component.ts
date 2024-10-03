@@ -1,8 +1,9 @@
 import type { HttpErrorResponse } from '@angular/common/http';
 import { Component, type OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import type { Observable } from 'rxjs';
 import type { Page } from '../../app-routing.module';
+import { ConfigService } from '../../services/config/config.service';
 import { GoatService, type Goat, type Kidding } from '../../services/goat/goat.service';
 
 @Component({
@@ -21,9 +22,16 @@ export class KiddingScheduleComponent implements OnInit, Page {
   public searchParam?: string;
   public activeIndex?: number;
 
-  constructor(private goatService: GoatService, private route: ActivatedRoute) { }
-  setDescription(): Observable<void> | void {
-    //TODO: Implement setDescription
+  constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
+  setDescription() {
+    let description = '';
+    if (this.configService.homeTitle) {
+      description += this.configService.homeTitle;
+      description += ` Currently Has ${this.schedule?.length} Kiddings Scheduled`;
+    } else {
+      description += `The Farm Currently Has ${this.schedule?.length} Kiddings Scheduled`;
+    }
+    this.meta.addTags([{ name: 'og:description', content: description }, { name: 'description', content: description }]);
   }
 
   ngOnInit() {
@@ -33,6 +41,8 @@ export class KiddingScheduleComponent implements OnInit, Page {
         this.schedule = data;
         if (!data.length) {
           this.noSchedule = true;
+        } else if (!this.searchParam) {
+          this.setDescription();
         }
       },
       error: err => this.err = err
