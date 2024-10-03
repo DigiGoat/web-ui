@@ -1,3 +1,6 @@
+## 3.0.4-beta.5
+* Fixed a bug causing the IndexNow API to not work
+
 ## 3.0.4-beta.4
 * Fixed a bug when submitting pages to IndexNow
 

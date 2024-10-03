@@ -211,7 +211,7 @@ async function indexNow(pages: string[], link: string) {
   const body = {
     host: link,
     key: key,
-    keyLocation: `${link.endsWith('/') ? link.slice(0, -1) : link}${key}.txt`,
+    keyLocation: `${link.endsWith('/') ? link.slice(0, -1) : link}/${key}.txt`,
     urlList: urls
   };
 
