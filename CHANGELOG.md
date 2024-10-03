@@ -1,3 +1,6 @@
+## 3.0.4-beta.3
+* Added more logging to help identify IndexNow bug
+
 ## 3.0.4-beta.2
 * Fixed a bug causing the site to think every page was deleted
 

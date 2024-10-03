@@ -198,7 +198,7 @@ async function sitemap(link: string) {
 </urlset>`;
   writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.xml'), sitemapXml);
   if (changedPages.length) {
-    log.info('Notifying IndexNow of Changes');
+    log.info('Notifying IndexNow of Changes', changedPages);
     await indexNow(changedPages, link);
   }
 }
@@ -217,6 +217,7 @@ async function indexNow(pages: string[], link: string) {
 
   try {
     log.debug('Submitting URLs to IndexNow');
+    log.debug(body);
     const response = await axios.post(apiUrl, body, {
       headers: {
         'Content-Type': 'application/json'
