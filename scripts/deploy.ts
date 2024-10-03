@@ -168,15 +168,15 @@ async function sitemap(link: string) {
 
       if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
         log.debug(`No changes detected for page: ${page}`);
-        newSitemap[page] = oldSitemap[page] || new Date().toISOString().split('T')[0];
+        newSitemap[page] = oldSitemap[page] || new Date().toISOString();
       } else {
         log.debug(`Changes detected for page: ${page}`);
-        newSitemap[page] = new Date().toISOString().split('T')[0];
+        newSitemap[page] = new Date().toISOString();
       }
     } catch (error) {
       log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
       log.warn('↳ Generating New Sitemap Entry');
-      newSitemap[page] = new Date().toISOString().split('T')[0];
+      newSitemap[page] = new Date().toISOString();
     }
   }
 

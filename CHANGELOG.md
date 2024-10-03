@@ -1,3 +1,6 @@
+## 3.0.3-beta.3
+* Increased the precision of the Last Modified Date in the sitemap
+
 ## 3.0.3-beta.2
 * Fixed a bug causing the sitemap to not be generated for pages not on the old sitemap
 
