@@ -115,7 +115,7 @@ function format404() {
   log.debug('Removing 404 Dir');
   rmSync(join(__dirname, '../dist/web-ui/browser/404/'), { recursive: true });
 }
-function sitemap(link: string) {
+async function sitemap(link: string) {
   const sitemap: string[] = [];
   const rootDir = join(__dirname, '../dist/web-ui/browser');
 
@@ -134,8 +134,62 @@ function sitemap(link: string) {
   }
 
   scanDirectory(rootDir);
-  log.debug('Writing Sitemap');
-  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `${link.endsWith('/') ? link.slice(0, -1) : link}${entry}`).join('\n'));
+  log.debug('Fetching Old Sitemap');
+  let oldSitemap: Record<string, string> = {};
+  try {
+    const response = await axios.get(`${link}/sitemap.json`);
+    oldSitemap = response.data;
+  } catch (error) {
+    log.error('Failed to fetch old sitemap:', error);
+    log.warn('↳ Generating New Sitemap');
+  }
+  log.debug('Writing sitemap.json');
+
+  const newSitemap: Record<string, string> = {};
+  for (const page of sitemap) {
+    const fullPageUrl = `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`;
+    try {
+      log.debug(`Fetching page: ${fullPageUrl}`);
+      const response = await axios.get(fullPageUrl);
+      const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
+      const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
+      const oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
+      const oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      log.debug(`Old title: ${oldTitle}, Old meta description: ${oldMetaDescription}`);
+
+      const newPagePath = join(rootDir, page, 'index.html');
+      log.debug(`Reading new page content from: ${newPagePath}`);
+      const newPageContent = readFileSync(newPagePath, 'utf-8');
+      const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
+      const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+      const newTitle = newTitleMatch ? newTitleMatch[1] : null;
+      const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+      log.debug(`New title: ${newTitle}, New meta description: ${newMetaDescription}`);
+
+      if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
+        log.debug(`No changes detected for page: ${page}`);
+        newSitemap[page] = oldSitemap[page];
+      } else {
+        log.debug(`Changes detected for page: ${page}`);
+        newSitemap[page] = new Date().toISOString().split('T')[0];
+      }
+    } catch (error) {
+      log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
+      log.warn('↳ Generating New Sitemap Entry');
+      newSitemap[page] = new Date().toISOString().split('T')[0];
+    }
+  }
+
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.json'), JSON.stringify(newSitemap, null, 2));
+  log.debug('Writing sitemap.xml');
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemap.map(page => `
+  <url>
+    <loc>${link.endsWith('/') ? link.slice(0, -1) : link}${page}</loc>
+    <lastmod>${newSitemap[page]}</lastmod>
+  </url>`).join('')}
+</urlset>`;
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.xml'), sitemapXml);
 }
 
 function robots(link?: string) {
@@ -229,7 +283,7 @@ function browserConfig() {
   format404();
   log.info('Generating Sitemap...');
   if (url) {
-    sitemap(url.toString());
+    await sitemap(url.toString());
   } else {
     log.error('NO URL FOUND IN CONFIG!');
     log.warn('↳ Skipping Sitemap Generation');
