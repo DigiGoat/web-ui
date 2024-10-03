@@ -168,7 +168,7 @@ async function sitemap(link: string) {
 
       if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
         log.debug(`No changes detected for page: ${page}`);
-        newSitemap[page] = oldSitemap[page];
+        newSitemap[page] = oldSitemap[page] || new Date().toISOString().split('T')[0];
       } else {
         log.debug(`Changes detected for page: ${page}`);
         newSitemap[page] = new Date().toISOString().split('T')[0];

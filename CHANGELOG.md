@@ -1,3 +1,6 @@
+## 3.0.3-beta.2
+* Fixed a bug causing the sitemap to not be generated for pages not on the old sitemap
+
 ## 3.0.3-beta.1
 * Attempting to implement a more advanced sitemap, allowing for quicker indexing
 
