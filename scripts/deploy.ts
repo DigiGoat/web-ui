@@ -146,6 +146,7 @@ async function sitemap(link: string) {
   log.debug('Writing sitemap.json');
 
   const newSitemap: Record<string, string> = {};
+  const imageSitemap: Record<string, string[]> = {};
   const changedPages: string[] = [];
   for (const page of sitemap) {
     if (!oldSitemap[page]) {
@@ -168,8 +169,12 @@ async function sitemap(link: string) {
       const newPageContent = readFileSync(newPagePath, 'utf-8');
       const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
       const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+      const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
+
       const newTitle = newTitleMatch ? newTitleMatch[1] : null;
       const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+      const ogImages = Array.from(ogImageMatches).map(match => match[1]);
+      imageSitemap[page] = ogImages;
 
       if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
         log.debug(`No changes detected for page: ${page}`);
@@ -186,14 +191,16 @@ async function sitemap(link: string) {
       changedPages.push(page);
     }
   }
-
   writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.json'), JSON.stringify(newSitemap, null, 2));
   log.debug('Writing sitemap.xml');
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemap.map(page => `
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemap.map(page => `
   <url>
     <loc>${link.endsWith('/') ? link.slice(0, -1) : link}${page}</loc>
-    <lastmod>${newSitemap[page]}</lastmod>
+    <lastmod>${newSitemap[page]}</lastmod>${imageSitemap[page]?.map(image => `
+    <image:image>
+      <image:loc>${image}</image:loc>
+    </image:image>`).join('')}
   </url>`).join('')}
 </urlset>`;
   writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.xml'), sitemapXml);

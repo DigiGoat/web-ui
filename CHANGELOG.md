@@ -1,3 +1,6 @@
+## 3.0.5-beta.1
+* Added images to the sitemap
+
 ## 3.0.4-beta.5
 * Fixed a bug causing the IndexNow API to not work
 
