@@ -246,7 +246,7 @@ function robots(link?: string) {
     `# Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
 User-agent: *
 Disallow:${link ? `
-Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.txt` : ''}`);
+Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.xml` : ''}`);
 }
 function manifest() {
   let icons = true;
