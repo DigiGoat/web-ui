@@ -31,7 +31,7 @@ export class KiddingScheduleComponent implements OnInit, Page {
     } else {
       description += `The Farm Currently Has ${this.schedule?.length} Kiddings Scheduled`;
     }
-    this.meta.addTags([{ name: 'og:description', content: description }, { name: 'description', content: description }]);
+    this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
   }
 
   ngOnInit() {

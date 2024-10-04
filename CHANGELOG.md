@@ -1,3 +1,6 @@
+## 3.0.6-beta.1
+* Fixed a bug that could potentially cause the descriptions for the pages to not show up when posted on social media
+
 ## 3.0.5-beta.2
 * Fixed the sitemap link in `robots.txt`
 

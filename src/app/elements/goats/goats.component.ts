@@ -89,6 +89,6 @@ export class GoatsComponent implements OnInit {
         : goatNames[0];
       description += `This includes: ${formattedGoatNames}`;
     }
-    this.meta.addTags([{ name: 'og:description', content: description }, { name: 'description', content: description }]);
+    this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
   }
 }
