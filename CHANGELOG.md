@@ -1,3 +1,6 @@
+## 3.0.5-beta.2
+* Fixed the sitemap link in `robots.txt`
+
 ## 3.0.5-beta.1
 * Added images to the sitemap
 
