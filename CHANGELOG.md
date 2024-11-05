@@ -1,3 +1,6 @@
+## 3.0.7-beta.1
+* Condensed the descriptions showed for the does and bucks pages in search results
+
 ## 3.0.6-beta.1
 * Fixed a bug that could potentially cause the descriptions for the pages to not show up when posted on social media
 
