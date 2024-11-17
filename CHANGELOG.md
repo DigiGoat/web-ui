@@ -1,3 +1,7 @@
+## 3.1.0-beta.1
+* Added support for socials!
+  * This currently includes [Facebook](https://facebook.com), [Instagram](https://instagram.com), and [Threads](https://threads.net)
+
 ## 3.0.7-beta.1
 * Condensed the descriptions showed for the does and bucks pages in search results
 
