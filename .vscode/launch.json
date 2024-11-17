@@ -8,7 +8,7 @@
       "request": "launch",
       "preLaunchTask": "npm: start",
       "postDebugTask": "terminate: start",
-      "url": "http://localhost:4200/",
+      "url": "http://localhost:4000/",
       "timeout": 100000
     },
     {
