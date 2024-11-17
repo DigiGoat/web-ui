@@ -1,3 +1,43 @@
+## 3.0.7-beta.1
+* Condensed the descriptions showed for the does and bucks pages in search results
+
+## 3.0.6-beta.1
+* Fixed a bug that could potentially cause the descriptions for the pages to not show up when posted on social media
+
+## 3.0.5-beta.2
+* Fixed the sitemap link in `robots.txt`
+
+## 3.0.5-beta.1
+* Added images to the sitemap
+
+## 3.0.4-beta.5
+* Fixed a bug causing the IndexNow API to not work
+
+## 3.0.4-beta.4
+* Fixed a bug when submitting pages to IndexNow
+
+## 3.0.4-beta.3
+* Added more logging to help identify IndexNow bug
+
+## 3.0.4-beta.2
+* Fixed a bug causing the site to think every page was deleted
+
+## 3.0.4-beta.1
+* Added support for the IndexNow API!
+  * This will allow for quicker recognition of changes to the site
+
+## 3.0.3-beta.4
+* Decreased logging while checking for page changes
+
+## 3.0.3-beta.3
+* Increased the precision of the Last Modified Date in the sitemap
+
+## 3.0.3-beta.2
+* Fixed a bug causing the sitemap to not be generated for pages not on the old sitemap
+
+## 3.0.3-beta.1
+* Attempting to implement a more advanced sitemap, allowing for quicker indexing
+
 ## 3.0.2-beta.3
 * Fixed a bug causing the default description on the homepage to not be seen by more advanced web crawlers
 

@@ -115,7 +115,7 @@ function format404() {
   log.debug('Removing 404 Dir');
   rmSync(join(__dirname, '../dist/web-ui/browser/404/'), { recursive: true });
 }
-function sitemap(link: string) {
+async function sitemap(link: string) {
   const sitemap: string[] = [];
   const rootDir = join(__dirname, '../dist/web-ui/browser');
 
@@ -134,8 +134,110 @@ function sitemap(link: string) {
   }
 
   scanDirectory(rootDir);
-  log.debug('Writing Sitemap');
-  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.txt'), sitemap.map(entry => `${link.endsWith('/') ? link.slice(0, -1) : link}${entry}`).join('\n'));
+  log.debug('Fetching Old Sitemap');
+  let oldSitemap: Record<string, string> = {};
+  try {
+    const response = await axios.get(`${link}/sitemap.json`);
+    oldSitemap = response.data;
+  } catch (error) {
+    log.error('Failed to fetch old sitemap:', error);
+    log.warn('↳ Generating New Sitemap');
+  }
+  log.debug('Writing sitemap.json');
+
+  const newSitemap: Record<string, string> = {};
+  const imageSitemap: Record<string, string[]> = {};
+  const changedPages: string[] = [];
+  for (const page of sitemap) {
+    if (!oldSitemap[page]) {
+      log.debug(`Page removed: ${page}`);
+      changedPages.push(page);
+    }
+  }
+  for (const page of sitemap) {
+    const fullPageUrl = `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`;
+    try {
+      log.debug(`Fetching page: ${fullPageUrl}`);
+      const response = await axios.get(fullPageUrl);
+      const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
+      const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
+      const oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
+      const oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+
+      const newPagePath = join(rootDir, page, 'index.html');
+      log.debug(`Reading new page content from: ${newPagePath}`);
+      const newPageContent = readFileSync(newPagePath, 'utf-8');
+      const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
+      const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+      const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
+
+      const newTitle = newTitleMatch ? newTitleMatch[1] : null;
+      const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+      const ogImages = Array.from(ogImageMatches).map(match => match[1]);
+      imageSitemap[page] = ogImages;
+
+      if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
+        log.debug(`No changes detected for page: ${page}`);
+        newSitemap[page] = oldSitemap[page] || new Date().toISOString();
+      } else {
+        log.debug(`Changes detected for page: ${page}`);
+        newSitemap[page] = new Date().toISOString();
+        changedPages.push(page);
+      }
+    } catch (error) {
+      log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
+      log.warn('↳ Generating New Sitemap Entry');
+      newSitemap[page] = new Date().toISOString();
+      changedPages.push(page);
+    }
+  }
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.json'), JSON.stringify(newSitemap, null, 2));
+  log.debug('Writing sitemap.xml');
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${sitemap.map(page => `
+  <url>
+    <loc>${link.endsWith('/') ? link.slice(0, -1) : link}${page}</loc>
+    <lastmod>${newSitemap[page]}</lastmod>${imageSitemap[page]?.map(image => `
+    <image:image>
+      <image:loc>${image}</image:loc>
+    </image:image>`).join('')}
+  </url>`).join('')}
+</urlset>`;
+  writeFileSync(join(__dirname, '../dist/web-ui/browser/sitemap.xml'), sitemapXml);
+  if (changedPages.length) {
+    log.info('Notifying IndexNow of Changes', changedPages);
+    await indexNow(changedPages, link);
+  }
+}
+
+async function indexNow(pages: string[], link: string) {
+  const apiUrl = 'https://api.indexnow.org/indexnow';
+
+  const urls = pages.map(page => `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`);
+  const key = '89236caf22c246bab06048c2994304af';
+  const body = {
+    host: link,
+    key: key,
+    keyLocation: `${link.endsWith('/') ? link.slice(0, -1) : link}/${key}.txt`,
+    urlList: urls
+  };
+
+  try {
+    log.debug('Submitting URLs to IndexNow');
+    log.debug(JSON.stringify(body, null, 2));
+    const response = await axios.post(apiUrl, body, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.status === 200) {
+      log.success('Successfully submitted URLs to IndexNow');
+    } else {
+      log.error('Failed to submit URLs to IndexNow:', response.status, response.statusText);
+    }
+  } catch (error) {
+    log.error('Error submitting URLs to IndexNow:', error);
+  }
 }
 
 function robots(link?: string) {
@@ -144,7 +246,7 @@ function robots(link?: string) {
     `# Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
 User-agent: *
 Disallow:${link ? `
-Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.txt` : ''}`);
+Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.xml` : ''}`);
 }
 function manifest() {
   let icons = true;
@@ -229,7 +331,7 @@ function browserConfig() {
   format404();
   log.info('Generating Sitemap...');
   if (url) {
-    sitemap(url.toString());
+    await sitemap(url.toString());
   } else {
     log.error('NO URL FOUND IN CONFIG!');
     log.warn('↳ Skipping Sitemap Generation');

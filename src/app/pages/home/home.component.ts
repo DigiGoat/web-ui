@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
   setDescription(): void | Observable<void> {
     if (this.description) {
-      this.meta.addTags([{ name: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: this.htmlToPlainText(this.description) }]);
+      this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: this.htmlToPlainText(this.description) }]);
     } else {
       let description = '';
       if (this.config.homeTitle && this.config.owner) {
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
           } else {
             description += `The herd is currently home to ${does.length} doe${does.length === 1 ? '' : 's'} and ${bucks.length} buck${bucks.length === 1 ? '' : 's'}. `;
           }
-          this.meta.addTags([{ name: 'og:description', content: description }, { name: 'description', content: description }]);
+          this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
         });
       });
     }
