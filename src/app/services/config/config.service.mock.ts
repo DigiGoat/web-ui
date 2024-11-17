@@ -25,6 +25,11 @@ export const ConfigServiceMock = {
       quaternary: 'TEST_QUATERNARY_LIGHT'
     }
 
+  },
+  socials: {
+    facebook: 'https://TEST.FACEBOOK',
+    instagram: 'https://TEST.INSTAGRAM',
+    threads: 'https://TEST.THREADS',
   }
 } as ConfigService;
 export const EmptyConfigServiceMock = {
@@ -36,5 +41,6 @@ export const EmptyConfigServiceMock = {
   tabTitle: '',
   link: '',
   analytics: {},
-  colors: {}
+  colors: {},
+  socials: {}
 } as ConfigService;
