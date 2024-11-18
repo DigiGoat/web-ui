@@ -1,3 +1,6 @@
+## 3.1.0-beta.2
+* Added a slight margin between the socials and the homepage content
+
 ## 3.1.0-beta.1
 * Added support for socials!
   * This currently includes [Facebook](https://facebook.com), [Instagram](https://instagram.com), and [Threads](https://threads.net)

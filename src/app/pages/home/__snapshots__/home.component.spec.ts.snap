@@ -40,7 +40,7 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
       TEST_EMAIL
     </a>
   </h6><div
-    class="text-center"
+    class="text-center pb-2"
     test-id="socials"
   >
     <a
@@ -143,7 +143,7 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
     >
     </a>
   </h6><div
-    class="text-center"
+    class="text-center pb-2"
     test-id="socials"
   >
   </div><div

@@ -4,7 +4,7 @@
 <h1 class="text-center" test-id="title">{{config.homeTitle}}</h1>
 <h5 class="text-center" test-id="owner">{{config.owner}}</h5>
 <h6 class="text-center" test-id="email"><a [href]="'mailto:' + config.email">{{config.email}}</a></h6>
-<div class="text-center" test-id="socials">
+<div class="text-center pb-2" test-id="socials">
   <a *ngIf="config.socials?.facebook" href="https://facebook.com/{{config.socials.facebook}}" target="_blank"
     class="pe-2 link-body-emphasis">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
