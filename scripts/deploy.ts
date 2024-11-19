@@ -148,8 +148,8 @@ async function sitemap(link: string) {
   const newSitemap: Record<string, string> = {};
   const imageSitemap: Record<string, string[]> = {};
   const changedPages: string[] = [];
-  for (const page of sitemap) {
-    if (!oldSitemap[page]) {
+  for (const page of Object.keys(oldSitemap)) {
+    if (!sitemap.includes(page)) {
       log.debug(`Page removed: ${page}`);
       changedPages.push(page);
     }
@@ -225,15 +225,19 @@ async function indexNow(pages: string[], link: string) {
   try {
     log.debug('Submitting URLs to IndexNow');
     log.debug(JSON.stringify(body, null, 2));
-    const response = await axios.post(apiUrl, body, {
-      headers: {
-        'Content-Type': 'application/json'
+    if (ci) {
+      const response = await axios.post(apiUrl, body, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.status === 200) {
+        log.success('Successfully submitted URLs to IndexNow');
+      } else {
+        log.error('Failed to submit URLs to IndexNow:', response.status, response.statusText);
       }
-    });
-    if (response.status === 200) {
-      log.success('Successfully submitted URLs to IndexNow');
     } else {
-      log.error('Failed to submit URLs to IndexNow:', response.status, response.statusText);
+      log.warn('Skipping IndexNow Submission Due To Local Deployment');
     }
   } catch (error) {
     log.error('Error submitting URLs to IndexNow:', error);
