@@ -1,5 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
 import { Popover } from 'bootstrap';
+import { PlatformService } from '../../services/platform/platform.service';
 @Directive({
   selector: '[bs-popover]'
 })
@@ -26,9 +27,11 @@ export class PopoverDirective implements AfterViewInit, OnDestroy {
   @HostBinding('attr.data-bs-placement') placement = 'auto';
   @HostBinding('attr.data-bs-delay') boundary = '{ "show": 200, "hide": 250 }';
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private platformService: PlatformService) { }
   ngAfterViewInit(): void {
-    this.bsPopover = bootstrap.Popover.getOrCreateInstance(this.el.nativeElement);
+    if (this.platformService.isBrowser) {
+      this.bsPopover = bootstrap.Popover.getOrCreateInstance(this.el.nativeElement);
+    }
   }
   ngOnDestroy(): void {
     this.bsPopover?.dispose();
