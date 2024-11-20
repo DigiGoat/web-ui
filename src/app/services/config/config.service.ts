@@ -68,6 +68,12 @@ export class ConfigService {
     }
     return false;
   }
+  get socials(): Socials {
+    if (this.config['socials']) {
+      return this.config['socials'] as Socials;
+    }
+    return {};
+  }
 }
 
 type Analytics = { gtag?: string, clarity?: string; };
@@ -84,3 +90,4 @@ type ColorScheme = {
     quaternary?: string;
   };
 };
+type Socials = { facebook?: string, instagram?: string, threads?: string; };
