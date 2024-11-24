@@ -1,3 +1,4 @@
+import type { LAClassifications } from 'adga';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
@@ -138,6 +139,18 @@ export class GoatService {
         });
     }
   });
+
+  public getAppraisal(appraisals: Goat['linearAppraisals']) {
+    if (appraisals && appraisals.length) {
+      const permanentScores = appraisals.filter(appraisal => appraisal.isPermanent);
+      if (permanentScores.length) {
+        return permanentScores.reduce((prev, current) => ((prev.finalScore ?? 0) > (current.finalScore ?? 0)) ? prev : current);
+      } else {
+        return appraisals.reduce((prev, current) => (new Date((prev.appraisalDate ?? 0)) > new Date((current.appraisalDate ?? 0))) ? prev : current);
+      }
+    }
+    return undefined;
+  }
 }
 //export type Goat = (OwnedGoats['result']['items'][number] & { nickname: string; description: string; awards: Awards['result']['items']; colorAndMarking: string; /*obtained?: string;*/ });
 export type Goat = Partial<{
@@ -153,6 +166,17 @@ export type Goat = Partial<{
   damId: number;
   sireId: number;
   ownerAccount: { displayName?: string; };
+  linearAppraisals: Partial<{
+    lactationNumber: number;
+    appraisalDate: string;
+    generalAppearance: LAClassifications;
+    dairyStrength: LAClassifications;
+    bodyCapacity: LAClassifications;
+    mammarySystem: LAClassifications;
+    finalScore: number;
+    isPermanent: boolean;
+    id: number;
+  }>[];
 }>;
 export type Kidding = Partial<{
   dam: string;
