@@ -1,3 +1,6 @@
+## 3.2.0-beta.2
+* Fixed a bug causing the LA table headers to be messed up on mobile
+
 ## 3.2.0-beta.1
 * Added Support For Linear Appraisals!
   * Does & Bucks pages now show the LA history
