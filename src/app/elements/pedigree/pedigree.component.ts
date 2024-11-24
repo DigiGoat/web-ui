@@ -40,6 +40,15 @@ export class PedigreeComponent implements OnInit {
     if (goat.ownerAccount?.displayName) {
       popover.push(`<span class="fw-bold">Owned By</span>: <span class="fw-light">${goat.ownerAccount.displayName}</span>`);
     }
+    if (goat.linearAppraisals && goat.linearAppraisals.length) {
+      const appraisal = this.goatService.getAppraisal(goat.linearAppraisals);
+      popover.push(`<span class="fw-bold">${datePipe.transform(appraisal?.appraisalDate, 'YYYY')} Appraisal Score</span>: <span class="fw-light">${appraisal?.generalAppearance}${appraisal?.dairyStrength}${appraisal?.bodyCapacity}${appraisal?.mammarySystem ?? ''} ${appraisal?.finalScore}</span>`);
+    }
     return `<div>${popover.join('<br>')}</div>`;
+  }
+  formatLinearAppraisal(appraisals?: Required<Goat>['linearAppraisals']) {
+    if (!appraisals || !appraisals.length) return '';
+    const appraisal = this.goatService.getAppraisal(appraisals);
+    return `${appraisal?.generalAppearance}${appraisal?.dairyStrength}${appraisal?.bodyCapacity}${appraisal?.mammarySystem ?? ''} ${appraisal?.finalScore}`;
   }
 }
