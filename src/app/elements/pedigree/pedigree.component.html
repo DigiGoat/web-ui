@@ -122,7 +122,7 @@
       <span class="col">Linear Appraisal History:</span>
     </div>
     <div class="row border-bottom">
-      <div class="col border-end col-5 fw-bold">Date: </div>
+      <div class="col border-end col-3 col-sm-5 fw-bold">Date: </div>
       <div class="col border-end fw-bold" tooltip="General Appearance">GA</div>
       <div class="col border-end fw-bold" tooltip="Dairy Strength">DS</div>
       <div class="col border-end fw-bold" tooltip="Body Capacity">BC</div>
@@ -130,7 +130,7 @@
       <div class="col fw-bold" tooltip="Final Score">FS</div>
     </div>
     <div class="row border-top" *ngFor="let appraisal of goat.linearAppraisals; index as i">
-      <div class="col border-end col-5">{{appraisal.appraisalDate | longDate}}</div>
+      <div class="col border-end col-3 col-sm-5">{{appraisal.appraisalDate | longDate}}</div>
       <div class="col border-end">{{appraisal.generalAppearance}}</div>
       <div class="col border-end">{{appraisal.dairyStrength}}</div>
       <div class="col border-end">{{appraisal.bodyCapacity}}</div>
