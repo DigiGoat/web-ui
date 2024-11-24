@@ -1,3 +1,6 @@
+## 3.1.0-beta.3
+* Added Tooltips to the socials
+
 ## 3.1.0-beta.2
 * Added a slight margin between the socials and the homepage content
 
