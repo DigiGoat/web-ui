@@ -1,4 +1,5 @@
 import { ElementRef } from '@angular/core';
+import type { PlatformService } from '../../services/platform/platform.service';
 import { PopoverDirective } from './popover.directive';
 
 const bootstrap = { Popover: { getOrCreateInstance: jest.fn().mockReturnValue({ dispose: jest.fn(), setContent: jest.fn() }) } };
@@ -12,7 +13,8 @@ describe('PopoverDirective', () => {
     (window as unknown as { bootstrap: object; }).bootstrap = bootstrap;
     nativeElement = document.createElement('div');
     el = { nativeElement } as ElementRef<HTMLElement>;
-    directive = new PopoverDirective(el);
+    const platform = { isBrowser: true };
+    directive = new PopoverDirective(el, platform as PlatformService);
   });
 
   it('should create an instance', () => {
