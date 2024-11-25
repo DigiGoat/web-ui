@@ -1,3 +1,7 @@
+## 3.2.1-beta.1
+* Updated the links to use the new Favicons
+  * NOTE: You will have to redo your favicons
+
 ## 3.2.0-beta.2
 * Fixed a bug causing the LA table headers to be messed up on mobile
 

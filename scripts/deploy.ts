@@ -267,12 +267,12 @@ function manifest() {
     display: 'standalone',
     icons: icons ? [
       {
-        src: './android-chrome-192x192.png',
+        src: './web-app-manifest-192x192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: './android-chrome-512x512.png',
+        src: './web-app-manifest-512x512.png',
         sizes: '512x512',
         type: 'image/png'
       }
@@ -286,12 +286,12 @@ function manifest() {
         url: './',
         icons: [
           {
-            src: './android-chrome-192x192.png',
+            src: './web-app-manifest-192x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: './android-chrome-512x512.png',
+            src: './web-app-manifest-512x512.png',
             sizes: '512x512',
             type: 'image/png'
           }
@@ -312,15 +312,6 @@ function manifest() {
     start_url: url ? (url.pathname.endsWith('/') ? url.pathname : url.pathname + '/') : undefined,
     theme_color: typeof config['colors'] == 'object' ? config['colors']['secondary'] : 'hsl(230, 100%, 15%)'
   }, null, 2));
-}
-function browserConfig() {
-  if (!existsSync(join(__dirname, '../dist/web-ui/browser/assets/icons/browserconfig.xml'))) {
-    log.error('BROWSER CONFIG NOT FOUND');
-    log.warn('↳ Skipping Browser Config Generation');
-    return;
-  }
-  log.debug('Writing Browser Config');
-  writeFileSync(join(__dirname, '../dist/web-ui/browser/assets/icons/browserconfig.xml'), readFileSync(join(__dirname, '../dist/web-ui/browser/assets/icons/browserconfig.xml'), 'utf-8').replace('/mstile-150x150.png', './mstile-150x150.png'));
 }
 (async () => {
   log.info('Routing...');
@@ -355,7 +346,5 @@ function browserConfig() {
   }
   log.info('Generating Manifest...');
   manifest();
-  log.info('Generating Browser Config...');
-  browserConfig();
   log.success('Done.');
 })();
