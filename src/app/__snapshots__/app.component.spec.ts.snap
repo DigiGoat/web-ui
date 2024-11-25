@@ -14,7 +14,7 @@ exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
         alt="Logo"
         class="d-inline-block align-text-top"
         height="70"
-        ngsrc="./assets/icons/android-chrome-192x192.png"
+        ngsrc="./assets/icons/favicon.svg"
         priority=""
         width="70"
       />
@@ -216,7 +216,7 @@ exports[`AppComponent Without a Config should match the snapshot 1`] = `
         alt="Logo"
         class="d-inline-block align-text-top"
         height="70"
-        ngsrc="./assets/icons/android-chrome-192x192.png"
+        ngsrc="./assets/icons/favicon.svg"
         priority=""
         width="70"
       />
