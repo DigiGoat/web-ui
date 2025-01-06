@@ -1,3 +1,7 @@
+## 4.0.0-beta.1
+* Added Support for references!
+  * This is intended for animals that are not in the herd but are related to the herd (animals you have on lease, deceased animals that still have a genetic impact on your herd, etc.)
+
 ## 3.2.1-beta.1
 * Updated the links to use the new Favicons
   * NOTE: You will have to redo your favicons

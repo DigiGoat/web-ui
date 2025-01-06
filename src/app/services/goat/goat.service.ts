@@ -107,6 +107,40 @@ export class GoatService {
         });
     }
   });
+
+  private _references: Goat[] = [];
+  public references = new Observable<Goat[]>(observer => {
+    if (this._references.length) {
+      console.debug('Loaded References From Cache', this._references);
+      observer.next(this._references);
+    } else {
+      this.http.get<Goat[]>('./assets/resources/references.json')
+        .pipe(
+          retry(3), // retry a failed request up to 3 times
+        )
+        .subscribe({
+          next: data => {
+            this._references = data;
+            console.debug('Loaded References From Server', data);
+            observer.next(data);
+          },
+          error: err => {
+            if (err.status === 0) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.warn('An error occurred:', err.error);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong.
+              console.warn(
+                `Backend returned code ${err.status}, body was: `, err.error);
+            }
+            // Return an observable with a user-facing error message.
+            observer.error(err);
+          }
+        });
+    }
+  });
+
   private _kidding: Kidding[] = [];
   public kidding = new Observable<Kidding[]>(observer => {
     if (this._kidding.length) {

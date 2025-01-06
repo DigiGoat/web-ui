@@ -25,6 +25,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AgePipe } from './pipes/age/age.pipe';
 import { LongDatePipe } from './pipes/longDate/longDate.pipe';
 import { TooltipDirective } from './directives/tooltip/tooltip.directive';
+import { ReferencesComponent } from './pages/references/references.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { TooltipDirective } from './directives/tooltip/tooltip.directive';
     KiddingScheduleComponent,
     BreedingComponent,
     LongDatePipe,
-    TooltipDirective
+    TooltipDirective,
+    ReferencesComponent
   ],
   imports: [
     BrowserModule,
