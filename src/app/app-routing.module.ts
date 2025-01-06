@@ -2,12 +2,14 @@ import { NgModule, type OnInit } from '@angular/core';
 import { TitleStrategy as NgTitleStrategy, Route, RouterModule } from '@angular/router';
 
 import type { Observable } from 'rxjs';
-import { kiddingScheduleGuard } from './guards/kidding-schedule.guard';
+import { kiddingScheduleGuard } from './guards/kidding-schedule/kidding-schedule.guard';
+import { referencesGuard } from './guards/references/references.guard';
 import { BucksComponent } from './pages/bucks/bucks.component';
 import { DoesComponent } from './pages/does/does.component';
 import { HomeComponent } from './pages/home/home.component';
 import { KiddingScheduleComponent } from './pages/kidding-schedule/kidding-schedule.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ReferencesComponent } from './pages/references/references.component';
 import { TitleStrategy } from './strategies/title.strategy';
 
 const routes: Route[] = [
@@ -21,6 +23,12 @@ const routes: Route[] = [
     path: 'bucks', children: [
       { path: '', component: BucksComponent, title: 'Bucks' },
       { path: ':goat', component: BucksComponent, title: ':goat - Bucks' }
+    ]
+  },
+  {
+    path: 'references', canMatch: [referencesGuard], children: [
+      { path: '', component: ReferencesComponent, title: 'References' },
+      { path: ':goat', component: ReferencesComponent, title: ':goat - References' }
     ]
   },
   {
