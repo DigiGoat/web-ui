@@ -17,7 +17,8 @@ describe('KiddingScheduleComponent', () => {
     goatServiceMock = {
       kidding: of([]),
       does: of([]),
-      bucks: of([])
+      bucks: of([]),
+      references: of([])
     };
 
     routeMock = {
