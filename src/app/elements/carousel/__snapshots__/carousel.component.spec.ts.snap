@@ -3,7 +3,7 @@
 exports[`CarouselComponent With Images With a configured link should match the snapshot 1`] = `
 <app-carousel
   carousel={[Function Object]}
-  carouselElement={[Function _ElementRef]}
+  carouselElement={[Function ElementRef]}
   configService={[Function Object]}
   images={[Function Array]}
   meta={[Function Object]}
@@ -103,7 +103,7 @@ exports[`CarouselComponent With Images With a configured link should match the s
 exports[`CarouselComponent With Images Without a configured link should match the snapshot 1`] = `
 <app-carousel
   carousel={[Function Object]}
-  carouselElement={[Function _ElementRef]}
+  carouselElement={[Function ElementRef]}
   configService={[Function Object]}
   images={[Function Array]}
   meta={[Function Object]}
