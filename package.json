@@ -10,10 +10,10 @@
     "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
     "test:watch": "ng test --watch",
     "test:file": "yarn test -u --test-path-pattern",
-    "deploy": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/deploy.ts",
+    "deploy": "ts-node ./scripts/deploy.ts",
     "lint": "ng lint",
-    "pull-check": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/check.ts",
-    "test-script": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/test.ts",
+    "pull-check": "ts-node ./scripts/check.ts",
+    "test-script": "ts-node ./scripts/test.ts",
     "release": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/release.ts",
     "fix-version": "ts-node --skipProject ./scripts/version.ts"
   },
