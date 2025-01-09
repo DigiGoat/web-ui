@@ -28,7 +28,8 @@
         "quotes": [
           "warn",
           "single"
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {
