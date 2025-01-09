@@ -2,9 +2,10 @@ import { Component, Input, type OnChanges } from '@angular/core';
 import type { Goat, Kidding } from '../../services/goat/goat.service';
 
 @Component({
-  selector: 'app-breeding',
-  templateUrl: './breeding.component.html',
-  styleUrl: './breeding.component.scss'
+    selector: 'app-breeding',
+    templateUrl: './breeding.component.html',
+    styleUrl: './breeding.component.scss',
+    standalone: false
 })
 export class BreedingComponent implements OnChanges {
   ngOnChanges() {

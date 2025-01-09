@@ -2,7 +2,8 @@ import { Directive, ElementRef, OnInit } from '@angular/core';
 import { ImageService } from '../../services/image/image.service';
 
 @Directive({
-  selector: 'img'
+    selector: 'img',
+    standalone: false
 })
 export class ImgDirective implements OnInit {
   constructor(private el: ElementRef<HTMLImageElement>, private imageService: ImageService) { }

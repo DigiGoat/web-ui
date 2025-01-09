@@ -7,9 +7,10 @@ import type { Goat } from '../../../services/goat/goat.service';
 import { ImageService, type ImageEntry } from '../../../services/image/image.service';
 
 @Component({
-  selector: 'app-modal-goat-card',
-  templateUrl: './goat-card.component.html',
-  styleUrl: './goat-card.component.scss'
+    selector: 'app-modal-goat-card',
+    templateUrl: './goat-card.component.html',
+    styleUrl: './goat-card.component.scss',
+    standalone: false
 })
 export class GoatCardComponent implements OnInit, Page {
   @Input({ required: true }) goat!: Goat;

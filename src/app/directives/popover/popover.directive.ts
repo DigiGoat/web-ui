@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostBinding, Input, type AfterViewInit, type OnD
 import { Popover } from 'bootstrap';
 import { PlatformService } from '../../services/platform/platform.service';
 @Directive({
-  selector: '[bs-popover]'
+    selector: '[bs-popover]',
+    standalone: false
 })
 export class PopoverDirective implements AfterViewInit, OnDestroy {
   private bsPopover?: Popover;

@@ -7,9 +7,10 @@ import { ConfigService } from '../../services/config/config.service';
 import { GoatService, type Goat, type Kidding } from '../../services/goat/goat.service';
 
 @Component({
-  selector: 'app-kidding-schedule',
-  templateUrl: './kidding-schedule.component.html',
-  styleUrl: './kidding-schedule.component.scss'
+    selector: 'app-kidding-schedule',
+    templateUrl: './kidding-schedule.component.html',
+    styleUrl: './kidding-schedule.component.scss',
+    standalone: false
 })
 export class KiddingScheduleComponent implements OnInit, Page {
   schedule?: Kidding[];
