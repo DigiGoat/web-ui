@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "4.1.1-beta.1",
+  "version": "4.1.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4000",
@@ -15,7 +15,7 @@
     "pull-check": "ts-node ./scripts/check.ts",
     "test-script": "ts-node ./scripts/test.ts",
     "release": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/release.ts",
-    "fix-version": "ts-node --skipProject ./scripts/version.ts"
+    "fix-version": "ts-node ./scripts/version.ts"
   },
   "private": true,
   "dependencies": {
