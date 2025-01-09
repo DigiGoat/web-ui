@@ -3,9 +3,10 @@ import { Component, Input, type OnInit } from '@angular/core';
 import { type Goat, GoatService } from '../../services/goat/goat.service';
 
 @Component({
-  selector: 'app-pedigree',
-  templateUrl: './pedigree.component.html',
-  styleUrl: './pedigree.component.scss'
+    selector: 'app-pedigree',
+    templateUrl: './pedigree.component.html',
+    styleUrl: './pedigree.component.scss',
+    standalone: false
 })
 export class PedigreeComponent implements OnInit {
   @Input({ required: true }) goat!: Goat;

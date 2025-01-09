@@ -3,9 +3,10 @@ import { ConfigService } from '../../services/config/config.service';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Component({
-  selector: 'analytics',
-  templateUrl: './analytics.component.html',
-  styleUrl: './analytics.component.scss'
+    selector: 'analytics',
+    templateUrl: './analytics.component.html',
+    styleUrl: './analytics.component.scss',
+    standalone: false
 })
 export class AnalyticsComponent implements OnInit {
   constructor(private config: ConfigService, private platformService: PlatformService, private el: ElementRef<HTMLElement>) { }

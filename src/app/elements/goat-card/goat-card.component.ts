@@ -5,9 +5,10 @@ import { type Goat, GoatService } from '../../services/goat/goat.service';
 import { ConfigService } from '../../services/config/config.service';
 import { ImageEntry, ImageService } from '../../services/image/image.service';
 @Component({
-  selector: 'app-goat-card',
-  templateUrl: './goat-card.component.html',
-  styleUrls: ['./goat-card.component.scss']
+    selector: 'app-goat-card',
+    templateUrl: './goat-card.component.html',
+    styleUrls: ['./goat-card.component.scss'],
+    standalone: false
 })
 export class GoatCardComponent implements OnChanges {
   constructor(private imageService: ImageService, private meta: Meta, private configService: ConfigService, private route: ActivatedRoute, private goatService: GoatService) { }

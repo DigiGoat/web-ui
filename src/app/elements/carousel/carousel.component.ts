@@ -5,10 +5,11 @@ import type { ImageEntry } from '../../services/image/image.service';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Component({
-  selector: 'app-carousel',
-  templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.scss',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-carousel',
+    templateUrl: './carousel.component.html',
+    styleUrl: './carousel.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class CarouselComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(private platformService: PlatformService, private meta: Meta, private configService: ConfigService) { }

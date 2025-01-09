@@ -3,7 +3,8 @@ import type { Tooltip } from 'bootstrap';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Directive({
-  selector: '[tooltip]'
+    selector: '[tooltip]',
+    standalone: false
 })
 export class TooltipDirective implements AfterViewInit, OnDestroy {
   private bsTooltip?: Tooltip;
