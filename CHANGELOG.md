@@ -1,7 +1,7 @@
-## 4.1.1-beta.2
+## 4.1.2-beta.2
 * Fixed a bug causing updates not to be posted as releases
 
-## 4.1.1-beta.1
+## 4.1.2-beta.1
 * A lot of behind-the-scenes changes to improve the performance of the site
   * Updated Angular from v17 to v19
   * Updated Typescript
