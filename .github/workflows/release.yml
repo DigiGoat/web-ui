@@ -5,6 +5,9 @@ on:
     branches: [main, beta]
 permissions:
   contents: write
+env:
+  YARN_IGNORE_ENGINES: true
+
 jobs:
   publish_release:
     if: endsWith(github.repository, 'web-ui')
