@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "4.1.1",
+  "version": "4.1.2-beta.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4000",
@@ -14,7 +14,7 @@
     "lint": "ng lint",
     "pull-check": "ts-node ./scripts/check.ts",
     "test-script": "ts-node ./scripts/test.ts",
-    "release": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/release.ts",
+    "release": "ts-node ./scripts/release.ts",
     "fix-version": "ts-node ./scripts/version.ts"
   },
   "private": true,
@@ -74,6 +74,6 @@
     "titleTemplate": "{title}"
   },
   "engines": {
-    "node": "18.x || 20.x || 22.x"
+    "node": "^18.19.1 || ^20.11.1 || ^22.0.0"
   }
 }

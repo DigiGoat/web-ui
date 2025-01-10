@@ -21,6 +21,7 @@ concurrency:
 
 env:
   BUILD_PATH: "." # default value when not using subfolders
+  YARN_IGNORE_ENGINES: true
   # BUILD_PATH: subfolder
 
 jobs:
