@@ -1,3 +1,4 @@
+import type { LAClassifications } from 'adga';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
@@ -106,6 +107,40 @@ export class GoatService {
         });
     }
   });
+
+  private _references: Goat[] = [];
+  public references = new Observable<Goat[]>(observer => {
+    if (this._references.length) {
+      console.debug('Loaded References From Cache', this._references);
+      observer.next(this._references);
+    } else {
+      this.http.get<Goat[]>('./assets/resources/references.json')
+        .pipe(
+          retry(3), // retry a failed request up to 3 times
+        )
+        .subscribe({
+          next: data => {
+            this._references = data;
+            console.debug('Loaded References From Server', data);
+            observer.next(data);
+          },
+          error: err => {
+            if (err.status === 0) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.warn('An error occurred:', err.error);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong.
+              console.warn(
+                `Backend returned code ${err.status}, body was: `, err.error);
+            }
+            // Return an observable with a user-facing error message.
+            observer.error(err);
+          }
+        });
+    }
+  });
+
   private _kidding: Kidding[] = [];
   public kidding = new Observable<Kidding[]>(observer => {
     if (this._kidding.length) {
@@ -138,6 +173,18 @@ export class GoatService {
         });
     }
   });
+
+  public getAppraisal(appraisals: Goat['linearAppraisals']) {
+    if (appraisals && appraisals.length) {
+      const permanentScores = appraisals.filter(appraisal => appraisal.isPermanent);
+      if (permanentScores.length) {
+        return permanentScores.reduce((prev, current) => ((prev.finalScore ?? 0) > (current.finalScore ?? 0)) ? prev : current);
+      } else {
+        return appraisals.reduce((prev, current) => (new Date((prev.appraisalDate ?? 0)) > new Date((current.appraisalDate ?? 0))) ? prev : current);
+      }
+    }
+    return undefined;
+  }
 }
 //export type Goat = (OwnedGoats['result']['items'][number] & { nickname: string; description: string; awards: Awards['result']['items']; colorAndMarking: string; /*obtained?: string;*/ });
 export type Goat = Partial<{
@@ -153,6 +200,17 @@ export type Goat = Partial<{
   damId: number;
   sireId: number;
   ownerAccount: { displayName?: string; };
+  linearAppraisals: Partial<{
+    lactationNumber: number;
+    appraisalDate: string;
+    generalAppearance: LAClassifications;
+    dairyStrength: LAClassifications;
+    bodyCapacity: LAClassifications;
+    mammarySystem: LAClassifications;
+    finalScore: number;
+    isPermanent: boolean;
+    id: number;
+  }>[];
 }>;
 export type Kidding = Partial<{
   dam: string;

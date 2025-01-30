@@ -4,9 +4,10 @@ import type { Goat } from '../../../services/goat/goat.service';
 import { PlatformService } from '../../../services/platform/platform.service';
 
 @Component({
-  selector: 'app-modal-goat',
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+    selector: 'app-modal-goat',
+    templateUrl: './modal.component.html',
+    styleUrl: './modal.component.scss',
+    standalone: false
 })
 export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
   prerender = false;

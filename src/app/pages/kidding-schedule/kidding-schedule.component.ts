@@ -7,9 +7,10 @@ import { ConfigService } from '../../services/config/config.service';
 import { GoatService, type Goat, type Kidding } from '../../services/goat/goat.service';
 
 @Component({
-  selector: 'app-kidding-schedule',
-  templateUrl: './kidding-schedule.component.html',
-  styleUrl: './kidding-schedule.component.scss'
+    selector: 'app-kidding-schedule',
+    templateUrl: './kidding-schedule.component.html',
+    styleUrl: './kidding-schedule.component.scss',
+    standalone: false
 })
 export class KiddingScheduleComponent implements OnInit, Page {
   schedule?: Kidding[];
@@ -18,6 +19,7 @@ export class KiddingScheduleComponent implements OnInit, Page {
   public noSchedule = false;
   public does?: Goat[];
   public bucks?: Goat[];
+  public references?: Goat[];
   public activeGoat?: Goat;
   public searchParam?: string;
   public activeIndex?: number;
@@ -57,6 +59,12 @@ export class KiddingScheduleComponent implements OnInit, Page {
       next: bucks => {
         this.bucks = bucks;
         this.determineActiveGoat(bucks);
+      }
+    });
+    this.goatService.references.subscribe({
+      next: references => {
+        this.references = references;
+        this.determineActiveGoat(references);
       }
     });
   }

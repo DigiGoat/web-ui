@@ -1,3 +1,35 @@
+## 4.1.2-beta.2
+* Fixed a bug causing updates not to be posted as releases
+
+## 4.1.2-beta.1
+* A lot of behind-the-scenes changes to improve the performance of the site
+  * Updated Angular from v17 to v19
+  * Updated Typescript
+  * Preparing to update Node.js
+
+## 4.1.0-beta.1
+* The kidding schedule now acceses reference goats when identifying dams and sires
+  * This currently works even if you have disabled the references page on your site, that behavior may change in the future
+
+## 4.0.0-beta.1
+* Added Support for references!
+  * This is intended for animals that are not in the herd but are related to the herd (animals you have on lease, deceased animals that still have a genetic impact on your herd, etc.)
+
+## 3.2.1-beta.1
+* Updated the links to use the new Favicons
+  * NOTE: You will have to redo your favicons
+
+## 3.2.0-beta.2
+* Fixed a bug causing the LA table headers to be messed up on mobile
+
+## 3.2.0-beta.1
+* Added Support For Linear Appraisals!
+  * Does & Bucks pages now show the LA history
+  * Pedigrees now show LA scores
+
+## 3.1.0-beta.3
+* Added Tooltips to the socials
+
 ## 3.1.0-beta.2
 * Added a slight margin between the socials and the homepage content
 

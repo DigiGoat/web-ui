@@ -4,7 +4,7 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
 <app-home
   config={[Function Object]}
   description={[Function String]}
-  el={[Function _ElementRef]}
+  el={[Function ElementRef]}
   goatService={[Function Object]}
   meta={[Function _Meta]}
   platformService={[Function PlatformService]}
@@ -16,7 +16,7 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
       alt="Farm Logo"
       class="text-center"
       height="300"
-      ngsrc="./assets/icons/android-chrome-512x512.png"
+      ngsrc="./assets/icons/favicon.svg"
       priority=""
       width="300"
     />
@@ -110,7 +110,7 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
 <app-home
   config={[Function Object]}
   description=""
-  el={[Function _ElementRef]}
+  el={[Function ElementRef]}
   goatService={[Function Object]}
   meta={[Function _Meta]}
   platformService={[Function PlatformService]}
@@ -122,7 +122,7 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
       alt="Farm Logo"
       class="text-center"
       height="300"
-      ngsrc="./assets/icons/android-chrome-512x512.png"
+      ngsrc="./assets/icons/favicon.svg"
       priority=""
       width="300"
     />

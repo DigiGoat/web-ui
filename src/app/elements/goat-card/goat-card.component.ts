@@ -1,16 +1,17 @@
 import { Component, Input, type OnChanges } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import type { Goat } from 'src/app/services/goat/goat.service';
+import { type Goat, GoatService } from '../../services/goat/goat.service';
 import { ConfigService } from '../../services/config/config.service';
 import { ImageEntry, ImageService } from '../../services/image/image.service';
 @Component({
-  selector: 'app-goat-card',
-  templateUrl: './goat-card.component.html',
-  styleUrls: ['./goat-card.component.scss']
+    selector: 'app-goat-card',
+    templateUrl: './goat-card.component.html',
+    styleUrls: ['./goat-card.component.scss'],
+    standalone: false
 })
 export class GoatCardComponent implements OnChanges {
-  constructor(private imageService: ImageService, private meta: Meta, private configService: ConfigService, private route: ActivatedRoute) { }
+  constructor(private imageService: ImageService, private meta: Meta, private configService: ConfigService, private route: ActivatedRoute, private goatService: GoatService) { }
 
   @Input() goat?: Partial<Goat>;
   name?: string;
@@ -20,6 +21,7 @@ export class GoatCardComponent implements OnChanges {
   born?: string;
   image?: ImageEntry;
   identifier?: string;
+  linearAppraisal?: Required<Goat>['linearAppraisals'][number];
   ngOnChanges() {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
@@ -31,6 +33,7 @@ export class GoatCardComponent implements OnChanges {
     if (!this.route.snapshot.params['goat']) {
       this.setOGImages();
     }
+    this.linearAppraisal = this.goatService.getAppraisal(this.goat?.linearAppraisals);
   }
   setOGImages() {
     if (this.image && this.image.file !== '/') {

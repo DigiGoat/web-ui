@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "3.1.0-beta.2",
+  "version": "4.1.2-beta.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4000",
@@ -10,47 +10,46 @@
     "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
     "test:watch": "ng test --watch",
     "test:file": "yarn test -u --test-path-pattern",
-    "serve:ssr": "node dist/web-ui/server/server.mjs",
-    "deploy": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/deploy.ts",
+    "deploy": "ts-node ./scripts/deploy.ts",
     "lint": "ng lint",
-    "pull-check": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/check.ts",
-    "test-script": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/test.ts",
-    "release": "ts-node --skipProject --compilerOptions '{\"resolveJsonModule\": true}' ./scripts/release.ts",
-    "fix-version": "ts-node --skipProject ./scripts/version.ts"
+    "pull-check": "ts-node ./scripts/check.ts",
+    "test-script": "ts-node ./scripts/test.ts",
+    "release": "ts-node ./scripts/release.ts",
+    "fix-version": "ts-node ./scripts/version.ts"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.3.6",
-    "@angular/common": "^17.3.6",
-    "@angular/compiler": "^17.3.6",
-    "@angular/core": "^17.3.6",
-    "@angular/forms": "^17.3.6",
-    "@angular/platform-browser": "^17.3.6",
-    "@angular/platform-browser-dynamic": "^17.3.6",
-    "@angular/platform-server": "^17.3.6",
-    "@angular/router": "^17.3.6",
-    "@angular/ssr": "^17.3.5",
+    "@angular/animations": "^19.0.6",
+    "@angular/common": "^19.0.6",
+    "@angular/compiler": "^19.0.6",
+    "@angular/core": "^19.0.6",
+    "@angular/forms": "^19.0.6",
+    "@angular/platform-browser": "^19.0.6",
+    "@angular/platform-browser-dynamic": "^19.0.6",
+    "@angular/platform-server": "^19.0.6",
+    "@angular/router": "^19.0.6",
+    "@angular/ssr": "^19.0.7",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "isbot": "^5.1.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.4"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-builders/jest": "^17.0.2",
-    "@angular-devkit/build-angular": "^17.3.5",
-    "@angular-eslint/builder": "17.3.0",
-    "@angular-eslint/eslint-plugin": "17.3.0",
-    "@angular-eslint/eslint-plugin-template": "17.3.0",
-    "@angular-eslint/schematics": "17.3.0",
-    "@angular-eslint/template-parser": "17.3.0",
-    "@angular/cli": "~17.3.5",
-    "@angular/compiler-cli": "^17.3.6",
+    "@angular-builders/jest": "^19.0.0",
+    "@angular-eslint/builder": "19.0.2",
+    "@angular-eslint/eslint-plugin": "19.0.2",
+    "@angular-eslint/eslint-plugin-template": "19.0.2",
+    "@angular-eslint/schematics": "19.0.2",
+    "@angular-eslint/template-parser": "19.0.2",
+    "@angular/build": "^19.0.7",
+    "@angular/cli": "~19.0.7",
+    "@angular/compiler-cli": "^19.0.6",
     "@types/bootstrap": "^5.2.10",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.12",
-    "@types/node": "^18.18.0",
+    "@types/node": "20",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
@@ -63,7 +62,7 @@
     "semver": "^7.6.2",
     "simple-git": "^3.24.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.4.3"
+    "typescript": "~5.6.3"
   },
   "jest-junit": {
     "outputDirectory": "reports",
@@ -73,5 +72,8 @@
     "suiteNameTemplate": "{filepath}",
     "classNameTemplate": "{classname}",
     "titleTemplate": "{title}"
+  },
+  "engines": {
+    "node": "^18.19.1 || ^20.11.1 || ^22.0.0"
   }
 }

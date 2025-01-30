@@ -2,10 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivatedRoute } from '@angular/router';
 import { AgePipe } from '../../pipes/age/age.pipe';
+import { GoatService } from '../../services/goat/goat.service';
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
 
 jest.mock('@angular/router');
+jest.mock('../../services/goat/goat.service');
 
 describe('GoatCardComponent', () => {
   let component: GoatCardComponent;
@@ -14,7 +16,7 @@ describe('GoatCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GoatCardComponent, AgePipe],
-      providers: [ImageService, ActivatedRoute],
+      providers: [ImageService, ActivatedRoute, GoatService],
     })
       .compileComponents();
     fixture = TestBed.createComponent(GoatCardComponent);
@@ -26,6 +28,7 @@ describe('GoatCardComponent', () => {
       ]
     };
     component['route'] = { snapshot: { params: {} } } as any;
+    component['goatService']['getAppraisal'] = jest.fn().mockReturnValue({ finalScore: 80 }) as any;
   });
 
   it('should create', () => {

@@ -4,9 +4,10 @@ import { GoatService } from '../../services/goat/goat.service';
 
 
 @Component({
-  selector: 'app-does',
-  templateUrl: './does.component.html',
-  styleUrls: ['./does.component.scss']
+    selector: 'app-does',
+    templateUrl: './does.component.html',
+    styleUrls: ['./does.component.scss'],
+    standalone: false
 })
 export class DoesComponent {
   name = 'Does';

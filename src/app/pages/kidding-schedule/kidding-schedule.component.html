@@ -4,7 +4,7 @@
   <div *ngIf="schedule">
     <app-modal-goat *ngIf="searchParam && activeIndex === -1" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
     <div *ngFor="let breeding of schedule; index as i">
-      <app-breeding [breeding]="breeding" [does]="does" [bucks]="bucks"></app-breeding>
+      <app-breeding [breeding]="breeding" [does]="does" [bucks]="bucks" [references]="references"></app-breeding>
       <app-modal-goat *ngIf="i === activeIndex" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
     </div>
   </div>

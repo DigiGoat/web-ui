@@ -74,6 +74,12 @@ export class ConfigService {
     }
     return {};
   }
+  get references(): boolean {
+    if (this.config['references']) {
+      return this.config['references'] as boolean;
+    }
+    return false;
+  }
 }
 
 type Analytics = { gtag?: string, clarity?: string; };

@@ -1,14 +1,15 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { GoatService, type Goat } from './goat.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 describe('GoatService', () => {
   let service: GoatService;
   let http: HttpTestingController;
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
+    TestBed.configureTestingModule({ imports: [], providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()] });
     service = TestBed.inject(GoatService);
     http = TestBed.inject(HttpTestingController);
   });

@@ -3,18 +3,23 @@
   --main-color: hsl(230, 100%, 10%);
   --secondary-color: hsl(230, 100%, 15%);
   --tertiary-color: hsl(230, 100%, 20%);
-  --quaternary-color: hsl(230, 100%, 25%);
+  --quaternary-color: hsl(227, 11%, 33%);
   --text-color: white;
 
   --main-light-color: hsl(230, 100%, 80%);
-  --secondary-light-color: hsl(230, 100%, 75%);
+  --secondary-light-color: hsl(0, 0%, 0%);
   --tertiary-light-color: hsl(230, 100%, 70%);
-  --quaternary-light-color: hsl(230, 100%, 65%);
+  --quaternary-light-color: hsl(231, 31%, 18%);
   --text-light-color: black;
 }
 
 [data-bs-theme]app-root>div.color-scheme-main {
   background-image: var(--background-image);
+}
+
+.tooltip {
+  --bs-tooltip-bg: var(--bs-tertiary-bg);
+  --bs-tooltip-color: var(--bs-emphasis-color);
 }
 
 /**Colors for devices in dark mode*/

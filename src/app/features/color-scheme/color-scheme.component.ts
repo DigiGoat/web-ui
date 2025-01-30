@@ -4,9 +4,10 @@ import { ConfigService } from '../../services/config/config.service';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Component({
-  selector: 'color-scheme',
-  templateUrl: './color-scheme.component.html',
-  styleUrl: './color-scheme.component.scss'
+    selector: 'color-scheme',
+    templateUrl: './color-scheme.component.html',
+    styleUrl: './color-scheme.component.scss',
+    standalone: false
 })
 export class ColorSchemeComponent implements OnInit {
   constructor(private config: ConfigService, private platformService: PlatformService, private el: ElementRef<HTMLElement>, private meta: Meta) { }

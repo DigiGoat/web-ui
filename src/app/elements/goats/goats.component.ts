@@ -12,9 +12,10 @@ import { PlatformService } from '../../services/platform/platform.service';
 
 
 @Component({
-  selector: 'app-goats',
-  templateUrl: './goats.component.html',
-  styleUrls: ['./goats.component.scss']
+    selector: 'app-goats',
+    templateUrl: './goats.component.html',
+    styleUrls: ['./goats.component.scss'],
+    standalone: false
 })
 export class GoatsComponent implements OnInit {
   public err?: HttpErrorResponse;
