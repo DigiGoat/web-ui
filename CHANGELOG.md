@@ -1,3 +1,6 @@
+## 4.1.3-beta.1
+* Added the ability to customize the text at the top of the kidding schedule
+
 ## 4.1.2-beta.2
 * Fixed a bug causing updates not to be posted as releases
 

@@ -67,6 +67,11 @@ async function setupMarkdown() {
     config['homeDescription'] = await renderMarkdown(config['homeDescription']);
     writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
   }
+  if (config['kiddingScheduleDescription']) {
+    log.debug('Rendering Markdown For Kidding Schedule');
+    config['kiddingScheduleDescription'] = await renderMarkdown(config['kiddingScheduleDescription']);
+    writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
+  }
   const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
   if (does.length) {
     log.debug('Rendering Markdown For Does');

@@ -68,6 +68,12 @@ export class ConfigService {
     }
     return false;
   }
+  get kiddingScheduleDescription(): string {
+    if (this.config['kiddingScheduleDescription']) {
+      return this.config['kiddingScheduleDescription'] as string;
+    }
+    return '';
+  }
   get socials(): Socials {
     if (this.config['socials']) {
       return this.config['socials'] as Socials;
