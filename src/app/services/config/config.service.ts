@@ -86,6 +86,12 @@ export class ConfigService {
     }
     return false;
   }
+  get forSale(): boolean {
+    if (this.config['forSale']) {
+      return this.config['forSale'] as boolean;
+    }
+    return false;
+  }
 }
 
 type Analytics = { gtag?: string, clarity?: string; };

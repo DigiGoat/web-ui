@@ -1,3 +1,7 @@
+## 5.0.0-beta.1
+* Added support for a For Sale page
+  * TODO: Add a designated price section and sale terms popup
+
 ## 4.1.3-beta.1
 * Added the ability to customize the text at the top of the kidding schedule
 

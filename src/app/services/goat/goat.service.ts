@@ -174,6 +174,39 @@ export class GoatService {
     }
   });
 
+  private _forSale: ForSale = {};
+  public forSale = new Observable<ForSale>(observer => {
+    if (this._forSale.does?.length || this._forSale.bucks?.length || this._forSale.pets?.length) {
+      console.debug('Loaded Goats For Sale From Cache', this._forSale);
+      observer.next(this._forSale);
+    } else {
+      this.http.get<ForSale>('./assets/resources/for-sale.json')
+        .pipe(
+          retry(3), // retry a failed request up to 3 times
+        )
+        .subscribe({
+          next: data => {
+            this._forSale = data;
+            console.debug('Loaded Goats For Sale From Server', data);
+            observer.next(data);
+          },
+          error: err => {
+            if (err.status === 0) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.warn('An error occurred:', err.error);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong.
+              console.warn(
+                `Backend returned code ${err.status}, body was: `, err.error);
+            }
+            // Return an observable with a user-facing error message.
+            observer.error(err);
+          }
+        });
+    }
+  });
+
   public getAppraisal(appraisals: Goat['linearAppraisals']) {
     if (appraisals && appraisals.length) {
       const permanentScores = appraisals.filter(appraisal => appraisal.isPermanent);
@@ -219,6 +252,12 @@ export type Kidding = Partial<{
   due: string;
   kidded: string;
   description: string;
+}>;
+
+export type ForSale = Partial<{
+  does: Goat[];
+  bucks: Goat[];
+  pets: Goat[];
 }>;
 export const Goat = {
   nickname: 'Your Goats Farm Name',
