@@ -1,5 +1,4 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { findMatch, Goat } from 'src/app/services/goat/goat.service';
 
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,6 +7,7 @@ import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { ConfigService } from '../../services/config/config.service';
+import { findMatch, type Goat } from '../../services/goat/goat.service';
 import { PlatformService } from '../../services/platform/platform.service';
 
 
