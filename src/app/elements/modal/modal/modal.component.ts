@@ -4,15 +4,19 @@ import type { Goat } from '../../../services/goat/goat.service';
 import { PlatformService } from '../../../services/platform/platform.service';
 
 @Component({
-    selector: 'app-modal-goat',
-    templateUrl: './modal.component.html',
-    styleUrl: './modal.component.scss',
-    standalone: false
+  selector: 'app-modal-goat',
+  templateUrl: './modal.component.html',
+  styleUrl: './modal.component.scss',
+  standalone: false
 })
 export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
   prerender = false;
   @Input() goat?: Goat;
   @Input({ required: true }) searchParam!: string;
+
+  get prettySearchParam() {
+    return this.searchParam.replace(/-/g, ' ');
+  }
 
   constructor(public router: Router, public route: ActivatedRoute, private platformService: PlatformService) { }
 

@@ -226,3 +226,15 @@ export const Goat = {
   description: 'A quick description about your goat',
   normalizeId: 'PD12345',
 };
+
+export function findMatch(searchParam: string, goats: Goat[]): number {
+  let activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(searchParam));
+  if (activeGoatIndex === -1) {
+    activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase()).includes(searchParam?.toLowerCase()));
+  }
+  if (activeGoatIndex === -1) {
+    searchParam = searchParam.replace(/-/g, ' ');
+    activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(searchParam?.toLowerCase()));
+  }
+  return activeGoatIndex;
+}
