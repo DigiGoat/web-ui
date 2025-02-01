@@ -77,9 +77,12 @@ export class KiddingScheduleComponent implements OnInit, Page {
 
   determineActiveGoat(goats: Goat[]) {
     if (this.searchParam) {
-      this.activeGoat = goats[findMatch(this.searchParam, goats)];
-      if (this.schedule) {
-        this.activeIndex = this.schedule.findIndex(kidding => kidding.dam === this.activeGoat?.normalizeId || kidding.sire === this.activeGoat?.normalizeId);
+      const goat = goats[findMatch(this.searchParam, goats)];
+      if (goat) {
+        this.activeGoat = goat;
+        if (this.schedule) {
+          this.activeIndex = this.schedule.findIndex(kidding => kidding.dam === goat.normalizeId || kidding.sire === goat.normalizeId);
+        }
       }
     }
   }
