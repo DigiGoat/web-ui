@@ -1,5 +1,4 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Goat } from 'src/app/services/goat/goat.service';
 
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,14 +7,15 @@ import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { ConfigService } from '../../services/config/config.service';
+import { findMatch, type Goat } from '../../services/goat/goat.service';
 import { PlatformService } from '../../services/platform/platform.service';
 
 
 @Component({
-    selector: 'app-goats',
-    templateUrl: './goats.component.html',
-    styleUrls: ['./goats.component.scss'],
-    standalone: false
+  selector: 'app-goats',
+  templateUrl: './goats.component.html',
+  styleUrls: ['./goats.component.scss'],
+  standalone: false
 })
 export class GoatsComponent implements OnInit {
   public err?: HttpErrorResponse;
@@ -40,14 +40,7 @@ export class GoatsComponent implements OnInit {
         }
         this.goats = goats;
         if (this.searchParam) {
-          this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
-          if (this.activeGoatIndex === -1) {
-            this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase()).includes(this.searchParam?.toLowerCase()));
-          }
-          if (this.activeGoatIndex === -1) {
-            this.searchParam = this.searchParam.replace(/-/g, ' ');
-            this.activeGoatIndex = this.goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(this.searchParam?.toLowerCase()));
-          }
+          this.activeGoatIndex = findMatch(this.searchParam, this.goats);
         } else {
           this.setDescription();
         }

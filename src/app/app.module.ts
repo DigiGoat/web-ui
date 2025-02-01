@@ -26,6 +26,7 @@ import { AgePipe } from './pipes/age/age.pipe';
 import { LongDatePipe } from './pipes/longDate/longDate.pipe';
 import { TooltipDirective } from './directives/tooltip/tooltip.directive';
 import { ReferencesComponent } from './pages/references/references.component';
+import { ForSaleComponent } from './pages/for-sale/for-sale.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { ReferencesComponent } from './pages/references/references.component';
     BreedingComponent,
     LongDatePipe,
     TooltipDirective,
-    ReferencesComponent
+    ReferencesComponent,
+    ForSaleComponent
   ],
   imports: [
     BrowserModule,

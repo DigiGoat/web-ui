@@ -2,10 +2,12 @@ import { NgModule, type OnInit } from '@angular/core';
 import { TitleStrategy as NgTitleStrategy, Route, RouterModule } from '@angular/router';
 
 import type { Observable } from 'rxjs';
+import { forSaleGuard } from './guards/for-sale/for-sale.guard';
 import { kiddingScheduleGuard } from './guards/kidding-schedule/kidding-schedule.guard';
 import { referencesGuard } from './guards/references/references.guard';
 import { BucksComponent } from './pages/bucks/bucks.component';
 import { DoesComponent } from './pages/does/does.component';
+import { ForSaleComponent } from './pages/for-sale/for-sale.component';
 import { HomeComponent } from './pages/home/home.component';
 import { KiddingScheduleComponent } from './pages/kidding-schedule/kidding-schedule.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -35,6 +37,12 @@ const routes: Route[] = [
     path: 'kidding-schedule', canMatch: [kiddingScheduleGuard], children: [
       { path: '', component: KiddingScheduleComponent, title: 'Kidding Schedule' },
       { path: ':goat', component: KiddingScheduleComponent, title: ':goat - Kidding Schedule' }
+    ]
+  },
+  {
+    path: 'for-sale', canMatch: [forSaleGuard], children: [
+      { path: '', component: ForSaleComponent, title: 'For Sale' },
+      { path: ':goat', component: ForSaleComponent, title: ':goat - For Sale' }
     ]
   },
   {

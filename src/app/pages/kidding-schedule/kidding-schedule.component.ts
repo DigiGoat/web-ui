@@ -4,7 +4,7 @@ import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import type { Page } from '../../app-routing.module';
 import { ConfigService } from '../../services/config/config.service';
-import { GoatService, type Goat, type Kidding } from '../../services/goat/goat.service';
+import { findMatch, GoatService, type Goat, type Kidding } from '../../services/goat/goat.service';
 
 @Component({
   selector: 'app-kidding-schedule',
@@ -76,17 +76,8 @@ export class KiddingScheduleComponent implements OnInit, Page {
   }
 
   determineActiveGoat(goats: Goat[]) {
-    if (this.searchParam) {
-      if (!this.activeGoat) {
-        this.activeGoat = goats?.find(goat => [goat.nickname, goat.name, goat.normalizeId].includes(this.searchParam));
-      }
-      if (!this.activeGoat) {
-        this.activeGoat = goats?.find(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase()).includes(this.searchParam?.toLowerCase()));
-      }
-      if (!this.activeGoat) {
-        this.searchParam = this.searchParam.replace(/-/g, ' ');
-        this.activeGoat = goats?.find(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(this.searchParam?.toLowerCase()));
-      }
+    if (this.searchParam && !this.activeGoat) {
+      this.activeGoat = goats[findMatch(this.searchParam, goats)];
       if (this.schedule) {
         this.activeIndex = this.schedule.findIndex(kidding => kidding.dam === this.activeGoat?.normalizeId || kidding.sire === this.activeGoat?.normalizeId);
       }

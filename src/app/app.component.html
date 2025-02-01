@@ -31,6 +31,10 @@
           <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/kidding-schedule" data-bs-toggle="collapse"
             data-bs-target=".navbar-collapse.show">Kidding Schedule</a>
         </li>
+        <li class="nav-item" *ngIf="config.forSale">
+          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/for-sale" data-bs-toggle="collapse"
+            data-bs-target=".navbar-collapse.show">For Sale</a>
+        </li>
       </ul>
     </div>
   </div>
