@@ -180,15 +180,20 @@ export class GoatService {
       console.debug('Loaded Goats For Sale From Cache', this._forSale);
       observer.next(this._forSale);
     } else {
-      this.http.get<ForSale>('./assets/resources/for-sale.json')
+      this.http.get<Goat[]>('./assets/resources/for-sale.json')
         .pipe(
           retry(3), // retry a failed request up to 3 times
         )
         .subscribe({
           next: data => {
-            this._forSale = data;
+            const forSale = {
+              does: data.filter(goat => goat.sex === 'Female' && !goat.pet),
+              bucks: data.filter(goat => goat.sex === 'Male' && !goat.pet),
+              pets: data.filter(goat => goat.pet),
+            };
+            this._forSale = forSale;
             console.debug('Loaded Goats For Sale From Server', data);
-            observer.next(data);
+            observer.next(forSale);
           },
           error: err => {
             if (err.status === 0) {
@@ -244,6 +249,7 @@ export type Goat = Partial<{
     isPermanent: boolean;
     id: number;
   }>[];
+  pet: boolean;
 }>;
 export type Kidding = Partial<{
   dam: string;
