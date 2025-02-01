@@ -1,3 +1,6 @@
+## 5.0.0-beta.2
+* Changed the format for how goats for sale are stored
+
 ## 5.0.0-beta.1
 * Added support for a For Sale page
   * TODO: Add a designated price section and sale terms popup
