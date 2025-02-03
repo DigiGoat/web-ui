@@ -1,3 +1,6 @@
+## 5.0.0-beta.3
+* Goats for sale now defualt to female if no gender is specified
+
 ## 5.0.0-beta.2
 * Changed the format for how goats for sale are stored
 

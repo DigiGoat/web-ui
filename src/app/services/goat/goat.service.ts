@@ -187,7 +187,7 @@ export class GoatService {
         .subscribe({
           next: data => {
             const forSale = {
-              does: data.filter(goat => goat.sex === 'Female' && !goat.pet),
+              does: data.filter(goat => (goat.sex === 'Female' || !goat.sex) && !goat.pet),
               bucks: data.filter(goat => goat.sex === 'Male' && !goat.pet),
               pets: data.filter(goat => goat.pet),
             };
