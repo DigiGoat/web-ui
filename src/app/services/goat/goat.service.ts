@@ -283,3 +283,8 @@ export function findMatch(searchParam: string, goats: Goat[]): number {
   }
   return activeGoatIndex;
 }
+export function findIDMatch(id: string | number | undefined, goats: Goat[]): Goat | undefined {
+  if (!id) return;
+  const goatMatch = goats.find(goat => [goat.id?.toString(), goat.normalizeId].includes(id.toString()));
+  return goatMatch;
+}
