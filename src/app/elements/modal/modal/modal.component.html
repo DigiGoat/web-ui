@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body color-scheme-main">
-        <app-modal-goat-card *ngIf="goat" class="card" [goat]="goat" test-id="goat-card"></app-modal-goat-card>
+        <app-modal-goat-card *ngIf="goat" class="card" [goat]="goat" test-id="goat-card" [for-sale]="forSale"></app-modal-goat-card>
         <app-modal-not-found *ngIf="!goat" [searchParam]="searchParam" test-id="not-found"></app-modal-not-found>
       </div>
       <div class="modal-footer color-scheme-secondary">

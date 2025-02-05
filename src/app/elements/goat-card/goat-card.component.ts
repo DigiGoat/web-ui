@@ -1,24 +1,27 @@
-import { Component, Input, type OnChanges } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { booleanAttribute, Component, Input, type OnChanges } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { type Goat, GoatService } from '../../services/goat/goat.service';
 import { ConfigService } from '../../services/config/config.service';
+import { type Goat, GoatService } from '../../services/goat/goat.service';
 import { ImageEntry, ImageService } from '../../services/image/image.service';
 @Component({
-    selector: 'app-goat-card',
-    templateUrl: './goat-card.component.html',
-    styleUrls: ['./goat-card.component.scss'],
-    standalone: false
+  selector: 'app-goat-card',
+  templateUrl: './goat-card.component.html',
+  styleUrls: ['./goat-card.component.scss'],
+  standalone: false
 })
 export class GoatCardComponent implements OnChanges {
   constructor(private imageService: ImageService, private meta: Meta, private configService: ConfigService, private route: ActivatedRoute, private goatService: GoatService) { }
 
   @Input() goat?: Partial<Goat>;
+  @Input({ transform: booleanAttribute, alias: 'for-sale' }) forSale?: boolean = false;
   name?: string;
   nickname?: string;
   description?: string;
   id?: string;
   born?: string;
+  price?: number | string;
   image?: ImageEntry;
   identifier?: string;
   linearAppraisal?: Required<Goat>['linearAppraisals'][number];
@@ -28,6 +31,13 @@ export class GoatCardComponent implements OnChanges {
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
+    if (this.forSale) {
+      try {
+        this.price = (new CurrencyPipe('en-US')).transform(this.goat?.price) || this.price;
+      } catch {
+        this.price = this.goat?.price;
+      }
+    }
     this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
     this.identifier = this.nickname ?? this.name?.replace(/ /g, '-') ?? this.id;
     if (!this.route.snapshot.params['goat']) {

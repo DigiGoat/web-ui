@@ -7,9 +7,9 @@
       <h3 class="text-center">Does:</h3>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
         <div *ngFor="let doe of forSale.does; index as i" class="col py-3">
-          <app-goat-card [goat]="doe"></app-goat-card>
-          <app-modal-goat *ngIf="activeGoatType === 'doe' && i === activeGoatIndex" [goat]="doe"
-            [searchParam]="searchParam!"></app-modal-goat>
+          <app-goat-card [goat]="doe" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'doe' && i === activeGoatIndex" [goat]="doe" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
         </div>
       </div>
     </div>
@@ -17,9 +17,9 @@
       <h3 class="text-center">Bucks:</h3>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
         <div *ngFor="let buck of forSale.bucks; index as i" class="col py-3">
-          <app-goat-card [goat]="buck"></app-goat-card>
-          <app-modal-goat *ngIf="activeGoatType === 'buck' && i === activeGoatIndex" [goat]="buck"
-            [searchParam]="searchParam!"></app-modal-goat>
+          <app-goat-card [goat]="buck" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'buck' && i === activeGoatIndex" [goat]="buck" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
         </div>
       </div>
     </div>
@@ -27,9 +27,9 @@
       <h3 class="text-center">Pets:</h3>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
         <div *ngFor="let pet of forSale.pets; index as i" class="col py-3">
-          <app-goat-card [goat]="pet"></app-goat-card>
-          <app-modal-goat *ngIf="activeGoatType === 'pet' && i === activeGoatIndex" [goat]="pet"
-            [searchParam]="searchParam!"></app-modal-goat>
+          <app-goat-card [goat]="pet" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'pet' && i === activeGoatIndex" [goat]="pet" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
         </div>
       </div>
     </div>
