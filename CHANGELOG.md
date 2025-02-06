@@ -1,3 +1,6 @@
+## 5.0.0-beta.4
+* Added a page description for the For Sale page
+
 ## 5.0.0-beta.3
 * Goats for sale now defualt to female if no gender is specified
 * Loosened up algorithim for matching dams, sires, and goats for sale
