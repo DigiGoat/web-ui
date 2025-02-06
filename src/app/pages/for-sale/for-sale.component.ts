@@ -28,14 +28,37 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
 
   constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
   setDescription() {
-    /*let description = '';
+    let description = '';
     if (this.configService.homeTitle) {
       description += this.configService.homeTitle;
-      description += ` Currently Has ${this.schedule?.length} Kiddings Scheduled`;
+      description += ' Currently Has';
     } else {
-      description += `The Farm Currently Has ${this.schedule?.length} Kiddings Scheduled`;
+      description += 'The Farm Currently Has';
     }
-    this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);*/
+    const totalForSale = (this.forSale?.does?.length ?? 0) + (this.forSale?.bucks?.length ?? 0) + (this.forSale?.pets?.length ?? 0);
+    if (totalForSale) {
+      description += ` ${totalForSale} Goat${totalForSale > 1 ? 's' : ''} For Sale:`;
+      if (this.forSale?.does?.length) {
+        description += ` ${this.forSale.does.length} Doe${this.forSale.does.length > 1 ? 's' : ''}`;
+        if (this.forSale?.bucks?.length && this.forSale?.pets?.length) {
+          description += ',';
+        } else if (this.forSale?.bucks?.length || this.forSale?.pets?.length) {
+          description += ' and';
+        }
+      }
+      if (this.forSale?.bucks?.length) {
+        description += ` ${this.forSale.bucks.length} Buck${this.forSale.bucks.length > 1 ? 's' : ''}`;
+        if (this.forSale?.pets?.length) {
+          description += ' and';
+        }
+      }
+      if (this.forSale?.pets?.length) {
+        description += ` ${this.forSale.pets.length} Pet${this.forSale.pets.length > 1 ? 's' : ''}`;
+      }
+    } else {
+      description += ' No Goats For Sale';
+    }
+    this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
   }
 
   @ViewChild('termsButton') termsButton?: ElementRef<HTMLButtonElement>;
@@ -46,7 +69,8 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
         this.forSale = data;
         if (!data.does?.length && !data.bucks?.length && !data.pets?.length) {
           this.noneForSale = true;
-        } else if (!this.searchParam) {
+        }
+        if (!this.searchParam) {
           this.setDescription();
         }
         this.determineActiveGoat(data);
