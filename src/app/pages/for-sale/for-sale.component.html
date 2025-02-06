@@ -1,15 +1,34 @@
-<div class="container" *ngIf="!err && !noneForSale" test-id="schedule">
+<div class="container" *ngIf="!err" test-id="schedule">
   <h1 class="text-center" test-id="name">For Sale:</h1>
-  <h5 class="text-center" test-id="prompt">Click on a Goat Below For More Info</h5>
+  <h5 class="text-center" test-id="prompt" *ngIf="!noneForSale">Click on a Goat Below For More Info. </h5>
+  <h5 class="text-center" *ngIf="saleTerms"><button
+      class="btn btn-link btn-lg link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+      test-id="sale-terms" data-bs-toggle="modal" data-bs-target="#termsModal" type="button" #termsButton>Click Here to View the Sale Terms
+      & Pricing</button></h5>
+  <!-- Sale Terms & Pricing Modal -->
+  <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-content color-scheme-secondary">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="termsModalLabel">Sale Terms & Pricing</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body color-scheme-main text-center" [innerHTML]="saleTerms"> </div>
+        <div class="modal-footer color-scheme-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div *ngIf="forSale">
     <app-modal-goat *ngIf="searchParam && activeGoatIndex === -1" [searchParam]="searchParam!"></app-modal-goat>
     <div *ngIf="forSale.does?.length">
       <h3 class="text-center">Does:</h3>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
         <div *ngFor="let doe of forSale.does; index as i" class="col py-3">
-          <app-goat-card [goat]="doe"></app-goat-card>
-          <app-modal-goat *ngIf="activeGoatType === 'doe' && i === activeGoatIndex" [goat]="doe"
-            [searchParam]="searchParam!"></app-modal-goat>
+          <app-goat-card [goat]="doe" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'doe' && i === activeGoatIndex" [goat]="doe" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
         </div>
       </div>
     </div>
@@ -17,9 +36,9 @@
       <h3 class="text-center">Bucks:</h3>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
         <div *ngFor="let buck of forSale.bucks; index as i" class="col py-3">
-          <app-goat-card [goat]="buck"></app-goat-card>
-          <app-modal-goat *ngIf="activeGoatType === 'buck' && i === activeGoatIndex" [goat]="buck"
-            [searchParam]="searchParam!"></app-modal-goat>
+          <app-goat-card [goat]="buck" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'buck' && i === activeGoatIndex" [goat]="buck" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
         </div>
       </div>
     </div>
@@ -27,9 +46,9 @@
       <h3 class="text-center">Pets:</h3>
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
         <div *ngFor="let pet of forSale.pets; index as i" class="col py-3">
-          <app-goat-card [goat]="pet"></app-goat-card>
-          <app-modal-goat *ngIf="activeGoatType === 'pet' && i === activeGoatIndex" [goat]="pet"
-            [searchParam]="searchParam!"></app-modal-goat>
+          <app-goat-card [goat]="pet" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'pet' && i === activeGoatIndex" [goat]="pet" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
         </div>
       </div>
     </div>

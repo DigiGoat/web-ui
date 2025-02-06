@@ -187,7 +187,7 @@ export class GoatService {
         .subscribe({
           next: data => {
             const forSale = {
-              does: data.filter(goat => goat.sex === 'Female' && !goat.pet),
+              does: data.filter(goat => (goat.sex === 'Female' || !goat.sex) && !goat.pet),
               bucks: data.filter(goat => goat.sex === 'Male' && !goat.pet),
               pets: data.filter(goat => goat.pet),
             };
@@ -250,6 +250,7 @@ export type Goat = Partial<{
     id: number;
   }>[];
   pet: boolean;
+  price: number | string;
 }>;
 export type Kidding = Partial<{
   dam: string;
@@ -282,4 +283,9 @@ export function findMatch(searchParam: string, goats: Goat[]): number {
     activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(searchParam?.toLowerCase()));
   }
   return activeGoatIndex;
+}
+export function findIDMatch(id: string | number | undefined, goats: Goat[]): Goat | undefined {
+  if (!id) return;
+  const goatMatch = goats.find(goat => [goat.id?.toString(), goat.normalizeId].includes(id.toString()));
+  return goatMatch;
 }

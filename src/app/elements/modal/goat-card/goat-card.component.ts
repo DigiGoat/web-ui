@@ -1,19 +1,21 @@
-import { Component, ElementRef, Input, type OnInit } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, Input, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import type { Page } from '../../../app-routing.module';
 import { AgePipe } from '../../../pipes/age/age.pipe';
 import type { Goat } from '../../../services/goat/goat.service';
 import { ImageService, type ImageEntry } from '../../../services/image/image.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-modal-goat-card',
-    templateUrl: './goat-card.component.html',
-    styleUrl: './goat-card.component.scss',
-    standalone: false
+  selector: 'app-modal-goat-card',
+  templateUrl: './goat-card.component.html',
+  styleUrl: './goat-card.component.scss',
+  standalone: false
 })
 export class GoatCardComponent implements OnInit, Page {
   @Input({ required: true }) goat!: Goat;
+  @Input({ transform: booleanAttribute, alias: 'for-sale' }) forSale?: boolean = false;
 
   constructor(public imageService: ImageService, private meta: Meta, private el: ElementRef<HTMLElement>) { }
   setDescription(): void | Observable<void> {
@@ -56,6 +58,7 @@ export class GoatCardComponent implements OnInit, Page {
   born?: string;
   animalTattoos?: Goat['animalTattoo'];
   colorAndMarking?: string;
+  price?: number | string;
   images!: ImageEntry[];
   ngOnInit(): void {
     this.name = this.goat?.name;
@@ -65,6 +68,13 @@ export class GoatCardComponent implements OnInit, Page {
     this.born = this.goat?.dateOfBirth;
     this.animalTattoos = this.goat?.animalTattoo;
     this.colorAndMarking = this.goat?.colorAndMarking;
+    if (this.forSale) {
+      try {
+        this.price = (new CurrencyPipe('en-US')).transform(this.goat?.price) || this.price;
+      } catch {
+        this.price = this.goat?.price;
+      }
+    }
     this.images = this.imageService.getImages([this.id, this.name, this.nickname]);
     this.setDescription();
   }

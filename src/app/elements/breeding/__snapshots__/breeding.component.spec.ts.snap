@@ -3,9 +3,9 @@
 exports[`KiddingComponent With a Kidding (v1.0.0) With a previous Kidding should match the snapshot 1`] = `
 <app-breeding
   breeding={[Function Object]}
-  bucks={[Function Object]}
+  bucks={[Function Array]}
   dam={[Function Object]}
-  does={[Function Object]}
+  does={[Function Array]}
   sire={[Function Object]}
 >
   <div
@@ -40,9 +40,9 @@ exports[`KiddingComponent With a Kidding (v1.0.0) With a previous Kidding should
 exports[`KiddingComponent With a Kidding (v1.0.0) should match the snapshot 1`] = `
 <app-breeding
   breeding={[Function Object]}
-  bucks={[Function Object]}
+  bucks={[Function Array]}
   dam={[Function Object]}
-  does={[Function Object]}
+  does={[Function Array]}
   sire={[Function Object]}
 >
   <div

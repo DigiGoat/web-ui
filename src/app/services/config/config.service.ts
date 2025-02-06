@@ -92,6 +92,12 @@ export class ConfigService {
     }
     return false;
   }
+  get saleTerms(): string {
+    if (this.config['saleTerms']) {
+      return this.config['saleTerms'] as string;
+    }
+    return '';
+  }
 }
 
 type Analytics = { gtag?: string, clarity?: string; };
