@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, type AfterViewInit, type OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
@@ -12,7 +12,7 @@ import { findMatch, ForSale, Goat, GoatService } from '../../services/goat/goat.
   templateUrl: './for-sale.component.html',
   styleUrl: './for-sale.component.scss'
 })
-export class ForSaleComponent implements OnInit, AfterViewInit {
+export class ForSaleComponent implements OnInit {
   forSale?: ForSale;
 
   public err?: HttpErrorResponse;
@@ -27,9 +27,6 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
 
 
   constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
   setDescription() {
     let description = '';
     if (this.configService.homeTitle) {
