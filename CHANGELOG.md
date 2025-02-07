@@ -1,3 +1,6 @@
+## 5.2.0-beta.2
+* Fixed a bug causing the awards to not display for the Dam's Dam in the pedigree
+
 ## 5.2.0-beta.1
 * Added support for Awards!
 
