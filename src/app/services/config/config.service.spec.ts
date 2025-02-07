@@ -45,11 +45,11 @@ describe('ConfigService', () => {
         }
       };
     });
-    test('get homeTitle()', () => {
-      const spy = jest.spyOn(service, 'homeTitle', 'get');
-      const homeTitle = service.homeTitle;
+    test('get title()', () => {
+      const spy = jest.spyOn(service, 'title', 'get');
+      const title = service.title;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(homeTitle).toBe('TEST_TITLE');
+      expect(title).toBe('TEST_TITLE');
     });
     test('get owner()', () => {
       const spy = jest.spyOn(service, 'owner', 'get');
@@ -69,17 +69,11 @@ describe('ConfigService', () => {
       expect(spy).toHaveBeenCalledTimes(1);
       expect(homeDescription).toBe('TEST_DESCRIPTION');
     });
-    test('get menubarTitle()', () => {
-      const spy = jest.spyOn(service, 'menubarTitle', 'get');
-      const menubarTitle = service.menubarTitle;
+    test('get shortTitle()', () => {
+      const spy = jest.spyOn(service, 'shortTitle', 'get');
+      const shortTitle = service.shortTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(menubarTitle).toBe('TEST_MENUBAR_TITLE');
-    });
-    test('get tabTitle()', () => {
-      const spy = jest.spyOn(service, 'tabTitle', 'get');
-      const tabTitle = service.tabTitle;
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(tabTitle).toBe('TEST_TAB_TITLE');
+      expect(shortTitle).toBe('TEST_TAB_TITLE');
     });
     describe('get link()', () => {
       test('without an ending /', () => {
@@ -163,11 +157,11 @@ describe('ConfigService', () => {
     });
   });
   describe('Without a Configuration', () => {
-    test('get homeTitle()', () => {
-      const spy = jest.spyOn(service, 'homeTitle', 'get');
-      const homeTitle = service.homeTitle;
+    test('get title()', () => {
+      const spy = jest.spyOn(service, 'title', 'get');
+      const title = service.title;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(homeTitle).toBe('');
+      expect(title).toBe('');
     });
     test('get owner()', () => {
       const spy = jest.spyOn(service, 'owner', 'get');
@@ -187,17 +181,11 @@ describe('ConfigService', () => {
       expect(spy).toHaveBeenCalledTimes(1);
       expect(homeDescription).toBe('');
     });
-    test('get menubarTitle()', () => {
-      const spy = jest.spyOn(service, 'menubarTitle', 'get');
-      const menubarTitle = service.menubarTitle;
+    test('get shortTitle()', () => {
+      const spy = jest.spyOn(service, 'shortTitle', 'get');
+      const shortTitle = service.shortTitle;
       expect(spy).toHaveBeenCalledTimes(1);
-      expect(menubarTitle).toBe('');
-    });
-    test('get tabTitle()', () => {
-      const spy = jest.spyOn(service, 'tabTitle', 'get');
-      const tabTitle = service.tabTitle;
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(tabTitle).toBe('');
+      expect(shortTitle).toBe('');
     });
     test('get link()', () => {
       const spy = jest.spyOn(service, 'link', 'get');

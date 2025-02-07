@@ -50,8 +50,8 @@ export class GoatsComponent implements OnInit {
   }
   setDescription() {
     let description = '';
-    if (this.configService.homeTitle) {
-      description += this.configService.homeTitle;
+    if (this.configService.title) {
+      description += this.configService.title;
       description += ` is currently home to ${this.goats?.length} ${(this.goats?.length === 1 ? this.name.slice(0, -1) : this.name).toLowerCase()}: `;
     } else {
       description += `The herd is currently home to ${this.goats?.length} ${(this.goats?.length === 1 ? this.name.slice(0, -1) : this.name).toLowerCase()}: `;

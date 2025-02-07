@@ -30,8 +30,8 @@ export class KiddingScheduleComponent implements OnInit, Page {
   constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
   setDescription() {
     let description = '';
-    if (this.configService.homeTitle) {
-      description += this.configService.homeTitle;
+    if (this.configService.title) {
+      description += this.configService.title;
       description += ` Currently Has ${this.schedule?.length} Kiddings Scheduled`;
     } else {
       description += `The Farm Currently Has ${this.schedule?.length} Kiddings Scheduled`;

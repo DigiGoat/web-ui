@@ -26,7 +26,7 @@ exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
           class="h4"
           test-id="menubar"
         >
-          TEST_MENUBAR_TITLE
+          TEST_TITLE
         </p>
       </a>
       <button
