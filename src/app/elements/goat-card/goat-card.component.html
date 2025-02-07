@@ -8,6 +8,7 @@
       <a *ngIf="identifier" class="stretched-link" [routerLink]="identifier" test-id="goat-link"
         attr.aria-label="Link to open {{identifier}}'s modal (This link cover's the whole element - it does not contain any text)"></a>
       <h5 class="card-title text-center mb-0" test-id="goat-name">{{name}}</h5>
+      <h6 class="card-title text-center mb-0" test-id="goat-name">{{awards}}</h6>
       <h6 class="card-subtitle pb-1 fw-light fst-italic text-center" test-id="goat-age" *ngIf="born">{{born | age}}</h6>
       <h6 class="card-subtitle pb-1 text-center fw-light fst-italic font-monospace" *ngIf="linearAppraisal" test-id="goat-appraisal">
         {{linearAppraisal.generalAppearance}}{{linearAppraisal.dairyStrength}}{{linearAppraisal.bodyCapacity}}{{linearAppraisal.mammarySystem}}
