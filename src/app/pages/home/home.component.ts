@@ -8,10 +8,10 @@ import { PlatformService } from '../../services/platform/platform.service';
 
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    standalone: false
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
+  standalone: false
 })
 export class HomeComponent implements OnInit {
   public description = '';
@@ -30,17 +30,17 @@ export class HomeComponent implements OnInit {
       this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: this.htmlToPlainText(this.description) }]);
     } else {
       let description = '';
-      if (this.config.homeTitle && this.config.owner) {
-        description += `${this.config.homeTitle} is owned and operated by ${this.config.owner}. `;
+      if (this.config.title && this.config.owner) {
+        description += `${this.config.title} is owned and operated by ${this.config.owner}. `;
       }
       this.goatService.does.subscribe(does => {
         this.goatService.bucks.subscribe(bucks => {
 
-          if (this.config.homeTitle) {
+          if (this.config.title) {
             if (this.config.owner) {
               description += `The herd is currently home to ${does.length} doe${does.length === 1 ? '' : 's'} and ${bucks.length} buck${bucks.length === 1 ? '' : 's'}. `;
             } else {
-              description += `${this.config.homeTitle} is currently home to ${does.length} doe${does.length === 1 ? '' : 's'} and ${bucks.length} buck${bucks.length === 1 ? '' : 's'}. `;
+              description += `${this.config.title} is currently home to ${does.length} doe${does.length === 1 ? '' : 's'} and ${bucks.length} buck${bucks.length === 1 ? '' : 's'}. `;
             }
           } else {
             description += `The herd is currently home to ${does.length} doe${does.length === 1 ? '' : 's'} and ${bucks.length} buck${bucks.length === 1 ? '' : 's'}. `;

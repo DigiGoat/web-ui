@@ -1,3 +1,6 @@
+## 5.1.0-beta.1
+* Simplified the farm names required to be configured. Instead of a menubar, home, and tab name, there is now just a full name and a short name
+
 ## 5.0.0-beta.5
 * Added the Sale Terms and Pricing to the Kidding Schedule page in addition to the For Sale page
 

@@ -40,7 +40,7 @@ describe('AppComponent', () => {
     it('should have a menubar title', () => {
       const element = html.querySelector('[test-id=menubar]');
       expect(element).toBeTruthy();
-      expect(element?.innerHTML).toBe('TEST_MENUBAR_TITLE');
+      expect(element?.innerHTML).toBe('TEST_TITLE');
     });
     it('should have an owner', () => {
       const element = html.querySelector('[test-id=owner]');

@@ -45,7 +45,7 @@ describe('HomeComponent', () => {
     it('should have a title', () => {
       const element = html.querySelector('[test-id=title]');
       expect(element).toBeTruthy();
-      expect(element?.innerHTML).toBe(ConfigServiceMock.homeTitle);
+      expect(element?.innerHTML).toBe(ConfigServiceMock.title);
     });
     it('should have an owner', () => {
       const element = html.querySelector('[test-id=owner]');
