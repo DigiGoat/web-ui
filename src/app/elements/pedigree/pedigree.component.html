@@ -77,6 +77,7 @@
     <div class="row row-cols-2" *ngIf="damDam || damSire">
       <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
         [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
+        <div>{{formatAwards(damDam?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
       </span>
       <span class="col" bs-popover popover-title="{{damSire?.name}}" [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
