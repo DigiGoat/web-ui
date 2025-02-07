@@ -1,18 +1,23 @@
-import { Component, Input, ViewChild, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit } from '@angular/core';
+import { booleanAttribute, Component, Input, ViewChild, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import type { Goat } from '../../../services/goat/goat.service';
 import { PlatformService } from '../../../services/platform/platform.service';
 
 @Component({
-    selector: 'app-modal-goat',
-    templateUrl: './modal.component.html',
-    styleUrl: './modal.component.scss',
-    standalone: false
+  selector: 'app-modal-goat',
+  templateUrl: './modal.component.html',
+  styleUrl: './modal.component.scss',
+  standalone: false
 })
 export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
   prerender = false;
   @Input() goat?: Goat;
   @Input({ required: true }) searchParam!: string;
+  @Input({ transform: booleanAttribute, alias: 'for-sale' }) forSale?: boolean = false;
+
+  get prettySearchParam() {
+    return this.searchParam.replace(/-/g, ' ');
+  }
 
   constructor(public router: Router, public route: ActivatedRoute, private platformService: PlatformService) { }
 

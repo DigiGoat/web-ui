@@ -14,6 +14,7 @@
         {{linearAppraisal.finalScore}}
       </h6>
       <h6 class="card-subtitle pb-1 text-center" *ngIf="nickname" test-id="goat-nickname">"{{nickname}}"</h6>
+      <h6 class="card-subtitle pb-1 text-center" *ngIf="price" test-id="goat-price">{{price}}</h6>
       <div class="card-text text-center text-truncate-3 pt-1" *ngIf="description" [innerHTML]="description" test-id="goat-description">
       </div>
     </div>

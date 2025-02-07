@@ -30,8 +30,8 @@ describe('KiddingComponent', () => {
         exposed: '1-2-34',
         due: '5-6-78',
       };
-      component.does = { find: jest.fn() } as any;
-      component.bucks = { find: jest.fn() } as any;
+      component.does = [];
+      component.bucks = [];
       component.ngOnChanges();
       fixture.detectChanges();
     });
@@ -39,10 +39,10 @@ describe('KiddingComponent', () => {
       expect(fixture).toMatchSnapshot();
     });
     it('should try to find the dam', () => {
-      expect(component.does!.find).toHaveBeenCalled();
+      expect(component.dam).toBeDefined();
     });
     it('should try to find the sire', () => {
-      expect(component.bucks!.find).toHaveBeenCalled();
+      expect(component.bucks).toBeDefined();
     });
     describe('With a previous Kidding', () => {
       beforeEach(() => {

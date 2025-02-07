@@ -1,0 +1,60 @@
+<div class="container" *ngIf="!err" test-id="schedule">
+  <h1 class="text-center" test-id="name">For Sale:</h1>
+  <h5 class="text-center" test-id="prompt" *ngIf="!noneForSale">Click on a Goat Below For More Info. </h5>
+  <app-sale-terms [sale-terms]="saleTerms" *ngIf="saleTerms"></app-sale-terms>
+  <div *ngIf="forSale">
+    <app-modal-goat *ngIf="searchParam && activeGoatIndex === -1" [searchParam]="searchParam!"></app-modal-goat>
+    <div *ngIf="forSale.does?.length">
+      <h3 class="text-center">Does:</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
+        <div *ngFor="let doe of forSale.does; index as i" class="col py-3">
+          <app-goat-card [goat]="doe" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'doe' && i === activeGoatIndex" [goat]="doe" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="forSale.bucks?.length">
+      <h3 class="text-center">Bucks:</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
+        <div *ngFor="let buck of forSale.bucks; index as i" class="col py-3">
+          <app-goat-card [goat]="buck" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'buck' && i === activeGoatIndex" [goat]="buck" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="forSale.pets?.length">
+      <h3 class="text-center">Pets:</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
+        <div *ngFor="let pet of forSale.pets; index as i" class="col py-3">
+          <app-goat-card [goat]="pet" for-sale="true"></app-goat-card>
+          <app-modal-goat *ngIf="activeGoatType === 'pet' && i === activeGoatIndex" [goat]="pet" [searchParam]="searchParam!"
+            for-sale="true"></app-modal-goat>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!forSale">
+    <h3 class="text-center">Does:</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
+      <app-goat-card *ngFor="let forSale of [1,2,3]" class="col py-3"></app-goat-card>
+    </div>
+    <h3 class="text-center">Bucks:</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
+      <app-goat-card *ngFor="let forSale of [1,2,3]" class="col py-3"></app-goat-card>
+    </div>
+    <h3 class="text-center">Pets:</h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 align-items-center justify-content-center">
+      <app-goat-card *ngFor="let forSale of [1,2,3]" class="col py-3"></app-goat-card>
+    </div>
+  </div>
+</div>
+<div *ngIf="noneForSale" test-id="no-goats">
+  <h3 class="text-center" test-id="no-goats-title">No Goats For Sale Found</h3>
+  <h6 class="text-center" test-id="no-goats-prompt">Please Try Again Later.</h6>
+</div>
+<div *ngIf="err" test-id="error">
+  <h3 class="text-center" test-id="error-title">Failed To Load Goats For Sale With Error: {{err.status}} - {{err.statusText}}</h3>
+  <h6 class="text-center" test-id="error-prompt">Please Check Your Connection And Try Again Later.</h6>
+</div>

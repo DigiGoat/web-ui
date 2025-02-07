@@ -1,3 +1,28 @@
+## 5.1.0-beta.1
+* Simplified the farm names required to be configured. Instead of a menubar, home, and tab name, there is now just a full name and a short name
+
+## 5.0.0-beta.5
+* Added the Sale Terms and Pricing to the Kidding Schedule page in addition to the For Sale page
+
+## 5.0.0-beta.4
+* Added a page description for the For Sale page
+
+## 5.0.0-beta.3
+* Goats for sale now defualt to female if no gender is specified
+* Loosened up algorithim for matching dams, sires, and goats for sale
+* Added prices to the goats for sale
+* Added a sale terms popup to the for sale page
+
+## 5.0.0-beta.2
+* Changed the format for how goats for sale are stored
+
+## 5.0.0-beta.1
+* Added support for a For Sale page
+  * TODO: Add a designated price section and sale terms popup
+
+## 4.1.3-beta.1
+* Added the ability to customize the text at the top of the kidding schedule
+
 ## 4.1.2-beta.2
 * Fixed a bug causing updates not to be posted as releases
 

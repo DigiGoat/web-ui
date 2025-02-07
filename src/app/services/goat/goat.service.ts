@@ -174,6 +174,44 @@ export class GoatService {
     }
   });
 
+  private _forSale: ForSale = {};
+  public forSale = new Observable<ForSale>(observer => {
+    if (this._forSale.does?.length || this._forSale.bucks?.length || this._forSale.pets?.length) {
+      console.debug('Loaded Goats For Sale From Cache', this._forSale);
+      observer.next(this._forSale);
+    } else {
+      this.http.get<Goat[]>('./assets/resources/for-sale.json')
+        .pipe(
+          retry(3), // retry a failed request up to 3 times
+        )
+        .subscribe({
+          next: data => {
+            const forSale = {
+              does: data.filter(goat => (goat.sex === 'Female' || !goat.sex) && !goat.pet),
+              bucks: data.filter(goat => goat.sex === 'Male' && !goat.pet),
+              pets: data.filter(goat => goat.pet),
+            };
+            this._forSale = forSale;
+            console.debug('Loaded Goats For Sale From Server', data);
+            observer.next(forSale);
+          },
+          error: err => {
+            if (err.status === 0) {
+              // A client-side or network error occurred. Handle it accordingly.
+              console.warn('An error occurred:', err.error);
+            } else {
+              // The backend returned an unsuccessful response code.
+              // The response body may contain clues as to what went wrong.
+              console.warn(
+                `Backend returned code ${err.status}, body was: `, err.error);
+            }
+            // Return an observable with a user-facing error message.
+            observer.error(err);
+          }
+        });
+    }
+  });
+
   public getAppraisal(appraisals: Goat['linearAppraisals']) {
     if (appraisals && appraisals.length) {
       const permanentScores = appraisals.filter(appraisal => appraisal.isPermanent);
@@ -211,6 +249,8 @@ export type Goat = Partial<{
     isPermanent: boolean;
     id: number;
   }>[];
+  pet: boolean;
+  price: number | string;
 }>;
 export type Kidding = Partial<{
   dam: string;
@@ -220,9 +260,32 @@ export type Kidding = Partial<{
   kidded: string;
   description: string;
 }>;
+
+export type ForSale = Partial<{
+  does: Goat[];
+  bucks: Goat[];
+  pets: Goat[];
+}>;
 export const Goat = {
   nickname: 'Your Goats Farm Name',
   name: 'YOUR GOATS ADGA NAME',
   description: 'A quick description about your goat',
   normalizeId: 'PD12345',
 };
+
+export function findMatch(searchParam: string, goats: Goat[]): number {
+  let activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].includes(searchParam));
+  if (activeGoatIndex === -1) {
+    activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase()).includes(searchParam?.toLowerCase()));
+  }
+  if (activeGoatIndex === -1) {
+    searchParam = searchParam.replace(/-/g, ' ');
+    activeGoatIndex = goats?.findIndex(goat => [goat.nickname, goat.name, goat.normalizeId].map(param => param?.toLowerCase().replace(/-/g, ' ')).includes(searchParam?.toLowerCase()));
+  }
+  return activeGoatIndex;
+}
+export function findIDMatch(id: string | number | undefined, goats: Goat[]): Goat | undefined {
+  if (!id) return;
+  const goatMatch = goats.find(goat => [goat.id?.toString(), goat.normalizeId].includes(id.toString()));
+  return goatMatch;
+}

@@ -27,6 +27,10 @@
       <div *ngIf="colorAndMarking">
         <span class="fw-bold">Markings</span>: <span class="fw-light" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
       </div>
+      <div *ngIf="price">
+        <span class="fw-bold">Price</span>: <span class="fw-light" test-id="price">{{price}}</span>
+        <br>
+      </div>
     </div>
     <div test-id="description" *ngIf="description" [innerHTML]="description"></div>
   </div>

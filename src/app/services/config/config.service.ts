@@ -8,9 +8,21 @@ import config from '../../../assets/resources/config.json';
 })
 export class ConfigService {
   private config: Record<string, string | boolean | Record<string, string | Record<string, string>>> = config;
-  get homeTitle(): string {
-    if (this.config['homeTitle']) {
+  get title(): string {
+    if (this.config['title']) {
+      return this.config['title'] as string;
+    } else if (this.config['homeTitle']) {
       return this.config['homeTitle'] as string;
+    } else if (this.config['menubarTitle']) {
+      return this.config['menubarTitle'] as string;
+    }
+    return '';
+  }
+  get shortTitle(): string {
+    if (this.config['shortTitle']) {
+      return this.config['shortTitle'] as string;
+    } else if (this.config['tabTitle']) {
+      return this.config['tabTitle'] as string;
     }
     return '';
   }
@@ -29,18 +41,6 @@ export class ConfigService {
   get homeDescription(): string {
     if (this.config['homeDescription']) {
       return this.config['homeDescription'] as string;
-    }
-    return '';
-  }
-  get menubarTitle(): string {
-    if (this.config['menubarTitle']) {
-      return this.config['menubarTitle'] as string;
-    }
-    return '';
-  }
-  get tabTitle(): string {
-    if (this.config['tabTitle']) {
-      return this.config['tabTitle'] as string;
     }
     return '';
   }
@@ -68,6 +68,12 @@ export class ConfigService {
     }
     return false;
   }
+  get kiddingScheduleDescription(): string {
+    if (this.config['kiddingScheduleDescription']) {
+      return this.config['kiddingScheduleDescription'] as string;
+    }
+    return '';
+  }
   get socials(): Socials {
     if (this.config['socials']) {
       return this.config['socials'] as Socials;
@@ -79,6 +85,18 @@ export class ConfigService {
       return this.config['references'] as boolean;
     }
     return false;
+  }
+  get forSale(): boolean {
+    if (this.config['forSale']) {
+      return this.config['forSale'] as boolean;
+    }
+    return false;
+  }
+  get saleTerms(): string {
+    if (this.config['saleTerms']) {
+      return this.config['saleTerms'] as string;
+    }
+    return '';
   }
 }
 

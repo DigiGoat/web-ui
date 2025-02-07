@@ -1,0 +1,19 @@
+<h5 class="text-center" *ngIf="saleTerms"><button
+    class="btn btn-link btn-lg link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+    test-id="sale-terms" data-bs-toggle="modal" data-bs-target="#termsModal" type="button" #termsButton>Click Here to View the Sale Terms &
+    Pricing</button></h5>
+<!-- Sale Terms & Pricing Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content color-scheme-secondary">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="termsModalLabel">Sale Terms & Pricing</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body color-scheme-main text-center" [innerHTML]="saleTerms"> </div>
+      <div class="modal-footer color-scheme-secondary">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

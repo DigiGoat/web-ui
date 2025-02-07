@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <img ngSrc="./assets/icons/favicon.svg" alt="Logo" class="d-inline-block align-text-top" width="70" height="70" priority>
     <a class="navbar-brand ps-2 text-center text-lg-start" routerLink="/">
-      <p class="h4" [innerHTML]="splitString(config.menubarTitle)" test-id="menubar"></p>
+      <p class="h4" [innerHTML]="splitString(config.title)" test-id="menubar"></p>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,10 @@
         <li class="nav-item" *ngIf="config.kiddingSchedule">
           <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/kidding-schedule" data-bs-toggle="collapse"
             data-bs-target=".navbar-collapse.show">Kidding Schedule</a>
+        </li>
+        <li class="nav-item" *ngIf="config.forSale">
+          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/for-sale" data-bs-toggle="collapse"
+            data-bs-target=".navbar-collapse.show">For Sale</a>
         </li>
       </ul>
     </div>

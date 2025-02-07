@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import type { PlatformService } from '../../services/platform/platform.service';
 import { GoatsComponent } from './goats.component';
 jest.mock('@angular/router');
+jest.mock('../../services/goat/goat.service', () => { { () => -1; } });
 const goats = [{
   nickname: 'TEST_NICKNAME_1',
   name: 'TEST_NAME_1',
@@ -301,6 +302,7 @@ describe('GoatsComponent', () => {
             isBrowser: false,
             isBot: false
           } as PlatformService;
+          component.activeGoatIndex = 1;
           fixture.detectChanges();
           html = fixture.nativeElement;
         });
@@ -328,6 +330,7 @@ describe('GoatsComponent', () => {
             isBrowser: true,
             isBot: true
           } as PlatformService;
+          component.activeGoatIndex = 1;
           fixture.detectChanges();
           html = fixture.nativeElement;
         });
@@ -355,6 +358,7 @@ describe('GoatsComponent', () => {
             isBrowser: true,
             isBot: false
           } as PlatformService;
+          component.activeGoatIndex = 1;
           fixture.detectChanges();
           html = fixture.nativeElement;
         });

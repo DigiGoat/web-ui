@@ -52,7 +52,7 @@ describe('KiddingScheduleComponent', () => {
   });
 
   it('should initialize with correct searchParam', () => {
-    expect(component.searchParam).toBe('test goat');
+    expect(component.searchParam).toBe('test-goat');
   });
 
   it('should set noSchedule to true if no kidding data', () => {
@@ -95,8 +95,8 @@ describe('KiddingScheduleComponent', () => {
   it('should set activeIndex correctly', () => {
     const schedule = [{ dam: 'test-goat', sire: 'sire1' }];
     component.schedule = schedule;
-    component.activeGoat = { nickname: 'test-goat', name: 'Test Goat', normalizeId: 'test-goat' };
-    component.determineActiveGoat([]);
+    component.searchParam = 'test-goat';
+    component.determineActiveGoat([{ nickname: 'test-goat', name: 'Test Goat', normalizeId: 'test-goat' }]);
     expect(component.activeIndex).toBe(0);
   });
 

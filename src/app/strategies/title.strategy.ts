@@ -17,16 +17,16 @@ export class TitleStrategy extends NgTitleStrategy {
 
     if (title !== undefined) {
       const titlePrefix = this.formatTitle(title, routerState);
-      this.title.setTitle(`${titlePrefix}${this.configService.tabTitle ? ` · ${this.configService.tabTitle}` : ''}`);
+      this.title.setTitle(`${titlePrefix}${this.configService.shortTitle ? ` · ${this.configService.shortTitle}` : ''}`);
       this.meta.addTags([
         { property: 'og:title', content: titlePrefix.split(' · ').shift()! },
         { property: 'og:url', content: this.configService.link ? (new URL(`.${routerState.url}`, this.configService.link)).toString() : routerState.url },
-        { property: 'og:site_name', content: this.configService.homeTitle },
+        { property: 'og:site_name', content: this.configService.title },
         { property: 'og:type', content: 'website' },
-        { name: 'apple-mobile-web-app-title', content: this.configService.homeTitle }
+        { name: 'apple-mobile-web-app-title', content: this.configService.title }
       ]);
     } else {
-      this.title.setTitle(this.configService.tabTitle);
+      this.title.setTitle(this.configService.shortTitle);
     }
     if (this.platform.isBrowser && !this.platform.isDev && 'gtag' in window) {
       window.gtag('event', 'page_view', {

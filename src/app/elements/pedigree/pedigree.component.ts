@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, type OnInit } from '@angular/core';
-import { type Goat, GoatService } from '../../services/goat/goat.service';
+import { findIDMatch, type Goat, GoatService } from '../../services/goat/goat.service';
 
 @Component({
-    selector: 'app-pedigree',
-    templateUrl: './pedigree.component.html',
-    styleUrl: './pedigree.component.scss',
-    standalone: false
+  selector: 'app-pedigree',
+  templateUrl: './pedigree.component.html',
+  styleUrl: './pedigree.component.scss',
+  standalone: false
 })
 export class PedigreeComponent implements OnInit {
   @Input({ required: true }) goat!: Goat;
@@ -19,14 +19,13 @@ export class PedigreeComponent implements OnInit {
   constructor(private goatService: GoatService) { }
   ngOnInit() {
     this.goatService.related.subscribe(goats => {
-      this.dam = goats.find(goat => goat.id === this.goat.damId);
-      this.sire = goats.find(goat => goat.id === this.goat.sireId);
-      this.damDam = goats.find(goat => goat.id === this.dam?.damId);
-      this.damSire = goats.find(goat => goat.id === this.dam?.sireId);
-      this.sireDam = goats.find(goat => goat.id === this.sire?.damId);
-      this.sireSire = goats.find(goat => goat.id === this.sire?.sireId);
-    }
-    );
+      this.dam = findIDMatch(this.goat.damId, goats);
+      this.sire = findIDMatch(this.goat.sireId, goats);
+      this.damDam = findIDMatch(this.dam?.damId, goats);
+      this.damSire = findIDMatch(this.dam?.sireId, goats);
+      this.sireDam = findIDMatch(this.sire?.damId, goats);
+      this.sireSire = findIDMatch(this.sire?.sireId, goats);
+    });
   }
   getPopoverContent(goat?: Goat) {
     if (!goat) return '';
