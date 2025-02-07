@@ -2,6 +2,7 @@
 
 exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = `
 <app-goat-card
+  awards="undefined"
   born={[Function String]}
   configService={[Function ConfigService]}
   description={[Function String]}
@@ -52,6 +53,11 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
           YOUR GOATS ADGA NAME
         </h5>
         <h6
+          class="card-title text-center mb-0"
+          test-id="goat-name"
+        >
+        </h6>
+        <h6
           class="card-subtitle pb-1 fw-light fst-italic text-center"
           test-id="goat-age"
         >
@@ -83,6 +89,7 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
 
 exports[`GoatCardComponent With an empty Goat should match the snapshot 1`] = `
 <app-goat-card
+  awards="undefined"
   born="undefined"
   configService={[Function ConfigService]}
   description="undefined"
@@ -126,6 +133,11 @@ exports[`GoatCardComponent With an empty Goat should match the snapshot 1`] = `
           test-id="goat-name"
         >
         </h5>
+        <h6
+          class="card-title text-center mb-0"
+          test-id="goat-name"
+        >
+        </h6>
         <h6
           class="card-subtitle pb-1 text-center fw-light fst-italic font-monospace"
           test-id="goat-appraisal"
