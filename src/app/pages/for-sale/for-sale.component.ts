@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, ViewChild, type AfterViewInit, type ElementRef, type OnInit } from '@angular/core';
+import { Component, type AfterViewInit, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
@@ -27,6 +27,9 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
 
 
   constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
   setDescription() {
     let description = '';
     if (this.configService.homeTitle) {
@@ -61,7 +64,6 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
     this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
   }
 
-  @ViewChild('termsButton') termsButton?: ElementRef<HTMLButtonElement>;
   ngOnInit() {
     this.searchParam = this.route.snapshot.params['goat'];
     this.goatService.forSale.subscribe({
@@ -78,11 +80,6 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
       error: err => this.err = err
     });
     this.saleTerms = this.configService.saleTerms;
-  }
-  ngAfterViewInit() {
-    if (this.route.snapshot.fragment?.match(/terms|pricing/i)) {
-      this.termsButton?.nativeElement.click();
-    }
   }
 
   determineActiveGoat(goatsForSale: ForSale) {

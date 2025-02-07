@@ -1,3 +1,6 @@
+## 5.0.0-beta.5
+* Added the Sale Terms and Pricing to the Kidding Schedule page in addition to the For Sale page
+
 ## 5.0.0-beta.4
 * Added a page description for the For Sale page
 

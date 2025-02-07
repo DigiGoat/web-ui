@@ -25,6 +25,7 @@ export class KiddingScheduleComponent implements OnInit, Page {
   public activeIndex?: number;
 
   public pageDescription = 'Click on a Goat Below For More Info';
+  public saleTerms?: string;
 
   constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
   setDescription() {
@@ -73,6 +74,7 @@ export class KiddingScheduleComponent implements OnInit, Page {
     if (this.configService.kiddingScheduleDescription) {
       this.pageDescription = this.configService.kiddingScheduleDescription;
     }
+    this.saleTerms = this.configService.saleTerms;
   }
 
   determineActiveGoat(goats: Goat[]) {

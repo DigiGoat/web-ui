@@ -27,6 +27,7 @@ import { LongDatePipe } from './pipes/longDate/longDate.pipe';
 import { TooltipDirective } from './directives/tooltip/tooltip.directive';
 import { ReferencesComponent } from './pages/references/references.component';
 import { ForSaleComponent } from './pages/for-sale/for-sale.component';
+import { SaleTermsComponent } from './elements/sale-terms/sale-terms.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ForSaleComponent } from './pages/for-sale/for-sale.component';
     LongDatePipe,
     TooltipDirective,
     ReferencesComponent,
-    ForSaleComponent
+    ForSaleComponent,
+    SaleTermsComponent
   ],
   imports: [
     BrowserModule,
