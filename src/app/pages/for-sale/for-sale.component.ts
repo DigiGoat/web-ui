@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, ViewChild, type AfterViewInit, type ElementRef, type OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
@@ -12,7 +12,7 @@ import { findMatch, ForSale, Goat, GoatService } from '../../services/goat/goat.
   templateUrl: './for-sale.component.html',
   styleUrl: './for-sale.component.scss'
 })
-export class ForSaleComponent implements OnInit, AfterViewInit {
+export class ForSaleComponent implements OnInit {
   forSale?: ForSale;
 
   public err?: HttpErrorResponse;
@@ -61,7 +61,6 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
     this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
   }
 
-  @ViewChild('termsButton') termsButton?: ElementRef<HTMLButtonElement>;
   ngOnInit() {
     this.searchParam = this.route.snapshot.params['goat'];
     this.goatService.forSale.subscribe({
@@ -78,11 +77,6 @@ export class ForSaleComponent implements OnInit, AfterViewInit {
       error: err => this.err = err
     });
     this.saleTerms = this.configService.saleTerms;
-  }
-  ngAfterViewInit() {
-    if (this.route.snapshot.fragment?.match(/terms|pricing/i)) {
-      this.termsButton?.nativeElement.click();
-    }
   }
 
   determineActiveGoat(goatsForSale: ForSale) {

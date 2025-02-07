@@ -1,6 +1,7 @@
 <div class="container" *ngIf="!err && !noSchedule" test-id="schedule">
   <h1 class="text-center" test-id="name">Kidding Schedule:</h1>
   <h5 class="text-center" test-id="prompt" [innerHTML]="pageDescription"></h5>
+  <app-sale-terms [sale-terms]="saleTerms" *ngIf="saleTerms"></app-sale-terms>
   <div *ngIf="schedule">
     <app-modal-goat *ngIf="searchParam && activeIndex === -1" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
     <div *ngFor="let breeding of schedule; index as i">
