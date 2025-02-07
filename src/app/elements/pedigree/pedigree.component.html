@@ -7,9 +7,11 @@
     <div class="row row-cols-2 border-bottom border-3" *ngIf="dam || sire">
       <span class="col border-end border-3" bs-popover popover-title="{{dam?.name}}"
         [popover-content]="getPopoverContent(dam)">{{dam?.name}}
+        <div>{{formatAwards(dam?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(dam?.linearAppraisals)}}</div>
       </span>
       <span class="col" bs-popover popover-title="{{sire?.name}}" [popover-content]="getPopoverContent(sire)">{{sire?.name}}
+        <div>{{formatAwards(sire?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sire?.linearAppraisals)}}</div>
       </span>
     </div>
@@ -26,17 +28,21 @@
     <div class="row row-cols-4" *ngIf="damDam || damSire || sireDam || sireSire">
       <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
         [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
+        <div>{{formatAwards(damDam?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
       </span>
       <span class="col border-end border-5" bs-popover popover-title="{{damSire?.name}}"
         [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
+        <div>{{formatAwards(damSire?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damSire?.linearAppraisals)}}</div>
       </span>
       <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
         [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
+        <div>{{formatAwards(sireDam?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireDam?.linearAppraisals)}}</div>
       </span>
       <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
+        <div>{{formatAwards(sireSire?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireSire?.linearAppraisals)}}</div>
       </span>
     </div>
@@ -57,6 +63,7 @@
     </div>
     <div class="row row-cols-1 border-bottom border-3" *ngIf="dam">
       <span class="col" bs-popover popover-title="{{dam.name}}" [popover-content]="getPopoverContent(dam)">{{dam.name}}
+        <div>{{formatAwards(dam.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(dam.linearAppraisals)}}</div>
       </span>
     </div>
@@ -73,6 +80,7 @@
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
       </span>
       <span class="col" bs-popover popover-title="{{damSire?.name}}" [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
+        <div>{{formatAwards(damSire?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damSire?.linearAppraisals)}}</div>
       </span>
     </div>
@@ -90,6 +98,7 @@
     </div>
     <div class="row row-cols-1 border-bottom border-3" *ngIf="sire">
       <span class="col" bs-popover popover-title="{{sire.name}}" [popover-content]="getPopoverContent(sire)">{{sire.name}}
+        <div>{{formatAwards(sire.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sire.linearAppraisals)}}</div>
       </span>
     </div>
@@ -103,9 +112,11 @@
     <div class="row row-cols-2" *ngIf="sireDam || sireSire">
       <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
         [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
+        <div>{{formatAwards(sireDam?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireDam?.linearAppraisals)}}</div>
       </span>
       <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
+        <div>{{formatAwards(sireSire?.awards)}}</div>
         <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireSire?.linearAppraisals)}}</div>
       </span>
     </div>
@@ -137,5 +148,23 @@
       <div class="col border-end" *ngIf="goat.sex === 'Female'">{{appraisal.mammarySystem}}</div>
       <div class="col" [class.fst-italic]="appraisal.isPermanent" [class.fw-bold]="appraisal.isPermanent"
         [tooltip]="appraisal.isPermanent ? 'Permanent Score' : ''">{{appraisal.finalScore}}</div>
+    </div>
+  </div>
+  <br *ngIf="goat.linearAppraisals && goat.linearAppraisals.length && goat.awards && goat.awards.length">
+  <div class="container border rounded-4" *ngIf="goat.awards && goat.awards.length">
+    <div class="row border-bottom">
+      <span class="col">Awards:</span>
+    </div>
+    <div class="row border-bottom">
+      <div class="col border-end fw-bold">Year: </div>
+      <div class="col border-end fw-bold">Count</div>
+      <div class="col border-end fw-bold" tooltip="Award Code">Code</div>
+      <div class="col fw-bold col-3 col-sm-5" tooltip="Award Descrption">Description</div>
+    </div>
+    <div class="row border-top" *ngFor="let award of goat.awards; index as i">
+      <div class="col border-end">{{award.awardYear}}</div>
+      <div class="col border-end">{{award.awardCount}}</div>
+      <div class="col border-end">{{award.awardCode}}</div>
+      <div class="col col-3 col-sm-5">{{award.awardDescription}}</div>
     </div>
   </div>

@@ -44,11 +44,19 @@ export class PedigreeComponent implements OnInit {
       const appraisal = this.goatService.getAppraisal(goat.linearAppraisals);
       popover.push(`<span class="fw-bold">${datePipe.transform(appraisal?.appraisalDate, 'YYYY')} Appraisal Score</span>: <span class="fw-light">${appraisal?.generalAppearance}${appraisal?.dairyStrength}${appraisal?.bodyCapacity}${appraisal?.mammarySystem ?? ''} ${appraisal?.finalScore}</span>`);
     }
+    if (goat.awards && goat.awards.length) {
+      const awards = this.goatService.getAwards(goat.awards, true);
+      popover.push(`<span class="fw-bold">Awards</span>: <span class="fw-light">${awards}</span>`);
+    }
     return `<div>${popover.join('<br>')}</div>`;
   }
-  formatLinearAppraisal(appraisals?: Required<Goat>['linearAppraisals']) {
+  formatLinearAppraisal(appraisals?: Goat['linearAppraisals']) {
     if (!appraisals || !appraisals.length) return '';
     const appraisal = this.goatService.getAppraisal(appraisals);
     return `${appraisal?.generalAppearance}${appraisal?.dairyStrength}${appraisal?.bodyCapacity}${appraisal?.mammarySystem ?? ''} ${appraisal?.finalScore}`;
+  }
+  formatAwards(awards?: Goat['awards']) {
+    if (!awards || !awards.length) return '';
+    return this.goatService.getAwards(awards);
   }
 }

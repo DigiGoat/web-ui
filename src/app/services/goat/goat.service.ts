@@ -221,7 +221,32 @@ export class GoatService {
         return appraisals.reduce((prev, current) => (new Date((prev.appraisalDate ?? 0)) > new Date((current.appraisalDate ?? 0))) ? prev : current);
       }
     }
-    return undefined;
+    return;
+  }
+
+  public getAwards(awards: Goat['awards'], full?: boolean) {
+    if (awards && awards.length) {
+      awards = awards.filter(award => !(award.awardCode?.includes('CH') || award.awardCode?.includes('SG')));
+      if (!awards.length) return;
+      const _awards: Record<string, number> = {};
+      for (const award of awards) {
+        if (full && award.awardDescription) {
+          if (_awards[award.awardDescription]) {
+            _awards[award.awardDescription] += award.awardCount ?? 1;
+          } else {
+            _awards[award.awardDescription] = 1;
+          }
+        } else if (!full && award.awardCode) {
+          if (_awards[award.awardCode]) {
+            _awards[award.awardCode] += award.awardCount ?? 1;
+          } else {
+            _awards[award.awardCode] = 1;
+          }
+        }
+      }
+      return Object.keys(_awards).map(key => `${_awards[key] === 1 ? '' : _awards[key]}${key}`).join('; ');
+    }
+    return;
   }
 }
 //export type Goat = (OwnedGoats['result']['items'][number] & { nickname: string; description: string; awards: Awards['result']['items']; colorAndMarking: string; /*obtained?: string;*/ });
@@ -251,6 +276,12 @@ export type Goat = Partial<{
   }>[];
   pet: boolean;
   price: number | string;
+  awards: Partial<{
+    awardCode: string;
+    awardDescription: string;
+    awardYear: number;
+    awardCount: number;
+  }>[];
 }>;
 export type Kidding = Partial<{
   dam: string;

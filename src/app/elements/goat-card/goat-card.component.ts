@@ -25,6 +25,7 @@ export class GoatCardComponent implements OnChanges {
   image?: ImageEntry;
   identifier?: string;
   linearAppraisal?: Required<Goat>['linearAppraisals'][number];
+  awards?: string;
   ngOnChanges() {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
@@ -44,6 +45,7 @@ export class GoatCardComponent implements OnChanges {
       this.setOGImages();
     }
     this.linearAppraisal = this.goatService.getAppraisal(this.goat?.linearAppraisals);
+    this.awards = this.goatService.getAwards(this.goat?.awards);
   }
   setOGImages() {
     if (this.image && this.image.file !== '/') {
