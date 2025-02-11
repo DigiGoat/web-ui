@@ -234,13 +234,13 @@ export class GoatService {
           if (_awards[award.awardDescription]) {
             _awards[award.awardDescription] += award.awardCount ?? 1;
           } else {
-            _awards[award.awardDescription] = 1;
+            _awards[award.awardDescription] = award.awardCount ?? 1;
           }
         } else if (!full && award.awardCode) {
           if (_awards[award.awardCode]) {
             _awards[award.awardCode] += award.awardCount ?? 1;
           } else {
-            _awards[award.awardCode] = 1;
+            _awards[award.awardCode] = award.awardCount ?? 1;
           }
         }
       }
