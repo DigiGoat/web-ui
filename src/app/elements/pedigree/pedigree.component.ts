@@ -34,6 +34,9 @@ export class PedigreeComponent implements OnInit {
     if (goat.dateOfBirth) {
       popover.push(`<span class="fw-bold">Born</span>: <span class="fw-light">${datePipe.transform(goat.dateOfBirth, 'longDate')}</span>`);
     }
+    if (goat.dateOfDeath) {
+      popover.push(`<span class="fw-bold">Deceased</span>: <span class="fw-light">${datePipe.transform(goat.dateOfDeath, 'longDate')}</span>`);
+    }
     if (goat.normalizeId) {
       popover.push(`<span class="fw-bold">ID</span>: <span class="fw-light">${goat.normalizeId}</span>`);
     }

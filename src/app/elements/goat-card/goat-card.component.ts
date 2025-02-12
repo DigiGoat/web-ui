@@ -21,6 +21,7 @@ export class GoatCardComponent implements OnChanges {
   description?: string;
   id?: string;
   born?: string;
+  deceased?: string | null;
   price?: number | string;
   image?: ImageEntry;
   identifier?: string;
@@ -32,6 +33,7 @@ export class GoatCardComponent implements OnChanges {
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
+    this.deceased = this.goat?.dateOfDeath;
     if (this.forSale) {
       try {
         this.price = (new CurrencyPipe('en-US')).transform(this.goat?.price) || this.price;
