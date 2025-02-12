@@ -56,6 +56,7 @@ export class GoatCardComponent implements OnInit, Page {
   description?: string;
   id?: string;
   born?: string;
+  deceased?: string | null;
   animalTattoos?: Goat['animalTattoo'];
   colorAndMarking?: string;
   price?: number | string;
@@ -66,6 +67,7 @@ export class GoatCardComponent implements OnInit, Page {
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
+    this.deceased = this.goat?.dateOfDeath;
     this.animalTattoos = this.goat?.animalTattoo;
     this.colorAndMarking = this.goat?.colorAndMarking;
     if (this.forSale) {

@@ -1,3 +1,6 @@
+## 5.3.0-beta.1
+* Added when a goat passed away (if applicable)
+
 ## 5.2.0-beta.3
 * Fixed a bug causing the count of awards to be displayed improperly
 
