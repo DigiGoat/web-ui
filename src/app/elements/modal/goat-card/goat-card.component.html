@@ -12,6 +12,10 @@
         <span class="fw-bold">Born</span>: <span class="fw-light" test-id="born">{{born | longDate}}</span>
         <br>
       </div>
+      <div *ngIf="deceased">
+        <span class="fw-bold">Deceased</span>: <span class="fw-light" test-id="deceased">{{deceased | longDate}}</span>
+        <br>
+      </div>
       <div *ngIf="id">
         <span class="fw-bold">ID</span>: <span class="fw-light" test-id="id">{{id}}</span>
         <br>

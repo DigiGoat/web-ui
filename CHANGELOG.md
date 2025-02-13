@@ -1,3 +1,15 @@
+## 5.3.0-beta.1
+* Added when a goat passed away (if applicable)
+
+## 5.2.0-beta.3
+* Fixed a bug causing the count of awards to be displayed improperly
+
+## 5.2.0-beta.2
+* Fixed a bug causing the awards to not display for the Dam's Dam in the pedigree
+
+## 5.2.0-beta.1
+* Added support for Awards!
+
 ## 5.1.0-beta.1
 * Simplified the farm names required to be configured. Instead of a menubar, home, and tab name, there is now just a full name and a short name
 
