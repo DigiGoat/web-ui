@@ -21,16 +21,19 @@ export class GoatCardComponent implements OnChanges {
   description?: string;
   id?: string;
   born?: string;
+  deceased?: string | null;
   price?: number | string;
   image?: ImageEntry;
   identifier?: string;
   linearAppraisal?: Required<Goat>['linearAppraisals'][number];
+  awards?: string;
   ngOnChanges() {
     this.name = this.goat?.name;
     this.nickname = this.goat?.nickname;
     this.description = this.goat?.description;
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
+    this.deceased = this.goat?.dateOfDeath;
     if (this.forSale) {
       try {
         this.price = (new CurrencyPipe('en-US')).transform(this.goat?.price) || this.price;
@@ -44,6 +47,7 @@ export class GoatCardComponent implements OnChanges {
       this.setOGImages();
     }
     this.linearAppraisal = this.goatService.getAppraisal(this.goat?.linearAppraisals);
+    this.awards = this.goatService.getAwards(this.goat?.awards);
   }
   setOGImages() {
     if (this.image && this.image.file !== '/') {
