@@ -1,3 +1,7 @@
+## 5.3.1-beta.1
+* Fixed a bug causing the goats on the for sale page to not be rendered properly
+* Fixed a bug causing the goats on the for sale page to not show up in search results
+
 ## 5.3.0-beta.1
 * Added when a goat passed away (if applicable)
 

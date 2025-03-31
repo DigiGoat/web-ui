@@ -47,6 +47,17 @@ function route() {
       routes.push(route);
     }
   });
+  if (config['forSale']) {
+    log.debug('Identifying For Sale Routes');
+    const forSale: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), 'utf-8'));
+    forSale.forEach(sale => {
+      if (sale.nickname || sale.name || sale.normalizeId) {
+        const route = `/for-sale/${sale.nickname || sale.name?.replace(/ /g, '-') || sale.normalizeId}`;
+        log.debug(`Adding For Sale Route '${route}'`);
+        routes.push(route);
+      }
+    });
+  }
   log.debug('Writing Routes');
   writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
 }
@@ -109,11 +120,27 @@ async function setupMarkdown() {
     }
     writeFileSync(join(__dirname, '../src/assets/resources/kidding-schedule.json'), JSON.stringify(kiddingSchedule));
   }
+  const forSale: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), 'utf-8'));
+  if (forSale.length) {
+    log.debug('Rendering Markdown For For Sale');
+    for (const sale of forSale) {
+      if (sale.description) {
+        log.debug(`Rendering Markdown For Sale ${sale.nickname || sale.name || sale.normalizeId}`);
+        sale.description = await renderMarkdown(sale.description);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), JSON.stringify(forSale));
+  }
 }
 function build() {
   log.debug('Compiling Project');
   const base = url?.pathname;
-  execSync(`yarn build ${base ? `--base-href ${base}${base.endsWith('/') ? '' : '/'}` : ''}`);
+  try {
+    execSync(`yarn build ${base ? `--base-href ${base}${base.endsWith('/') ? '' : '/'}` : ''}`);
+  } catch (error) {
+    log.error('Failed to Compile Project:', error, error.stderr.toString());
+    process.exit(1);
+  }
 }
 function cleanup() {
   log.debug('Deleting Routes.txt');
