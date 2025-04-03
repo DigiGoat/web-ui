@@ -1,3 +1,8 @@
+## 5.3.2-beta.1
+* SEO Improvements
+  * The website is now compiled once a day in addition to on changes to ensure ages stay up-to-date
+  * Fixed a bug causing spaces to be removed from the goat's name in the page title
+
 ## 5.3.1-beta.1
 * Fixed a bug causing the goats on the for sale page to not be rendered properly
 * Fixed a bug causing the goats on the for sale page to not show up in search results

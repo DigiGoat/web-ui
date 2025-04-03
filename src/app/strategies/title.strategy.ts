@@ -48,6 +48,6 @@ export class TitleStrategy extends NgTitleStrategy {
       return Object.assign(paramObj, children[0]?.params);
     }
     const paramMap = findParams(routerState.root.children);
-    return paramMap[param] ?? `:${param}`;
+    return (paramMap[param]?.replaceAll('-', ' ') ?? `:${param}`);
   }
 }
