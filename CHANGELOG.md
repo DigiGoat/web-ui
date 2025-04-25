@@ -1,3 +1,6 @@
+## 5.3.3-beta.1
+* Nicknames with spaces now use dashes for the url
+
 ## 5.3.2-beta.1
 * SEO Improvements
   * The website is now compiled once a day in addition to on changes to ensure ages stay up-to-date

@@ -42,7 +42,7 @@ export class GoatCardComponent implements OnChanges {
       }
     }
     this.image = this.imageService.getImage([this.id, this.name, this.nickname]);
-    this.identifier = this.nickname ?? this.name?.replace(/ /g, '-') ?? this.id;
+    this.identifier = (this.nickname ?? this.name ?? this.id)?.replace(/ /g, '-');
     if (!this.route.snapshot.params['goat']) {
       this.setOGImages();
     }
