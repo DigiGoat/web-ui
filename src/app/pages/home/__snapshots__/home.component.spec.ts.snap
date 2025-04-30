@@ -99,6 +99,7 @@ exports[`HomeComponent With a config should match the snapshot 1`] = `
     </a>
   </div><div
     class="container text-center"
+    markdown="homepage"
     test-id="description"
   >
     TEST_DESCRIPTION
@@ -148,6 +149,7 @@ exports[`HomeComponent Without a config should match the snapshot 1`] = `
   >
   </div><div
     class="container text-center"
+    markdown="homepage"
     test-id="description"
   />
 </app-home>

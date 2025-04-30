@@ -1,3 +1,6 @@
+## 5.3.4-beta.1
+* Added support for Markdown rendering in the live preview! This even works offline!
+
 ## 5.3.3-beta.1
 * Nicknames with spaces now use dashes for the url
 
