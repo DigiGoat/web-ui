@@ -1,3 +1,6 @@
+## 5.3.4-beta.2
+* Fixed a bug causing the markdown for goats to be re-rendered when the goat is opened
+
 ## 5.3.4-beta.1
 * Added support for Markdown rendering in the live preview! This even works offline!
 
