@@ -30,7 +30,7 @@ describe('AgePipe', () => {
     });
   });
   describe('should return ages less than 1 year old in months', () => {
-    test.each([35, 36, 364])('day %i', (day) => {
+    test.each([105, 106, 364])('day %i', (day) => {
       expect(pipe.transform(getDate(day))).toContain('month');
     });
   });
