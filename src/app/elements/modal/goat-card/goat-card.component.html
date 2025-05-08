@@ -36,7 +36,8 @@
         <br>
       </div>
     </div>
-    <div test-id="description" *ngIf="description" [innerHTML]="description"></div>
+    <div test-id="description" *ngIf="description" [innerHTML]="description"
+      [markdown]="(id || name || nickname) ? 'goat-' + (id || name || nickname) : ''"></div>
   </div>
   <app-pedigree [goat]="goat"></app-pedigree>
 </div>

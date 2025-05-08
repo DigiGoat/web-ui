@@ -1,3 +1,21 @@
+## 5.3.4-beta.2
+* Fixed a bug causing the markdown for goats to be re-rendered when the goat is opened
+
+## 5.3.4-beta.1
+* Added support for Markdown rendering in the live preview! This even works offline!
+
+## 5.3.3-beta.1
+* Nicknames with spaces now use dashes for the url
+
+## 5.3.2-beta.1
+* SEO Improvements
+  * The website is now compiled once a day in addition to on changes to ensure ages stay up-to-date
+  * Fixed a bug causing spaces to be removed from the goat's name in the page title
+
+## 5.3.1-beta.1
+* Fixed a bug causing the goats on the for sale page to not be rendered properly
+* Fixed a bug causing the goats on the for sale page to not show up in search results
+
 ## 5.3.0-beta.1
 * Added when a goat passed away (if applicable)
 

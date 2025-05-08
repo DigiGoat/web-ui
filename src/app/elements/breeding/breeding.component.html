@@ -27,7 +27,7 @@
       <h3>Kidded: {{breeding.kidded | longDate}}</h3>
       <!--<h5>See the <a routerLink="/for-sale">For Sale</a> Page For More Info</h5>-->
     </div>
-    <div [innerHTML]="breeding.description"></div>
+    <div [innerHTML]="breeding.description" markdown="breeding-{{breeding.dam}}x{{breeding.sire}}"></div>
   </div>
   <div class="col"><app-goat-card [goat]="sire"></app-goat-card></div>
 </div>
