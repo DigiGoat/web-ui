@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json",
+  "hosting": {
+    "public": "dist/web-ui/browser",
+    "ignore": [
+      "markdown.js"
+    ],
+    "rewrites": [
+      {
+        "source": "/does/**",
+        "destination": "/does/index.html"
+      },
+      {
+        "source": "/bucks/**",
+        "destination": "/bucks/index.html"
+      },
+      {
+        "source": "/references/**",
+        "destination": "/references/index.html"
+      },
+      {
+        "source": "/for-sale/**",
+        "destination": "/for-sale/index.html"
+      },
+      {
+        "source": "/kidding-schedule/**",
+        "destination": "/kidding-schedule/index.html"
+      }
+    ]
+  }
+}
