@@ -32,7 +32,11 @@ jobs:
   check_pages:
     runs-on: ubuntu-latest
     outputs:
-      enabled: ${{ steps.branch.outputs.enabled && steps.check.outputs.enabled }}
+      enabled: ${{ steps.branch.outputs.enabled && (steps.check_firebase.outputs.enabled || steps.check_pages.outputs.enabled) }}
+      firebase: ${{ steps.check_firebase.outputs.enabled }}
+      pages: ${{ steps.check_pages.outputs.enabled }}
+    env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
     steps:
       - name: Check if this is the default branch
         id: branch
@@ -44,18 +48,30 @@ jobs:
           else
             echo "enabled=true" >> $GITHUB_OUTPUT
           fi
-      - name: Check if Pages are enabled
+      - name: Check if Firebase is configured
         if: steps.branch.outputs.enabled == 'true'
-        id: check
+        id: check_firebase
         run: |
-          if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
-            echo "::warning:: Pages are disabled, skipping deployment"
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+          if ! firebase hosting:sites:list --project "$REPO_NAME"; then
+            echo "::warning:: Firebase isn't configured, skipping deployment"
             echo "enabled=false" >> $GITHUB_OUTPUT
           else
             echo "enabled=true" >> $GITHUB_OUTPUT
           fi
+      - name: Check if Pages are enabled
+        if: steps.branch.outputs.enabled == 'true' && steps.check_firebase.outputs.enabled == 'false'
+        id: check_pages
+        run: |
+            if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
+              echo "::warning:: Pages are disabled, skipping deployment"
+              echo "enabled=false" >> $GITHUB_OUTPUT
+            else
+              echo "enabled=true" >> $GITHUB_OUTPUT
+            fi
         env:
           GH_TOKEN: ${{ github.token }}
+
   build:
     name: Build
     if: needs.check_pages.outputs.enabled == 'true'
@@ -74,6 +90,7 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Setup Pages
+        if: needs.check_pages.outputs.pages == 'true'
         id: pages
         uses: actions/configure-pages@v5
 
@@ -85,20 +102,30 @@ jobs:
         run: yarn fix-version
 
       - name: Build Project
-        run: yarn deploy ${{ steps.pages.outputs.base_url }}
+        run: yarn deploy ${{ vars.PAGE_URL || steps.pages.outputs.base_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Deploy to Firebase
+        if: needs.check_pages.outputs.firebase == 'true'
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+          firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions"
+
       - name: Upload artifact
+        if: needs.check_pages.outputs.pages == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist/web-ui/browser
 
   deploy:
+    if: needs.check_pages.outputs.pages == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
+    needs:
+      - build
+      - check_pages
     runs-on: ubuntu-latest
     name: Deploy
 

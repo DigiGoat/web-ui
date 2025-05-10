@@ -1,3 +1,7 @@
+## 5.4.0-beta.1
+* Added support for firebase hosting
+  * SDK implementation is not complete yet, but the hosting should work
+
 ## 5.3.5-beta.1
 * Updated the age displayed on the goat's page to show the age in weeks until the goat is at least 15 weeks old (it was originally 5 weeks)
 
