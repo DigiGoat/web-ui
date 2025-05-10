@@ -48,19 +48,8 @@ jobs:
           else
             echo "enabled=true" >> $GITHUB_OUTPUT
           fi
-      - name: Check if Firebase is configured
-        if: steps.branch.outputs.enabled == 'true'
-        id: check_firebase
-        run: |
-          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-          if ! firebase hosting:sites:list --project "$REPO_NAME"; then
-            echo "::warning:: Firebase isn't configured, skipping deployment"
-            echo "enabled=false" >> $GITHUB_OUTPUT
-          else
-            echo "enabled=true" >> $GITHUB_OUTPUT
-          fi
       - name: Check if Pages are enabled
-        if: steps.branch.outputs.enabled == 'true' && steps.check_firebase.outputs.enabled == 'false'
+        if: steps.branch.outputs.enabled == 'true'
         id: check_pages
         run: |
             if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
@@ -71,6 +60,30 @@ jobs:
             fi
         env:
           GH_TOKEN: ${{ github.token }}
+
+      - name: Setup Node
+        if: steps.branch.outputs.enabled == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Install Dependencies
+        if: steps.branch.outputs.enabled == 'true'
+        run: yarn install
+
+      - name: Check if Firebase is configured
+        if: steps.branch.outputs.enabled == 'true'
+        id: check_firebase
+        run: |
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+          if ! npx firebase hosting:sites:list --project "$REPO_NAME"; then
+            echo "::warning:: Firebase isn't configured, skipping deployment"
+            echo "enabled=false" >> $GITHUB_OUTPUT
+          else
+            echo "enabled=true" >> $GITHUB_OUTPUT
+          fi
 
   build:
     name: Build
@@ -102,7 +115,7 @@ jobs:
         run: yarn fix-version
 
       - name: Build Project
-        run: yarn deploy ${{ vars.PAGE_URL || steps.pages.outputs.base_url }}
+        run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -110,7 +123,7 @@ jobs:
         if: needs.check_pages.outputs.firebase == 'true'
         run: |
           REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-          firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions"
+          npx firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions"
 
       - name: Upload artifact
         if: needs.check_pages.outputs.pages == 'true'
