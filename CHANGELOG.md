@@ -1,3 +1,6 @@
+## 5.4.0-beta.2
+* Fixed a bug causing the firebase cli to not be installed properly (or at all)
+
 ## 5.4.0-beta.1
 * Added support for firebase hosting
   * SDK implementation is not complete yet, but the hosting should work
