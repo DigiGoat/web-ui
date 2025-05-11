@@ -65,7 +65,7 @@ jobs:
         if: steps.branch.outputs.enabled == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: .nvmrc
           cache: yarn
           cache-dependency-path: yarn.lock
 
@@ -98,7 +98,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: .nvmrc
           cache: yarn
           cache-dependency-path: yarn.lock
 

@@ -1,3 +1,6 @@
+## 5.4.0-beta.3
+* Deprecated node 18 support
+
 ## 5.4.0-beta.2
 * Fixed a bug causing the firebase cli to not be installed properly (or at all)
 
