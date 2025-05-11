@@ -38,12 +38,68 @@ jobs:
         run: |
            echo "Branch is the default branch: ${{ github.ref_name }}"
 
-  check_pages:
-    name: Check Github Pages
-    runs-on: ubuntu-latest
+  build:
+    name: Build
     needs: check_branch
-    outputs:
-      enabled: ${{ steps.check_pages.outputs.enabled }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Check if Pages are enabled
+        id: check_pages
+        run: |
+            if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
+              echo "enabled=false" >> $GITHUB_OUTPUT
+            else
+              echo "enabled=true" >> $GITHUB_OUTPUT
+            fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Setup Pages
+        if: steps.check_pages.outputs.enabled == 'true'
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Fix version
+        if: github.ref_name == 'main'
+        run: yarn fix-version
+
+      - name: Check URL
+        if: ${{ !vars.PAGE_URL && !steps.pages.outputs.base_url }}
+        run: |
+          echo "::warning:: No URL provided, using default URL"
+
+      - name: Build Project
+        run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload website
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./dist/web-ui/browser
+          name: website
+
+  deploy_pages:
+    name: Deploy to Github Pages
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check if Pages are enabled
         id: check_pages
@@ -56,12 +112,29 @@ jobs:
             fi
         env:
           GH_TOKEN: ${{ github.token }}
-  check_firebase:
-    name: Check Firebase
+
+      - name: Download website
+        if: steps.check_pages.outputs.enabled == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: ./dist/web-ui/browser
+      - name: Setup Pages
+        if: steps.check_pages.outputs.enabled == 'true'
+        id: pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/web-ui/browser
+
+      - name: Deploy to GitHub Pages
+        if: steps.check_pages.outputs.enabled == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy_firebase:
+    name: Deploy to Firebase
     runs-on: ubuntu-latest
-    needs: check_branch
-    outputs:
-      enabled: ${{ steps.check_firebase.outputs.enabled }}
+    needs: build
     env:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -89,67 +162,14 @@ jobs:
         else
           echo "enabled=true" >> $GITHUB_OUTPUT
         fi
-  build:
-    name: Build
-    needs:
-      - check_branch
-      - check_pages
-      - check_firebase
-    if: needs.check_pages.outputs.enabled == 'true' || needs.check_firebase.outputs.enabled == 'true'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-          cache-dependency-path: yarn.lock
-
-      - name: Setup Pages
-        if: needs.check_pages.outputs.enabled == 'true'
-        id: pages
-        uses: actions/configure-pages@v5
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Fix version
-        if: github.ref_name == 'main'
-        run: yarn fix-version
-
-      - name: Build Project
-        run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy to Firebase
-        if: needs.check_firebase.outputs.enabled == 'true'
-        run: |
-          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-          npx firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions"
-
-      - name: Upload artifact
-        if: needs.check_pages.outputs.enabled == 'true'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist/web-ui/browser
-
-  deploy:
-    if: needs.check_pages.outputs.enabled == 'true'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs:
-      - build
-      - check_pages
-    runs-on: ubuntu-latest
-    name: Deploy
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Download website
+      if: steps.check_firebase.outputs.enabled == 'true'
+      uses: actions/download-artifact@v4
+      with:
+        name: website
+        path: ./dist/web-ui/browser
+    - name: Deploy to Firebase
+      if: steps.check_firebase.outputs.enabled == 'true'
+      run: |
+        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+        npx firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions"
