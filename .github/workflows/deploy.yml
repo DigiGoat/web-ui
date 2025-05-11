@@ -61,6 +61,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Checkout
+        if: steps.branch.outputs.enabled == 'true'
+        uses: actions/checkout@v4
+
       - name: Setup Node
         if: steps.branch.outputs.enabled == 'true'
         uses: actions/setup-node@v4

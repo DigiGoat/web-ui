@@ -1,3 +1,6 @@
+## 5.4.0-beta.4
+* Fixed a bug in when deploying website updates
+
 ## 5.4.0-beta.3
 * Deprecated node 18 support
 
