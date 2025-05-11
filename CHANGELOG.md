@@ -1,3 +1,6 @@
+## 5.4.0-beta.5
+* Optimized the deploy process to be faster
+
 ## 5.4.0-beta.4
 * Fixed a bug in when deploying website updates
 
