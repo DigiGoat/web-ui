@@ -149,14 +149,14 @@ jobs:
         cache: yarn
         cache-dependency-path: yarn.lock
 
-    - name: Install Dependencies
-      run: yarn install
+    - name: Install Firebase
+      run: yarn install -g firebase-tools@^14.3.1
 
     - name: Check if Firebase is configured
       id: check_firebase
       run: |
         REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-        if ! npx firebase hosting:sites:list --project "$REPO_NAME"; then
+        if ! firebase hosting:sites:list --project "$REPO_NAME"; then
           echo "::warning:: Firebase isn't configured, skipping deployment"
           echo "enabled=false" >> $GITHUB_OUTPUT
         else
@@ -172,4 +172,4 @@ jobs:
       if: steps.check_firebase.outputs.enabled == 'true'
       run: |
         REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-        npx firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
