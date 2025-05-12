@@ -1,3 +1,7 @@
+## 5.4.0-beta.6
+* Updated the firebase deploy comment to be more descriptive
+* Revived node 18 support
+
 ## 5.4.0-beta.5
 * Optimized the deploy process to be faster
 
@@ -5,7 +9,7 @@
 * Fixed a bug in when deploying website updates
 
 ## 5.4.0-beta.3
-* Deprecated node 18 support
+* Killed node 18 support
 
 ## 5.4.0-beta.2
 * Fixed a bug causing the firebase cli to not be installed properly (or at all)
