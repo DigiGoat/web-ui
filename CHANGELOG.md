@@ -1,3 +1,6 @@
+## 5.4.0-beta.6
+* Updated the firebase deploy comment to be more descriptive
+
 ## 5.4.0-beta.5
 * Optimized the deploy process to be faster
 
