@@ -131,7 +131,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version-file: .nvmrc
+        node-version: ^20.11.1
 
     - name: Install Firebase
       run: npm install -g firebase-tools@^14.3.1
