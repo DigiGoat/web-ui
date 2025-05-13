@@ -56,7 +56,7 @@ jobs:
 
       - name: Check if Pages are enabled
         id: check_pages
-        if: !vars.PAGE_URL
+        if: ${{!vars.PAGE_URL}}
         run: |
             if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
               echo "enabled=false" >> $GITHUB_OUTPUT
