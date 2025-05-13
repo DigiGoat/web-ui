@@ -1,3 +1,6 @@
+## 5.4.0-beta.12
+* Fixed a bug introduced in `5.4.0-beta.9` causing the website to not deploy properly to firebase
+
 ## 5.4.0-beta.11
 * Fixed a bug introduced in `5.4.0-beta.9` causing the website to not deploy properly to github pages
 
