@@ -1,3 +1,6 @@
+## 5.4.0-beta.10
+* Added missing node version to the deploy script
+
 ## 5.4.0-beta.9
 * Added headers to increase security and optimize the website
 
