@@ -1,3 +1,9 @@
+## 5.4.0-beta.9
+* Added headers to increase security and optimize the website
+
+## 5.4.0-beta.8
+* Some optimizations to the deploy process
+
 ## 5.4.0-beta.7
 * Fixed a bug when installing the firebase cli while deploying the website
 
