@@ -113,12 +113,23 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Download website
+        if: steps.check_pages.outputs.enabled == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: ./dist/web-ui/browser
+      - name: Setup Pages
+        if: steps.check_pages.outputs.enabled == 'true'
+        id: pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/web-ui/browser
+
       - name: Deploy to GitHub Pages
         if: steps.check_pages.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: website
 
   deploy_firebase:
     name: Deploy to Firebase
