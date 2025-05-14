@@ -8,10 +8,11 @@ import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 const ci = !!process.env['CI'];
 const log = {
   debug: (...message: unknown[]): void => console.debug(chalk.dim('>', ...message)),
-  info: (...message: unknown[]): void => console.log(...message),
+  info: (...message: unknown[]): void => ci ? console.log('::endgroup::', `::group::${message.shift()}`, ...message) : console.log(...message),
   warn: (...message: unknown[]): void => console.warn(`${ci ? '::warning::' : ''}${chalk.yellowBright(...message)}`),
   error: (...message: unknown[]): void => console.error(`${ci ? '::error::' : ''}${chalk.redBright(...message)}`),
-  success: (...message: unknown[]): void => console.log(chalk.greenBright(...message))
+  success: (...message: unknown[]): void => console.log(chalk.greenBright(...message)),
+  notice: (...message: unknown[]): void => console.log(ci ? '::notice::' : '', chalk.cyanBright(...message)),
 };
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
@@ -244,6 +245,10 @@ async function sitemap(link: string) {
   if (changedPages.length) {
     log.info('Notifying IndexNow of Changes', changedPages);
     await indexNow(changedPages, link);
+    if (process.env['GITHUB_OUTPUT']) {
+      log.notice('Changes detected during build');
+      writeFileSync(process.env['GITHUB_OUTPUT'], 'changes=true\n', { flag: 'a' });
+    }
   }
 }
 

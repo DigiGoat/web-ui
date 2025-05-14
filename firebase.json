@@ -58,7 +58,7 @@
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "no-cache"
+            "value": "public, s-maxage=31536000, max-age=0"
           },
           {
             "key": "Content-Security-Policy",
@@ -87,7 +87,7 @@
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "no-cache"
+            "value": "public, s-maxage=31536000, max-age=0"
           },
           {
             "key": "Content-Type",

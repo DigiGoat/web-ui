@@ -1,3 +1,9 @@
+## 5.4.0-beta.15
+* The deploy process now only deploys the website if there are changes to the website (only if triggered by the once-a-day schedule, pushes still always deploy)
+
+## 5.4.0-beta.14
+* Further improved resource caching to reduce loading times
+
 ## 5.4.0-beta.13
 * Fixed a typo in the deploy script causing the website to not deploy
 
