@@ -6,9 +6,10 @@ import { join } from 'path';
 import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 
 const ci = !!process.env['CI'];
+console.log('::group::Starting Build');
 const log = {
   debug: (...message: unknown[]): void => console.debug(chalk.dim('>', ...message)),
-  info: (...message: unknown[]): void => ci ? console.log('::endgroup::', `::group::${message.shift()}`, ...message) : console.log(...message),
+  info: (...message: unknown[]): void => ci ? console.log(`::endgroup::\n::group::${message.shift()}\n`, ...message) : console.log(...message),
   warn: (...message: unknown[]): void => console.warn(`${ci ? '::warning::' : ''}${chalk.yellowBright(...message)}`),
   error: (...message: unknown[]): void => console.error(`${ci ? '::error::' : ''}${chalk.redBright(...message)}`),
   success: (...message: unknown[]): void => console.log(chalk.greenBright(...message)),
@@ -249,6 +250,9 @@ async function sitemap(link: string) {
       log.notice('Changes detected during build');
       writeFileSync(process.env['GITHUB_OUTPUT'], 'changes=true\n', { flag: 'a' });
     }
+  } else if (process.env['GITHUB_OUTPUT']) {
+    log.notice('No changes detected during build');
+    writeFileSync(process.env['GITHUB_OUTPUT'], 'changes=false\n', { flag: 'a' });
   }
 }
 
@@ -388,5 +392,8 @@ function manifest() {
   }
   log.info('Generating Manifest...');
   manifest();
+  if (ci) {
+    console.log('::endgroup::');
+  }
   log.success('Done.');
 })();
