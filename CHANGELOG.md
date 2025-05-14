@@ -1,3 +1,6 @@
+## 5.4.0-beta.16
+* Better logging for the deploy process
+
 ## 5.4.0-beta.15
 * The deploy process now only deploys the website if there are changes to the website (only if triggered by the once-a-day schedule, pushes still always deploy)
 
