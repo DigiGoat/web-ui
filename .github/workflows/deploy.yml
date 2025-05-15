@@ -1,4 +1,4 @@
-name: Deploy site to Pages
+name: Deploy Website
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,7 +22,7 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   BUILD_PATH: "." # default value when not using subfolders
@@ -188,6 +188,7 @@ jobs:
         sparse-checkout: |
           firebase.json
           .firebaserc
+          .nvmrc
         sparse-checkout-cone-mode: false
 
     - name: Setup Node

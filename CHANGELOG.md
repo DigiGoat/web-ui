@@ -1,3 +1,6 @@
+## 5.4.0-beta.19
+* Fixed a bug introduced by the deploy optimizations in `5.4.0-beta.18` causing the website to not deploy properly
+
 ## 5.4.0-beta.18
 * Updated the automated deploy to only run if the website was not already deployed in the last 24 hours
 * Slightly optimized the deploy process to be faster
