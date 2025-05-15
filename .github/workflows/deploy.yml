@@ -147,6 +147,7 @@ jobs:
         id: check_pages
         run: |
             if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
+              echo "\n"
               echo "::warning:: Pages are disabled, skipping deployment"
               echo "enabled=false" >> $GITHUB_OUTPUT
             else
@@ -204,6 +205,7 @@ jobs:
       run: |
         REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
         if ! firebase hosting:sites:list --project "$REPO_NAME"; then
+          echo "\n"
           echo "::warning:: Firebase isn't configured, skipping deployment"
           echo "enabled=false" >> $GITHUB_OUTPUT
         else
