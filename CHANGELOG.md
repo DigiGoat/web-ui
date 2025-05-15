@@ -1,3 +1,7 @@
+## 5.4.0-beta.18
+* Updated the automated deploy to only run if the website was not already deployed in the last 24 hours
+* Slightly optimized the deploy process to be faster
+
 ## 5.4.0-beta.17
 * When running the automated deploy, the time zone is now set to PST when calculating the age of the goats.
 
