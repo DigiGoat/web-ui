@@ -9,7 +9,8 @@ on:
 
   # Run once a day to check if the site is up to date
   schedule:
-    - cron: '0 3 * * *' # At 3AM every day
+    # Runs at 10:15 AM UTC (3:15 AM PDT) and 11:15 AM UTC (3:15 AM PST)
+    - cron: '15 10,11 * * *'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,22 +27,36 @@ concurrency:
 env:
   BUILD_PATH: "." # default value when not using subfolders
   YARN_IGNORE_ENGINES: true
+  TZ: America/Los_Angeles
   # BUILD_PATH: subfolder
 
 jobs:
-  check_branch:
-    name: Check Branch
+  prerequisites:
+    name: Prerequisites
     if: github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
+    outputs:
+      run_tasks: ${{ steps.check.outputs.run_tasks }}
     steps:
-      - name: Verify branch
+
+      # Check if it's 3 AM PST, with daylight savings time this could be two possible UTC times
+      - name: Check if it's 3 AM
+        id: check
+        if: ${{ github.event_name == 'schedule' }}
         run: |
-           echo "Branch is the default branch: ${{ github.ref_name }}"
+          current_hour=$(date +'%H')
+          echo "Current hour in PST: $current_hour"
+
+          if [ "$current_hour" == "03" ]; then
+            echo "It's 3 AM PST! Running tasks..."
+            echo "run_tasks=true" >> $GITHUB_OUTPUT
+          fi
 
   build:
     name: Build
-    needs: check_branch
+    needs: prerequisites
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'schedule' || needs.prerequisites.outputs.run_tasks == 'true' }}
     outputs:
       changes: ${{ steps.build.outputs.changes }}
 
@@ -101,7 +116,6 @@ jobs:
     name: Deploy to Github Pages
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ needs.build.outputs.changes == 'true' || github.event_name != 'schedule' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
