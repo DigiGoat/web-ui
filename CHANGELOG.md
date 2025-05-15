@@ -1,3 +1,6 @@
+## 5.4.0-beta.17
+* When running the automated deploy, the time zone is now set to PST when calculating the age of the goats.
+
 ## 5.4.0-beta.16
 * Better logging for the deploy process
 
