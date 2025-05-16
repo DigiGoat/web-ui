@@ -8,23 +8,23 @@
     "rewrites": [
       {
         "source": "/does/**",
-        "destination": "/does/index.html"
+        "destination": "/does/Doe-Not-Found/index.html"
       },
       {
         "source": "/bucks/**",
-        "destination": "/bucks/index.html"
+        "destination": "/bucks/Buck-Not-Found/index.html"
       },
       {
         "source": "/references/**",
-        "destination": "/references/index.html"
+        "destination": "/references/Reference-Not-Found/index.html"
       },
       {
         "source": "/for-sale/**",
-        "destination": "/for-sale/index.html"
+        "destination": "/for-sale/Goat-Not-Found/index.html"
       },
       {
         "source": "/kidding-schedule/**",
-        "destination": "/kidding-schedule/index.html"
+        "destination": "/kidding-schedule/Kidding-Goat/index.html"
       }
     ],
     "headers": [

@@ -1,3 +1,9 @@
+## 5.4.1-beta.1
+* Fixed a bug causing reference goats to not be rendered & routed
+* Added 404 goat pages for a better user experience
+* Fixed a logging bug during the deploy process
+* Added timeout to the build during the deploy process to prevent it from hanging
+
 ## 5.4.0-beta.19
 * Fixed a bug introduced by the deploy optimizations in `5.4.0-beta.18` causing the website to not deploy properly
 

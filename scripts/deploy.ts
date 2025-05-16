@@ -40,6 +40,7 @@ function route() {
       routes.push(route);
     }
   });
+  routes.push('/does/Doe-Not-Found');
   log.debug('Identifying Buck Routes');
   const bucks: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/bucks.json'), 'utf-8'));
   bucks.forEach(buck => {
@@ -49,6 +50,19 @@ function route() {
       routes.push(route);
     }
   });
+  routes.push('/bucks/Buck-Not-Found');
+  if (config['references']) {
+    log.debug('Identifying Reference Goat Routes');
+    const references: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/references.json'), 'utf-8'));
+    references.forEach(reference => {
+      if (reference.nickname || reference.name || reference.normalizeId) {
+        const route = `/references/${(reference.nickname || reference.name || reference.normalizeId).replace(/ /g, '-')}`;
+        log.debug(`Adding Reference Route '${route}'`);
+        routes.push(route);
+      }
+    });
+    routes.push('/references/Reference-Not-Found');
+  }
   if (config['forSale']) {
     log.debug('Identifying For Sale Routes');
     const forSale: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), 'utf-8'));
@@ -59,6 +73,11 @@ function route() {
         routes.push(route);
       }
     });
+    routes.push('/for-sale/Goat-Not-Found');
+  }
+  if (config['kiddingSchedule']) {
+    log.debug('Writing Kidding Schedule Goat Card');
+    routes.push('/kidding-schedule/Kidding-Goat');
   }
   log.debug('Writing Routes');
   writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
@@ -110,6 +129,17 @@ async function setupMarkdown() {
       }
     }
     writeFileSync(join(__dirname, '../src/assets/resources/bucks.json'), JSON.stringify(bucks));
+  }
+  const references: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/references.json'), 'utf-8'));
+  if (references.length) {
+    log.debug('Rendering Markdown For References');
+    for (const reference of references) {
+      if (reference.description) {
+        log.debug(`Rendering Markdown For Reference ${reference.nickname || reference.name || reference.normalizeId}`);
+        reference.description = await renderMarkdown(reference.description);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/references.json'), JSON.stringify(references));
   }
   const kiddingSchedule: Kidding[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/kidding-schedule.json'), 'utf-8'));
   if (kiddingSchedule.length) {
