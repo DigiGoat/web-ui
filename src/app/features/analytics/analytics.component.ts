@@ -1,15 +1,16 @@
 import { Component, ElementRef, type OnInit } from '@angular/core';
 import { ConfigService } from '../../services/config/config.service';
+import { FirebaseService } from '../../services/firebase/firebase.service';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Component({
-    selector: 'analytics',
-    templateUrl: './analytics.component.html',
-    styleUrl: './analytics.component.scss',
-    standalone: false
+  selector: 'analytics',
+  templateUrl: './analytics.component.html',
+  styleUrl: './analytics.component.scss',
+  standalone: false,
 })
 export class AnalyticsComponent implements OnInit {
-  constructor(private config: ConfigService, private platformService: PlatformService, private el: ElementRef<HTMLElement>) { }
+  constructor(private config: ConfigService, private platformService: PlatformService, private el: ElementRef<HTMLElement>, private firebase: FirebaseService) { }
   private document = this.el.nativeElement.ownerDocument;
   ngOnInit() {
     if (this.platformService.isServer) {
@@ -22,7 +23,7 @@ export class AnalyticsComponent implements OnInit {
           script.innerHTML = `(function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); }; t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, "clarity", "script", "${this.config.analytics.clarity}");`;
           this.document.head.appendChild(script);
         }
-        if (this.config.analytics.gtag) {
+        if (this.config.analytics.gtag && !this.config.firebase) {
           const script = this.document.createElement('script');
           script.src = `https://www.googletagmanager.com/gtag/js?id=${this.config.analytics.gtag}`;
           script.async = true;
@@ -41,6 +42,9 @@ export class AnalyticsComponent implements OnInit {
         window.gtag('set', 'Color Scheme', color);
         window.gtag('js', new Date());
         window.gtag('config', this.config.analytics.gtag!, { send_page_view: false });
+      }
+      if (this.config.firebase) {
+        this.firebase.init();
       }
     }
   }

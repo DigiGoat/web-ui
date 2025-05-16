@@ -1,3 +1,6 @@
+## 5.4.2-beta.1
+* Added firebase sdk support (this is the first update that actually recommends an app update)
+
 ## 5.4.1-beta.1
 * Fixed a bug causing reference goats to not be rendered & routed
 * Added 404 goat pages for a better user experience
