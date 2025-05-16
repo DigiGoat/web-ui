@@ -126,6 +126,7 @@ jobs:
       - name: Build Project
         id: build
         run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
+        timeout-minutes: 10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
