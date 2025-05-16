@@ -21,13 +21,27 @@ if (process.argv[2]) {
   if (URL.canParse(process.argv[2])) {
     log.debug(`Adding '${process.argv[2]}' to the Config`);
     config['link'] = new URL(process.argv[2]).toString();
-    writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
   } else {
     log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
     log.warn('↳ Using URL From Config');
 
   }
 }
+if (config['firebase'] && ci) {
+  log.debug('Adding Firebase Config');
+  const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
+  if (repoName) {
+    config['firebase']['projectId'] = repoName;
+    config['firebase']['authDomain'] = `${repoName}.firebaseapp.com`;
+    config['firebase']['storageBucket'] = `${repoName}.firebasestorage.app`;
+    log.debug(`Set Firebase Project ID to '${repoName}'`);
+  } else {
+    log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
+  }
+}
+log.debug('Writing Updated Config');
+writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
+
 const url = config['link'] ? new URL(config['link'] as string) : undefined;
 function route() {
   const routes: string[] = ['/404'];

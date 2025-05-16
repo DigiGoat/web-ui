@@ -1,3 +1,6 @@
+## 5.4.2-beta.2
+* Filled in missing config params during the deploy process for the firebase sdk
+
 ## 5.4.2-beta.1
 * Added firebase sdk support (this is the first update that actually recommends an app update)
 
