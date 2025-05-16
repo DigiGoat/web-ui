@@ -3,6 +3,7 @@ import type { RouterStateSnapshot } from '@angular/router';
 import { ConfigServiceMock, EmptyConfigServiceMock } from '../services/config/config.service.mock';
 import type { PlatformService } from '../services/platform/platform.service';
 import { TitleStrategy } from './title.strategy';
+import type { FirebaseService } from '../services/firebase/firebase.service';
 
 describe('TitleStrategy', () => {
   let strategy: TitleStrategy;
@@ -11,7 +12,8 @@ describe('TitleStrategy', () => {
     const configService = ConfigServiceMock;
     const meta = { getTags: jest.fn().mockReturnValue(['TEST_TAG']), removeTagElement: jest.fn(), addTags: jest.fn() } as unknown as Meta;
     const platform = { isBrowser: true, isDev: false } as unknown as PlatformService;
-    strategy = new TitleStrategy(title, configService, meta, platform);
+    const firebase = { logEvent: jest.fn() } as unknown as FirebaseService;
+    strategy = new TitleStrategy(title, configService, meta, platform, firebase);
     jest.spyOn(strategy, 'buildTitle').mockReturnValue('TEST_TITLE');
   });
   it('should create', () => {

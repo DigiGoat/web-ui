@@ -98,6 +98,20 @@ export class ConfigService {
     }
     return '';
   }
+  get firebase(): Firebase | false {
+    if (this.config['firebase'] && typeof this.config['firebase'] === 'object') {
+      // Make sure alll firebase keys are present
+      if (!this.config['firebase']['apiKey'] || !this.config['firebase']['projectId'] || !this.config['firebase']['messagingSenderId'] || !this.config['firebase']['appId']) {
+        console.error('Missing Firebase keys');
+        return false;
+      }
+      const config = this.config['firebase'] as Firebase;
+      config.authDomain = config.authDomain || `${config.projectId}.firebaseapp.com`;
+      config.storageBucket = config.storageBucket || `${config.projectId}.firebasestorage.app`;
+      return config;
+    }
+    return false;
+  }
 }
 
 type Analytics = { gtag?: string, clarity?: string; };
@@ -115,3 +129,4 @@ type ColorScheme = {
   };
 };
 type Socials = { facebook?: string, instagram?: string, threads?: string; };
+type Firebase = { apiKey?: string, authDomain?: string, projectId?: string, storageBucket?: string, messagingSenderId?: string, appId?: string; };
