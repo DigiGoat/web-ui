@@ -1,3 +1,7 @@
+## 5.4.2-beta.3
+* Fixed an analytics bug when using the firebase sdk
+* Attempted to fix a bug causing headers not to be applied properly for the html files
+
 ## 5.4.2-beta.2
 * Filled in missing config params during the deploy process for the firebase sdk
 

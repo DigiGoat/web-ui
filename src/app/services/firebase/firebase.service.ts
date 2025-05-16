@@ -17,7 +17,7 @@ export class FirebaseService {
     const firebaseConfig = this.configService.firebase as FirebaseOptions;
     if (firebaseConfig) {
       if (this.configService.analytics.gtag) {
-        firebaseConfig['measurementId'] = this.configService.analytics.gtag;
+        //firebaseConfig['measurementId'] = this.configService.analytics.gtag; //? Firebase appears to use a different gtag then the one used in the analytics config
       }
       this.app = initializeApp(firebaseConfig);
       this.analytics = getAnalytics(this.app);
