@@ -1,3 +1,6 @@
+## 5.4.2-beta.4
+* Attempt 2 at fixing the headers bug
+
 ## 5.4.2-beta.3
 * Fixed an analytics bug when using the firebase sdk
 * Attempted to fix a bug causing headers not to be applied properly for the html files
