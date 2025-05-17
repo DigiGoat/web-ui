@@ -1,3 +1,7 @@
+## 5.4.3-beta.4
+* The headers bug is finally fixed! 🎉 (THANK GOD - THAT WAS A PAIN)
+* Updated the CSP header to allow microsoft clarity to work properly
+
 ## 5.4.3-beta.3
 * Another attempt to fix the headers bug for the base of the website
 
