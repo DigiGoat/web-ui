@@ -1,3 +1,6 @@
+## 5.4.3-beta.1
+* Bumped node version from `20.11.1` to `20.19.2` to fix a bug when deploying the website
+
 ## 5.4.2-beta.5
 * Put the finishing touches on fixing the headers bug
 
