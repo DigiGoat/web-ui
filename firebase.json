@@ -54,7 +54,7 @@
         ]
       },
       {
-        "regex": "/(404\\.html|.*(/|\\.html)?)$",
+        "regex": "^/?(404\\.html|.*(/|\\.html)?)$",
         "headers": [
           {
             "key": "Cache-Control",
