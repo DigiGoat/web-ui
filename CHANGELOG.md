@@ -1,3 +1,6 @@
+## 5.4.3-beta.3
+* Another attempt to fix the headers bug for the base of the website
+
 ## 5.4.3-beta.2
 * Updated the headers matcher to catch the base of the website
 
