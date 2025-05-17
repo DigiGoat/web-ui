@@ -1,3 +1,6 @@
+## 5.4.3-beta.2
+* Updated the headers matcher to catch the base of the website
+
 ## 5.4.3-beta.1
 * Bumped node version from `20.11.1` to `20.19.2` to fix a bug when deploying the website
 
