@@ -1,3 +1,6 @@
+## 5.4.4-beta.1
+* Added support for the `First Input Delay` metric in the performance report
+
 ## 5.4.3-beta.4
 * The headers bug is finally fixed! 🎉 (THANK GOD - THAT WAS A PAIN)
 * Updated the CSP header to allow microsoft clarity to work properly
