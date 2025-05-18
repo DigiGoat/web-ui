@@ -1,3 +1,6 @@
+## 5.4.5-beta.1
+* "Not Found" modals now set the `noindex` meta tag to prevent search engines from indexing the page
+
 ## 5.4.4-beta.1
 * Added support for the `First Input Delay` metric in the performance report
 
