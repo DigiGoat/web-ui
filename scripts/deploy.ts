@@ -6,7 +6,9 @@ import { join } from 'path';
 import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 
 const ci = !!process.env['CI'];
-console.log('::group::Starting Build');
+if (ci) {
+  console.log('::group::Starting Build');
+}
 const log = {
   debug: (...message: unknown[]): void => console.debug(chalk.dim('>', ...message)),
   info: (...message: unknown[]): void => ci ? console.log(`::endgroup::\n::group::${message.shift()}\n`, ...message) : console.log(...message),
@@ -407,7 +409,11 @@ function manifest() {
   log.info('Routing...');
   route();
   log.info('Rendering Markdown...');
-  await setupMarkdown();
+  if (ci) {
+    await setupMarkdown();
+  } else {
+    log.error('Skipping Markdown Rendering Due To Local Deployment');
+  }
   log.info('Building...');
   build();
   log.info('Cleaning Up...');
@@ -415,11 +421,15 @@ function manifest() {
   log.info('Formatting 404...');
   format404();
   log.info('Generating Sitemap...');
-  if (url) {
-    await sitemap(url.toString());
+  if (ci) {
+    if (url) {
+      await sitemap(url.toString());
+    } else {
+      log.error('NO URL FOUND IN CONFIG!');
+      log.warn('↳ Skipping Sitemap Generation');
+    }
   } else {
-    log.error('NO URL FOUND IN CONFIG!');
-    log.warn('↳ Skipping Sitemap Generation');
+    log.error('Skipping Sitemap Generation Due To Local Deployment');
   }
   log.info('Generating Robots.txt...');
   if (url) {
