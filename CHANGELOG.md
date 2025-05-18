@@ -1,3 +1,6 @@
+## 5.4.6-beta.1
+* Added canonical tags to the goat modals to prevent duplicate content from being indexed by search engines
+
 ## 5.4.5-beta.1
 * "Not Found" modals now set the `noindex` meta tag to prevent search engines from indexing the page
 
