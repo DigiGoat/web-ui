@@ -22,7 +22,7 @@ describe('ModalComponent', () => {
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
     html = fixture.nativeElement;
-    component['router'] = { navigate: jest.fn() } as unknown as Router;
+    component['router'] = { navigate: jest.fn(), url: '' } as unknown as Router;
     component.searchParam = 'TEST_PARAM';
   });
   it('should create', () => {
