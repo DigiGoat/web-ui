@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { booleanAttribute, Component, ElementRef, Input, type OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
@@ -5,7 +6,6 @@ import type { Page } from '../../../app-routing.module';
 import { AgePipe } from '../../../pipes/age/age.pipe';
 import type { Goat } from '../../../services/goat/goat.service';
 import { ImageService, type ImageEntry } from '../../../services/image/image.service';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-modal-goat-card',
@@ -44,6 +44,7 @@ export class GoatCardComponent implements OnInit, Page {
       }
       this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
     }
+    this.meta.removeTag('name="robots"');
   }
   htmlToPlainText(html: string): string {
     const doc = this.el.nativeElement.ownerDocument.createElement('div');

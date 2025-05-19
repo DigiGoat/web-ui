@@ -1,3 +1,6 @@
+## 5.4.6-beta.2
+* Modals now remove the `noindex` meta tag from "not found" modals if a cononical tag is possible
+
 ## 5.4.6-beta.1
 * Added canonical tags to the goat modals to prevent duplicate content from being indexed by search engines
 
