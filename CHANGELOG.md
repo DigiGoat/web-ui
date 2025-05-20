@@ -1,3 +1,6 @@
+## 5.4.7-beta.1
+* The deploy process now downloads your website from the previous run to reduce website quota usage
+
 ## 5.4.6-beta.2
 * Modals now remove the `noindex` meta tag from "not found" modals if a cononical tag is possible
 

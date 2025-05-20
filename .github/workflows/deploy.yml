@@ -94,6 +94,23 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
 
+      - name: Find last successful deploy run
+        id: last_success
+        run: |
+          run_id=$(gh run list --workflow="Deploy Website" --branch="$GITHUB_REF_NAME" --json databaseId,status,conclusion,createdAt --limit 10 | \
+            jq '[.[] | select(.status=="completed" and .conclusion=="success" and .databaseId != '${{ github.run_id }}')] | sort_by(.createdAt) | reverse | .[0].databaseId')
+          echo "run_id=$run_id" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download previous deploy artifact
+        if: steps.last_success.outputs.run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: previous-deploy/browser
+          run-id: ${{ steps.last_success.outputs.run_id }}
+
       - name: Check if Pages are enabled
         id: check_pages
         if: ${{!vars.PAGE_URL}}
