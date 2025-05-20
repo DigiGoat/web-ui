@@ -1,3 +1,6 @@
+## 5.4.7-beta.2
+* Fixed a bug causing the website to find the last artifact correctly if the previous run didn't have a website deployed
+
 ## 5.4.7-beta.1
 * The deploy process now downloads your website from the previous run to reduce website quota usage
 
