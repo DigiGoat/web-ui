@@ -1,3 +1,7 @@
+## 5.4.7-beta.3
+* Fixed a permissions bug causing the website to not deploy properly
+* Better logging about which website artifact is being used
+
 ## 5.4.7-beta.2
 * Fixed a bug causing the website to find the last artifact correctly if the previous run didn't have a website deployed
 
