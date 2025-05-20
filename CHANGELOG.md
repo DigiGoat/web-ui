@@ -1,3 +1,6 @@
+## 5.4.7-beta.5
+* So I may have forgotten to actually pass in the token when I elevated it's permissions...
+
 ## 5.4.7-beta.4
 * Fixed a bug when identifying the run number of the last successful deployment
 

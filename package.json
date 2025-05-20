@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "5.4.7-beta.4",
+  "version": "5.4.7-beta.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4000",

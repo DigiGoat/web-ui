@@ -129,6 +129,7 @@ jobs:
           name: website
           path: previous-deploy/browser
           run-id: ${{ steps.last_success.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if Pages are enabled
         id: check_pages
