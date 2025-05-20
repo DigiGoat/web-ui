@@ -98,12 +98,12 @@ jobs:
       - name: Find last successful deploy run with artifact
         id: last_success
         run: |
-          runs=$(gh run list --workflow="Deploy Website" --branch="$GITHUB_REF_NAME" --json databaseId,runNumber,status,conclusion,createdAt --limit 20 | jq '[.[] | select(.status=="completed" and .conclusion=="success" and .databaseId != '${{ github.run_id }}')]')
+          runs=$(gh run list --workflow="Deploy Website" --branch="$GITHUB_REF_NAME" --json databaseId,number,status,conclusion,createdAt --limit 20 | jq '[.[] | select(.status=="completed" and .conclusion=="success" and .databaseId != '${{ github.run_id }}')]')
           found=""
           for row in $(echo "${runs}" | jq -r '.[] | @base64'); do
             _jq() { echo ${row} | base64 --decode | jq -r ${1}; }
             run_id=$(_jq '.databaseId')
-            run_number=$(_jq '.runNumber')
+            run_number=$(_jq '.number')
             # Check if the artifact exists for this run
             if gh api /repos/${{ github.repository }}/actions/runs/$run_id/artifacts | jq -e '.artifacts[] | select(.name=="website")' > /dev/null; then
               echo "::notice::Using artifact from run #$run_number (id $run_id)"

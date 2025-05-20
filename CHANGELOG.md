@@ -1,3 +1,6 @@
+## 5.4.7-beta.4
+* Fixed a bug when identifying the run number of the last successful deployment
+
 ## 5.4.7-beta.3
 * Fixed a permissions bug causing the website to not deploy properly
 * Better logging about which website artifact is being used
