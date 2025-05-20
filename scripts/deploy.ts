@@ -241,37 +241,55 @@ async function sitemap(link: string) {
   }
   for (const page of sitemap) {
     const fullPageUrl = `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`;
-    try {
-      log.debug(`Fetching page: ${fullPageUrl}`);
-      const response = await axios.get(fullPageUrl);
-      const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
-      const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
-      const oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
-      const oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+    const newPagePath = join(rootDir, page, 'index.html');
+    const prevPagePath = join(__dirname, '../previous-deploy/browser', page, 'index.html');
 
-      const newPagePath = join(rootDir, page, 'index.html');
-      log.debug(`Reading new page content from: ${newPagePath}`);
-      const newPageContent = readFileSync(newPagePath, 'utf-8');
-      const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
-      const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
-      const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
+    let oldTitle: string | null = null;
+    let oldMetaDescription: string | null = null;
+    let usedArtifact = false;
 
-      const newTitle = newTitleMatch ? newTitleMatch[1] : null;
-      const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
-      const ogImages = Array.from(ogImageMatches).map(match => match[1]);
-      imageSitemap[page] = ogImages;
-
-      if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
-        log.debug(`No changes detected for page: ${page}`);
-        newSitemap[page] = oldSitemap[page] || new Date().toISOString();
-      } else {
-        log.debug(`Changes detected for page: ${page}`);
+    if (existsSync(prevPagePath)) {
+      log.debug(`Reading previous deploy content from: ${prevPagePath}`);
+      const prevPageContent = readFileSync(prevPagePath, 'utf-8');
+      const oldTitleMatch = prevPageContent.match(/<title>(.*?)<\/title>/);
+      const oldMetaDescriptionMatch = prevPageContent.match(/<meta name="description" content="(.*?)"/);
+      oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
+      oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      usedArtifact = true;
+    } else {
+      log.warn(`Previous deploy file not found for page: ${page}, falling back to HTTP fetch.`);
+      try {
+        log.debug(`Fetching page: ${fullPageUrl}`);
+        const response = await axios.get(fullPageUrl);
+        const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
+        const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
+        oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
+        oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      } catch (error) {
+        log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
+        log.warn('↳ Generating New Sitemap Entry');
         newSitemap[page] = new Date().toISOString();
         changedPages.push(page);
+        continue;
       }
-    } catch (error) {
-      log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
-      log.warn('↳ Generating New Sitemap Entry');
+    }
+
+    log.debug(`Reading new page content from: ${newPagePath}`);
+    const newPageContent = readFileSync(newPagePath, 'utf-8');
+    const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
+    const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+    const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
+
+    const newTitle = newTitleMatch ? newTitleMatch[1] : null;
+    const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+    const ogImages = Array.from(ogImageMatches).map(match => match[1]);
+    imageSitemap[page] = ogImages;
+
+    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
+      log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
+      newSitemap[page] = oldSitemap[page] || new Date().toISOString();
+    } else {
+      log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
     }
