@@ -1,3 +1,7 @@
+## 5.4.8-beta.1
+* IndexNow API is now notified AFTER the deploy process is complete
+  * This fixes faulty notices is the deploy fails
+
 ## 5.4.7-beta.5
 * So I may have forgotten to actually pass in the token when I elevated it's permissions...
 

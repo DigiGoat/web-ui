@@ -336,21 +336,25 @@ async function indexNow(pages: string[], link: string) {
     log.debug('Submitting URLs to IndexNow');
     log.debug(JSON.stringify(body, null, 2));
     if (ci) {
-      const response = await axios.post(apiUrl, body, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (response.status === 200) {
-        log.success('Successfully submitted URLs to IndexNow');
+      // Instead of executing, output the curl command for a later job
+      if (process.env['GITHUB_OUTPUT']) {
+        const curlCmd = [
+          //'curl', - will be present in the job
+          '-X', 'POST',
+          '-H', '"Content-Type: application/json"',
+          '-d', `'${JSON.stringify(body)}'`,
+          `"${apiUrl}"`
+        ].join(' ');
+        writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${curlCmd}\n`, { flag: 'a' });
+        log.debug('Wrote curl command for IndexNow to GITHUB_OUTPUT');
       } else {
-        log.error('Failed to submit URLs to IndexNow:', response.status, response.statusText);
+        log.error('GITHUB_OUTPUT not set, cannot output curl command');
       }
     } else {
       log.warn('Skipping IndexNow Submission Due To Local Deployment');
     }
   } catch (error) {
-    log.error('Error submitting URLs to IndexNow:', error);
+    log.error('Error preparing IndexNow curl command:', error);
   }
 }
 
