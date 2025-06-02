@@ -25,7 +25,7 @@ export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
     this.prerender = this.platformService.isServer;
     if (this.goat) {
       // Generate identifier as in GoatCardComponent
-      const identifier = (this.goat.nickname ?? this.goat.name ?? this.goat.normalizeId)?.replace(/ /g, '-');
+      const identifier = (this.goat.nickname || this.goat.name || this.goat.normalizeId)?.replace(/ /g, '-');
       let canonicalUrl: string;
       if (identifier && this.searchParam !== identifier) {
         const segments = this.router.url.split('/');
