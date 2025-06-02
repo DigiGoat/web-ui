@@ -1,3 +1,6 @@
+## 5.4.9-beta.1
+* Fixed a bug that would cause goat cards to be unclickable if they don't have a nickname
+
 ## 5.4.8-beta.1
 * IndexNow API is now notified AFTER the deploy process is complete
   * This fixes faulty notices is the deploy fails
