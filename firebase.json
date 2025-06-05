@@ -29,7 +29,7 @@
     ],
     "headers": [
       {
-        "regex": "^/?(404\\.html|.*(/|\\.html)?)$",
+        "source": "@(**/*.html|**/)",
         "headers": [
           {
             "key": "Cache-Control",
