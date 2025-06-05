@@ -29,7 +29,7 @@
     ],
     "headers": [
       {
-        "source": "@(**/*.html|**/)",
+        "source": "**/*!(.js|.css|.json|.png|.jpg|.jpeg|.gif|.svg|.webp|.ico|.woff2|.woff|.ttf|.eot)",
         "headers": [
           {
             "key": "Cache-Control",
