@@ -1,3 +1,6 @@
+## 5.4.10-beta.3
+* Continued to work on the headers bug
+
 ## 5.4.10-beta.2
 * Simplified how headers are matched (what I should have done in the first place)
 
