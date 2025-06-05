@@ -1,3 +1,6 @@
+## 5.4.10-beta.4
+* One last attempt to fix the headers bug (I'll probably give up on it after this)
+
 ## 5.4.10-beta.3
 * Continued to work on the headers bug
 
