@@ -1,3 +1,6 @@
+## 5.4.10-beta.1
+* Tweaked the header rules
+
 ## 5.4.9-beta.1
 * Fixed a bug that would cause goat cards to be unclickable if they don't have a nickname
 
