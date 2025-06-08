@@ -59,6 +59,22 @@ async function checkVersion() {
     summary.push(`- [x] Version Check: \`v${version} --> v${packageJson.version}\``);
   }
 }
+async function checkDependencyVersions() {
+  const adgaVersion = packageJson.devDependencies?.adga;
+  if (!adgaVersion) {
+    log.warn('ADGA dependency not found in package.json');
+    summary.push('- [ ] Dependency Check: ADGA dependency not found');
+    success = false;
+    return;
+  }
+  if (process.env['GITHUB_BASE_REF'] === 'main' && /beta/i.test(adgaVersion)) {
+    log.error('ADGA dependency has a beta tag but is being merged into main');
+    summary.push(`- [ ] Dependency Check: ADGA dependency has a beta tag (\`${adgaVersion}\`) but is being merged into main`);
+    success = false;
+  } else {
+    summary.push(`- [x] Dependency Check: ADGA dependency version is valid for branch (\`${adgaVersion}\`)`);
+  }
+}
 async function checkSensitiveFiles() {
   const diffSummary = await git.diffSummary(origin);
   log.debug('Diff Summary', diffSummary);
@@ -106,6 +122,8 @@ async function checkChangelog() {
     await checkBranch();
     console.log('Checking the version...');
     await checkVersion();
+    console.log('Checking the dependency versions...');
+    await checkDependencyVersions();
     console.log('Checking for sensitive files...');
     await checkSensitiveFiles();
     console.log('Previewing the changelog...');
