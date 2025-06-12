@@ -1,14 +1,15 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, HostBinding, HostListener, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
 import type { Tooltip } from 'bootstrap';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Directive({
-    selector: '[tooltip]',
-    standalone: false
+  selector: '[tooltip]',
+  standalone: false
 })
 export class TooltipDirective implements AfterViewInit, OnDestroy {
   private bsTooltip?: Tooltip;
   @Input('tooltip-placement') placement: 'auto' | 'top' | 'bottom' | 'left' | 'right' = 'auto';
+  @Input({ alias: 'tooltip-html', transform: booleanAttribute }) html = false;
   @Input() set tooltip(value: string) {
     if (this.bsTooltip) {
       this.bsTooltip.setContent({ '.tooltip-inner': value });
@@ -23,7 +24,7 @@ export class TooltipDirective implements AfterViewInit, OnDestroy {
   constructor(private el: ElementRef, private platformService: PlatformService) { }
   ngAfterViewInit(): void {
     if (this.platformService.isBrowser) {
-      this.bsTooltip = bootstrap.Tooltip.getOrCreateInstance(this.el.nativeElement, { placement: this.placement });
+      this.bsTooltip = bootstrap.Tooltip.getOrCreateInstance(this.el.nativeElement, { placement: this.placement, html: this.html });
     }
   }
   ngOnDestroy(): void {

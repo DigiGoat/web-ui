@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { GoatService } from '../../services/goat/goat.service';
-import { PedigreeComponent } from './pedigree.component';
+import { GoatInfoComponent } from './goat-info.component';
 
 jest.mock('../../services/goat/goat.service');
 describe('PedigreeComponent', () => {
-  let component: PedigreeComponent;
-  let fixture: ComponentFixture<PedigreeComponent>;
+  let component: GoatInfoComponent;
+  let fixture: ComponentFixture<GoatInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PedigreeComponent],
+      declarations: [GoatInfoComponent],
       providers: [GoatService]
     }).compileComponents();
-    fixture = TestBed.createComponent(PedigreeComponent);
+    fixture = TestBed.createComponent(GoatInfoComponent);
     component = fixture.componentInstance;
     component['goatService'].related = of([]);
     component.goat = {};

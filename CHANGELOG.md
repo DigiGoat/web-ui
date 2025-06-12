@@ -1,3 +1,10 @@
+## 5.5.0-beta.1
+* Added CDCB Support!
+  * This allows you to see your milk test data for all of your does
+  * Currently, all lactations from milk test are shown, as well as the individual tests and the performance of each lactation (Somatic cell count is not currently shown)
+  * This is currently only available for does, but may be added for pedigrees in the future
+* Goat cards now display how many freshenings a doe has
+
 ## 5.4.10-beta.4
 * One last attempt to fix the headers bug (I'll probably give up on it after this)
 

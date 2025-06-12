@@ -283,6 +283,37 @@ export type Goat = Partial<{
     awardYear: number;
     awardCount: number;
   }>[];
+  usdaId: string;
+  usdaKey: string | number;
+  lactationRecords: LactationRecord[];
+}>;
+export type LactationRecord = Partial<{
+  startDate: string;
+  isCurrent: boolean;
+  lactationNumber: string;
+  daysInMilk: string;
+  stats: Partial<{
+    milk: Partial<{
+      achieved: string;
+      projected: string;
+    }>;
+    butterfat: Partial<{
+      achieved: string;
+      projected: string;
+    }>;
+    protein: Partial<{
+      achieved: string;
+      projected: string;
+    }>;
+  }>;
+  tests: Partial<{
+    testNumber: number;
+    daysInMilk: string;
+    milk: string;
+    butterfatPct: string;
+    proteinPct: string;
+    testDate: string;
+  }>[];
 }>;
 export type Kidding = Partial<{
   dam: string;
