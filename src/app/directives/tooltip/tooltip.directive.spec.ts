@@ -36,7 +36,7 @@ describe('TooltipDirective', () => {
       directive.ngAfterViewInit();
     });
     it('should create Bootstrap tooltip instance on ngAfterViewInit', () => {
-      expect(bootstrap.Tooltip.getOrCreateInstance).toHaveBeenCalledWith(nativeElement, { placement: 'auto' });
+      expect(bootstrap.Tooltip.getOrCreateInstance).toHaveBeenCalledWith(nativeElement, { placement: 'auto', html: false });
     });
     it('should update Bootstrap tooltip instance on content change', () => {
       directive.tooltip = 'New Tooltip';

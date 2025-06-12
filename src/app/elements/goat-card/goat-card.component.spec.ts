@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivatedRoute } from '@angular/router';
 import { AgePipe } from '../../pipes/age/age.pipe';
+import { FresheningPipe } from '../../pipes/freshening/freshening.pipe';
 import { GoatService } from '../../services/goat/goat.service';
 import { ImageService } from '../../services/image/image.service';
 import { GoatCardComponent } from './goat-card.component';
@@ -15,7 +16,7 @@ describe('GoatCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GoatCardComponent, AgePipe],
+      declarations: [GoatCardComponent, AgePipe, FresheningPipe],
       providers: [ImageService, ActivatedRoute, GoatService],
     })
       .compileComponents();
@@ -77,7 +78,7 @@ describe('GoatCardComponent', () => {
     it('should have an age', () => {
       const element = html.querySelector('[test-id="goat-age"]') as HTMLHeadingElement;
       expect(element).toBeTruthy();
-      expect(element.innerHTML).toBe('1 day old');
+      expect(element.innerHTML.trim()).toBe('1 day old');
     });
     it('should have a nickname', () => {
       const element = html.querySelector('[test-id="goat-nickname"]') as HTMLHeadingElement;
