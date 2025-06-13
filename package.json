@@ -56,7 +56,7 @@
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
-    "adga": "^3.6.2-beta.3",
+    "adga": "^3.7.1-beta.1",
     "axios": "^1.6.8",
     "chalk": "4",
     "eslint": "^8.57.0",
