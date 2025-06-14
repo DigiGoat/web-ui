@@ -1,3 +1,7 @@
+## 5.5.0-beta.2
+* Significantly improved how lactation data is displayed on mobile devices
+  * Consequently, fat and protein data is now hidden if lacking space
+
 ## 5.5.0-beta.1
 * Added CDCB Support!
   * This allows you to see your milk test data for all of your does

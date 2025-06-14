@@ -163,8 +163,9 @@
       </div>
       <div class="col border-end fw-bold" tooltip="Days in Milk">DIM</div>
       <div class="col border-end fw-bold" tooltip="Achieved/Projected (lbs)">Milk</div>
-      <div class="col border-end fw-bold" tooltip="Achieved/Projected (lbs)">Fat</div>
-      <div class="col border-end fw-bold" tooltip="Achieved/Projected (lbs)"><span class="d-none d-lg-inline">Protein</span>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)">Fat</div>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)"><span
+          class="d-none d-lg-inline">Protein</span>
         <span class="d-inline d-lg-none">Pro</span>
       </div>
     </div>
@@ -177,8 +178,8 @@
       <div class="col border-end">{{entry.lactationNumber | freshening}}</div>
       <div class="col border-end">{{entry.daysInMilk}}</div>
       <div class="col border-end">{{entry.stats?.milk?.achieved}}/<wbr>{{entry.stats?.milk?.projected}}</div>
-      <div class="col border-end">{{entry.stats?.butterfat?.achieved}}/<wbr>{{entry.stats?.butterfat?.projected}}</div>
-      <div class="col border-end">{{entry.stats?.protein?.achieved}}/<wbr>{{entry.stats?.protein?.projected}}</div>
+      <div class="col border-end d-none d-xs-inline">{{entry.stats?.butterfat?.achieved}}/<wbr>{{entry.stats?.butterfat?.projected}}</div>
+      <div class="col border-end d-none d-xs-inline">{{entry.stats?.protein?.achieved}}/<wbr>{{entry.stats?.protein?.projected}}</div>
     </div>
   </div>
   <br *ngIf="goat.lactationRecords?.length">
@@ -187,25 +188,25 @@
       <span class="col">Current Lactation:</span>
     </div>
     <div class="row border-bottom">
-      <div class="col border-end fw-bold col-1" tooltip="Test Number"><span class="d-none d-lg-inline">Test<wbr></span># </div>
-      <div class="col border-end col-2 col-sm-4 fw-bold">Test Date</div>
-      <div class="col border-end fw-bold" tooltip="Days in Milk">DIM</div>
+      <div class="col border-end fw-bold col-xs-1" tooltip="Test Number"><span class="d-none d-lg-inline">Test<wbr></span># </div>
+      <div class="col border-end col-3 col-sm-4 fw-bold">Test Date</div>
+      <div class="col border-end col-xs-2 fw-bold" tooltip="Days in Milk">DIM</div>
       <div class="col border-end fw-bold" tooltip="Milk (lbs)">Milk</div>
-      <div class="col border-end fw-bold" tooltip="Butter Fat Percentage">Fat Pct.</div>
-      <div class="col border-end fw-bold" tooltip="Protein Percentage">
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Butter Fat Percentage">Fat Pct.</div>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Protein Percentage">
         <span class="d-none d-lg-inline">Protein Pct.</span>
         <span class="d-inline d-lg-none">Pro Pct</span>
       </div>
     </div>
     <div class="row border-top" *ngFor="let test of currentLactation?.tests; index as i">
-      <div class="col border-end col-1">
+      <div class="col border-end col-xs-1">
         {{test.testNumber}}
       </div>
-      <div class="col border-end col-2 col-sm-4">{{test.testDate | longDate}}</div>
-      <div class="col border-end">{{test.daysInMilk}}</div>
+      <div class="col border-end col-3 col-sm-4">{{test.testDate | longDate}}</div>
+      <div class="col border-end col-xs-2">{{test.daysInMilk}}</div>
       <div class="col border-end">{{test.milk}}</div>
-      <div class="col border-end">{{test.butterfatPct}}%</div>
-      <div class="col border-end">{{test.proteinPct}}%</div>
+      <div class="col border-end d-none d-xs-inline">{{test.butterfatPct}}%</div>
+      <div class="col border-end d-none d-xs-inline">{{test.proteinPct}}%</div>
     </div>
   </div>
   <br *ngIf="goat.awards?.length">
