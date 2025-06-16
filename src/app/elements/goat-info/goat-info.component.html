@@ -182,8 +182,8 @@
       <div class="col border-end d-none d-xs-inline">{{entry.stats?.protein?.achieved}}/<wbr>{{entry.stats?.protein?.projected}}</div>
     </div>
   </div>
-  <br *ngIf="goat.lactationRecords?.length">
-  <div class="container border rounded-4" *ngIf="goat.lactationRecords?.length">
+  <br *ngIf="currentLactation">
+  <div class="container border rounded-4" *ngIf="currentLactation">
     <div class="row border-bottom">
       <span class="col">Current Lactation:</span>
     </div>
@@ -198,7 +198,7 @@
         <span class="d-inline d-lg-none">Pro Pct</span>
       </div>
     </div>
-    <div class="row border-top" *ngFor="let test of currentLactation?.tests; index as i">
+    <div class="row border-top" *ngFor="let test of currentLactation.tests; index as i">
       <div class="col border-end col-xs-1">
         {{test.testNumber}}
       </div>
