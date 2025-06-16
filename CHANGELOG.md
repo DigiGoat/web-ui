@@ -1,3 +1,6 @@
+## 5.5.0-beta.3
+* Fixed a bug causing the current lactation table to show up on goats that are not in milk
+
 ## 5.5.0-beta.2
 * Significantly improved how lactation data is displayed on mobile devices
   * Consequently, fat and protein data is now hidden if lacking space
