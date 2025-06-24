@@ -1,3 +1,6 @@
+## 5.5.1-beta.1
+* Fixed a bug causing images on the homepage to be wider than the screen on mobile devices
+
 ## 5.5.0-beta.3
 * Fixed a bug causing the current lactation table to show up on goats that are not in milk
 
