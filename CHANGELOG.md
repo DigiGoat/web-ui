@@ -1,3 +1,6 @@
+## 5.5.1-beta.2
+* Applied this fix for images across the site
+
 ## 5.5.1-beta.1
 * Fixed a bug causing images on the homepage to be wider than the screen on mobile devices
 
