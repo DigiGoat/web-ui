@@ -63,7 +63,7 @@ exports[`GoatCardComponent With a Goat (v1.0.0) should match the snapshot 1`] = 
           class="card-subtitle pb-1 fw-light fst-italic text-center"
           test-id="goat-age"
         >
-           1 day old
+           1 day old  
         </h6>
         <h6
           class="card-subtitle pb-1 text-center fw-light fst-italic font-monospace"
