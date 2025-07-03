@@ -1,3 +1,6 @@
+## 5.5.2-.beta.1
+* Flipped the order of the age and the freshening of a goat on the does page
+
 ## 5.5.1-beta.2
 * Applied this fix for images across the site
 
