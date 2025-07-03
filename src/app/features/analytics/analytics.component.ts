@@ -43,7 +43,7 @@ export class AnalyticsComponent implements OnInit {
         window.gtag('js', new Date());
         window.gtag('config', this.config.analytics.gtag!, { send_page_view: false });
       }
-      if (this.config.firebase) {
+      if (this.config.firebase && !this.platformService.isDev) {
         this.firebase.init();
       }
     }
