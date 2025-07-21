@@ -1,3 +1,6 @@
+## 5.5.3-beta.1
+* Fixed a major bug causing indexnow to not work properly
+
 ## 5.5.2-.beta.1
 * Flipped the order of the age and the freshening of a goat on the does page
 
