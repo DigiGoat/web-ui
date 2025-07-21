@@ -272,4 +272,4 @@ jobs:
     if: needs.build.outputs.changes == 'true'
     steps:
       - name: Notify Changes
-        run: echo curl ${{ needs.build.outputs.indexnow_curl }}
+        run: curl ${{ needs.build.outputs.indexnow_curl }}
