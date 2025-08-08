@@ -1,3 +1,8 @@
+## 5.6.0-beta.1
+* Lactation data is now updated automatically!
+  * Your website will now check with the CDCB daily to see if there is new lactation data available
+  * If there is new data, it will be automatically updated on your website
+
 ## 5.5.3-beta.1
 * Fixed a major bug causing indexnow to not work properly
 

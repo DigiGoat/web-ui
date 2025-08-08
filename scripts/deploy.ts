@@ -33,9 +33,10 @@ if (config['firebase'] && ci) {
   log.debug('Adding Firebase Config');
   const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
   if (repoName) {
-    config['firebase']['projectId'] = repoName;
-    config['firebase']['authDomain'] = `${repoName}.firebaseapp.com`;
-    config['firebase']['storageBucket'] = `${repoName}.firebasestorage.app`;
+    const firebaseConfig = config['firebase'] as Record<string, string>;
+    firebaseConfig['projectId'] = repoName;
+    firebaseConfig['authDomain'] = `${repoName}.firebaseapp.com`;
+    firebaseConfig['storageBucket'] = `${repoName}.firebasestorage.app`;
     log.debug(`Set Firebase Project ID to '${repoName}'`);
   } else {
     log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
@@ -51,7 +52,7 @@ function route() {
   const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
   does.forEach(doe => {
     if (doe.nickname || doe.name || doe.normalizeId) {
-      const route = `/does/${(doe.nickname || doe.name || doe.normalizeId).replace(/ /g, '-')}`;
+      const route = `/does/${(doe.nickname || doe.name || doe.normalizeId)?.replace(/ /g, '-')}`;
       log.debug(`Adding Doe Route '${route}'`);
       routes.push(route);
     }
@@ -61,7 +62,7 @@ function route() {
   const bucks: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/bucks.json'), 'utf-8'));
   bucks.forEach(buck => {
     if (buck.nickname || buck.name || buck.normalizeId) {
-      const route = `/bucks/${(buck.nickname || buck.name || buck.normalizeId).replace(/ /g, '-')}`;
+      const route = `/bucks/${(buck.nickname || buck.name || buck.normalizeId)?.replace(/ /g, '-')}`;
       log.debug(`Adding Buck Route '${route}'`);
       routes.push(route);
     }
@@ -72,7 +73,7 @@ function route() {
     const references: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/references.json'), 'utf-8'));
     references.forEach(reference => {
       if (reference.nickname || reference.name || reference.normalizeId) {
-        const route = `/references/${(reference.nickname || reference.name || reference.normalizeId).replace(/ /g, '-')}`;
+        const route = `/references/${(reference.nickname || reference.name || reference.normalizeId)?.replace(/ /g, '-')}`;
         log.debug(`Adding Reference Route '${route}'`);
         routes.push(route);
       }
@@ -84,7 +85,7 @@ function route() {
     const forSale: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), 'utf-8'));
     forSale.forEach(sale => {
       if (sale.nickname || sale.name || sale.normalizeId) {
-        const route = `/for-sale/${(sale.nickname || sale.name || sale.normalizeId).replace(/ /g, '-')}`;
+        const route = `/for-sale/${(sale.nickname || sale.name || sale.normalizeId)?.replace(/ /g, '-')}`;
         log.debug(`Adding For Sale Route '${route}'`);
         routes.push(route);
       }
@@ -186,7 +187,7 @@ function build() {
   try {
     execSync(`yarn build ${base ? `--base-href ${base}${base.endsWith('/') ? '' : '/'}` : ''}`);
   } catch (error) {
-    log.error('Failed to Compile Project:', error, error.stderr.toString());
+    log.error('Failed to Compile Project:', error, (error as Record<string, string>).stderr.toString());
     process.exit(1);
   }
 }
