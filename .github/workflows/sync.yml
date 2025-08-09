@@ -50,7 +50,7 @@ jobs:
     name: Sync
     needs: prerequisites
     runs-on: ubuntu-latest
-    if: ${{ needs.prerequisites.outputs.run_tasks == 'true' }}
+    if: ${{ github.event_name != 'schedule' || needs.prerequisites.outputs.run_tasks == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
