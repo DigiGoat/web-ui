@@ -1,3 +1,6 @@
+## 5.6.4-beta.3
+* Added missing `|` that was preventing the commit step of the sync workflow from running
+
 ## 5.6.4-beta.2
 * Updated the adga dependency to try to fix a sync error
 
