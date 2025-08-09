@@ -1,4 +1,4 @@
-import CDCB, { LactationType } from 'adga/cdcb';
+import CDCB, { LactationType } from 'adga/CDCB';
 import chalk from 'chalk';
 import { readFileSync } from 'fs';
 import { join } from 'path/posix';
