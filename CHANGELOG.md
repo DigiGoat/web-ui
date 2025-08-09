@@ -1,3 +1,6 @@
+## 5.6.4-beta.1
+* Removed the beta strip from the adga dependency as it is a dev dependency and not used in production
+
 ## 5.6.3-beta.1
 * Fixed a bug causing the sync workflow to fail
   * It was not running `yarn install`
