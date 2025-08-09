@@ -1,3 +1,6 @@
+## 5.6.2-beta.1
+* The Firebase deploy comment now includes what triggered the run
+
 ## 5.6.1-beta.1
 * Fixed a bug with how the adga package version was managed
 
