@@ -1,3 +1,6 @@
+## 5.6.4-beta.2
+* Updated the adga dependency to try to fix a sync error
+
 ## 5.6.4-beta.1
 * Removed the beta strip from the adga dependency as it is a dev dependency and not used in production
 
