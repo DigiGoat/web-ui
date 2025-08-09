@@ -155,8 +155,11 @@ jobs:
         run: yarn install
 
       - name: Fix version
-        if: github.ref_name == 'main'
+        if: github.base_ref == 'main'
         run: yarn fix-version
+
+      - name: Rebuild dependencies
+        run: yarn install
 
       - name: Check URL
         if: ${{ !vars.PAGE_URL && !steps.pages.outputs.base_url }}
