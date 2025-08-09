@@ -1,3 +1,7 @@
+## 5.6.3-beta.1
+* Fixed a bug causing the sync workflow to fail
+  * It was not running `yarn install`
+
 ## 5.6.2-beta.1
 * The Firebase deploy comment now includes what triggered the run
 

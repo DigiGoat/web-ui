@@ -62,6 +62,9 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
 
+      - name: Install Dependencies
+        run: yarn install
+
       - name: Sync Project
         run: yarn sync
 
