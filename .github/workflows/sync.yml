@@ -70,7 +70,7 @@ jobs:
 
       - name: Commit Changes
         id: commit
-        run:
+        run: |
           git config --global user.name "Digi"
           git config --global user.email "DigiGoat@LilPilchuckCreek.org"
           git commit -am "Synced website"
