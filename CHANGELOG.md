@@ -1,3 +1,6 @@
+## 5.6.4-beta.4
+* Modified how the sync workflow records if there are changes to remove some breaking errors
+
 ## 5.6.4-beta.3
 * Added missing `|` that was preventing the commit step of the sync workflow from running
 
