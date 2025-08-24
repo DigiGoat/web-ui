@@ -3125,10 +3125,10 @@ acorn@^8.1.0, acorn@^8.4.1, acorn@^8.8.1, acorn@^8.9.0:
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.11.3.tgz"
   integrity sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==
 
-adga@^3.8.0-beta.1:
-  version "3.8.0-beta.1"
-  resolved "https://registry.yarnpkg.com/adga/-/adga-3.8.0-beta.1.tgz#73531ee3f42c526e59a93e15dc1aee3f0935a25f"
-  integrity sha512-zCBqWbI4nPSUyjyyto82LSifwu3XvX5SC6O3vVR0xAxzxFwjErl69Gpz2Tv2T5cAezxlWNjalCTvX0H9jorLJw==
+adga@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/adga/-/adga-3.8.0.tgz#458fe16c371e1bdafa66b9d9ffdc48ab08696c74"
+  integrity sha512-FqoNH4PSXFTQHiceBJQ2+DbAW73LUXqmJGv37gg9IHoOt/9dIXw0fzHUxk2wZYF2VfgmOqVNq0c9fLLN6+tzxQ==
   dependencies:
     axios "^0.26.1"
 
