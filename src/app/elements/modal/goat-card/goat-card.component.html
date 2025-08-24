@@ -39,5 +39,5 @@
     <div test-id="description" *ngIf="description" [innerHTML]="description"
       [markdown]="(id || name || nickname) ? 'goat-' + (id || name || nickname) : ''"></div>
   </div>
-  <app-pedigree [goat]="goat"></app-pedigree>
+  <app-goat-info [goat]="goat"></app-goat-info>
 </div>

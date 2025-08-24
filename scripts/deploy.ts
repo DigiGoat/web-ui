@@ -6,12 +6,16 @@ import { join } from 'path';
 import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 
 const ci = !!process.env['CI'];
+if (ci) {
+  console.log('::group::Starting Build');
+}
 const log = {
   debug: (...message: unknown[]): void => console.debug(chalk.dim('>', ...message)),
-  info: (...message: unknown[]): void => console.log(...message),
+  info: (...message: unknown[]): void => ci ? console.log(`::endgroup::\n::group::${message.shift()}\n`, ...message) : console.log(...message),
   warn: (...message: unknown[]): void => console.warn(`${ci ? '::warning::' : ''}${chalk.yellowBright(...message)}`),
   error: (...message: unknown[]): void => console.error(`${ci ? '::error::' : ''}${chalk.redBright(...message)}`),
-  success: (...message: unknown[]): void => console.log(chalk.greenBright(...message))
+  success: (...message: unknown[]): void => console.log(chalk.greenBright(...message)),
+  notice: (...message: unknown[]): void => console.log(ci ? '::notice::' : '', chalk.cyanBright(...message)),
 };
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
@@ -19,13 +23,28 @@ if (process.argv[2]) {
   if (URL.canParse(process.argv[2])) {
     log.debug(`Adding '${process.argv[2]}' to the Config`);
     config['link'] = new URL(process.argv[2]).toString();
-    writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
   } else {
     log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
     log.warn('↳ Using URL From Config');
 
   }
 }
+if (config['firebase'] && ci) {
+  log.debug('Adding Firebase Config');
+  const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
+  if (repoName) {
+    const firebaseConfig = config['firebase'] as Record<string, string>;
+    firebaseConfig['projectId'] = repoName;
+    firebaseConfig['authDomain'] = `${repoName}.firebaseapp.com`;
+    firebaseConfig['storageBucket'] = `${repoName}.firebasestorage.app`;
+    log.debug(`Set Firebase Project ID to '${repoName}'`);
+  } else {
+    log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
+  }
+}
+log.debug('Writing Updated Config');
+writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
+
 const url = config['link'] ? new URL(config['link'] as string) : undefined;
 function route() {
   const routes: string[] = ['/404'];
@@ -33,30 +52,49 @@ function route() {
   const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
   does.forEach(doe => {
     if (doe.nickname || doe.name || doe.normalizeId) {
-      const route = `/does/${(doe.nickname || doe.name || doe.normalizeId).replace(/ /g, '-')}`;
+      const route = `/does/${(doe.nickname || doe.name || doe.normalizeId)?.replace(/ /g, '-')}`;
       log.debug(`Adding Doe Route '${route}'`);
       routes.push(route);
     }
   });
+  routes.push('/does/Doe-Not-Found');
   log.debug('Identifying Buck Routes');
   const bucks: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/bucks.json'), 'utf-8'));
   bucks.forEach(buck => {
     if (buck.nickname || buck.name || buck.normalizeId) {
-      const route = `/bucks/${(buck.nickname || buck.name || buck.normalizeId).replace(/ /g, '-')}`;
+      const route = `/bucks/${(buck.nickname || buck.name || buck.normalizeId)?.replace(/ /g, '-')}`;
       log.debug(`Adding Buck Route '${route}'`);
       routes.push(route);
     }
   });
+  routes.push('/bucks/Buck-Not-Found');
+  if (config['references']) {
+    log.debug('Identifying Reference Goat Routes');
+    const references: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/references.json'), 'utf-8'));
+    references.forEach(reference => {
+      if (reference.nickname || reference.name || reference.normalizeId) {
+        const route = `/references/${(reference.nickname || reference.name || reference.normalizeId)?.replace(/ /g, '-')}`;
+        log.debug(`Adding Reference Route '${route}'`);
+        routes.push(route);
+      }
+    });
+    routes.push('/references/Reference-Not-Found');
+  }
   if (config['forSale']) {
     log.debug('Identifying For Sale Routes');
     const forSale: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), 'utf-8'));
     forSale.forEach(sale => {
       if (sale.nickname || sale.name || sale.normalizeId) {
-        const route = `/for-sale/${(sale.nickname || sale.name || sale.normalizeId).replace(/ /g, '-')}`;
+        const route = `/for-sale/${(sale.nickname || sale.name || sale.normalizeId)?.replace(/ /g, '-')}`;
         log.debug(`Adding For Sale Route '${route}'`);
         routes.push(route);
       }
     });
+    routes.push('/for-sale/Goat-Not-Found');
+  }
+  if (config['kiddingSchedule']) {
+    log.debug('Writing Kidding Schedule Goat Card');
+    routes.push('/kidding-schedule/Kidding-Goat');
   }
   log.debug('Writing Routes');
   writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
@@ -109,6 +147,17 @@ async function setupMarkdown() {
     }
     writeFileSync(join(__dirname, '../src/assets/resources/bucks.json'), JSON.stringify(bucks));
   }
+  const references: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/references.json'), 'utf-8'));
+  if (references.length) {
+    log.debug('Rendering Markdown For References');
+    for (const reference of references) {
+      if (reference.description) {
+        log.debug(`Rendering Markdown For Reference ${reference.nickname || reference.name || reference.normalizeId}`);
+        reference.description = await renderMarkdown(reference.description);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/references.json'), JSON.stringify(references));
+  }
   const kiddingSchedule: Kidding[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/kidding-schedule.json'), 'utf-8'));
   if (kiddingSchedule.length) {
     log.debug('Rendering Markdown For Kidding Schedule');
@@ -138,7 +187,7 @@ function build() {
   try {
     execSync(`yarn build ${base ? `--base-href ${base}${base.endsWith('/') ? '' : '/'}` : ''}`);
   } catch (error) {
-    log.error('Failed to Compile Project:', error, error.stderr.toString());
+    log.error('Failed to Compile Project:', error, (error as Record<string, string>).stderr.toString());
     process.exit(1);
   }
 }
@@ -193,37 +242,55 @@ async function sitemap(link: string) {
   }
   for (const page of sitemap) {
     const fullPageUrl = `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`;
-    try {
-      log.debug(`Fetching page: ${fullPageUrl}`);
-      const response = await axios.get(fullPageUrl);
-      const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
-      const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
-      const oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
-      const oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+    const newPagePath = join(rootDir, page, 'index.html');
+    const prevPagePath = join(__dirname, '../previous-deploy/browser', page, 'index.html');
 
-      const newPagePath = join(rootDir, page, 'index.html');
-      log.debug(`Reading new page content from: ${newPagePath}`);
-      const newPageContent = readFileSync(newPagePath, 'utf-8');
-      const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
-      const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
-      const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
+    let oldTitle: string | null = null;
+    let oldMetaDescription: string | null = null;
+    let usedArtifact = false;
 
-      const newTitle = newTitleMatch ? newTitleMatch[1] : null;
-      const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
-      const ogImages = Array.from(ogImageMatches).map(match => match[1]);
-      imageSitemap[page] = ogImages;
-
-      if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
-        log.debug(`No changes detected for page: ${page}`);
-        newSitemap[page] = oldSitemap[page] || new Date().toISOString();
-      } else {
-        log.debug(`Changes detected for page: ${page}`);
+    if (existsSync(prevPagePath)) {
+      log.debug(`Reading previous deploy content from: ${prevPagePath}`);
+      const prevPageContent = readFileSync(prevPagePath, 'utf-8');
+      const oldTitleMatch = prevPageContent.match(/<title>(.*?)<\/title>/);
+      const oldMetaDescriptionMatch = prevPageContent.match(/<meta name="description" content="(.*?)"/);
+      oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
+      oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      usedArtifact = true;
+    } else {
+      log.warn(`Previous deploy file not found for page: ${page}, falling back to HTTP fetch.`);
+      try {
+        log.debug(`Fetching page: ${fullPageUrl}`);
+        const response = await axios.get(fullPageUrl);
+        const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
+        const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
+        oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
+        oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      } catch (error) {
+        log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
+        log.warn('↳ Generating New Sitemap Entry');
         newSitemap[page] = new Date().toISOString();
         changedPages.push(page);
+        continue;
       }
-    } catch (error) {
-      log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
-      log.warn('↳ Generating New Sitemap Entry');
+    }
+
+    log.debug(`Reading new page content from: ${newPagePath}`);
+    const newPageContent = readFileSync(newPagePath, 'utf-8');
+    const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
+    const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+    const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
+
+    const newTitle = newTitleMatch ? newTitleMatch[1] : null;
+    const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+    const ogImages = Array.from(ogImageMatches).map(match => match[1]);
+    imageSitemap[page] = ogImages;
+
+    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
+      log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
+      newSitemap[page] = oldSitemap[page] || new Date().toISOString();
+    } else {
+      log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
     }
@@ -244,6 +311,13 @@ async function sitemap(link: string) {
   if (changedPages.length) {
     log.info('Notifying IndexNow of Changes', changedPages);
     await indexNow(changedPages, link);
+    if (process.env['GITHUB_OUTPUT']) {
+      log.notice('Changes detected during build');
+      writeFileSync(process.env['GITHUB_OUTPUT'], 'changes=true\n', { flag: 'a' });
+    }
+  } else if (process.env['GITHUB_OUTPUT']) {
+    log.notice('No changes detected during build');
+    writeFileSync(process.env['GITHUB_OUTPUT'], 'changes=false\n', { flag: 'a' });
   }
 }
 
@@ -263,21 +337,25 @@ async function indexNow(pages: string[], link: string) {
     log.debug('Submitting URLs to IndexNow');
     log.debug(JSON.stringify(body, null, 2));
     if (ci) {
-      const response = await axios.post(apiUrl, body, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (response.status === 200) {
-        log.success('Successfully submitted URLs to IndexNow');
+      // Instead of executing, output the curl command for a later job
+      if (process.env['GITHUB_OUTPUT']) {
+        const curlCmd = [
+          //'curl', - will be present in the job
+          '-X', 'POST',
+          '-H', '"Content-Type: application/json"',
+          '-d', `'${JSON.stringify(body)}'`,
+          `"${apiUrl}"`
+        ].join(' ');
+        writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${curlCmd}\n`, { flag: 'a' });
+        log.debug('Wrote curl command for IndexNow to GITHUB_OUTPUT');
       } else {
-        log.error('Failed to submit URLs to IndexNow:', response.status, response.statusText);
+        log.error('GITHUB_OUTPUT not set, cannot output curl command');
       }
     } else {
       log.warn('Skipping IndexNow Submission Due To Local Deployment');
     }
   } catch (error) {
-    log.error('Error submitting URLs to IndexNow:', error);
+    log.error('Error preparing IndexNow curl command:', error);
   }
 }
 
@@ -354,7 +432,11 @@ function manifest() {
   log.info('Routing...');
   route();
   log.info('Rendering Markdown...');
-  await setupMarkdown();
+  if (ci) {
+    await setupMarkdown();
+  } else {
+    log.error('Skipping Markdown Rendering Due To Local Deployment');
+  }
   log.info('Building...');
   build();
   log.info('Cleaning Up...');
@@ -362,11 +444,15 @@ function manifest() {
   log.info('Formatting 404...');
   format404();
   log.info('Generating Sitemap...');
-  if (url) {
-    await sitemap(url.toString());
+  if (ci) {
+    if (url) {
+      await sitemap(url.toString());
+    } else {
+      log.error('NO URL FOUND IN CONFIG!');
+      log.warn('↳ Skipping Sitemap Generation');
+    }
   } else {
-    log.error('NO URL FOUND IN CONFIG!');
-    log.warn('↳ Skipping Sitemap Generation');
+    log.error('Skipping Sitemap Generation Due To Local Deployment');
   }
   log.info('Generating Robots.txt...');
   if (url) {
@@ -383,5 +469,8 @@ function manifest() {
   }
   log.info('Generating Manifest...');
   manifest();
+  if (ci) {
+    console.log('::endgroup::');
+  }
   log.success('Done.');
 })();

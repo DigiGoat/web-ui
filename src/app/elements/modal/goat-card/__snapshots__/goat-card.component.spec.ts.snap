@@ -135,7 +135,7 @@ exports[`GoatCardComponent With a Goat should match the snapshot 1`] = `
         TEST_DESCRIPTION
       </div>
     </div>
-    <app-pedigree />
+    <app-goat-info />
   </div>
 </app-modal-goat-card>
 `;
@@ -177,7 +177,7 @@ exports[`GoatCardComponent With an Empty Goat should match the snapshot 1`] = `
       >
       </div>
     </div>
-    <app-pedigree />
+    <app-goat-info />
   </div>
 </app-modal-goat-card>
 `;

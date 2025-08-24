@@ -1,4 +1,4 @@
-name: Deploy site to Pages
+name: Deploy Website
 
 on:
   # Runs on pushes targeting the default branch
@@ -7,60 +7,85 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  workflow_call:
+
   # Run once a day to check if the site is up to date
   schedule:
-    - cron: '0 3 * * *' # At 3AM every day
+    # Runs at 10:15 AM UTC (3:15 AM PDT) and 11:15 AM UTC (3:15 AM PST)
+    - cron: '15 10,11 * * *'
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   BUILD_PATH: "." # default value when not using subfolders
   YARN_IGNORE_ENGINES: true
+  TZ: America/Los_Angeles
   # BUILD_PATH: subfolder
 
 jobs:
-  check_pages:
+  prerequisites:
+    name: Prerequisites
+    if: github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     outputs:
-      enabled: ${{ steps.branch.outputs.enabled && steps.check.outputs.enabled }}
+      run_tasks: ${{ steps.check_time.outputs.run_tasks && steps.check_changes.outputs.run_tasks }}
     steps:
-      - name: Check if this is the default branch
-        id: branch
+
+      # Check if it's 3 AM PST, with daylight savings time this could be two possible UTC times
+      - name: Check if it's 3 AM
+        id: check_time
+        if: ${{ github.event_name == 'schedule' }}
         run: |
-          if [ ${{github.ref_name == github.event.repository.default_branch}} == false ]
-          then
-            echo "::warning:: This is not the default branch, skipping deployment"
-            echo "enabled=false" >> $GITHUB_OUTPUT
-          else
-            echo "enabled=true" >> $GITHUB_OUTPUT
+          current_hour=$(date +'%H')
+          echo "Current hour in PST: $current_hour"
+
+          if [ "$current_hour" == "03" ]; then
+            echo "It's 3 AM PST! Running tasks..."
+            echo "run_tasks=true" >> $GITHUB_OUTPUT
           fi
-      - name: Check if Pages are enabled
-        if: steps.branch.outputs.enabled == 'true'
-        id: check
+
+      - name: Checkout
+        if: ${{ github.event_name == 'schedule' && steps.check_time.outputs.run_tasks == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            # No files are needed for this step
+          sparse-checkout-cone-mode: false
+
+      - name: Check for changes in the last 23 hours
+        id: check_changes
+        if: ${{ github.event_name == 'schedule' && steps.check_time.outputs.run_tasks == 'true' }}
         run: |
-          if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
-            echo "::warning:: Pages are disabled, skipping deployment"
-            echo "enabled=false" >> $GITHUB_OUTPUT
+          last_commit=$(git log -1 --since="23 hours ago" --pretty=format:"%H")
+          if [ -z "$last_commit" ]; then
+            echo "No changes in the last 23 hours."
+            echo "run_tasks=true" >> $GITHUB_OUTPUT
           else
-            echo "enabled=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in the last 23 hours."
+            echo "run_tasks=false" >> $GITHUB_OUTPUT
           fi
-        env:
-          GH_TOKEN: ${{ github.token }}
+
+
   build:
     name: Build
-    if: needs.check_pages.outputs.enabled == 'true'
-    needs: check_pages
+    needs: prerequisites
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'schedule' || needs.prerequisites.outputs.run_tasks == 'true' }}
+    outputs:
+      changes: ${{ steps.build.outputs.changes }}
+      indexnow_curl: ${{ steps.build.outputs.indexnow_curl }}
 
     steps:
       - name: Checkout
@@ -69,40 +94,180 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: .nvmrc
           cache: yarn
           cache-dependency-path: yarn.lock
 
+      - name: Find last successful deploy run with artifact
+        id: last_success
+        run: |
+          runs=$(gh run list --workflow="Deploy Website" --branch="$GITHUB_REF_NAME" --json databaseId,number,status,conclusion,createdAt --limit 20 | jq '[.[] | select(.status=="completed" and .conclusion=="success" and .databaseId != '${{ github.run_id }}')]')
+          found=""
+          for row in $(echo "${runs}" | jq -r '.[] | @base64'); do
+            _jq() { echo ${row} | base64 --decode | jq -r ${1}; }
+            run_id=$(_jq '.databaseId')
+            run_number=$(_jq '.number')
+            # Check if the artifact exists for this run
+            if gh api /repos/${{ github.repository }}/actions/runs/$run_id/artifacts | jq -e '.artifacts[] | select(.name=="website")' > /dev/null; then
+              echo "::notice::Using artifact from run #$run_number (id $run_id)"
+              echo "run_id=$run_id" >> $GITHUB_OUTPUT
+              echo "run_number=$run_number" >> $GITHUB_OUTPUT
+              found="yes"
+              break
+            else
+              echo "::warning::Run #$run_number (id $run_id) does not have a website artifact, skipping."
+            fi
+          done
+          if [ -z "$found" ]; then
+            echo "run_id=" >> $GITHUB_OUTPUT
+            echo "run_number=" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download previous deploy artifact
+        if: steps.last_success.outputs.run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: previous-deploy/browser
+          run-id: ${{ steps.last_success.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if Pages are enabled
+        id: check_pages
+        if: ${{!vars.PAGE_URL}}
+        run: |
+            if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
+              echo "enabled=false" >> $GITHUB_OUTPUT
+            else
+              echo "enabled=true" >> $GITHUB_OUTPUT
+            fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Setup Pages
+        if: steps.check_pages.outputs.enabled == 'true'
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
         run: yarn install
 
-      - name: Fix version
-        if: github.ref_name == 'main'
-        run: yarn fix-version
+      - name: Check URL
+        if: ${{ !vars.PAGE_URL && !steps.pages.outputs.base_url }}
+        run: |
+          echo "::warning:: No URL provided, using default URL"
 
       - name: Build Project
-        run: yarn deploy ${{ steps.pages.outputs.base_url }}
+        id: build
+        run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
+        timeout-minutes: 10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload artifact
+      - name: Upload website
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./dist/web-ui/browser
+          name: website
+
+  deploy_pages:
+    name: Deploy to Github Pages
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check if Pages are enabled
+        id: check_pages
+        run: |
+            if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
+              echo "\n"
+              echo "::warning:: Pages are disabled, skipping deployment"
+              echo "enabled=false" >> $GITHUB_OUTPUT
+            else
+              echo "enabled=true" >> $GITHUB_OUTPUT
+            fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download website
+        if: steps.check_pages.outputs.enabled == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: ./dist/web-ui/browser
+      - name: Setup Pages
+        if: steps.check_pages.outputs.enabled == 'true'
+        id: pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist/web-ui/browser
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
-
-    steps:
       - name: Deploy to GitHub Pages
+        if: steps.check_pages.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy_firebase:
+    name: Deploy to Firebase
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ needs.build.outputs.changes == 'true' || github.event_name != 'schedule' }}
+    env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          firebase.json
+          .firebaserc
+          .nvmrc
+        sparse-checkout-cone-mode: false
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: .nvmrc
+
+    - name: Install Firebase
+      run: npm install -g firebase-tools@^14.3.1
+
+    - name: Check if Firebase is configured
+      id: check_firebase
+      run: |
+        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+        if ! firebase hosting:sites:list --project "$REPO_NAME"; then
+          echo "\n"
+          echo "::warning:: Firebase isn't configured, skipping deployment"
+          echo "enabled=false" >> $GITHUB_OUTPUT
+        else
+          echo "enabled=true" >> $GITHUB_OUTPUT
+        fi
+    - name: Download website
+      if: steps.check_firebase.outputs.enabled == 'true'
+      uses: actions/download-artifact@v4
+      with:
+        name: website
+        path: ./dist/web-ui/browser
+    - name: Deploy to Firebase
+      if: steps.check_firebase.outputs.enabled == 'true'
+      run: |
+        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+        firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  notify_changes:
+    name: Notify Changes
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - deploy_firebase
+      - deploy_pages
+    if: needs.build.outputs.changes == 'true'
+    steps:
+      - name: Notify Changes
+        run: curl ${{ needs.build.outputs.indexnow_curl }}

@@ -1,14 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, type OnInit } from '@angular/core';
+import type { LactationRecord } from '../../services/goat/goat.service';
 import { findIDMatch, type Goat, GoatService } from '../../services/goat/goat.service';
 
 @Component({
-  selector: 'app-pedigree',
-  templateUrl: './pedigree.component.html',
-  styleUrl: './pedigree.component.scss',
+  selector: 'app-goat-info',
+  templateUrl: './goat-info.component.html',
+  styleUrl: './goat-info.component.scss',
   standalone: false
 })
-export class PedigreeComponent implements OnInit {
+export class GoatInfoComponent implements OnInit {
   @Input({ required: true }) goat!: Goat;
   dam?: Goat;
   sire?: Goat;
@@ -16,6 +17,8 @@ export class PedigreeComponent implements OnInit {
   damSire?: Goat;
   sireDam?: Goat;
   sireSire?: Goat;
+  currentLactation?: LactationRecord;
+  lastTestDate?: string;
   constructor(private goatService: GoatService) { }
   ngOnInit() {
     this.goatService.related.subscribe(goats => {
@@ -25,6 +28,8 @@ export class PedigreeComponent implements OnInit {
       this.damSire = findIDMatch(this.dam?.sireId, goats);
       this.sireDam = findIDMatch(this.sire?.damId, goats);
       this.sireSire = findIDMatch(this.sire?.sireId, goats);
+      this.currentLactation = this.goat.lactationRecords?.find(lactation => lactation.isCurrent);
+      this.lastTestDate = this.currentLactation?.tests?.slice(-1)[0]?.testDate;
     });
   }
   getPopoverContent(goat?: Goat) {

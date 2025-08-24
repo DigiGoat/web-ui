@@ -1,0 +1,36 @@
+@media (min-width: 992px) {
+  .mobile-grid {
+    display: none;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .desktop-grid {
+    display: none;
+  }
+}
+
+@media (min-width: 450px) {
+  .d-xs-inline {
+    display: inline !important;
+  }
+
+  .d-xs-none {
+    display: none !important;
+  }
+
+  .col-xs-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+
+  .col-xs-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+  }
+
+  .col-xs-1 {
+    flex: 0 0 auto;
+    width: 8.33333333%;
+  }
+}

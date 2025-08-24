@@ -128,7 +128,7 @@
       </span>
     </div>
   </div>
-  <br>
+  <br *ngIf="goat.linearAppraisals?.length">
   <div class="container border rounded-4" *ngIf="goat.linearAppraisals && goat.linearAppraisals.length">
     <div class="row border-bottom">
       <span class="col">Linear Appraisal History:</span>
@@ -151,7 +151,65 @@
         [tooltip]="appraisal.isPermanent ? 'Permanent Score' : ''">{{appraisal.finalScore}}</div>
     </div>
   </div>
-  <br *ngIf="goat.linearAppraisals && goat.linearAppraisals.length && goat.awards && goat.awards.length">
+  <br *ngIf="goat.lactationRecords?.length">
+  <div class="container border rounded-4" *ngIf="goat.lactationRecords?.length">
+    <div class="row border-bottom">
+      <span class="col">Lactation History:</span>
+    </div>
+    <div class="row border-bottom">
+      <div class="col border-end col-3 col-sm-4 fw-bold">Start Date: </div>
+      <div class="col border-end fw-bold"><span class="d-none d-lg-inline">Lactation</span>
+        <span class="d-inline d-lg-none">Lact</span>
+      </div>
+      <div class="col border-end fw-bold" tooltip="Days in Milk">DIM</div>
+      <div class="col border-end fw-bold" tooltip="Achieved/Projected (lbs)">Milk</div>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)">Fat</div>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)"><span
+          class="d-none d-lg-inline">Protein</span>
+        <span class="d-inline d-lg-none">Pro</span>
+      </div>
+    </div>
+    <div class="row border-top" *ngFor="let entry of goat.lactationRecords; index as i"
+      [tooltip]="entry.isCurrent ? ('Active Lactation' + (lastTestDate ? '<br>Last Test: ' + (lastTestDate | longDate) : '')) : ''"
+      [tooltip-html]="true" [class.fst-italic]="entry.isCurrent">
+      <div class="col border-end col-3 col-sm-4" [class.fw-bold]="entry.isCurrent">
+        {{entry.startDate | longDate}}
+      </div>
+      <div class="col border-end">{{entry.lactationNumber | freshening}}</div>
+      <div class="col border-end">{{entry.daysInMilk}}</div>
+      <div class="col border-end">{{entry.stats?.milk?.achieved}}/<wbr>{{entry.stats?.milk?.projected}}</div>
+      <div class="col border-end d-none d-xs-inline">{{entry.stats?.butterfat?.achieved}}/<wbr>{{entry.stats?.butterfat?.projected}}</div>
+      <div class="col border-end d-none d-xs-inline">{{entry.stats?.protein?.achieved}}/<wbr>{{entry.stats?.protein?.projected}}</div>
+    </div>
+  </div>
+  <br *ngIf="currentLactation">
+  <div class="container border rounded-4" *ngIf="currentLactation">
+    <div class="row border-bottom">
+      <span class="col">Current Lactation:</span>
+    </div>
+    <div class="row border-bottom">
+      <div class="col border-end fw-bold col-xs-1" tooltip="Test Number"><span class="d-none d-lg-inline">Test<wbr></span># </div>
+      <div class="col border-end col-3 col-sm-4 fw-bold">Test Date</div>
+      <div class="col border-end col-xs-2 fw-bold" tooltip="Days in Milk">DIM</div>
+      <div class="col border-end fw-bold" tooltip="Milk (lbs)">Milk</div>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Butter Fat Percentage">Fat Pct.</div>
+      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Protein Percentage">
+        <span class="d-none d-lg-inline">Protein Pct.</span>
+        <span class="d-inline d-lg-none">Pro Pct</span>
+      </div>
+    </div>
+    <div class="row border-top" *ngFor="let test of currentLactation.tests; index as i">
+      <div class="col border-end col-xs-1">
+        {{test.testNumber}}
+      </div>
+      <div class="col border-end col-3 col-sm-4">{{test.testDate | longDate}}</div>
+      <div class="col border-end col-xs-2">{{test.daysInMilk}}</div>
+      <div class="col border-end">{{test.milk}}</div>
+      <div class="col border-end d-none d-xs-inline">{{test.butterfatPct}}%</div>
+      <div class="col border-end d-none d-xs-inline">{{test.proteinPct}}%</div>
+    </div>
+  </div>
+  <br *ngIf="goat.awards?.length">
   <div class="container border rounded-4" *ngIf="goat.awards && goat.awards.length">
     <div class="row border-bottom">
       <span class="col">Awards:</span>

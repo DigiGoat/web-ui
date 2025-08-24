@@ -18,7 +18,7 @@ describe('GoatCardComponent', () => {
     fixture = TestBed.createComponent(GoatCardComponent);
     component = fixture.componentInstance;
     html = fixture.nativeElement;
-    component['meta'] = { addTags: jest.fn() } as unknown as Meta;
+    component['meta'] = { addTags: jest.fn(), removeTag: jest.fn() } as unknown as Meta;
   });
 
   it('should create', () => {

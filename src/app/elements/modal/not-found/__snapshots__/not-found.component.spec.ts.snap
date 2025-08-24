@@ -2,6 +2,7 @@
 
 exports[`NotFoundComponent should match the snapshot 1`] = `
 <app-modal-not-found
+  meta={[Function _Meta]}
   searchParam={[Function String]}
 >
   <h5
