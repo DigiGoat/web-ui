@@ -91,7 +91,7 @@ async function syncDoes() {
           changes.push(`<p>Added ${newTestCount - testCount} tests</p>`);
         }
         if (config['link']) {
-          const url = new URL(`./does/${doe.id}`, config['link']);
+          const url = new URL(`./does/${doe.nickname || doe.name || doe.normalizeId}`, config['link']);
           changes.push(`<p>View the updated records at <a href="${url}">${url}</a></p>`);
         }
       }
@@ -133,11 +133,11 @@ async function notifyChanges() {
     port: 587,
     secure: false,
     auth: {
-      user: 'digigoat@lilpilchuckcreek.org',
+      user: 'bloomkd46@icloud.com',
       pass: process.env['EMAIL_PASSWORD'] || '',
     },
   });
-  log.info('Sending email to', email);
+  log.debug('Sending email to', email);
   await transporter.sendMail({
     from: '"DigiGoat" <digigoat@lilpilchuckcreek.org>',
     sender: 'digigoat@lilpilchuckcreek.org',
