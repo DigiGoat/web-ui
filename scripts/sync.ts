@@ -1,6 +1,7 @@
 import CDCB, { LactationType } from 'adga/CDCB';
 import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
+//@ts-expect-error The types for nodemailer break the angular compilation
 import { createTransport } from 'nodemailer';
 import { join } from 'path/posix';
 import { Goat, type LactationRecord } from '../src/app/services/goat/goat.service';

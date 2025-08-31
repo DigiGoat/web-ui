@@ -1,3 +1,6 @@
+## 5.6.6-beta.2
+* Fixed a bug causing the website not to compile due to the nodemailer types
+
 ## 5.6.6-beta.1
 * You now receive email notifications when lactation records are updated!
 
