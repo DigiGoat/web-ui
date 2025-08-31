@@ -1,6 +1,6 @@
 import CDCB, { LactationType } from 'adga/CDCB';
 import chalk from 'chalk';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path/posix';
 import { Goat, type LactationRecord } from '../src/app/services/goat/goat.service';
 
@@ -69,12 +69,15 @@ async function syncDoes() {
   const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
   for (const doe of does) {
     if (doe.usdaId && doe.usdaKey) {
-      log.debug(`Syncing Lactations for ${doe.nickname || doe.name || doe.normalizeId} (${doe.usdaId})`);
+      log.info(`Syncing Lactations for ${doe.nickname || doe.name || doe.normalizeId} (${doe.usdaId})`);
+      log.debug(`${doe.nickname || doe.name || doe.normalizeId} currently has ${doe.lactationRecords?.length} lactation records with ${doe.lactationRecords?.find(lactation => lactation.isCurrent)?.tests?.length || 0} tests for her current lactation`);
       doe.lactationRecords = await getLactations(doe.usdaId, doe.usdaKey);
+      log.debug(`${doe.nickname || doe.name || doe.normalizeId} now has ${doe.lactationRecords?.length} lactation records with ${doe.lactationRecords?.find(lactation => lactation.isCurrent)?.tests?.length || 0} tests for her current lactation`);
     } else {
       log.warn(`Skipping ${doe.nickname || doe.name || doe.normalizeId} - Missing USDA ID or Key`);
     }
   }
+  writeFileSync(join(__dirname, '../src/assets/resources/does.json'), JSON.stringify(does, null, 2));
 }
 
 (async () => {
