@@ -67,6 +67,8 @@ jobs:
 
       - name: Sync Project
         run: yarn sync
+        env:
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
       - name: Commit Changes
         id: commit

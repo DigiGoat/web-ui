@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "5.6.5-beta.2",
+  "version": "5.6.6-beta.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4000",
@@ -54,6 +54,7 @@
     "@types/jest": "^29.5.12",
     "@types/marked": "^6.0.0",
     "@types/node": "20",
+    "@types/nodemailer": "^7.0.1",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
@@ -64,6 +65,7 @@
     "jest": "^29.7.0",
     "jest-junit": "^16.0.0",
     "marked": "^15.0.11",
+    "nodemailer": "^7.0.6",
     "semver": "^7.6.2",
     "simple-git": "^3.24.0",
     "ts-node": "^10.9.2",
