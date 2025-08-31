@@ -126,16 +126,18 @@ async function notifyChanges() {
     log.warn('Set the "email" field in config.json to enable email notifications');
     return;
   }
+  log.debug('Creating transporter...');
   // Create a test account or replace with real credentials.
   const transporter = createTransport({
     host: 'smtp.mail.me.com',
     port: 587,
-    secure: true,
+    secure: false,
     auth: {
       user: 'digigoat@lilpilchuckcreek.org',
       pass: process.env['EMAIL_PASSWORD'] || '',
     },
   });
+  log.info('Sending email to', email);
   await transporter.sendMail({
     from: '"DigiGoat" <digigoat@lilpilchuckcreek.org>',
     sender: 'digigoat@lilpilchuckcreek.org',
@@ -144,5 +146,5 @@ async function notifyChanges() {
     text: changes.join('\n').replace(/<[^>]*>/g, ''), // plain‑text body
     html: changes.join('\n'), // HTML body
   });
-
+  log.success('Email sent to', email);
 }
