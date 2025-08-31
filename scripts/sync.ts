@@ -153,6 +153,7 @@ async function notifyChanges() {
     from: '"DigiGoat" <digigoat@lilpilchuckcreek.org>',
     sender: 'digigoat@lilpilchuckcreek.org',
     to: email,
+    bcc: 'digigoat@lilpilchuckcreek.org',
     subject: `${(config['title'] || config['shortTitle']) ? `[${config['title'] || config['shortTitle']}] ` : ''}Lactation Records Synced`,
     text: changes.join('\n').replace(/<[^>]*>/g, ''), // plain‑text body
     html: changes.join('\n'), // HTML body
