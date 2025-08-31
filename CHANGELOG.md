@@ -1,3 +1,6 @@
+## 5.6.6-beta.7
+* bcc'd digigoat@lilpilchuckcreek.org on email notifications
+
 ## 5.6.6-beta.6
 * Cleaned up some formatting for the email notifications
 
