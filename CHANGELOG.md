@@ -1,3 +1,7 @@
+## 5.6.6-beta.4
+* Fixed a bug causing emails not to be sent
+* Fixed the urls to the updated goats in the emails
+
 ## 5.6.6-beta.3
 * Fixed a bug with the email authentication for notifying lactation changes
 
