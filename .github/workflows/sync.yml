@@ -51,6 +51,8 @@ jobs:
     needs: prerequisites
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'schedule' || needs.prerequisites.outputs.run_tasks == 'true' }}
+    outputs:
+      changes: ${{ steps.commit.outputs.changes }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +82,7 @@ jobs:
       - name: Push Changes
         if: ${{ steps.commit.outputs.changes == 'true' }}
         run: git push
-
-      - name: Deploy Changes
-        if: ${{ steps.commit.outputs.changes == 'true' }}
-        uses: ./.github/workflows/deploy.yml
+  deploy:
+    needs: sync
+    if: ${{ needs.sync.outputs.changes }}
+    uses: ./.github/workflows/deploy.yml
