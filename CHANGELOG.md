@@ -1,3 +1,6 @@
+## 5.6.6-beta.6
+* Cleaned up some formatting for the email notifications
+
 ## 5.6.6-beta.5
 * Fixed a bug causing the website not to deploy after syncing lactations
 

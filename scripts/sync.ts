@@ -68,7 +68,7 @@ async function getLactations(usdaId: string, animalKey: string | number) {
   }
 }
 
-const changes: string[] = [`<h1>Lactation Records Updated${(config['title'] || config['shortTitle']) ? ` For ${config['title'] || config['shortTitle']}` : ''}</h1>`];
+const changes: string[] = [`<h1 style="text-align: center;">Lactation Records Updated${(config['title'] || config['shortTitle']) ? ` For ${config['title'] || config['shortTitle']}` : ''}</h1>`];
 
 async function syncDoes() {
   const does: Goat[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/does.json'), 'utf-8'));
@@ -85,10 +85,10 @@ async function syncDoes() {
       if (lactationCount !== newLactationCount || testCount !== newTestCount) {
         changes.push(`<h3>Updated lactation records for ${doe.nickname || doe.name || doe.normalizeId} (${doe.usdaId})</h3>`);
         if (lactationCount !== newLactationCount) {
-          changes.push(`<p>Added ${newLactationCount - lactationCount} lactation records</p>`);
+          changes.push(`<p>Added ${newLactationCount - lactationCount} lactation record(s)</p>`);
         }
         if (testCount !== newTestCount) {
-          changes.push(`<p>Added ${newTestCount - testCount} tests</p>`);
+          changes.push(`<p>Added ${newTestCount - testCount} test(s)</p>`);
         }
         if (config['link']) {
           const url = new URL(`./does/${doe.nickname || doe.name || doe.normalizeId}`, config['link']);
@@ -120,6 +120,17 @@ async function syncDoes() {
 })();
 
 async function notifyChanges() {
+  // Use a time 5 minutes in the future
+  const date = new Date(Date.now() + 5 * 60 * 1000);
+  const liveTime = date.toLocaleString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }); // e.g., "August 30, 2025 4:38 PM"
+  changes.push(`<div style="text-align: center;"><p>These changes should be live by ${liveTime}</p><p>This is an automated message from DigiGoat.</p></div>`);
   const email = config['email'];
   if (!email) {
     log.error('No email configured');
@@ -142,7 +153,7 @@ async function notifyChanges() {
     from: '"DigiGoat" <digigoat@lilpilchuckcreek.org>',
     sender: 'digigoat@lilpilchuckcreek.org',
     to: email,
-    subject: `${(config['title'] || config['shortTitle']) ? `[${config['title'] || config['shortTitle']}] ` : ''}Lactation Records Updated`,
+    subject: `${(config['title'] || config['shortTitle']) ? `[${config['title'] || config['shortTitle']}] ` : ''}Lactation Records Synced`,
     text: changes.join('\n').replace(/<[^>]*>/g, ''), // plain‑text body
     html: changes.join('\n'), // HTML body
   });
