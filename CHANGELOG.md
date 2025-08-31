@@ -1,3 +1,6 @@
+## 5.6.6-beta.3
+* Fixed a bug with the email authentication for notifying lactation changes
+
 ## 5.6.6-beta.2
 * Fixed a bug causing the website not to compile due to the nodemailer types
 
