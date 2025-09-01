@@ -1,3 +1,6 @@
+## 5.6.7-beta.1
+* Improved how lists are displayed
+
 ## 5.6.6-beta.7
 * bcc'd digigoat@lilpilchuckcreek.org on email notifications
 
