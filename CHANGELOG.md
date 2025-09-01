@@ -1,3 +1,29 @@
+## 5.6.6-beta.7
+* bcc'd digigoat@lilpilchuckcreek.org on email notifications
+
+## 5.6.6-beta.6
+* Cleaned up some formatting for the email notifications
+
+## 5.6.6-beta.5
+* Fixed a bug causing the website not to deploy after syncing lactations
+
+## 5.6.6-beta.4
+* Fixed a bug causing emails not to be sent
+* Fixed the urls to the updated goats in the emails
+
+## 5.6.6-beta.3
+* Fixed a bug with the email authentication for notifying lactation changes
+
+## 5.6.6-beta.2
+* Fixed a bug causing the website not to compile due to the nodemailer types
+
+## 5.6.6-beta.1
+* You now receive email notifications when lactation records are updated!
+
+## 5.6.5-beta.2
+* Fixed a bug causing the sync workflow to fail
+  * It wasn't saving the updated lactation records
+
 ## 5.6.5-beta.1
 * Reverted `5.6.1-beta.1` as it was causing issues with the sync workflow. The adga package is now automatically stripped of the beta tag during the release process again.
 
