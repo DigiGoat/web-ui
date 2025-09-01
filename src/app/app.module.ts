@@ -31,6 +31,7 @@ import { ReferencesComponent } from './pages/references/references.component';
 import { AgePipe } from './pipes/age/age.pipe';
 import { FresheningPipe } from './pipes/freshening/freshening.pipe';
 import { LongDatePipe } from './pipes/longDate/longDate.pipe';
+import { CustomPageComponent } from './pages/custom-page/custom-page.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { LongDatePipe } from './pipes/longDate/longDate.pipe';
     SaleTermsComponent,
     MarkdownComponent,
     MarkdownDirective,
-    FresheningPipe
+    FresheningPipe,
+    CustomPageComponent
   ],
   imports: [
     BrowserModule,
