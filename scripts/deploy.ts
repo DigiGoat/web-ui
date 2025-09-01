@@ -19,6 +19,7 @@ const log = {
 };
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
+const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
 if (process.argv[2]) {
   if (URL.canParse(process.argv[2])) {
     log.debug(`Adding '${process.argv[2]}' to the Config`);
@@ -95,6 +96,14 @@ function route() {
   if (config['kiddingSchedule']) {
     log.debug('Writing Kidding Schedule Goat Card');
     routes.push('/kidding-schedule/Kidding-Goat');
+  }
+  if (customPages.length) {
+    log.debug('Writing Custom Page Routes');
+    customPages.forEach(page => {
+      const route = `/${page.title.replace(/ /g, '-').replace(/[^a-zA-Z0-9-]/g, '')}`;
+      log.debug(`Adding Custom Page Route '${route}'`);
+      routes.push(route);
+    });
   }
   log.debug('Writing Routes');
   writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
@@ -179,6 +188,16 @@ async function setupMarkdown() {
       }
     }
     writeFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), JSON.stringify(forSale));
+  }
+  if (customPages.length) {
+    log.debug('Rendering Markdown For Custom Pages');
+    for (const page of customPages) {
+      if (page.content) {
+        log.debug(`Rendering Markdown For Custom Page ${page.title}`);
+        page.content = await renderMarkdown(page.content);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), JSON.stringify(customPages));
   }
 }
 function build() {

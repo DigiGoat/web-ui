@@ -1,3 +1,10 @@
+## 6.0.0-beta.1
+* Added custom pages!
+  * These are pages that can be whatever you'd like them to be!
+
+## 5.6.7-beta.1
+* Improved how lists are displayed
+
 ## 5.6.6-beta.7
 * bcc'd digigoat@lilpilchuckcreek.org on email notifications
 

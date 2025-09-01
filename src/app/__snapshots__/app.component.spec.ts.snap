@@ -3,6 +3,8 @@
 exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
 <app-root
   config={[Function Object]}
+  customPageService={[Function CustomPagesService]}
+  customPages={[Function Array]}
 >
   <header
     class="navbar navbar-expand-lg sticky-top color-scheme-secondary"
@@ -205,6 +207,8 @@ exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
 exports[`AppComponent Without a Config should match the snapshot 1`] = `
 <app-root
   config={[Function Object]}
+  customPageService={[Function CustomPagesService]}
+  customPages={[Function Array]}
 >
   <header
     class="navbar navbar-expand-lg sticky-top color-scheme-secondary"
