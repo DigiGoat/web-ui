@@ -1,3 +1,6 @@
+## 6.0.2-beta.1
+* Some back-end improvements to custom pages
+
 ## 6.0.1-beta.1
 * Fixed a bug causing the sync workflow not to run
 

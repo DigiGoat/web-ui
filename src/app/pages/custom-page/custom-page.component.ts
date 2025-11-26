@@ -18,7 +18,7 @@ export class CustomPageComponent implements OnInit {
     const query = this.route.snapshot.params['customPage'];
     this.customPage = this.customPageService.getPage(query)!;
     const oldTitle = this.title.getTitle();
-    const newTitle = oldTitle.replace(query.replaceAll('-', ' '), this.customPage.title);
+    const newTitle = oldTitle.replace(query.replaceAll('-', ' '), this.customPage.title!);
     this.title.setTitle(newTitle);
     this.meta.updateTag({ property: 'og:title', content: newTitle });
 
@@ -29,13 +29,13 @@ export class CustomPageComponent implements OnInit {
     // Add new canonical link
     const link = this.document.createElement('link');
     link.setAttribute('rel', 'canonical');
-    link.setAttribute('href', `/${this.customPageService.urlify(this.customPage.title)}`);
+    link.setAttribute('href', `/${this.customPageService.urlify(this.customPage.title!)}`);
     this.document.head.appendChild(link);
 
     this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.customPage.content) }, { name: 'description', content: this.htmlToPlainText(this.customPage.content) }]);
   }
 
-  htmlToPlainText(html: string): string {
+  htmlToPlainText(html?: string): string {
     const doc = this.document.createElement('div');
     doc.innerHTML = html;
     return doc.textContent || '';
