@@ -8,13 +8,13 @@ import _customPages from '../../../assets/resources/custom-pages.json';
 export class CustomPagesService {
   private customPages: CustomPage[] = _customPages;
   getPage(query: string): CustomPage | undefined {
-    return this.customPages.find(page => this.urlify(page.title).toLowerCase() === this.urlify(query).toLowerCase());
+    return this.customPages.map((page, index) => ({ content: page.content, title: page.title || `Custom Page ${index + 1}` })).find(page => this.urlify(page.title).toLowerCase() === this.urlify(query).toLowerCase());
   }
 
   getPages(): CustomPageSummary[] {
-    return this.customPages.map(page => ({
-      title: page.title,
-      url: this.urlify(page.title)
+    return this.customPages.map((page, index) => ({
+      title: page.title || `Custom Page ${index + 1}`,
+      url: this.urlify(page.title || `Custom Page ${index + 1}`)
     }));
   }
   urlify(title: string): string {
@@ -24,10 +24,10 @@ export class CustomPagesService {
   }
 }
 
-export interface CustomPage {
+export type CustomPage = Partial<{
   title: string;
   content: string;
-}
+}>;
 
 export interface CustomPageSummary {
   title: string;
