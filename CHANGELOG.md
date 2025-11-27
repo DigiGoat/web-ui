@@ -1,3 +1,7 @@
+## 6.0.3-beta.1
+* Improved website syncing
+  * The deploy workflow will no longer auto-disable after 60 days of inactivity
+
 ## 6.0.2-beta.2
 * Fixed a bug causing custom pages not to render if navigating from one to another (it was staying on the first page's content)
 
