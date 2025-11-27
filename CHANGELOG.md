@@ -1,3 +1,6 @@
+## 6.0.2-beta.2
+* Fixed a bug causing custom pages not to render if navigating from one to another (it was staying on the first page's content)
+
 ## 6.0.2-beta.1
 * Some back-end improvements to custom pages
 
