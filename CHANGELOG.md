@@ -1,3 +1,6 @@
+## 6.0.3-beta.2
+* Fixed a bug causing the website not to deploy after a sync when using firebase
+
 ## 6.0.3-beta.1
 * Improved website syncing
   * The deploy workflow will no longer auto-disable after 60 days of inactivity

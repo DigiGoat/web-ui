@@ -66,3 +66,5 @@ jobs:
     needs: sync
     #? if: ${{ needs.sync.outputs.changes == 'true' }} Should this check run? Do we want to deploy daily just to refresh ages of animals for search results?
     uses: ./.github/workflows/deploy.yml
+    secrets:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
