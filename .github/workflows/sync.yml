@@ -68,3 +68,5 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     secrets:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    with:
+      changes: ${{ needs.sync.outputs.changes }}
