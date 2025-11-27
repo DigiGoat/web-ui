@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Directive, ElementRef, Input, type AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Directive({
   selector: '[markdown]',
   standalone: false
 })
-export class MarkdownDirective implements AfterViewInit {
+export class MarkdownDirective implements AfterViewInit, OnDestroy {
 
   constructor(private el: ElementRef<HTMLElement>, private http: HttpClient, private platformService: PlatformService) { }
   private iconEl!: HTMLElement;
+  private observer?: MutationObserver;
 
   @Input({ alias: 'markdown' }) identifier?: string;
 
@@ -36,9 +37,36 @@ export class MarkdownDirective implements AfterViewInit {
 
     this.iconEl.addEventListener('click', () => window.open('https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax'));
     window.bootstrap.Tooltip.getOrCreateInstance(this.iconEl);
+
+    // Watch for content changes to re-render markdown when needed
+    this.observer = new MutationObserver(() => {
+      // Let showMarkdown handle disconnect/reconnect safety
+      this.showMarkdown();
+    });
+
+    this.observer.observe(this.el.nativeElement, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+
+    // Initial render
     this.showMarkdown();
   }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = undefined;
+    }
+  }
   async showMarkdown() {
+    // Disconnect observer while we mutate DOM to avoid infinite loops
+    const observer = this.observer;
+    if (observer) {
+      observer.disconnect();
+    }
+
     const value = this.el.nativeElement.innerHTML;
     this.el.nativeElement.appendChild(this.iconEl);
     let renderedValue = '';
@@ -71,6 +99,15 @@ export class MarkdownDirective implements AfterViewInit {
       }
       this.el.nativeElement.innerHTML = renderedValue || value;
       this.el.nativeElement.appendChild(this.iconEl);
+    }
+
+    // Reconnect observer after mutations
+    if (observer) {
+      observer.observe(this.el.nativeElement, {
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
     }
   }
 
