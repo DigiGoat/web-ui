@@ -37,7 +37,7 @@
           },
           {
             "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.clarity.ms https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://c.clarity.ms https://c.bing.com; font-src 'self' data:; connect-src 'self' https://*.clarity.ms https://www.google-analytics.com https://*.googleapis.com; frame-ancestors 'self'; object-src 'none'; base-uri 'self';"
+            "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://scripts.clarity.ms https://www.clarity.ms https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://c.clarity.ms https://c.bing.com; font-src 'self' data:; connect-src 'self' https://*.clarity.ms https://www.google-analytics.com https://*.googleapis.com; frame-ancestors 'self'; object-src 'none'; base-uri 'self';"
           },
           {
             "key": "X-Content-Type-Options",
