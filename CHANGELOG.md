@@ -1,3 +1,7 @@
+## 6.0.6-beta.1
+* Fixed a bug causing firebase to block Microsoft Clarity from loading due to an incorrect Content Security Policy
+* Fixed the default colors for light mode
+
 ## 6.0.5-beta.1
 * Updated the deploy workflow so that if it is triggered by the sync workflow, it will only deploy if there were changes committed during the sync or during the build process
   * This prevents unnecessary deploys when there are no changes to the website
