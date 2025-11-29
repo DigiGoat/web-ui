@@ -1,3 +1,6 @@
+## 6.0.7-beta.4
+* Fixed the bug with the sync workflow not deploying
+
 ## 6.0.7-beta.3
 * Fixed a bigger bug implemented in `6.0.7-beta.2`
 

@@ -69,4 +69,4 @@ jobs:
     secrets:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
     with:
-      changes: ${{ needs.sync.outputs.changes }}
+      changes: ${{ needs.sync.outputs.changes == 'true' }}
