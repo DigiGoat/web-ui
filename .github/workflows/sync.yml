@@ -64,7 +64,7 @@ jobs:
         run: git push
   deploy:
     needs: sync
-    if: !cancelled()
+    if: ${{ !cancelled() }}
     uses: ./.github/workflows/deploy.yml
     secrets:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
