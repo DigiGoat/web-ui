@@ -1,3 +1,6 @@
+## 6.0.7-beta.3
+* Fixed a bigger bug implemented in `6.0.7-beta.2`
+
 ## 6.0.7-beta.2
 * Still trying to fix that bug
 
