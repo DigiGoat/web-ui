@@ -57,14 +57,14 @@ jobs:
         run: |
           git config --global user.name "Digi"
           git config --global user.email "DigiGoat@LilPilchuckCreek.org"
-          git commit -am "Synced website" && echo "changes=true" >> $GITHUB_OUTPUT || echo "changes=false" >> $GITHUB_OUTPUT
+          (git commit -am "Synced website" && echo "changes=true" >> $GITHUB_OUTPUT) || echo "changes=false" >> $GITHUB_OUTPUT
 
       - name: Push Changes
         if: ${{ steps.commit.outputs.changes == 'true' }}
         run: git push
   deploy:
     needs: sync
-    if: success('sync')
+    if: !cancelled()
     uses: ./.github/workflows/deploy.yml
     secrets:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
