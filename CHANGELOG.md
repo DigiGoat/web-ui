@@ -1,3 +1,6 @@
+## 6.0.7-beta.5
+* Now that the sync workflow is successfully running, fixing the deploy workflow over-running from it
+
 ## 6.0.7-beta.4
 * Fixed the bug with the sync workflow not deploying
 
