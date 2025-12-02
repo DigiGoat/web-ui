@@ -1,3 +1,8 @@
+## 6.0.8-beta.1
+* Changed the background color of the body to the secondary color scheme.
+  * This now matches the header and footer when scrolling beyond the viewport height.
+
+
 ## 6.0.7-beta.5
 * Now that the sync workflow is successfully running, fixing the deploy workflow over-running from it
 
