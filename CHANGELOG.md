@@ -1,3 +1,6 @@
+## 6.0.9-beta.1
+* Fixed the webmanifest
+
 ## 6.0.8-beta.1
 * Changed the background color of the body to the secondary color scheme.
   * This now matches the header and footer when scrolling beyond the viewport height.

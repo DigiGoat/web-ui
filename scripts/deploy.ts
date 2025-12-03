@@ -394,6 +394,7 @@ function manifest() {
     icons = false;
     mkdirSync(join(__dirname, '../dist/web-ui/browser/assets/icons/'), { recursive: true });
   }
+  const config = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
   log.debug('Writing Manifest');
   writeFileSync(join(__dirname, '../dist/web-ui/browser/assets/icons/site.webmanifest'), JSON.stringify({
     background_color: typeof config['colors'] == 'object' ? config['colors']['main'] : 'hsl(230, 100%, 10%)',
@@ -411,9 +412,9 @@ function manifest() {
         type: 'image/png'
       }
     ] : [],
-    name: config['homeTitle'],
+    name: config['title'] || config['homeTitle'] || config['menubarTitle'],
     scope: url ? (url.toString().endsWith('/') ? url.toString() : url.toString() + '/') : undefined,
-    short_name: config['tabTitle'],
+    short_name: config['shortTitle'] || config['tabTitle'],
     shortcuts: [
       {
         name: 'Home',
