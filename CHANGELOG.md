@@ -1,3 +1,8 @@
+## 6.0.10-beta.1
+* Fixed some bugs with the sync workflow
+  * Fixed a bug causing it to download an outdated version of the website when deploying
+  * Fixed a bug with the workflow not comparing against the correct last deploy if the last deploy was triggered by the sync workflow
+
 ## 6.0.9-beta.1
 * Fixed the webmanifest
 
