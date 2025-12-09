@@ -1,3 +1,6 @@
+## 6.0.10-beta.2
+* Added some better logging to the deploy workflow to help identify which workflow it is running under (now that in can be "Deploy Website" or "Sync Website")
+
 ## 6.0.10-beta.1
 * Fixed some bugs with the sync workflow
   * Fixed a bug causing it to download an outdated version of the website when deploying
