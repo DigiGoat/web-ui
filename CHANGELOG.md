@@ -1,3 +1,6 @@
+## 6.0.11-beta.1
+* Updated all the links and emails to use the new DigiGoat domain (`digigoat.app`)
+
 ## 6.0.10-beta.2
 * Added some better logging to the deploy workflow to help identify which workflow it is running under (now that in can be "Deploy Website" or "Sync Website")
 

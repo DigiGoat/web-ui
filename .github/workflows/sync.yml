@@ -58,7 +58,7 @@ jobs:
         id: commit
         run: |
           git config --global user.name "Digi"
-          git config --global user.email "DigiGoat@LilPilchuckCreek.org"
+          git config --global user.email "Digi@DigiGoat.app"
           (git commit -am "Synced website" && echo "changes=true" >> $GITHUB_OUTPUT) || echo "changes=false" >> $GITHUB_OUTPUT
 
       - name: Push Changes
