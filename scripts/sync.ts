@@ -78,6 +78,7 @@ async function syncDoes() {
         doe.lactationRecords = await getLactations(doe.usdaId, doe.usdaKey);
       } catch (err) {
         console.warn('Error Fetching Lactations:', (err && typeof err === 'object' && 'toJSON' in err && typeof err.toJSON === 'function') ? err.toJSON() : err);
+        log.warn(`Skipping update for ${doe.nickname || doe.name || doe.normalizeId} due to error.`);
         continue;
       }
       const newLactationCount = doe.lactationRecords?.length || 0;
