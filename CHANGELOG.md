@@ -1,3 +1,17 @@
+## 6.0.10-beta.1
+* Fixed some bugs with the sync workflow
+  * Fixed a bug causing it to download an outdated version of the website when deploying
+  * Fixed a bug with the workflow not comparing against the correct last deploy if the last deploy was triggered by the sync workflow
+  * Fixed a bug causing the the sync script to delete lactation data if CDCB is down
+
+## 6.0.9-beta.1
+* Fixed the webmanifest
+
+## 6.0.8-beta.1
+* Changed the background color of the body to the secondary color scheme.
+  * This now matches the header and footer when scrolling beyond the viewport height.
+
+
 ## 6.0.7-beta.5
 * Now that the sync workflow is successfully running, fixing the deploy workflow over-running from it
 

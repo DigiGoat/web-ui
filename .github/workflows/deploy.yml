@@ -53,6 +53,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -64,7 +66,15 @@ jobs:
       - name: Find last successful deploy run with artifact
         id: last_success
         run: |
-          runs=$(gh run list --workflow="Deploy Website" --branch="$GITHUB_REF_NAME" --json databaseId,number,status,conclusion,createdAt --limit 20 | jq '[.[] | select(.status=="completed" and .conclusion=="success" and .databaseId != '${{ github.run_id }}')]')
+          runs=$(
+            gh run list --branch="$GITHUB_REF_NAME" --json databaseId,number,status,conclusion,createdAt,name --limit 20 |
+            jq --arg cur "${{ github.run_id }}" '[.[] | select(
+              .status=="completed" and
+              .conclusion=="success" and
+              (.databaseId|tostring) != $cur and
+              (.name=="Deploy Website" or .name=="Sync Website")
+            )]'
+          )
           found=""
           for row in $(echo "${runs}" | jq -r '.[] | @base64'); do
             _jq() { echo ${row} | base64 --decode | jq -r ${1}; }
