@@ -1,3 +1,9 @@
+## 6.0.13-beta.1
+* Significantly improved SEO
+  * Pages now present and auto-generated summary descriptions IN ADDITION to any configured animal descriptions
+  * This will significantly improve change detection as it is easier to compare old and new content now
+  * Additionally, this will hopefully help present relevant information in search results since the users descriptions are intended to be seen in the context of the animal
+
 ## 6.0.12-beta.1
 * Fixed a bug causing the build and test workflows to not run correctly on pull requests
 
