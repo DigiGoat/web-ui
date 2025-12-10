@@ -1,3 +1,6 @@
+## 6.0.12-beta.1
+* Fixed a bug causing the build and test workflows to not run correctly on pull requests
+
 ## 6.0.11-beta.1
 * Updated all the links and emails to use the new DigiGoat domain (`digigoat.app`)
 
