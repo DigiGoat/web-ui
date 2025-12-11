@@ -266,6 +266,7 @@ async function sitemap(link: string) {
 
     let oldTitle: string | null = null;
     let oldMetaDescription: string | null = null;
+    let oldOGMetaDescription: string | null = null;
     let usedArtifact = false;
 
     if (existsSync(prevPagePath)) {
@@ -273,8 +274,10 @@ async function sitemap(link: string) {
       const prevPageContent = readFileSync(prevPagePath, 'utf-8');
       const oldTitleMatch = prevPageContent.match(/<title>(.*?)<\/title>/);
       const oldMetaDescriptionMatch = prevPageContent.match(/<meta name="description" content="(.*?)"/);
+      const oldOGMetaDescriptionMatch = prevPageContent.match(/<meta property="og:description" content="(.*?)"/);
       oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
       oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      oldOGMetaDescription = oldOGMetaDescriptionMatch ? oldOGMetaDescriptionMatch[1] : null;
       usedArtifact = true;
     } else {
       log.warn(`Previous deploy file not found for page: ${page}, falling back to HTTP fetch.`);
@@ -283,8 +286,10 @@ async function sitemap(link: string) {
         const response = await axios.get(fullPageUrl);
         const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
         const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
+        const oldOGMetaDescriptionMatch = response.data.match(/<meta property="og:description" content="(.*?)"/);
         oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
         oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+        oldOGMetaDescription = oldOGMetaDescriptionMatch ? oldOGMetaDescriptionMatch[1] : null;
       } catch (error) {
         log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
         log.warn('↳ Generating New Sitemap Entry');
@@ -298,18 +303,23 @@ async function sitemap(link: string) {
     const newPageContent = readFileSync(newPagePath, 'utf-8');
     const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
     const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+    const newOGMetaDescriptionMatch = newPageContent.match(/<meta property="og:description" content="(.*?)"/);
     const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
 
     const newTitle = newTitleMatch ? newTitleMatch[1] : null;
     const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+    const newOGMetaDescription = newOGMetaDescriptionMatch ? newOGMetaDescriptionMatch[1] : null;
     const ogImages = Array.from(ogImageMatches).map(match => match[1]);
     imageSitemap[page] = ogImages;
 
-    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
+    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription && oldOGMetaDescription === newOGMetaDescription) {
       log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = oldSitemap[page] || new Date().toISOString();
     } else {
       log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
+      log.debug(oldTitle !== newTitle ? `- Title changed from '${oldTitle}' to '${newTitle}'` : '- Title unchanged');
+      log.debug(oldMetaDescription !== newMetaDescription ? `- Meta description changed from '${oldMetaDescription}' to '${newMetaDescription}'` : '- Meta description unchanged');
+      log.debug(oldOGMetaDescription !== newOGMetaDescription ? `- OG meta description changed from '${oldOGMetaDescription}' to '${newOGMetaDescription}'` : '- OG meta description unchanged');
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
     }

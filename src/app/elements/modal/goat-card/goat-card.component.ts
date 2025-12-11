@@ -25,48 +25,53 @@ export class GoatCardComponent implements OnInit, Page {
     const datePipe = new DatePipe('en-US');
     let description = '';
 
-    if (this.name) {
-      description += `${this.name}${this.nickname ? ` ("${this.nickname}")` : ''}`;
-    } else if (this.nickname) {
-      description += `${this.nickname}`;
+    const awards = this.formatAwards(this.goat.awards);
+    if (this.born) {
+      description += ` is a ${agePipe.transform(this.born)}`;
+    } else {
+      description += ' is a ';
     }
-    if (this.name || this.nickname) {
-      if (this.born) {
-        description += ` is a ${agePipe.transform(this.born)}`;
-      } else {
-        description += ' is a ';
-      }
-      if (this.lactation) {
-        description += ` ${fresheningPipe.transform(this.lactation.lactationNumber)} freshener.`;
+    if (this.lactation) {
+      description += ` ${fresheningPipe.transform(this.lactation.lactationNumber)} freshener`;
+    }
+    if (this.linearAppraisal) {
+      description += ` ${this.linearAppraisal.generalAppearance}${this.linearAppraisal.dairyStrength}${this.linearAppraisal.bodyCapacity}${this.goat.sex === 'Female' ? this.linearAppraisal.mammarySystem : ''}${this.linearAppraisal.finalScore}`;
+    }
+    if (awards?.length) {
+      description += ` ${awards}`;
+    }
+    description += `${this.goat.sex === 'Female' ? ' doe' : ' buck'}.`;
+    if (this.lactation) {
+      description += ` She has produced ${this.lactation.stats?.milk?.achieved}lbs of milk${this.lactation.tests?.length ? ` (${datePipe.transform(this.lactation.tests.slice(-1)[0].testDate!)})` : ''
+        } this lactation and is projected to produce ${this.lactation.stats?.milk?.projected}lbs.`;
+    }
+    if (description.length + (this.nickname || this.name || 'This buck').length < 160 - 29 && this.linearAppraisal) {
+      description += ` ${this.goat.sex === 'Female' ? 'She' : 'He'} has ${this.goat.linearAppraisals!.length} linear appraisal${this.goat.linearAppraisals!.length !== 1 ? 's' : ''}`;
+      if (description.length < 160 - 37) {
+        description += ` and was last appraised ${datePipe.transform(this.linearAppraisal.appraisalDate)}.`;
       } else {
         description += '.';
       }
     }
-    if (this.lactation) {
-      description += ` Her latest test ${this.lactation.tests?.length ? `(${datePipe.transform(this.lactation.tests.slice(-1)[0].testDate!)})` : ''
-        } was at ${this.lactation.daysInMilk} days in milk.`;
-      description += ` She has produced a total of ${this.lactation.stats?.milk?.achieved}lbs of milk this lactation and is projected to produce ${this.lactation.stats?.milk?.projected}lbs.`;
+    if (description.length + (this.nickname || this.name || 'This buck').length < 160 - 35 && this.born) {
+      description += ` ${this.goat.sex === 'Female' ? 'She' : 'He'} was born on ${datePipe.transform(this.born, 'longDate')}.`;
     }
-    if (this.linearAppraisal) {
-      description += ` ${this.goat.sex === 'Female' ? 'She' : 'He'} is a ${this.linearAppraisal.generalAppearance}${this.linearAppraisal.dairyStrength}${this.linearAppraisal.bodyCapacity}${this.goat.sex === 'Female' ? this.linearAppraisal.mammarySystem : ''}${this.linearAppraisal.finalScore} (${datePipe.transform(this.linearAppraisal.appraisalDate)}) over the course of ${this.goat.linearAppraisals!.length} appraisals.`;
+    if (description.length + (this.nickname || this.name || 'This buck').length < 120 && this.colorAndMarking) {
+      description += ` ${this.goat.sex === 'Female' ? 'Her' : 'His'} coloring is: ${this.colorAndMarking}.`;
     }
-    if (this.colorAndMarking) {
-      if (this.born) {
-        description += ` ${this.goat.sex === 'Female' ? 'Her' : 'His'} coloring is "${this.colorAndMarking}".`;
-      } else {
-        if (this.name) {
-          description += ` ${this.name}${this.nickname ? ` ("${this.nickname}") ` : ' '}is a ${this.colorAndMarking}.`;
-        } else if (this.nickname) {
-          description += ` ${this.nickname}'s coloring is ${this.colorAndMarking}. `;
-        }
-      }
-      if (this.description) {
-        this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: description + ' ' + this.htmlToPlainText(this.description) }]);
-      } else {
-        this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
-      }
-      this.meta.removeTag('name="robots"');
+    if (this.name && description.length + this.name.length <= 160) {
+      description = `${this.name}${this.nickname && description.length + this.name.length + this.nickname.length + 3 <= 160 ? ` (${this.nickname})` : ''}` + description;
+    } else if (this.nickname) {
+      description = `${this.nickname}` + description;
+    } else {
+      description = `This ${this.goat.sex === 'Female' ? 'doe' : 'buck'}` + description;
     }
+    if (this.description) {
+      this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: description }]);
+    } else {
+      this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
+    }
+    this.meta.removeTag('name="robots"');
   }
   htmlToPlainText(html: string): string {
     const doc = this.el.nativeElement.ownerDocument.createElement('div');
@@ -106,5 +111,9 @@ export class GoatCardComponent implements OnInit, Page {
     this.lactation = this.goat?.lactationRecords?.find(lactation => lactation.isCurrent);
     this.linearAppraisal = this.goatService.getAppraisal(this.goat?.linearAppraisals);
     this.setDescription();
+  }
+  formatAwards(awards?: Goat['awards']) {
+    if (!awards || !awards.length) return '';
+    return this.goatService.getAwards(awards.filter(award => award.awardCode === '*B' || award.awardCode === '*M'));
   }
 }

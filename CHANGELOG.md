@@ -1,3 +1,8 @@
+## 6.0.13-beta.2
+* Even more SEO improvements
+  * Page descriptions are now even more dynamically generated so that they stay between 120 and 160 characters
+  * The change detection algorithm has been updated so that it now will detect changes to either this new description or the user-configured description
+
 ## 6.0.13-beta.1
 * Significantly improved SEO
   * Pages now present and auto-generated summary descriptions IN ADDITION to any configured animal descriptions
