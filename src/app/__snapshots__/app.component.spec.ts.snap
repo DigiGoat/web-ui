@@ -193,7 +193,7 @@ exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
     >
       This Site Was Created and Is Maintained Using 
       <a
-        href="https://github.com/DigiGoat"
+        href="https://digigoat.app"
         target="_blank"
       >
         DigiGoat
@@ -339,7 +339,7 @@ exports[`AppComponent Without a Config should match the snapshot 1`] = `
     >
       This Site Was Created and Is Maintained Using 
       <a
-        href="https://github.com/DigiGoat"
+        href="https://digigoat.app"
         target="_blank"
       >
         DigiGoat

@@ -78,6 +78,7 @@ async function syncDoes() {
         doe.lactationRecords = await getLactations(doe.usdaId, doe.usdaKey);
       } catch (err) {
         console.warn('Error Fetching Lactations:', (err && typeof err === 'object' && 'toJSON' in err && typeof err.toJSON === 'function') ? err.toJSON() : err);
+        log.warn(`Skipping update for ${doe.nickname || doe.name || doe.normalizeId} due to error.`);
         continue;
       }
       const newLactationCount = doe.lactationRecords?.length || 0;
@@ -151,10 +152,11 @@ async function notifyChanges() {
   });
   log.debug('Sending email to', email);
   await transporter.sendMail({
-    from: '"DigiGoat" <digigoat@lilpilchuckcreek.org>',
-    sender: 'digigoat@lilpilchuckcreek.org',
+    from: '"DigiGoat" <digi@digigoat.app>',
+    sender: 'digi@digigoat.app',
     to: email,
-    bcc: 'digigoat@lilpilchuckcreek.org',
+    bcc: 'digi@digigoat.app',
+    replyTo: 'support@digigoat.app',
     subject: `${(config['title'] || config['shortTitle']) ? `[${config['title'] || config['shortTitle']}] ` : ''}Lactation Records Synced`,
     text: changes.join('\n').replace(/<[^>]*>/g, ''), // plain‑text body
     html: changes.join('\n'), // HTML body

@@ -2,8 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import type { Meta } from '@angular/platform-browser';
 import { LongDatePipe } from '../../../pipes/longDate/longDate.pipe';
+import { GoatService } from '../../../services/goat/goat.service';
 import { GoatCardComponent } from './goat-card.component';
 
+jest.mock('../../../services/goat/goat.service');
 describe('GoatCardComponent', () => {
   let component: GoatCardComponent;
   let fixture: ComponentFixture<GoatCardComponent>;
@@ -12,6 +14,7 @@ describe('GoatCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GoatCardComponent, LongDatePipe],
+      providers: [GoatService]
     })
       .compileComponents();
 
@@ -19,9 +22,11 @@ describe('GoatCardComponent', () => {
     component = fixture.componentInstance;
     html = fixture.nativeElement;
     component['meta'] = { addTags: jest.fn(), removeTag: jest.fn() } as unknown as Meta;
+    component['goatService'] = { getAwards: jest.fn(), getAppraisal: jest.fn() } as unknown as GoatService;
   });
 
   it('should create', () => {
+    component.goat = {};
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
@@ -98,7 +103,7 @@ describe('GoatCardComponent', () => {
     });
     it('should set a page description', () => {
       expect(component['meta'].addTags).toHaveBeenCalledTimes(1);
-      expect(component['meta'].addTags).toHaveBeenNthCalledWith(1, [{ content: 'TEST_DESCRIPTION', property: 'og:description' }, { content: 'TEST_DESCRIPTION', name: 'description' }]);
+      expect(component['meta'].addTags).toHaveBeenNthCalledWith(1, [{ content: 'TEST_DESCRIPTION', property: 'og:description' }, { content: 'TEST_NAME (TEST_NICKNAME) is a 1 year old buck. He was born on May 8, 2024. His coloring is: TEST_COLOR_AND_MARKING.', name: 'description' }]);
     });
     it('should display a name', () => {
       const element = html.querySelector('[test-id=name]');

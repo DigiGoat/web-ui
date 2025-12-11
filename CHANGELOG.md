@@ -1,3 +1,23 @@
+## 6.0.13-beta.2
+* Even more SEO improvements
+  * Page descriptions are now even more dynamically generated so that they stay between 120 and 160 characters
+  * The change detection algorithm has been updated so that it now will detect changes to either this new description or the user-configured description
+
+## 6.0.13-beta.1
+* Significantly improved SEO
+  * Pages now present and auto-generated summary descriptions IN ADDITION to any configured animal descriptions
+  * This will significantly improve change detection as it is easier to compare old and new content now
+  * Additionally, this will hopefully help present relevant information in search results since the users descriptions are intended to be seen in the context of the animal
+
+## 6.0.12-beta.1
+* Fixed a bug causing the build and test workflows to not run correctly on pull requests
+
+## 6.0.11-beta.1
+* Updated all the links and emails to use the new DigiGoat domain (`digigoat.app`)
+
+## 6.0.10-beta.2
+* Added some better logging to the deploy workflow to help identify which workflow it is running under (now that in can be "Deploy Website" or "Sync Website")
+
 ## 6.0.10-beta.1
 * Fixed some bugs with the sync workflow
   * Fixed a bug causing it to download an outdated version of the website when deploying
