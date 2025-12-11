@@ -1,3 +1,6 @@
+## 6.0.14-beta.1
+* Fixed a bug causing websites to fail to deploy when using firebase hosting
+
 ## 6.0.13-beta.2
 * Even more SEO improvements
   * Page descriptions are now even more dynamically generated so that they stay between 120 and 160 characters
