@@ -93,32 +93,6 @@ exports[`AppComponent With a Config (v1.0.0) should match the snapshot 1`] = `
               Bucks
             </a>
           </li>
-          <li
-            class="nav-item"
-          >
-            <a
-              aria-current="page"
-              class="nav-link"
-              data-bs-target=".navbar-collapse.show"
-              data-bs-toggle="collapse"
-              routerlinkactive="active"
-            >
-              Handcrafted Goat's Milk Soap
-            </a>
-          </li>
-          <li
-            class="nav-item"
-          >
-            <a
-              aria-current="page"
-              class="nav-link"
-              data-bs-target=".navbar-collapse.show"
-              data-bs-toggle="collapse"
-              routerlinkactive="active"
-            >
-              DigiGoat
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -319,32 +293,6 @@ exports[`AppComponent Without a Config should match the snapshot 1`] = `
               routerlinkactive="active"
             >
               Bucks
-            </a>
-          </li>
-          <li
-            class="nav-item"
-          >
-            <a
-              aria-current="page"
-              class="nav-link"
-              data-bs-target=".navbar-collapse.show"
-              data-bs-toggle="collapse"
-              routerlinkactive="active"
-            >
-              Handcrafted Goat's Milk Soap
-            </a>
-          </li>
-          <li
-            class="nav-item"
-          >
-            <a
-              aria-current="page"
-              class="nav-link"
-              data-bs-target=".navbar-collapse.show"
-              data-bs-toggle="collapse"
-              routerlinkactive="active"
-            >
-              DigiGoat
             </a>
           </li>
         </ul>
