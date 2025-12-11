@@ -232,7 +232,7 @@ jobs:
       if: steps.check_firebase.outputs.enabled == 'true'
       run: |
         REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-        firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions "${{github.workflow}}" ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions '${{github.workflow}}' ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
   notify_changes:
     name: Notify Changes
