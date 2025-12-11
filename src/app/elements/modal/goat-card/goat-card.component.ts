@@ -64,12 +64,13 @@ export class GoatCardComponent implements OnInit, Page {
     } else if (this.nickname) {
       description = `${this.nickname}` + description;
     } else {
-      description = `This ${this.goat.sex === 'Female' ? 'doe' : 'buck'}` + description;
+      description = `this ${this.goat.sex === 'Female' ? 'doe' : 'buck'}` + description;
     }
+    description = `As of ${datePipe.transform(new Date())}, ${description.trim()}`;
     if (this.description) {
       this.meta.addTags([{ property: 'og:description', content: this.htmlToPlainText(this.description) }, { name: 'description', content: description }]);
     } else {
-      this.meta.addTags([{ property: 'og:description', content: description }, { name: 'description', content: description }]);
+      this.meta.addTag({ name: 'description', content: description });
     }
     this.meta.removeTag('name="robots"');
   }

@@ -9,6 +9,7 @@ import type { Observable } from 'rxjs';
 import { ConfigService } from '../../services/config/config.service';
 import { findMatch, type Goat } from '../../services/goat/goat.service';
 import { PlatformService } from '../../services/platform/platform.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class GoatsComponent implements OnInit {
     });
   }
   setDescription() {
-    let description = '';
+    const datePipe = new DatePipe('en-US');
+    let description = `As of ${datePipe.transform(new Date())}, `;
     if (this.configService.title) {
       description += this.configService.title;
       description += ` is currently home to ${this.goats?.length} ${(this.goats?.length === 1 ? this.name.slice(0, -1) : this.name).toLowerCase()}: `;
