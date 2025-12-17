@@ -1,3 +1,6 @@
+## 6.0.16-beta.1
+* Updated license
+
 ## 6.0.15-beta.1
 * Continued SEO improvements
   * The page descriptions are now prefixed with "As of [current date], "
