@@ -24,23 +24,6 @@ const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/asset
 const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
 if (ci) {
   log.info('Applying Settings To Config...');
-  if (settings.url) {
-    if (URL.canParse(settings.url)) {
-      log.debug(`Adding '${settings.url}' to the Config`);
-      config['link'] = new URL(settings.url).toString();
-    } else {
-      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
-      log.warn('↳ Using URL From Config');
-    }
-  } else if (process.argv[2]) {
-    if (URL.canParse(process.argv[2])) {
-      log.debug(`Adding '${process.argv[2]}' to the Config`);
-      config['link'] = new URL(process.argv[2]).toString();
-    } else {
-      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
-      log.warn('↳ Using URL From Config');
-    }
-  }
   if (settings.firebase && (settings.firebase.apiKey && settings.firebase.appId && settings.firebase.messagingSenderId && settings.firebase.projectId)) {
     log.debug('Adding Firebase Config From Settings');
     config['firebase'] = {
@@ -63,6 +46,30 @@ if (ci) {
     } else {
       log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
     }
+  }
+  if (config['firebase'] && typeof config['firebase'] === 'object' && config['firebase']['projectId']) {
+    writeFileSync(join(__dirname, '../.firebaserc'), JSON.stringify({ projects: { default: config['firebase']['projectId'] } }, null, 2));
+  }
+  if (settings.url) {
+    if (URL.canParse(settings.url)) {
+      log.debug(`Adding '${settings.url}' to the Config`);
+      config['link'] = new URL(settings.url).toString();
+    } else {
+      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
+      log.warn('↳ Using URL From Config');
+    }
+  } else if (process.argv[2]) {
+    if (URL.canParse(process.argv[2])) {
+      log.debug(`Adding '${process.argv[2]}' to the Config`);
+      config['link'] = new URL(process.argv[2]).toString();
+    } else {
+      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
+      log.warn('↳ Using URL From Config');
+    }
+  } else if (config['firebase'] && typeof config['firebase'] === 'object' && (config['firebase'] as Record<string, string>)['projectId']) {
+    log.warn('NO URL PROVIDED, USING FIREBASE DEFAULT');
+    const projectId = config['firebase']['projectId'];
+    config['link'] = `https://${projectId}.web.app/`;
   }
   if (settings.analytics) {
     if (typeof config['analytics'] !== 'object') {
