@@ -21,7 +21,7 @@ describe('GoatCardComponent', () => {
     fixture = TestBed.createComponent(GoatCardComponent);
     component = fixture.componentInstance;
     html = fixture.nativeElement;
-    component['meta'] = { addTags: jest.fn(), removeTag: jest.fn() } as unknown as Meta;
+    component['meta'] = { addTag: jest.fn(), addTags: jest.fn(), removeTag: jest.fn() } as unknown as Meta;
     component['goatService'] = { getAwards: jest.fn(), getAppraisal: jest.fn() } as unknown as GoatService;
   });
 
@@ -103,7 +103,7 @@ describe('GoatCardComponent', () => {
     });
     it('should set a page description', () => {
       expect(component['meta'].addTags).toHaveBeenCalledTimes(1);
-      expect(component['meta'].addTags).toHaveBeenNthCalledWith(1, [{ content: 'TEST_DESCRIPTION', property: 'og:description' }, { content: 'TEST_NAME (TEST_NICKNAME) is a 1 year old buck. He was born on May 8, 2024. His coloring is: TEST_COLOR_AND_MARKING.', name: 'description' }]);
+      expect(component['meta'].addTags).toHaveBeenNthCalledWith(1, [{ content: 'TEST_DESCRIPTION', property: 'og:description' }, { content: expect.stringMatching(/^As of [A-Z][a-z]{2} \d{1,2}, \d{4}, TEST_NAME \(TEST_NICKNAME\) is a 1 year old buck\. He was born on May 8, 2024\. His coloring is: TEST_COLOR_AND_MARKING\.$/), name: 'description' }]);
     });
     it('should display a name', () => {
       const element = html.querySelector('[test-id=name]');
