@@ -1,3 +1,13 @@
+## 7.0.0-beta.3
+* Blacklisted 404 rewrite pages in robot.txt
+* Several behind-the-scenes improvements to the deploy process
+  * Firebase now supports projects with id's different from the repository name
+  * Added default url if hosting with firebase and no url is provided
+
+## 7.0.0-beta.2
+* Removed the use of the `PAGE_URL` variable in favor of only using the firebase config in `settings.json`
+  * This simplifies the configuration process 
+
 ## 7.0.0-beta.1
 * Parameters that only need to be edited by DigiGoat are now located in their own file
   * This means that when Digi has to do some work on your site, there won't be any conflicts with your work

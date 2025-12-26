@@ -110,7 +110,6 @@ jobs:
 
       - name: Check if Pages are enabled
         id: check_pages
-        if: ${{!vars.PAGE_URL}}
         run: |
             if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
               echo "enabled=false" >> $GITHUB_OUTPUT
@@ -129,13 +128,13 @@ jobs:
         run: yarn install
 
       - name: Check URL
-        if: ${{ !vars.PAGE_URL && !steps.pages.outputs.base_url }}
+        if: ${{ !steps.pages.outputs.base_url }}
         run: |
-          echo "::warning:: No URL provided, using default URL"
+          echo "::warning:: No URL provided, hopefully it is in the settings.json file"
 
       - name: Build Project
         id: build
-        run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
+        run: yarn deploy ${{  steps.pages.outputs.base_url }}
         timeout-minutes: 10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -214,8 +213,7 @@ jobs:
     - name: Check if Firebase is configured
       id: check_firebase
       run: |
-        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-        if ! firebase hosting:sites:list --project "$REPO_NAME"; then
+        if ! firebase hosting:sites:list; then
           echo "\n"
           echo "::warning:: Firebase isn't configured, skipping deployment"
           echo "enabled=false" >> $GITHUB_OUTPUT
@@ -231,8 +229,7 @@ jobs:
     - name: Deploy to Firebase
       if: steps.check_firebase.outputs.enabled == 'true'
       run: |
-        REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
-        firebase deploy --project "$REPO_NAME" -m "Deployed via GitHub Actions '${{github.workflow}}' ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        firebase deploy -m "Deployed via GitHub Actions '${{github.workflow}}' ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
   notify_changes:
     name: Notify Changes
