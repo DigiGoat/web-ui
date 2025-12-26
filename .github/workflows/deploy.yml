@@ -110,7 +110,6 @@ jobs:
 
       - name: Check if Pages are enabled
         id: check_pages
-        if: ${{!vars.PAGE_URL}}
         run: |
             if ! gh api /repos/$GITHUB_REPOSITORY/pages; then
               echo "enabled=false" >> $GITHUB_OUTPUT
@@ -129,13 +128,13 @@ jobs:
         run: yarn install
 
       - name: Check URL
-        if: ${{ !vars.PAGE_URL && !steps.pages.outputs.base_url }}
+        if: ${{ !steps.pages.outputs.base_url }}
         run: |
-          echo "::warning:: No URL provided, using default URL"
+          echo "::warning:: No URL provided, hopefully it is in the settings.json file"
 
       - name: Build Project
         id: build
-        run: yarn deploy ${{  vars.PAGE_URL || steps.pages.outputs.base_url }}
+        run: yarn deploy ${{  steps.pages.outputs.base_url }}
         timeout-minutes: 10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
