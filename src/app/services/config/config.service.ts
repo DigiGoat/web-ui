@@ -130,3 +130,19 @@ type ColorScheme = {
 };
 type Socials = { facebook?: string, instagram?: string, threads?: string; };
 type Firebase = { apiKey?: string, authDomain?: string, projectId?: string, storageBucket?: string, messagingSenderId?: string, appId?: string; };
+
+export type Settings = Partial<{
+  analytics: Partial<{
+    gtag: string;
+    clarity: string;
+  }>;
+  firebase: Partial<{
+    apiKey: string,
+    authDomain: string,
+    projectId: string,
+    storageBucket: string,
+    messagingSenderId: string;
+    appId: string;
+  }>;
+  url: string;
+}>;

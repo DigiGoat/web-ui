@@ -1,3 +1,15 @@
+## 7.0.0-beta.1
+* Parameters that only need to be edited by DigiGoat are now located in their own file
+  * This means that when Digi has to do some work on your site, there won't be any conflicts with your work
+
+## 6.0.16-beta.1
+* Updated license
+
+## 6.0.15-beta.1
+* Continued SEO improvements
+  * The page descriptions are now prefixed with "As of [current date], "
+  * This will help identify outdated content in search results
+
 ## 6.0.14-beta.1
 * Fixed a bug causing websites to fail to deploy when using firebase hosting
 

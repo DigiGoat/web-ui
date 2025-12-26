@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import type { Settings } from '../src/app/services/config/config.service';
 import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 
 const ci = !!process.env['CI'];
@@ -19,32 +20,68 @@ const log = {
 };
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
+const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/settings.json'), 'utf-8'));
 const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
-if (process.argv[2]) {
-  if (URL.canParse(process.argv[2])) {
-    log.debug(`Adding '${process.argv[2]}' to the Config`);
-    config['link'] = new URL(process.argv[2]).toString();
-  } else {
-    log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
-    log.warn('↳ Using URL From Config');
-
+if (ci) {
+  log.info('Applying Settings To Config...');
+  if (settings.url) {
+    if (URL.canParse(settings.url)) {
+      log.debug(`Adding '${settings.url}' to the Config`);
+      config['link'] = new URL(settings.url).toString();
+    } else {
+      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
+      log.warn('↳ Using URL From Config');
+    }
+  } else if (process.argv[2]) {
+    if (URL.canParse(process.argv[2])) {
+      log.debug(`Adding '${process.argv[2]}' to the Config`);
+      config['link'] = new URL(process.argv[2]).toString();
+    } else {
+      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
+      log.warn('↳ Using URL From Config');
+    }
   }
-}
-if (config['firebase'] && ci) {
-  log.debug('Adding Firebase Config');
-  const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
-  if (repoName) {
-    const firebaseConfig = config['firebase'] as Record<string, string>;
-    firebaseConfig['projectId'] = repoName;
-    firebaseConfig['authDomain'] = `${repoName}.firebaseapp.com`;
-    firebaseConfig['storageBucket'] = `${repoName}.firebasestorage.app`;
-    log.debug(`Set Firebase Project ID to '${repoName}'`);
-  } else {
-    log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
+  if (settings.firebase && (settings.firebase.apiKey && settings.firebase.appId && settings.firebase.messagingSenderId && settings.firebase.projectId)) {
+    log.debug('Adding Firebase Config From Settings');
+    config['firebase'] = {
+      apiKey: settings.firebase.apiKey,
+      authDomain: settings.firebase.authDomain || `${settings.firebase.projectId}.firebaseapp.com`,
+      projectId: settings.firebase.projectId,
+      storageBucket: settings.firebase.storageBucket || `${settings.firebase.projectId}.firebasestorage.app`,
+      messagingSenderId: settings.firebase.messagingSenderId,
+      appId: settings.firebase.appId,
+    };
+  } else if (config['firebase']) {
+    log.debug('Adding Firebase Config');
+    const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
+    if (repoName) {
+      const firebaseConfig = config['firebase'] as Record<string, string>;
+      firebaseConfig['projectId'] = repoName;
+      firebaseConfig['authDomain'] = `${repoName}.firebaseapp.com`;
+      firebaseConfig['storageBucket'] = `${repoName}.firebasestorage.app`;
+      log.debug(`Set Firebase Project ID to '${repoName}'`);
+    } else {
+      log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
+    }
   }
+  if (settings.analytics) {
+    if (typeof config['analytics'] !== 'object') {
+      config['analytics'] = {};
+    }
+    if (settings.analytics.gtag) {
+      log.debug('Adding Google Analytics Config From Settings');
+      config['analytics']['gtag'] = settings.analytics.gtag;
+    }
+    if (settings.analytics.clarity) {
+      log.debug('Adding Microsoft Clarity Config From Settings');
+      config['analytics']['clarity'] = settings.analytics.clarity;
+    }
+  }
+  log.debug('Writing Updated Config');
+  writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config));
+} else {
+  log.warn('Skipping Settings Application Due To Local Run');
 }
-log.debug('Writing Updated Config');
-writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
 
 const url = config['link'] ? new URL(config['link'] as string) : undefined;
 function route() {

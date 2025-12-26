@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { ConfigService } from './services/config/config.service';
 import { ConfigServiceMock, EmptyConfigServiceMock } from './services/config/config.service.mock';
+import type { CustomPagesService } from './services/custom-pages/custom-pages.service';
 
 jest.mock('./services/config/config.service');
 describe('AppComponent', () => {
@@ -19,6 +20,7 @@ describe('AppComponent', () => {
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    component['customPageService'] = { getPages: jest.fn().mockReturnValue([]) } as unknown as CustomPagesService;
     html = fixture.nativeElement;
   });
 
