@@ -430,8 +430,12 @@ function robots(link?: string) {
   writeFileSync(join(__dirname, '../dist/web-ui/browser/robots.txt'),
     `# Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
 User-agent: *
-Disallow:${link ? `
-Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.xml` : ''}`);
+Disallow: /does/Doe-Not-Found
+Disallow: /bucks/Buck-Not-Found
+Disallow: /references/Reference-No-Found
+Disallow: /for-sale/Goat-Not-Found
+Disallow: /kidding-schedule/Kidding-Goat
+${link ? `Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.xml` : ''}`);
 }
 function manifest() {
   let icons = true;
