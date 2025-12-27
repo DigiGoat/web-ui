@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import type { Page } from '../../app-routing.module';
 import { ConfigService } from '../../services/config/config.service';
 import { findMatch, GoatService, type Goat, type Kidding } from '../../services/goat/goat.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-kidding-schedule',
@@ -29,7 +30,8 @@ export class KiddingScheduleComponent implements OnInit, Page {
 
   constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
   setDescription() {
-    let description = '';
+    const datePipe = new DatePipe('en-US');
+    let description = `As of ${datePipe.transform(new Date())}, `;
     if (this.configService.title) {
       description += this.configService.title;
       description += ` Currently Has ${this.schedule?.length} Kiddings Scheduled`;

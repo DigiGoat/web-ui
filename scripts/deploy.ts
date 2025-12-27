@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import { execSync } from 'child_process';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import type { Settings } from '../src/app/services/config/config.service';
 import type { Goat, Kidding } from '../src/app/services/goat/goat.service';
 
 const ci = !!process.env['CI'];
@@ -19,31 +20,75 @@ const log = {
 };
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
-if (process.argv[2]) {
-  if (URL.canParse(process.argv[2])) {
-    log.debug(`Adding '${process.argv[2]}' to the Config`);
-    config['link'] = new URL(process.argv[2]).toString();
-  } else {
-    log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
-    log.warn('↳ Using URL From Config');
-
+const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/settings.json'), 'utf-8'));
+const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
+if (ci) {
+  log.info('Applying Settings To Config...');
+  if (settings.firebase && (settings.firebase.apiKey && settings.firebase.appId && settings.firebase.messagingSenderId && settings.firebase.projectId)) {
+    log.debug('Adding Firebase Config From Settings');
+    config['firebase'] = {
+      apiKey: settings.firebase.apiKey,
+      authDomain: settings.firebase.authDomain || `${settings.firebase.projectId}.firebaseapp.com`,
+      projectId: settings.firebase.projectId,
+      storageBucket: settings.firebase.storageBucket || `${settings.firebase.projectId}.firebasestorage.app`,
+      messagingSenderId: settings.firebase.messagingSenderId,
+      appId: settings.firebase.appId,
+    };
+  } else if (config['firebase']) {
+    log.debug('Adding Firebase Config');
+    const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
+    if (repoName) {
+      const firebaseConfig = config['firebase'] as Record<string, string>;
+      firebaseConfig['projectId'] = repoName;
+      firebaseConfig['authDomain'] = `${repoName}.firebaseapp.com`;
+      firebaseConfig['storageBucket'] = `${repoName}.firebasestorage.app`;
+      log.debug(`Set Firebase Project ID to '${repoName}'`);
+    } else {
+      log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
+    }
   }
-}
-if (config['firebase'] && ci) {
-  log.debug('Adding Firebase Config');
-  const repoName = process.env['GITHUB_REPOSITORY']?.split('/')[1]?.toLowerCase();
-  if (repoName) {
-    const firebaseConfig = config['firebase'] as Record<string, string>;
-    firebaseConfig['projectId'] = repoName;
-    firebaseConfig['authDomain'] = `${repoName}.firebaseapp.com`;
-    firebaseConfig['storageBucket'] = `${repoName}.firebasestorage.app`;
-    log.debug(`Set Firebase Project ID to '${repoName}'`);
-  } else {
-    log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
+  if (config['firebase'] && typeof config['firebase'] === 'object' && config['firebase']['projectId']) {
+    writeFileSync(join(__dirname, '../.firebaserc'), JSON.stringify({ projects: { default: config['firebase']['projectId'] } }, null, 2));
   }
+  if (settings.url) {
+    if (URL.canParse(settings.url)) {
+      log.debug(`Adding '${settings.url}' to the Config`);
+      config['link'] = new URL(settings.url).toString();
+    } else {
+      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
+      log.warn('↳ Using URL From Config');
+    }
+  } else if (process.argv[2]) {
+    if (URL.canParse(process.argv[2])) {
+      log.debug(`Adding '${process.argv[2]}' to the Config`);
+      config['link'] = new URL(process.argv[2]).toString();
+    } else {
+      log.error('ARGUMENT PROVIDED IS NOT A VALID URL');
+      log.warn('↳ Using URL From Config');
+    }
+  } else if (config['firebase'] && typeof config['firebase'] === 'object' && (config['firebase'] as Record<string, string>)['projectId']) {
+    log.warn('NO URL PROVIDED, USING FIREBASE DEFAULT');
+    const projectId = config['firebase']['projectId'];
+    config['link'] = `https://${projectId}.web.app/`;
+  }
+  if (settings.analytics) {
+    if (typeof config['analytics'] !== 'object') {
+      config['analytics'] = {};
+    }
+    if (settings.analytics.gtag) {
+      log.debug('Adding Google Analytics Config From Settings');
+      config['analytics']['gtag'] = settings.analytics.gtag;
+    }
+    if (settings.analytics.clarity) {
+      log.debug('Adding Microsoft Clarity Config From Settings');
+      config['analytics']['clarity'] = settings.analytics.clarity;
+    }
+  }
+  log.debug('Writing Updated Config');
+  writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config));
+} else {
+  log.warn('Skipping Settings Application Due To Local Run');
 }
-log.debug('Writing Updated Config');
-writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config, null, 2));
 
 const url = config['link'] ? new URL(config['link'] as string) : undefined;
 function route() {
@@ -95,6 +140,14 @@ function route() {
   if (config['kiddingSchedule']) {
     log.debug('Writing Kidding Schedule Goat Card');
     routes.push('/kidding-schedule/Kidding-Goat');
+  }
+  if (customPages.length) {
+    log.debug('Writing Custom Page Routes');
+    customPages.forEach(page => {
+      const route = `/${page.title.replace(/ /g, '-').replace(/[^a-zA-Z0-9-]/g, '')}`;
+      log.debug(`Adding Custom Page Route '${route}'`);
+      routes.push(route);
+    });
   }
   log.debug('Writing Routes');
   writeFileSync(join(__dirname, '../routes.txt'), routes.join('\n'));
@@ -180,6 +233,16 @@ async function setupMarkdown() {
     }
     writeFileSync(join(__dirname, '../src/assets/resources/for-sale.json'), JSON.stringify(forSale));
   }
+  if (customPages.length) {
+    log.debug('Rendering Markdown For Custom Pages');
+    for (const page of customPages) {
+      if (page.content) {
+        log.debug(`Rendering Markdown For Custom Page ${page.title}`);
+        page.content = await renderMarkdown(page.content);
+      }
+    }
+    writeFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), JSON.stringify(customPages));
+  }
 }
 function build() {
   log.debug('Compiling Project');
@@ -247,6 +310,7 @@ async function sitemap(link: string) {
 
     let oldTitle: string | null = null;
     let oldMetaDescription: string | null = null;
+    let oldOGMetaDescription: string | null = null;
     let usedArtifact = false;
 
     if (existsSync(prevPagePath)) {
@@ -254,8 +318,10 @@ async function sitemap(link: string) {
       const prevPageContent = readFileSync(prevPagePath, 'utf-8');
       const oldTitleMatch = prevPageContent.match(/<title>(.*?)<\/title>/);
       const oldMetaDescriptionMatch = prevPageContent.match(/<meta name="description" content="(.*?)"/);
+      const oldOGMetaDescriptionMatch = prevPageContent.match(/<meta property="og:description" content="(.*?)"/);
       oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
       oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+      oldOGMetaDescription = oldOGMetaDescriptionMatch ? oldOGMetaDescriptionMatch[1] : null;
       usedArtifact = true;
     } else {
       log.warn(`Previous deploy file not found for page: ${page}, falling back to HTTP fetch.`);
@@ -264,8 +330,10 @@ async function sitemap(link: string) {
         const response = await axios.get(fullPageUrl);
         const oldTitleMatch = response.data.match(/<title>(.*?)<\/title>/);
         const oldMetaDescriptionMatch = response.data.match(/<meta name="description" content="(.*?)"/);
+        const oldOGMetaDescriptionMatch = response.data.match(/<meta property="og:description" content="(.*?)"/);
         oldTitle = oldTitleMatch ? oldTitleMatch[1] : null;
         oldMetaDescription = oldMetaDescriptionMatch ? oldMetaDescriptionMatch[1] : null;
+        oldOGMetaDescription = oldOGMetaDescriptionMatch ? oldOGMetaDescriptionMatch[1] : null;
       } catch (error) {
         log.error(`Failed to fetch or parse page ${fullPageUrl} With Error:`, error);
         log.warn('↳ Generating New Sitemap Entry');
@@ -279,18 +347,23 @@ async function sitemap(link: string) {
     const newPageContent = readFileSync(newPagePath, 'utf-8');
     const newTitleMatch = newPageContent.match(/<title>(.*?)<\/title>/);
     const newMetaDescriptionMatch = newPageContent.match(/<meta name="description" content="(.*?)"/);
+    const newOGMetaDescriptionMatch = newPageContent.match(/<meta property="og:description" content="(.*?)"/);
     const ogImageMatches = newPageContent.matchAll(/<meta property="og:image" content="(.+?)"/g);
 
     const newTitle = newTitleMatch ? newTitleMatch[1] : null;
     const newMetaDescription = newMetaDescriptionMatch ? newMetaDescriptionMatch[1] : null;
+    const newOGMetaDescription = newOGMetaDescriptionMatch ? newOGMetaDescriptionMatch[1] : null;
     const ogImages = Array.from(ogImageMatches).map(match => match[1]);
     imageSitemap[page] = ogImages;
 
-    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription) {
+    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription && oldOGMetaDescription === newOGMetaDescription) {
       log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = oldSitemap[page] || new Date().toISOString();
     } else {
       log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
+      log.debug(oldTitle !== newTitle ? `- Title changed from '${oldTitle}' to '${newTitle}'` : '- Title unchanged');
+      log.debug(oldMetaDescription !== newMetaDescription ? `- Meta description changed from '${oldMetaDescription}' to '${newMetaDescription}'` : '- Meta description unchanged');
+      log.debug(oldOGMetaDescription !== newOGMetaDescription ? `- OG meta description changed from '${oldOGMetaDescription}' to '${newOGMetaDescription}'` : '- OG meta description unchanged');
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
     }
@@ -364,8 +437,12 @@ function robots(link?: string) {
   writeFileSync(join(__dirname, '../dist/web-ui/browser/robots.txt'),
     `# Allow all URLs (see https://www.robotstxt.org/robotstxt.html)
 User-agent: *
-Disallow:${link ? `
-Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.xml` : ''}`);
+Disallow: /does/Doe-Not-Found
+Disallow: /bucks/Buck-Not-Found
+Disallow: /references/Reference-No-Found
+Disallow: /for-sale/Goat-Not-Found
+Disallow: /kidding-schedule/Kidding-Goat
+${link ? `Sitemap: ${link.endsWith('/') ? link.slice(0, -1) : link}/sitemap.xml` : ''}`);
 }
 function manifest() {
   let icons = true;
@@ -375,6 +452,7 @@ function manifest() {
     icons = false;
     mkdirSync(join(__dirname, '../dist/web-ui/browser/assets/icons/'), { recursive: true });
   }
+  const config = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
   log.debug('Writing Manifest');
   writeFileSync(join(__dirname, '../dist/web-ui/browser/assets/icons/site.webmanifest'), JSON.stringify({
     background_color: typeof config['colors'] == 'object' ? config['colors']['main'] : 'hsl(230, 100%, 10%)',
@@ -392,9 +470,9 @@ function manifest() {
         type: 'image/png'
       }
     ] : [],
-    name: config['homeTitle'],
+    name: config['title'] || config['homeTitle'] || config['menubarTitle'],
     scope: url ? (url.toString().endsWith('/') ? url.toString() : url.toString() + '/') : undefined,
-    short_name: config['tabTitle'],
+    short_name: config['shortTitle'] || config['tabTitle'],
     shortcuts: [
       {
         name: 'Home',

@@ -2,10 +2,12 @@ import { NgModule, type OnInit } from '@angular/core';
 import { TitleStrategy as NgTitleStrategy, Route, RouterModule } from '@angular/router';
 
 import type { Observable } from 'rxjs';
+import { customPageGuard } from './guards/custom-page/custom-page.guard';
 import { forSaleGuard } from './guards/for-sale/for-sale.guard';
 import { kiddingScheduleGuard } from './guards/kidding-schedule/kidding-schedule.guard';
 import { referencesGuard } from './guards/references/references.guard';
 import { BucksComponent } from './pages/bucks/bucks.component';
+import { CustomPageComponent } from './pages/custom-page/custom-page.component';
 import { DoesComponent } from './pages/does/does.component';
 import { ForSaleComponent } from './pages/for-sale/for-sale.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -44,6 +46,9 @@ const routes: Route[] = [
       { path: '', component: ForSaleComponent, title: 'For Sale' },
       { path: ':goat', component: ForSaleComponent, title: ':goat - For Sale' }
     ]
+  },
+  {
+    path: ':customPage', canMatch: [customPageGuard], component: CustomPageComponent, title: ':customPage'
   },
   {
     path: '**', component: NotFoundComponent, title: 'Not Found'

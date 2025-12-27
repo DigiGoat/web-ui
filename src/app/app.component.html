@@ -35,6 +35,10 @@
           <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/for-sale" data-bs-toggle="collapse"
             data-bs-target=".navbar-collapse.show">For Sale</a>
         </li>
+        <li class="nav-item" *ngFor="let page of customPages">
+          <a class="nav-link" routerLinkActive="active" aria-current="page" [routerLink]="['/', page.url]" data-bs-toggle="collapse"
+            data-bs-target=".navbar-collapse.show">{{page.title}}</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -78,8 +82,8 @@
       </a>
     </div>
   </div><br>
-  <div class="container  text-center" style="min-height: 5vh;">This Site Was Created and Is Maintained Using <a
-      href="https://github.com/DigiGoat" target="_blank">DigiGoat</a>
+  <div class="container  text-center" style="min-height: 5vh;">This Site Was Created and Is Maintained Using <a href="https://digigoat.app"
+      target="_blank">DigiGoat</a>
   </div>
   <br>
 </footer>

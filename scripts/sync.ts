@@ -21,51 +21,47 @@ const log = {
   notice: (...message: unknown[]): void => console.log(ci ? '::notice::' : '', chalk.cyanBright(...message)),
 };
 async function getLactations(usdaId: string, animalKey: string | number) {
-  try {
-    const lactations = await cdcb.getAnimalLactations(usdaId, animalKey);
-    // Run all per-lactation requests in parallel, preserving order
-    const records: LactationRecord[] = await Promise.all(
-      lactations.map(async (lactation) => {
-        const lactationTests = await cdcb.getLactationsTestDate(usdaId, animalKey, lactation.calvPdate, lactation.herdCode);
-        const stats: LactationRecord['stats'] = { milk: {}, butterfat: {}, protein: {} };
-        for (const stat of lactationTests.lactationStds) {
-          if (stat.typeName === 'Actual') {
-            stats.milk!.projected = stat.mlk;
-            stats.butterfat!.projected = stat.fat;
-            stats.protein!.projected = stat.pro;
-          } else if (stat.typeName === 'Standard') {
-            stats.milk!.achieved = stat.mlk;
-            stats.butterfat!.achieved = stat.fat;
-            stats.protein!.achieved = stat.pro;
-          }
+  const lactations = await cdcb.getAnimalLactations(usdaId, animalKey);
+  // Run all per-lactation requests in parallel, preserving order
+  const records: LactationRecord[] = await Promise.all(
+    lactations.map(async (lactation) => {
+      const lactationTests = await cdcb.getLactationsTestDate(usdaId, animalKey, lactation.calvPdate, lactation.herdCode);
+      const stats: LactationRecord['stats'] = { milk: {}, butterfat: {}, protein: {} };
+      for (const stat of lactationTests.lactationStds) {
+        if (stat.typeName === 'Actual') {
+          stats.milk!.projected = stat.mlk;
+          stats.butterfat!.projected = stat.fat;
+          stats.protein!.projected = stat.pro;
+        } else if (stat.typeName === 'Standard') {
+          stats.milk!.achieved = stat.mlk;
+          stats.butterfat!.achieved = stat.fat;
+          stats.protein!.achieved = stat.pro;
         }
-        const tests: LactationRecord['tests'] = [];
-        for (const test of lactationTests.testDates) {
-          tests.push({
-            testNumber: test.testNo,
-            testDate: test.testDate,
-            milk: test.milk,
-            butterfatPct: test.fatPct,
-            proteinPct: test.proPct,
-            daysInMilk: test.dim,
-          });
-        }
-        const record: LactationRecord = {
-          startDate: lactation.freshDate,
-          isCurrent: lactation.lt === LactationType.IN_PROGRESS,
-          lactationNumber: lactation.lactNum,
-          daysInMilk: lactation.dim,
-          stats: stats,
-          tests: tests,
-        };
-        return record;
-      })
-    );
-    // CDCB returns lactations in reverse order, so reverse to match original unshift logic
-    return records.reverse();
-  } catch (err) {
-    console.warn('Error Fetching Lactations:', err);
-  }
+      }
+      const tests: LactationRecord['tests'] = [];
+      for (const test of lactationTests.testDates) {
+        tests.push({
+          testNumber: test.testNo,
+          testDate: test.testDate,
+          milk: test.milk,
+          butterfatPct: test.fatPct,
+          proteinPct: test.proPct,
+          daysInMilk: test.dim,
+        });
+      }
+      const record: LactationRecord = {
+        startDate: lactation.freshDate,
+        isCurrent: lactation.lt === LactationType.IN_PROGRESS,
+        lactationNumber: lactation.lactNum,
+        daysInMilk: lactation.dim,
+        stats: stats,
+        tests: tests,
+      };
+      return record;
+    })
+  );
+  // CDCB returns lactations in reverse order, so reverse to match original unshift logic
+  return records.reverse();
 }
 
 const changes: string[] = [`<h1 style="text-align: center;">Lactation Records Updated${(config['title'] || config['shortTitle']) ? ` For ${config['title'] || config['shortTitle']}` : ''}</h1>`];
@@ -78,7 +74,13 @@ async function syncDoes() {
       const lactationCount = doe.lactationRecords?.length || 0;
       const testCount = doe.lactationRecords?.find(lactation => lactation.isCurrent)?.tests?.length || 0;
       log.debug(`${doe.nickname || doe.name || doe.normalizeId} currently has ${lactationCount} lactation records with ${testCount} tests for her current lactation`);
-      doe.lactationRecords = await getLactations(doe.usdaId, doe.usdaKey);
+      try {
+        doe.lactationRecords = await getLactations(doe.usdaId, doe.usdaKey);
+      } catch (err) {
+        console.warn('Error Fetching Lactations:', (err && typeof err === 'object' && 'toJSON' in err && typeof err.toJSON === 'function') ? err.toJSON() : err);
+        log.warn(`Skipping update for ${doe.nickname || doe.name || doe.normalizeId} due to error.`);
+        continue;
+      }
       const newLactationCount = doe.lactationRecords?.length || 0;
       const newTestCount = doe.lactationRecords?.find(lactation => lactation.isCurrent)?.tests?.length || 0;
       log.debug(`${doe.nickname || doe.name || doe.normalizeId} now has ${newLactationCount} lactation records with ${newTestCount} tests for her current lactation`);
@@ -150,10 +152,11 @@ async function notifyChanges() {
   });
   log.debug('Sending email to', email);
   await transporter.sendMail({
-    from: '"DigiGoat" <digigoat@lilpilchuckcreek.org>',
-    sender: 'digigoat@lilpilchuckcreek.org',
+    from: '"DigiGoat" <digi@digigoat.app>',
+    sender: 'digi@digigoat.app',
     to: email,
-    bcc: 'digigoat@lilpilchuckcreek.org',
+    bcc: 'digi@digigoat.app',
+    replyTo: 'support@digigoat.app',
     subject: `${(config['title'] || config['shortTitle']) ? `[${config['title'] || config['shortTitle']}] ` : ''}Lactation Records Synced`,
     text: changes.join('\n').replace(/<[^>]*>/g, ''), // plain‑text body
     html: changes.join('\n'), // HTML body

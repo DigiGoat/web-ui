@@ -1,3 +1,112 @@
+## 7.0.0-beta.3
+* Blacklisted 404 rewrite pages in robot.txt
+* Several behind-the-scenes improvements to the deploy process
+  * Firebase now supports projects with id's different from the repository name
+  * Added default url if hosting with firebase and no url is provided
+
+## 7.0.0-beta.2
+* Removed the use of the `PAGE_URL` variable in favor of only using the firebase config in `settings.json`
+  * This simplifies the configuration process 
+
+## 7.0.0-beta.1
+* Parameters that only need to be edited by DigiGoat are now located in their own file
+  * This means that when Digi has to do some work on your site, there won't be any conflicts with your work
+
+## 6.0.16-beta.1
+* Updated license
+
+## 6.0.15-beta.1
+* Continued SEO improvements
+  * The page descriptions are now prefixed with "As of [current date], "
+  * This will help identify outdated content in search results
+
+## 6.0.14-beta.1
+* Fixed a bug causing websites to fail to deploy when using firebase hosting
+
+## 6.0.13-beta.2
+* Even more SEO improvements
+  * Page descriptions are now even more dynamically generated so that they stay between 120 and 160 characters
+  * The change detection algorithm has been updated so that it now will detect changes to either this new description or the user-configured description
+
+## 6.0.13-beta.1
+* Significantly improved SEO
+  * Pages now present and auto-generated summary descriptions IN ADDITION to any configured animal descriptions
+  * This will significantly improve change detection as it is easier to compare old and new content now
+  * Additionally, this will hopefully help present relevant information in search results since the users descriptions are intended to be seen in the context of the animal
+
+## 6.0.12-beta.1
+* Fixed a bug causing the build and test workflows to not run correctly on pull requests
+
+## 6.0.11-beta.1
+* Updated all the links and emails to use the new DigiGoat domain (`digigoat.app`)
+
+## 6.0.10-beta.2
+* Added some better logging to the deploy workflow to help identify which workflow it is running under (now that in can be "Deploy Website" or "Sync Website")
+
+## 6.0.10-beta.1
+* Fixed some bugs with the sync workflow
+  * Fixed a bug causing it to download an outdated version of the website when deploying
+  * Fixed a bug with the workflow not comparing against the correct last deploy if the last deploy was triggered by the sync workflow
+  * Fixed a bug causing the the sync script to delete lactation data if CDCB is down
+
+## 6.0.9-beta.1
+* Fixed the webmanifest
+
+## 6.0.8-beta.1
+* Changed the background color of the body to the secondary color scheme.
+  * This now matches the header and footer when scrolling beyond the viewport height.
+
+
+## 6.0.7-beta.5
+* Now that the sync workflow is successfully running, fixing the deploy workflow over-running from it
+
+## 6.0.7-beta.4
+* Fixed the bug with the sync workflow not deploying
+
+## 6.0.7-beta.3
+* Fixed a bigger bug implemented in `6.0.7-beta.2`
+
+## 6.0.7-beta.2
+* Still trying to fix that bug
+
+## 6.0.7-beta.1
+* Attempting to fix a bug that causes the sync workflow not to deploy
+
+## 6.0.6-beta.1
+* Fixed a bug causing firebase to block Microsoft Clarity from loading due to an incorrect Content Security Policy
+* Fixed the default colors for light mode
+
+## 6.0.5-beta.1
+* Updated the deploy workflow so that if it is triggered by the sync workflow, it will only deploy if there were changes committed during the sync or during the build process
+  * This prevents unnecessary deploys when there are no changes to the website
+
+## 6.0.4-beta.1
+* Updated bootstrap from `5.3.3` to `5.3.8`
+  * This is a library used for fonts and styles
+
+## 6.0.3-beta.2
+* Fixed a bug causing the website not to deploy after a sync when using firebase
+
+## 6.0.3-beta.1
+* Improved website syncing
+  * The deploy workflow will no longer auto-disable after 60 days of inactivity
+
+## 6.0.2-beta.2
+* Fixed a bug causing custom pages not to render if navigating from one to another (it was staying on the first page's content)
+
+## 6.0.2-beta.1
+* Some back-end improvements to custom pages
+
+## 6.0.1-beta.1
+* Fixed a bug causing the sync workflow not to run
+
+## 6.0.0-beta.1
+* Added custom pages!
+  * These are pages that can be whatever you'd like them to be!
+
+## 5.6.7-beta.1
+* Improved how lists are displayed
+
 ## 5.6.6-beta.7
 * bcc'd digigoat@lilpilchuckcreek.org on email notifications
 
