@@ -24,6 +24,10 @@ const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/asset
 const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
 if (ci) {
   log.info('Applying Settings To Config...');
+  if (process.env['GITHUB_OUTPUT'] && settings.firebase?.projectId) {
+    log.notice('Firebase Project Configured');
+    writeFileSync(process.env['GITHUB_OUTPUT'], `firebase_project=${settings.firebase.projectId}\n`, { flag: 'a' });
+  }
   if (settings.firebase && (settings.firebase.apiKey && settings.firebase.appId && settings.firebase.messagingSenderId && settings.firebase.projectId)) {
     log.debug('Adding Firebase Config From Settings');
     config['firebase'] = {
@@ -46,9 +50,6 @@ if (ci) {
     } else {
       log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
     }
-  }
-  if (config['firebase'] && typeof config['firebase'] === 'object' && config['firebase']['projectId']) {
-    writeFileSync(join(__dirname, '../.firebaserc'), JSON.stringify({ projects: { default: config['firebase']['projectId'] } }, null, 2));
   }
   if (settings.url) {
     if (URL.canParse(settings.url)) {
