@@ -46,6 +46,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: endsWith(github.repository, 'web-ui') != true
     outputs:
       changes: ${{ steps.build.outputs.changes }}
       indexnow_curl: ${{ steps.build.outputs.indexnow_curl }}
