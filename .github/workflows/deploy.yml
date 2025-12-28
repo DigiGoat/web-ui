@@ -46,9 +46,11 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    if: endsWith(github.repository, 'web-ui') != true
     outputs:
       changes: ${{ steps.build.outputs.changes }}
       indexnow_curl: ${{ steps.build.outputs.indexnow_curl }}
+      firebase_project: ${{ steps.build.outputs.firebase_project }}
 
     steps:
       - name: Checkout
@@ -188,7 +190,7 @@ jobs:
     name: Deploy to Firebase
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ needs.build.outputs.changes == 'true' || !inputs.workflow_call || inputs.changes }}
+    if: ${{ needs.build.outputs.firebase_project && (needs.build.outputs.changes == 'true' || !inputs.workflow_call || inputs.changes) }}
     env:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
@@ -198,7 +200,6 @@ jobs:
       with:
         sparse-checkout: |
           firebase.json
-          .firebaserc
           .nvmrc
         sparse-checkout-cone-mode: false
 
@@ -210,10 +211,10 @@ jobs:
     - name: Install Firebase
       run: npm install -g firebase-tools@^14.3.1
 
-    - name: Check if Firebase is configured
+    - name: Check if Firebase is configured for this project
       id: check_firebase
       run: |
-        if ! firebase hosting:sites:list; then
+        if ! firebase --project ${{ needs.build.outputs.firebase_project }} hosting:sites:list; then
           echo "\n"
           echo "::warning:: Firebase isn't configured, skipping deployment"
           echo "enabled=false" >> $GITHUB_OUTPUT
@@ -229,7 +230,7 @@ jobs:
     - name: Deploy to Firebase
       if: steps.check_firebase.outputs.enabled == 'true'
       run: |
-        firebase deploy -m "Deployed via GitHub Actions '${{github.workflow}}' ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        firebase --project ${{ needs.build.outputs.firebase_project }} deploy -m "Deployed via GitHub Actions '${{github.workflow}}' ${{github.event_name}} Run #${{ github.run_number }} - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
   notify_changes:
     name: Notify Changes
