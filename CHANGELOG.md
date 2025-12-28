@@ -1,3 +1,6 @@
+## 7.0.1-beta.1
+* Deleted and accidentally committed file that caused releases to publish to https://lilpilchuckcreek.org/
+
 ## 7.0.0-beta.3
 * Blacklisted 404 rewrite pages in robot.txt
 * Several behind-the-scenes improvements to the deploy process

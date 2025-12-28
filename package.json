@@ -1,6 +1,6 @@
 {
   "name": "web-ui",
-  "version": "7.0.0-beta.3",
+  "version": "7.0.1-beta.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4000",
@@ -54,6 +54,7 @@
     "@types/jest": "^29.5.12",
     "@types/marked": "^6.0.0",
     "@types/node": "20",
+    "@types/nodemailer": "^7.0.4",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
