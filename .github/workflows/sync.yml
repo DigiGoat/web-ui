@@ -30,6 +30,7 @@ env:
 jobs:
   sync:
     name: Sync
+    if: endsWith(github.repository, 'web-ui') != true
     runs-on: ubuntu-latest
     outputs:
       changes: ${{ steps.commit.outputs.changes }}

@@ -24,6 +24,10 @@ const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/asset
 const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
 if (ci) {
   log.info('Applying Settings To Config...');
+  if (process.env['GITHUB_OUTPUT'] && settings.firebase?.projectId) {
+    log.notice('Firebase Project Configured');
+    writeFileSync(process.env['GITHUB_OUTPUT'], `firebase_project=${settings.firebase.projectId}\n`, { flag: 'a' });
+  }
   if (settings.firebase && (settings.firebase.apiKey && settings.firebase.appId && settings.firebase.messagingSenderId && settings.firebase.projectId)) {
     log.debug('Adding Firebase Config From Settings');
     config['firebase'] = {
@@ -46,9 +50,6 @@ if (ci) {
     } else {
       log.error('Failed to determine Firebase Project ID from GITHUB_REPOSITORY');
     }
-  }
-  if (config['firebase'] && typeof config['firebase'] === 'object' && config['firebase']['projectId']) {
-    writeFileSync(join(__dirname, '../.firebaserc'), JSON.stringify({ projects: { default: config['firebase']['projectId'] } }, null, 2));
   }
   if (settings.url) {
     if (URL.canParse(settings.url)) {
@@ -267,12 +268,13 @@ function format404() {
 async function sitemap(link: string) {
   const sitemap: string[] = [];
   const rootDir = join(__dirname, '../dist/web-ui/browser');
+  const previousDeploySitemapPath = join(__dirname, '../previous-deploy/browser/sitemap.json');
 
   function scanDirectory(directory: string) {
     const items = readdirSync(directory);
     items.forEach(item => {
       const fullPath = join(directory, item);
-      if (lstatSync(fullPath).isDirectory()) {
+      if (lstatSync(fullPath).isDirectory() && !item.includes('Not-Found') && !item.includes('Kidding-Goat')) {
         scanDirectory(fullPath);
       } else if (item === 'index.html') {
         const sitemapEntry = fullPath.replace(rootDir, '').replace('index.html', '');
@@ -283,15 +285,41 @@ async function sitemap(link: string) {
   }
 
   scanDirectory(rootDir);
-  log.debug('Fetching Old Sitemap');
+  log.debug('Loading Old Sitemap');
   let oldSitemap: Record<string, string> = {};
-  try {
-    const response = await axios.get(`${link}/sitemap.json`);
-    oldSitemap = response.data;
-  } catch (error) {
-    log.error('Failed to fetch old sitemap:', error);
-    log.warn('↳ Generating New Sitemap');
+  let usedArtifact = false;
+  if (existsSync(previousDeploySitemapPath)) {
+    try {
+      log.debug(`Reading previous deploy sitemap from: ${previousDeploySitemapPath}`);
+      const previousDeploySitemapContent = readFileSync(previousDeploySitemapPath, 'utf-8');
+      const parsed = JSON.parse(previousDeploySitemapContent) as unknown;
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        oldSitemap = parsed as Record<string, string>;
+        usedArtifact = true;
+      } else {
+        log.warn('Previous deploy sitemap.json is not an object, falling back to HTTP fetch.');
+      }
+    } catch (error) {
+      log.warn('Failed to read/parse previous deploy sitemap.json, falling back to HTTP fetch.');
+      log.debug(error);
+    }
   }
+  if (!usedArtifact) {
+    try {
+      log.debug(`Fetching old sitemap from: ${link}/sitemap.json`);
+      const response = await axios.get(`${link}/sitemap.json`);
+      const data = response.data as unknown;
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
+        oldSitemap = data as Record<string, string>;
+      } else {
+        log.warn('Fetched sitemap.json is not an object; treating as empty and generating a new sitemap.');
+      }
+    } catch (error) {
+      log.error('Failed to fetch old sitemap:', error);
+      log.warn('↳ Generating New Sitemap');
+    }
+  }
+  log.debug(`Old sitemap source: ${usedArtifact ? 'artifact' : 'http'}`);
   log.debug('Writing sitemap.json');
 
   const newSitemap: Record<string, string> = {};

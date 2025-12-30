@@ -1,3 +1,10 @@
+## 7.0.2-beta.2
+* Fixed a bug causing websites not to deploy when using firebase hosting
+
+## 7.0.2-beta.1
+* Updated the deploy script to use the cached sitemap if possible to prevent what happened in `7.0.0` from having a lasting impact in the future
+* Blacklisted the 404 rewrite pages in the sitemap to prevent it from being indexed by search engines
+
 ## 7.0.1-beta.1
 * Deleted and accidentally committed file that caused releases to publish to https://lilpilchuckcreek.org/
 
