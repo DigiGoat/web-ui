@@ -50,7 +50,7 @@ async function getLactations(usdaId: string, animalKey: string | number) {
       }
       const record: LactationRecord = {
         startDate: lactation.freshDate,
-        isCurrent: lactation.lt === LactationType.IN_PROGRESS,
+        isCurrent: lactation.lt === LactationType.IN_PROGRESS && !lactations.find(_lactation => _lactation.lactNum > lactation.lactNum),
         lactationNumber: lactation.lactNum,
         daysInMilk: lactation.dim,
         stats: stats,
