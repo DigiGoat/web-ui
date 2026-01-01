@@ -109,7 +109,7 @@ describe('TitleStrategy', () => {
   describe('Analytics', () => {
     const gtag = jest.fn();
     beforeEach(() => {
-      (window as unknown as { gtag: jest.Mock; }).gtag = gtag;
+      (window as unknown as { gtag: jest.Mock }).gtag = gtag;
     });
     it('Should send page views if gtag is configured', () => {
       strategy.updateTitle({ url: 'TEST_URL', root: { children: [] } } as unknown as RouterStateSnapshot);
@@ -117,7 +117,7 @@ describe('TitleStrategy', () => {
       expect(gtag).toHaveBeenCalledWith('event', 'page_view', { page_path: 'TEST_URL' });
     });
     it('Should not send page views if gtag is unconfigured', () => {
-      delete (window as unknown as { gtag?: jest.Mock; }).gtag;
+      delete (window as unknown as { gtag?: jest.Mock }).gtag;
       strategy.updateTitle({ url: 'TEST_URL', root: { children: [] } } as unknown as RouterStateSnapshot);
       expect(gtag).toHaveBeenCalledTimes(0);
     });

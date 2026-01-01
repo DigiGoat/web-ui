@@ -384,13 +384,34 @@ async function sitemap(link: string) {
     const ogImages = Array.from(ogImageMatches).map(match => match[1]);
     imageSitemap[page] = ogImages;
 
-    if (oldTitle === newTitle && oldMetaDescription === newMetaDescription && oldOGMetaDescription === newOGMetaDescription) {
+    const normalizeDescriptionForCompare = (description: string | null): string | null => {
+      if (!description) {
+        return description;
+      }
+      // Many pages start with: "As of MONTH, YEAR, ..." so search results show freshness.
+      // For change detection, ignore that prefix if present so it doesn't constantly bump lastmod.
+      // Heuristic: if the string begins with "As of" and has at least 2 commas, compare only after the 2nd comma.
+      if (!description.toLowerCase().startsWith('as of')) {
+        return description;
+      }
+      const firstComma = description.indexOf(',');
+      if (firstComma === -1) {
+        return description;
+      }
+      const secondComma = description.indexOf(',', firstComma + 1);
+      if (secondComma === -1) {
+        return description;
+      }
+      return description.slice(secondComma + 1).trimStart();
+    };
+
+    if (oldTitle === newTitle && normalizeDescriptionForCompare(oldMetaDescription) === normalizeDescriptionForCompare(newMetaDescription) && oldOGMetaDescription === newOGMetaDescription) {
       log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = oldSitemap[page] || new Date().toISOString();
     } else {
       log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       log.debug(oldTitle !== newTitle ? `- Title changed from '${oldTitle}' to '${newTitle}'` : '- Title unchanged');
-      log.debug(oldMetaDescription !== newMetaDescription ? `- Meta description changed from '${oldMetaDescription}' to '${newMetaDescription}'` : '- Meta description unchanged');
+      log.debug(normalizeDescriptionForCompare(oldMetaDescription) !== normalizeDescriptionForCompare(newMetaDescription) ? `- Meta description changed from '${normalizeDescriptionForCompare(oldMetaDescription)}' to '${normalizeDescriptionForCompare(newMetaDescription)}'` : '- Meta description unchanged');
       log.debug(oldOGMetaDescription !== newOGMetaDescription ? `- OG meta description changed from '${oldOGMetaDescription}' to '${newOGMetaDescription}'` : '- OG meta description unchanged');
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
@@ -446,7 +467,7 @@ async function indexNow(pages: string[], link: string) {
           '-H', '"Content-Type: application/json"',
           '-d', `'${JSON.stringify(body)}'`,
           `"${apiUrl}"`
-        ].join(' ');
+        ].join(' ').replace(/'/g, '\\\''); // Escape single quotes inside the JSON body
         writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${curlCmd}\n`, { flag: 'a' });
         log.debug('Wrote curl command for IndexNow to GITHUB_OUTPUT');
       } else {

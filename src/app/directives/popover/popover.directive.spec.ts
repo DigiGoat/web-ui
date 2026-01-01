@@ -10,7 +10,7 @@ describe('PopoverDirective', () => {
   let nativeElement: HTMLElement;
 
   beforeEach(() => {
-    (window as unknown as { bootstrap: object; }).bootstrap = bootstrap;
+    (window as unknown as { bootstrap: object }).bootstrap = bootstrap;
     nativeElement = document.createElement('div');
     el = { nativeElement } as ElementRef<HTMLElement>;
     const platform = { isBrowser: true };

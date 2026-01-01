@@ -258,12 +258,12 @@ export type Goat = Partial<{
   dateOfBirth: string;
   dateOfDeath: string | null;
   colorAndMarking: string;
-  animalTattoo: { tattoo?: string; tattooLocation?: { name?: string; }; }[];
+  animalTattoo: { tattoo?: string; tattooLocation?: { name?: string } }[];
   id: number;
   sex: 'Female' | 'Male';
   damId: number;
   sireId: number;
-  ownerAccount: { displayName?: string; };
+  ownerAccount: { displayName?: string };
   linearAppraisals: Partial<{
     lactationNumber: number;
     appraisalDate: string;
