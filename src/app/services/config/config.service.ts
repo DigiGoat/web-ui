@@ -114,7 +114,7 @@ export class ConfigService {
   }
 }
 
-type Analytics = { gtag?: string, clarity?: string; };
+type Analytics = { gtag?: string; clarity?: string };
 type ColorScheme = {
   background?: 'wood';
   main?: string;
@@ -128,8 +128,8 @@ type ColorScheme = {
     quaternary?: string;
   };
 };
-type Socials = { facebook?: string, instagram?: string, threads?: string; };
-type Firebase = { apiKey?: string, authDomain?: string, projectId?: string, storageBucket?: string, messagingSenderId?: string, appId?: string; };
+type Socials = { facebook?: string; instagram?: string; threads?: string };
+type Firebase = { apiKey?: string; authDomain?: string; projectId?: string; storageBucket?: string; messagingSenderId?: string; appId?: string };
 
 export type Settings = Partial<{
   analytics: Partial<{
@@ -137,10 +137,10 @@ export type Settings = Partial<{
     clarity: string;
   }>;
   firebase: Partial<{
-    apiKey: string,
-    authDomain: string,
-    projectId: string,
-    storageBucket: string,
+    apiKey: string;
+    authDomain: string;
+    projectId: string;
+    storageBucket: string;
     messagingSenderId: string;
     appId: string;
   }>;

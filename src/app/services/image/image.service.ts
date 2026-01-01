@@ -50,6 +50,6 @@ type ImageMap = {
   [directory: string]: ImageEntry[];
 };
 export type ImageEntry = {
-  file: string,
+  file: string;
   alt?: string;
 };

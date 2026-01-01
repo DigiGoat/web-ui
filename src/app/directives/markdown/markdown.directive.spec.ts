@@ -9,10 +9,10 @@ describe('MarkdownDirective', () => {
   let directive: MarkdownDirective;
   let el: ElementRef<HTMLElement>;
   let platformService: jest.Mocked<PlatformService>;
-  let httpMock: { post: jest.Mock; };
+  let httpMock: { post: jest.Mock };
 
   beforeEach(() => {
-    (window as unknown as { bootstrap: object; }).bootstrap = bootstrap;
+    (window as unknown as { bootstrap: object }).bootstrap = bootstrap;
 
     const platformServiceMock = {
       isDev: false,
