@@ -12,7 +12,7 @@ describe('ModalComponent', () => {
   let html: HTMLElement;
 
   beforeEach(async () => {
-    (window as unknown as { bootstrap: object; }).bootstrap = bootstrap;
+    (window as unknown as { bootstrap: object }).bootstrap = bootstrap;
     await TestBed.configureTestingModule({
       declarations: [ModalComponent],
       providers: [ActivatedRoute]

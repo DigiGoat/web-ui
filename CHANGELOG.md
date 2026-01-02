@@ -1,3 +1,12 @@
+## 7.0.4-beta.1
+* Fixed a bug causing goats to not be updated
+  * This was due to the files containing the information to be cached by the browser
+
+## 7.0.3-beta.1
+* Rolled over current lactation fix from client-app
+* Fixed a bug causing the deploy workflow to mark a page as having changes when it didn't
+* Fixed a bug causing indexnow to fail if a goat's name contained `'`'s
+
 ## 7.0.2-beta.2
 * Fixed a bug causing websites not to deploy when using firebase hosting
 

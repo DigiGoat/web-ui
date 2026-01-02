@@ -29,7 +29,8 @@
           "warn",
           "single"
         ],
-        "@angular-eslint/prefer-standalone": "off"
+        "@angular-eslint/prefer-standalone": "off",
+        "@typescript-eslint/member-delimiter-style": "warn"
       }
     },
     {
@@ -58,7 +59,9 @@
         "quotes": [
           "warn",
           "single"
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off",
+        "@typescript-eslint/member-delimiter-style": "warn"
       }
     },
     {

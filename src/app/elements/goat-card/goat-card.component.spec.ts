@@ -59,14 +59,14 @@ describe('GoatCardComponent', () => {
       expect(element).toBeFalsy();
     });
     it('should have an image', () => {
-      const element = html.querySelector('[test-id="goat-image"]') as HTMLImageElement & { ngSrc: string; };
+      const element = html.querySelector('[test-id="goat-image"]') as HTMLImageElement & { ngSrc: string };
       expect(element).toBeTruthy();
       expect(element.ngSrc).toBe('./assets/images/TEST_NICKNAME/TEST_IMAGE_FILE');
       expect(element.width).toBe(400);
       expect(element.height).toBe(250);
     });
     it('should have a link', () => {
-      const element = html.querySelector('[test-id="goat-link"]') as HTMLAnchorElement & { routerLink: string; };
+      const element = html.querySelector('[test-id="goat-link"]') as HTMLAnchorElement & { routerLink: string };
       expect(element).toBeTruthy();
       expect(element.routerLink).toBe('TEST_NICKNAME');
     });
@@ -111,14 +111,14 @@ describe('GoatCardComponent', () => {
       expect(element).toBeFalsy();
     });
     it('should have an image', () => {
-      const element = html.querySelector('[test-id="goat-image"]') as HTMLImageElement & { ngSrc: string; };
+      const element = html.querySelector('[test-id="goat-image"]') as HTMLImageElement & { ngSrc: string };
       expect(element).toBeTruthy();
       expect(element.ngSrc).toBe('/');
       expect(element.width).toBe(400);
       expect(element.height).toBe(250);
     });
     it('should have a link', () => {
-      const element = html.querySelector('[test-id="goat-link"]') as HTMLAnchorElement & { routerLink: string; };
+      const element = html.querySelector('[test-id="goat-link"]') as HTMLAnchorElement & { routerLink: string };
       expect(element).toBeFalsy();
     });
     it('should have a name', () => {

@@ -63,8 +63,8 @@ describe('AnalyticsComponent', () => {
     describe('In the Browser', () => {
       beforeEach(() => {
         component['platformService'] = { isServer: false, isBrowser: true, isDev: false } as PlatformService;
-        (window as unknown as { clarity: object; }).clarity = clarity;
-        (window as unknown as { gtag: object; }).gtag = gtag;
+        (window as unknown as { clarity: object }).clarity = clarity;
+        (window as unknown as { gtag: object }).gtag = gtag;
       });
       it('should configure clarity', () => {
         fixture.detectChanges();
@@ -84,8 +84,8 @@ describe('AnalyticsComponent', () => {
   describe('Without a config', () => {
     beforeEach(() => {
       component['config'] = EmptyConfigServiceMock;
-      delete (window as unknown as { clarity?: object; }).clarity;
-      delete (window as unknown as { gtag?: object; }).gtag;
+      delete (window as unknown as { clarity?: object }).clarity;
+      delete (window as unknown as { gtag?: object }).gtag;
       fixture.detectChanges();
     });
     describe('On the server', () => {
