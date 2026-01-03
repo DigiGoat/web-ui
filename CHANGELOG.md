@@ -1,3 +1,6 @@
+## 7.0.5-beta.1
+* Fixed a new bug instroduced in `7.0.3-beta.1` causing the deploy workflow to not notify IndexNow of changes
+
 ## 7.0.4-beta.1
 * Fixed a bug causing goats to not be updated
   * This was due to the files containing the information to be cached by the browser
