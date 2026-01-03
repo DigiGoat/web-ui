@@ -405,14 +405,14 @@ async function sitemap(link: string) {
       return description.slice(secondComma + 1).trimStart();
     };
 
-    if (oldTitle === newTitle && normalizeDescriptionForCompare(oldMetaDescription) === normalizeDescriptionForCompare(newMetaDescription) && oldOGMetaDescription === newOGMetaDescription) {
+    if (oldTitle === newTitle && normalizeDescriptionForCompare(oldMetaDescription) === normalizeDescriptionForCompare(newMetaDescription) && normalizeDescriptionForCompare(oldOGMetaDescription) === normalizeDescriptionForCompare(newOGMetaDescription)) {
       log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = oldSitemap[page] || new Date().toISOString();
     } else {
       log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       log.debug(oldTitle !== newTitle ? `- Title changed from '${oldTitle}' to '${newTitle}'` : '- Title unchanged');
       log.debug(normalizeDescriptionForCompare(oldMetaDescription) !== normalizeDescriptionForCompare(newMetaDescription) ? `- Meta description changed from '${normalizeDescriptionForCompare(oldMetaDescription)}' to '${normalizeDescriptionForCompare(newMetaDescription)}'` : '- Meta description unchanged');
-      log.debug(oldOGMetaDescription !== newOGMetaDescription ? `- OG meta description changed from '${oldOGMetaDescription}' to '${newOGMetaDescription}'` : '- OG meta description unchanged');
+      log.debug(normalizeDescriptionForCompare(oldOGMetaDescription) !== normalizeDescriptionForCompare(newOGMetaDescription) ? `- OG meta description changed from '${normalizeDescriptionForCompare(oldOGMetaDescription)}' to '${normalizeDescriptionForCompare(newOGMetaDescription)}'` : '- OG meta description unchanged');
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
     }
