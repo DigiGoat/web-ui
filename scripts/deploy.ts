@@ -444,8 +444,6 @@ async function sitemap(link: string) {
 }
 
 async function indexNow(pages: string[], link: string) {
-  const apiUrl = 'https://api.indexnow.org/indexnow';
-
   const urls = pages.map(page => `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`);
   const key = '89236caf22c246bab06048c2994304af';
   const body = {
@@ -461,14 +459,7 @@ async function indexNow(pages: string[], link: string) {
     if (ci) {
       // Instead of executing, output the curl command for a later job
       if (process.env['GITHUB_OUTPUT']) {
-        const curlCmd = [
-          //'curl', - will be present in the job
-          '-X', 'POST',
-          '-H', '"Content-Type: application/json"',
-          '-d', `'${JSON.stringify(body)}'`,
-          `"${apiUrl}"`
-        ].join(' ').replace(/'/g, '\\\''); // Escape single quotes inside the JSON body
-        writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${curlCmd}\n`, { flag: 'a' });
+        writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${JSON.stringify(body).replace(/"/g, '\\"')}\n`, { flag: 'a' });
         log.debug('Wrote curl command for IndexNow to GITHUB_OUTPUT');
       } else {
         log.error('GITHUB_OUTPUT not set, cannot output curl command');

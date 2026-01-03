@@ -242,4 +242,5 @@ jobs:
     if: needs.build.outputs.changes == 'true'
     steps:
       - name: Notify Changes
-        run: curl ${{ needs.build.outputs.indexnow_curl }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d "${{ needs.build.outputs.indexnow_curl }}" "https://api.indexnow.org/indexnow"
