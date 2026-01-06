@@ -21,7 +21,7 @@ const log = {
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
 const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/settings.json'), 'utf-8'));
-const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
+const customPages: { title: string; content: string }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
 if (ci) {
   log.info('Applying Settings To Config...');
   if (process.env['GITHUB_OUTPUT'] && settings.firebase?.projectId) {
@@ -89,6 +89,15 @@ if (ci) {
   writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config));
 } else {
   log.warn('Skipping Settings Application Due To Local Run');
+}
+if (process.env['GITHUB_OUTPUT']) {
+  if (settings.internationalImages) {
+    log.warn('International Images Enabled');
+    writeFileSync(process.env['GITHUB_OUTPUT'], 'international_images=true\n', { flag: 'a' });
+  } else {
+    log.notice('International Images Disabled');
+    writeFileSync(process.env['GITHUB_OUTPUT'], 'international_images=false\n', { flag: 'a' });
+  }
 }
 
 const url = config['link'] ? new URL(config['link'] as string) : undefined;

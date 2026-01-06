@@ -1,3 +1,6 @@
+## 7.1.0-beta.1
+* Added the ability to restrict images to only be viewed in the US
+
 ## 7.0.5-beta.2
 * Completed the change detection fix started in `7.0.3-beta.1`
   * The OG description is now also compared properly when detecting changes to a page  
