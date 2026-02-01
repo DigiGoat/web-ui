@@ -51,6 +51,7 @@ jobs:
       changes: ${{ steps.build.outputs.changes }}
       indexnow_curl: ${{ steps.build.outputs.indexnow_curl }}
       firebase_project: ${{ steps.build.outputs.firebase_project }}
+      international_images: ${{ steps.build.outputs.international_images }}
 
     steps:
       - name: Checkout
@@ -221,12 +222,21 @@ jobs:
         else
           echo "enabled=true" >> $GITHUB_OUTPUT
         fi
+
     - name: Download website
       if: steps.check_firebase.outputs.enabled == 'true'
       uses: actions/download-artifact@v4
       with:
         name: website
         path: ./dist/web-ui/browser
+
+    - name: Restrict Images to the United States
+      if: steps.check_firebase.outputs.enabled == 'true' && needs.build.outputs.international_images != 'true'
+      run: |
+        echo "Applying image restrictions to United States only"
+        mkdir -p ./dist/web-ui/browser/ALL_us/assets
+        mv ./dist/web-ui/browser/assets/images ./dist/web-ui/browser/ALL_us/assets/
+
     - name: Deploy to Firebase
       if: steps.check_firebase.outputs.enabled == 'true'
       run: |
@@ -242,4 +252,5 @@ jobs:
     if: needs.build.outputs.changes == 'true'
     steps:
       - name: Notify Changes
-        run: curl ${{ needs.build.outputs.indexnow_curl }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d "${{ needs.build.outputs.indexnow_curl }}" "https://api.indexnow.org/indexnow"

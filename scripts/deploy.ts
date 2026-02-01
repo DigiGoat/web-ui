@@ -21,7 +21,7 @@ const log = {
 
 const config: Record<string, string | Record<string, string | Record<string, string>>> = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/config.json'), 'utf-8'));
 const settings: Settings = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/settings.json'), 'utf-8'));
-const customPages: { title: string; content: string; }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
+const customPages: { title: string; content: string }[] = JSON.parse(readFileSync(join(__dirname, '../src/assets/resources/custom-pages.json'), 'utf-8'));
 if (ci) {
   log.info('Applying Settings To Config...');
   if (process.env['GITHUB_OUTPUT'] && settings.firebase?.projectId) {
@@ -89,6 +89,15 @@ if (ci) {
   writeFileSync(join(__dirname, '../src/assets/resources/config.json'), JSON.stringify(config));
 } else {
   log.warn('Skipping Settings Application Due To Local Run');
+}
+if (process.env['GITHUB_OUTPUT']) {
+  if (settings.internationalImages) {
+    log.warn('International Images Enabled');
+    writeFileSync(process.env['GITHUB_OUTPUT'], 'international_images=true\n', { flag: 'a' });
+  } else {
+    log.notice('International Images Disabled');
+    writeFileSync(process.env['GITHUB_OUTPUT'], 'international_images=false\n', { flag: 'a' });
+  }
 }
 
 const url = config['link'] ? new URL(config['link'] as string) : undefined;
@@ -405,14 +414,14 @@ async function sitemap(link: string) {
       return description.slice(secondComma + 1).trimStart();
     };
 
-    if (oldTitle === newTitle && normalizeDescriptionForCompare(oldMetaDescription) === normalizeDescriptionForCompare(newMetaDescription) && oldOGMetaDescription === newOGMetaDescription) {
+    if (oldTitle === newTitle && normalizeDescriptionForCompare(oldMetaDescription) === normalizeDescriptionForCompare(newMetaDescription) && normalizeDescriptionForCompare(oldOGMetaDescription) === normalizeDescriptionForCompare(newOGMetaDescription)) {
       log.debug(`No changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       newSitemap[page] = oldSitemap[page] || new Date().toISOString();
     } else {
       log.debug(`Changes detected for page: ${page} (${usedArtifact ? 'artifact' : 'http'})`);
       log.debug(oldTitle !== newTitle ? `- Title changed from '${oldTitle}' to '${newTitle}'` : '- Title unchanged');
       log.debug(normalizeDescriptionForCompare(oldMetaDescription) !== normalizeDescriptionForCompare(newMetaDescription) ? `- Meta description changed from '${normalizeDescriptionForCompare(oldMetaDescription)}' to '${normalizeDescriptionForCompare(newMetaDescription)}'` : '- Meta description unchanged');
-      log.debug(oldOGMetaDescription !== newOGMetaDescription ? `- OG meta description changed from '${oldOGMetaDescription}' to '${newOGMetaDescription}'` : '- OG meta description unchanged');
+      log.debug(normalizeDescriptionForCompare(oldOGMetaDescription) !== normalizeDescriptionForCompare(newOGMetaDescription) ? `- OG meta description changed from '${normalizeDescriptionForCompare(oldOGMetaDescription)}' to '${normalizeDescriptionForCompare(newOGMetaDescription)}'` : '- OG meta description unchanged');
       newSitemap[page] = new Date().toISOString();
       changedPages.push(page);
     }
@@ -444,8 +453,6 @@ async function sitemap(link: string) {
 }
 
 async function indexNow(pages: string[], link: string) {
-  const apiUrl = 'https://api.indexnow.org/indexnow';
-
   const urls = pages.map(page => `${link.endsWith('/') ? link.slice(0, -1) : link}${page}`);
   const key = '89236caf22c246bab06048c2994304af';
   const body = {
@@ -461,14 +468,7 @@ async function indexNow(pages: string[], link: string) {
     if (ci) {
       // Instead of executing, output the curl command for a later job
       if (process.env['GITHUB_OUTPUT']) {
-        const curlCmd = [
-          //'curl', - will be present in the job
-          '-X', 'POST',
-          '-H', '"Content-Type: application/json"',
-          '-d', `'${JSON.stringify(body)}'`,
-          `"${apiUrl}"`
-        ].join(' ').replace(/'/g, '\\\''); // Escape single quotes inside the JSON body
-        writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${curlCmd}\n`, { flag: 'a' });
+        writeFileSync(process.env['GITHUB_OUTPUT'], `indexnow_curl=${JSON.stringify(body).replace(/"/g, '\\"')}\n`, { flag: 'a' });
         log.debug('Wrote curl command for IndexNow to GITHUB_OUTPUT');
       } else {
         log.error('GITHUB_OUTPUT not set, cannot output curl command');

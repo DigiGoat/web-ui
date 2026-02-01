@@ -145,4 +145,5 @@ export type Settings = Partial<{
     appId: string;
   }>;
   url: string;
+  internationalImages: boolean;
 }>;

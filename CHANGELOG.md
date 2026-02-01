@@ -1,3 +1,13 @@
+## 7.1.0-beta.1
+* Added the ability to restrict images to only be viewed in the US
+
+## 7.0.5-beta.2
+* Completed the change detection fix started in `7.0.3-beta.1`
+  * The OG description is now also compared properly when detecting changes to a page  
+
+## 7.0.5-beta.1
+* Fixed a new bug instroduced in `7.0.3-beta.1` causing the deploy workflow to not notify IndexNow of changes
+
 ## 7.0.4-beta.1
 * Fixed a bug causing goats to not be updated
   * This was due to the files containing the information to be cached by the browser
