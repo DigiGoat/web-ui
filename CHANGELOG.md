@@ -1,3 +1,7 @@
+## 7.2.1-beta.1
+* Fixed a bug that arose for digigoat.app causing deploys to fail
+  * This occurred if the previous deploy artifact had expired
+
 ## 7.2.0-beta.2
 * Fixed a bug causing the contact form to not load
 
