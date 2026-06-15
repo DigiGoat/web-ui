@@ -6,15 +6,10 @@
     "start": "ng serve --port 4000",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test -w 6",
-    "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
-    "test:watch": "ng test --watch",
-    "test:file": "yarn test -u --test-path-pattern",
     "serve:ssr": "node dist/web-ui/server/server.mjs",
     "deploy": "ts-node ./scripts/deploy.ts",
     "lint": "ng lint",
     "pull-check": "ts-node ./scripts/check.ts",
-    "test-script": "ts-node ./scripts/test.ts",
     "release": "ts-node ./scripts/release.ts",
     "fix-version": "ts-node ./scripts/version.ts",
     "sync": "ts-node ./scripts/sync.ts"
@@ -40,7 +35,6 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-builders/jest": "^19.0.0",
     "@angular-eslint/builder": "19.0.2",
     "@angular-eslint/eslint-plugin": "19.0.2",
     "@angular-eslint/eslint-plugin-template": "19.0.2",
@@ -51,7 +45,6 @@
     "@angular/compiler-cli": "^19.0.6",
     "@types/bootstrap": "^5.2.10",
     "@types/express": "^4.17.17",
-    "@types/jest": "^29.5.12",
     "@types/marked": "^6.0.0",
     "@types/node": "20",
     "@types/nodemailer": "^7.0.4",
@@ -62,23 +55,12 @@
     "axios": "^1.6.8",
     "chalk": "4",
     "eslint": "^8.57.0",
-    "jest": "^29.7.0",
-    "jest-junit": "^16.0.0",
     "marked": "^15.0.11",
     "nodemailer": "^7.0.6",
     "semver": "^7.6.2",
     "simple-git": "^3.24.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.6.3"
-  },
-  "jest-junit": {
-    "outputDirectory": "reports",
-    "outputName": "jest-junit.xml",
-    "ancestorSeparator": " › ",
-    "uniqueOutputName": "false",
-    "suiteNameTemplate": "{filepath}",
-    "classNameTemplate": "{classname}",
-    "titleTemplate": "{title}"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || ^22.0.0"
