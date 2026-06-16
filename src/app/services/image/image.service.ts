@@ -9,7 +9,6 @@ import imageMap from '../../../assets/images/map.json';
 export class ImageService {
   private imageMap: ImageMap = imageMap;
 
-  constructor() { }
   getImage(searchQueries: (string | undefined)[]) {
     const key = Object.keys(this.imageMap).find(directory => searchQueries.includes(directory));
     if (key && this.imageMap[key].length) {

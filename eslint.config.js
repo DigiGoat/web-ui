@@ -30,6 +30,7 @@ module.exports = defineConfig([
         "single"
       ],
       "@angular-eslint/prefer-standalone": "off",
+      "@angular-eslint/prefer-on-push-component-change-detection": "off",
     },
   },
   {
