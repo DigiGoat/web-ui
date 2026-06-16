@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration, withNoIncrementalHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -73,7 +73,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
     AppRoutingModule
   ],
   providers: [
-    provideClientHydration(),
+    provideClientHydration(withNoIncrementalHydration()),
     provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]

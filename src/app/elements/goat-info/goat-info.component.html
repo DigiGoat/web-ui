@@ -1,229 +1,289 @@
 <div class="text-center mt-4">
-  <div class="container border rounded-4 desktop-grid" *ngIf="goat.damId || goat.sireId">
-    <div class="row row-cols-2 border-bottom">
-      <span class="col border-end border-3 fw-bolder">Dam:</span>
-      <span class="col fw-bolder">Sire:</span>
-    </div>
-    <div class="row row-cols-2 border-bottom border-3" *ngIf="dam || sire">
-      <span class="col border-end border-3" bs-popover popover-title="{{dam?.name}}"
-        [popover-content]="getPopoverContent(dam)">{{dam?.name}}
-        <div>{{formatAwards(dam?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(dam?.linearAppraisals)}}</div>
-      </span>
-      <span class="col" bs-popover popover-title="{{sire?.name}}" [popover-content]="getPopoverContent(sire)">{{sire?.name}}
-        <div>{{formatAwards(sire?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sire?.linearAppraisals)}}</div>
-      </span>
-    </div>
-    <div class="row row-cols-2 border-bottom border-3" *ngIf="!dam && !sire">
-      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
-      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
-    </div>
-    <div class="row row-cols-4 border-bottom">
-      <span class="col fw-bolder border-end border-3">Dam's Dam:</span>
-      <span class="col fw-bolder border-end border-5">Dam's Sire:</span>
-      <span class="col fw-bolder border-end border-3">Sire's Dam:</span>
-      <span class="col fw-bolder ">Sire's Sire:</span>
-    </div>
-    <div class="row row-cols-4" *ngIf="damDam || damSire || sireDam || sireSire">
-      <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
-        [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
-        <div>{{formatAwards(damDam?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
-      </span>
-      <span class="col border-end border-5" bs-popover popover-title="{{damSire?.name}}"
-        [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
-        <div>{{formatAwards(damSire?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damSire?.linearAppraisals)}}</div>
-      </span>
-      <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
-        [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
-        <div>{{formatAwards(sireDam?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireDam?.linearAppraisals)}}</div>
-      </span>
-      <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
-        <div>{{formatAwards(sireSire?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireSire?.linearAppraisals)}}</div>
-      </span>
-    </div>
-    <div class="row row-cols-4" *ngIf="!damDam && !damSire && !sireDam && !sireSire">
-      <span class="col border-end border-3 placeholder-wave placeholder">lorem <br><small>ipsum</small>
-      </span>
-      <span class="col border-end border-5 placeholder-wave placeholder">lorem <br><small>ipsum</small>
+  @if (goat.damId || goat.sireId) {
+    <div class="container border rounded-4 desktop-grid">
+      <div class="row row-cols-2 border-bottom">
+        <span class="col border-end border-3 fw-bolder">Dam:</span>
+        <span class="col fw-bolder">Sire:</span>
+      </div>
+      @if (dam || sire) {
+        <div class="row row-cols-2 border-bottom border-3">
+          <span class="col border-end border-3" bs-popover popover-title="{{dam?.name}}"
+            [popover-content]="getPopoverContent(dam)">{{dam?.name}}
+            <div>{{formatAwards($safeNavigationMigration(dam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(dam?.linearAppraisals))}}</div>
+          </span>
+          <span class="col" bs-popover popover-title="{{sire?.name}}" [popover-content]="getPopoverContent(sire)">{{sire?.name}}
+            <div>{{formatAwards($safeNavigationMigration(sire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sire?.linearAppraisals))}}</div>
+          </span>
+        </div>
+      }
+      @if (!dam && !sire) {
+        <div class="row row-cols-2 border-bottom border-3">
+          <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+          <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+        </div>
+      }
+      <div class="row row-cols-4 border-bottom">
+        <span class="col fw-bolder border-end border-3">Dam's Dam:</span>
+        <span class="col fw-bolder border-end border-5">Dam's Sire:</span>
+        <span class="col fw-bolder border-end border-3">Sire's Dam:</span>
+        <span class="col fw-bolder ">Sire's Sire:</span>
+      </div>
+      @if (damDam || damSire || sireDam || sireSire) {
+        <div class="row row-cols-4">
+          <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
+            [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
+            <div>{{formatAwards($safeNavigationMigration(damDam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damDam?.linearAppraisals))}}</div>
+          </span>
+          <span class="col border-end border-5" bs-popover popover-title="{{damSire?.name}}"
+            [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
+            <div>{{formatAwards($safeNavigationMigration(damSire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damSire?.linearAppraisals))}}</div>
+          </span>
+          <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
+            [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
+            <div>{{formatAwards($safeNavigationMigration(sireDam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireDam?.linearAppraisals))}}</div>
+          </span>
+          <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
+            <div>{{formatAwards($safeNavigationMigration(sireSire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireSire?.linearAppraisals))}}</div>
+          </span>
+        </div>
+      }
+      @if (!damDam && !damSire && !sireDam && !sireSire) {
+        <div class="row row-cols-4">
+          <span class="col border-end border-3 placeholder-wave placeholder">lorem <br><small>ipsum</small>
+        </span>
+        <span class="col border-end border-5 placeholder-wave placeholder">lorem <br><small>ipsum</small>
       </span>
       <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
-      </span>
-      <span class="col placeholder placeholder-wave">lorem <br><small>ipsum</small>
-      </span>
-    </div>
-  </div>
-  <div class="container border rounded-4 mobile-grid" *ngIf="goat.damId">
+    </span>
+    <span class="col placeholder placeholder-wave">lorem <br><small>ipsum</small>
+  </span>
+</div>
+}
+</div>
+}
+@if (goat.damId) {
+  <div class="container border rounded-4 mobile-grid">
     <div class="row row-cols-1 border-bottom">
       <span class="col">Dam:</span>
     </div>
-    <div class="row row-cols-1 border-bottom border-3" *ngIf="dam">
-      <span class="col" bs-popover popover-title="{{dam.name}}" [popover-content]="getPopoverContent(dam)">{{dam.name}}
-        <div>{{formatAwards(dam.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(dam.linearAppraisals)}}</div>
-      </span>
-    </div>
-    <div class="row row-cols-1 border-bottom border-3" *ngIf="!dam">
-      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
-    </div>
+    @if (dam) {
+      <div class="row row-cols-1 border-bottom border-3">
+        <span class="col" bs-popover popover-title="{{dam.name}}" [popover-content]="getPopoverContent(dam)">{{dam.name}}
+          <div>{{formatAwards(dam.awards)}}</div>
+          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(dam.linearAppraisals)}}</div>
+        </span>
+      </div>
+    }
+    @if (!dam) {
+      <div class="row row-cols-1 border-bottom border-3">
+        <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+      </div>
+    }
     <div class="row row-cols-2 border-bottom">
       <span class="col border-end border-3">Dam's Dam:</span>
       <span class="col ">Dam's Sire:</span>
     </div>
-    <div class="row row-cols-2" *ngIf="damDam || damSire">
-      <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
-        [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
-        <div>{{formatAwards(damDam?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
-      </span>
-      <span class="col" bs-popover popover-title="{{damSire?.name}}" [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
-        <div>{{formatAwards(damSire?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damSire?.linearAppraisals)}}</div>
-      </span>
-    </div>
-    <div class="row row-cols-2" *ngIf="!damDam && !damSire">
-      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
-      </span>
-      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small>
-      </span>
-    </div>
-  </div>
-  <br *ngIf="goat.damId && goat.sireId">
-  <div class="container border rounded-4 mobile-grid" *ngIf="goat.sireId">
-    <div class="row row-cols-1 border-bottom">
-      <span class="col">Sire:</span>
-    </div>
-    <div class="row row-cols-1 border-bottom border-3" *ngIf="sire">
-      <span class="col" bs-popover popover-title="{{sire.name}}" [popover-content]="getPopoverContent(sire)">{{sire.name}}
-        <div>{{formatAwards(sire.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sire.linearAppraisals)}}</div>
-      </span>
-    </div>
-    <div class="row row-cols-1 border-bottom border-3" *ngIf="!sire">
-      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
-    </div>
-    <div class="row row-cols-2 border-bottom">
-      <span class="col border-end border-3">Sire's Dam:</span>
-      <span class="col">Sire's Sire:</span>
-    </div>
-    <div class="row row-cols-2" *ngIf="sireDam || sireSire">
-      <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
-        [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
-        <div>{{formatAwards(sireDam?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireDam?.linearAppraisals)}}</div>
-      </span>
-      <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
-        <div>{{formatAwards(sireSire?.awards)}}</div>
-        <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireSire?.linearAppraisals)}}</div>
-      </span>
-    </div>
-    <div class="row row-cols-2" *ngIf="!sireDam && !sireSire">
-      <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
-      </span>
-      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small>
-      </span>
-    </div>
-  </div>
-  <br *ngIf="goat.linearAppraisals?.length">
-  <div class="container border rounded-4" *ngIf="goat.linearAppraisals && goat.linearAppraisals.length">
-    <div class="row border-bottom">
-      <span class="col">Linear Appraisal History:</span>
-    </div>
-    <div class="row border-bottom">
-      <div class="col border-end col-3 col-sm-5 fw-bold">Date: </div>
-      <div class="col border-end fw-bold" tooltip="General Appearance">GA</div>
-      <div class="col border-end fw-bold" tooltip="Dairy Strength">DS</div>
-      <div class="col border-end fw-bold" tooltip="Body Capacity">BC</div>
-      <div class="col border-end fw-bold" *ngIf="goat.sex === 'Female'" tooltip="Mammary System">MS</div>
-      <div class="col fw-bold" tooltip="Final Score">FS</div>
-    </div>
-    <div class="row border-top" *ngFor="let appraisal of goat.linearAppraisals; index as i">
-      <div class="col border-end col-3 col-sm-5">{{appraisal.appraisalDate | longDate}}</div>
-      <div class="col border-end">{{appraisal.generalAppearance}}</div>
-      <div class="col border-end">{{appraisal.dairyStrength}}</div>
-      <div class="col border-end">{{appraisal.bodyCapacity}}</div>
-      <div class="col border-end" *ngIf="goat.sex === 'Female'">{{appraisal.mammarySystem}}</div>
-      <div class="col" [class.fst-italic]="appraisal.isPermanent" [class.fw-bold]="appraisal.isPermanent"
-        [tooltip]="appraisal.isPermanent ? 'Permanent Score' : ''">{{appraisal.finalScore}}</div>
-    </div>
-  </div>
-  <br *ngIf="goat.lactationRecords?.length">
-  <div class="container border rounded-4" *ngIf="goat.lactationRecords?.length">
-    <div class="row border-bottom">
-      <span class="col">Lactation History:</span>
-    </div>
-    <div class="row border-bottom">
-      <div class="col border-end col-3 col-sm-4 fw-bold">Start Date: </div>
-      <div class="col border-end fw-bold"><span class="d-none d-lg-inline">Lactation</span>
-        <span class="d-inline d-lg-none">Lact</span>
+    @if (damDam || damSire) {
+      <div class="row row-cols-2">
+        <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
+          [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
+          <div>{{formatAwards($safeNavigationMigration(damDam?.awards))}}</div>
+          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damDam?.linearAppraisals))}}</div>
+        </span>
+        <span class="col" bs-popover popover-title="{{damSire?.name}}" [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
+          <div>{{formatAwards($safeNavigationMigration(damSire?.awards))}}</div>
+          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damSire?.linearAppraisals))}}</div>
+        </span>
       </div>
-      <div class="col border-end fw-bold" tooltip="Days in Milk">DIM</div>
-      <div class="col border-end fw-bold" tooltip="Achieved/Projected (lbs)">Milk</div>
-      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)">Fat</div>
-      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)"><span
-          class="d-none d-lg-inline">Protein</span>
+    }
+    @if (!damDam && !damSire) {
+      <div class="row row-cols-2">
+        <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+      <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small>
+    </span>
+  </div>
+}
+</div>
+}
+@if (goat.damId && goat.sireId) {
+  <br>
+  }
+  @if (goat.sireId) {
+    <div class="container border rounded-4 mobile-grid">
+      <div class="row row-cols-1 border-bottom">
+        <span class="col">Sire:</span>
+      </div>
+      @if (sire) {
+        <div class="row row-cols-1 border-bottom border-3">
+          <span class="col" bs-popover popover-title="{{sire.name}}" [popover-content]="getPopoverContent(sire)">{{sire.name}}
+            <div>{{formatAwards(sire.awards)}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sire.linearAppraisals)}}</div>
+          </span>
+        </div>
+      }
+      @if (!sire) {
+        <div class="row row-cols-1 border-bottom border-3">
+          <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small></span>
+        </div>
+      }
+      <div class="row row-cols-2 border-bottom">
+        <span class="col border-end border-3">Sire's Dam:</span>
+        <span class="col">Sire's Sire:</span>
+      </div>
+      @if (sireDam || sireSire) {
+        <div class="row row-cols-2">
+          <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
+            [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
+            <div>{{formatAwards($safeNavigationMigration(sireDam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireDam?.linearAppraisals))}}</div>
+          </span>
+          <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
+            <div>{{formatAwards($safeNavigationMigration(sireSire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireSire?.linearAppraisals))}}</div>
+          </span>
+        </div>
+      }
+      @if (!sireDam && !sireSire) {
+        <div class="row row-cols-2">
+          <span class="col border-end border-3 placeholder-wave placeholder">lorem<br><small>ipsum</small>
+        </span>
+        <span class="col placeholder-wave placeholder">lorem<br><small>ipsum</small>
+      </span>
+    </div>
+  }
+</div>
+}
+@if (goat.linearAppraisals?.length) {
+  <br>
+  }
+  @if (goat.linearAppraisals && goat.linearAppraisals.length) {
+    <div class="container border rounded-4">
+      <div class="row border-bottom">
+        <span class="col">Linear Appraisal History:</span>
+      </div>
+      <div class="row border-bottom">
+        <div class="col border-end col-3 col-sm-5 fw-bold">Date: </div>
+        <div class="col border-end fw-bold" tooltip="General Appearance">GA</div>
+        <div class="col border-end fw-bold" tooltip="Dairy Strength">DS</div>
+        <div class="col border-end fw-bold" tooltip="Body Capacity">BC</div>
+        @if (goat.sex === 'Female') {
+          <div class="col border-end fw-bold" tooltip="Mammary System">MS</div>
+        }
+        <div class="col fw-bold" tooltip="Final Score">FS</div>
+      </div>
+      @for (appraisal of goat.linearAppraisals; track appraisal; let i = $index) {
+        <div class="row border-top">
+          <div class="col border-end col-3 col-sm-5">{{appraisal.appraisalDate | longDate}}</div>
+          <div class="col border-end">{{appraisal.generalAppearance}}</div>
+          <div class="col border-end">{{appraisal.dairyStrength}}</div>
+          <div class="col border-end">{{appraisal.bodyCapacity}}</div>
+          @if (goat.sex === 'Female') {
+            <div class="col border-end">{{appraisal.mammarySystem}}</div>
+          }
+          <div class="col" [class.fst-italic]="appraisal.isPermanent" [class.fw-bold]="appraisal.isPermanent"
+          [tooltip]="appraisal.isPermanent ? 'Permanent Score' : ''">{{appraisal.finalScore}}</div>
+        </div>
+      }
+    </div>
+  }
+  @if (goat.lactationRecords?.length) {
+    <br>
+    }
+    @if (goat.lactationRecords?.length) {
+      <div class="container border rounded-4">
+        <div class="row border-bottom">
+          <span class="col">Lactation History:</span>
+        </div>
+        <div class="row border-bottom">
+          <div class="col border-end col-3 col-sm-4 fw-bold">Start Date: </div>
+          <div class="col border-end fw-bold"><span class="d-none d-lg-inline">Lactation</span>
+          <span class="d-inline d-lg-none">Lact</span>
+        </div>
+        <div class="col border-end fw-bold" tooltip="Days in Milk">DIM</div>
+        <div class="col border-end fw-bold" tooltip="Achieved/Projected (lbs)">Milk</div>
+        <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)">Fat</div>
+        <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Achieved/Projected (lbs)"><span
+        class="d-none d-lg-inline">Protein</span>
         <span class="d-inline d-lg-none">Pro</span>
       </div>
     </div>
-    <div class="row border-top" *ngFor="let entry of goat.lactationRecords; index as i"
-      [tooltip]="entry.isCurrent ? ('Active Lactation' + (lastTestDate ? '<br>Last Test: ' + (lastTestDate | longDate) : '')) : ''"
-      [tooltip-html]="true" [class.fst-italic]="entry.isCurrent">
-      <div class="col border-end col-3 col-sm-4" [class.fw-bold]="entry.isCurrent">
-        {{entry.startDate | longDate}}
+    @for (entry of goat.lactationRecords; track entry; let i = $index) {
+      <div class="row border-top"
+        [tooltip]="entry.isCurrent ? ('Active Lactation' + (lastTestDate ? '<br>Last Test: ' + (lastTestDate | longDate) : '')) : ''"
+        [tooltip-html]="true" [class.fst-italic]="entry.isCurrent">
+        <div class="col border-end col-3 col-sm-4" [class.fw-bold]="entry.isCurrent">
+          {{entry.startDate | longDate}}
+        </div>
+        <div class="col border-end">{{entry.lactationNumber | freshening}}</div>
+        <div class="col border-end">{{entry.daysInMilk}}</div>
+        <div class="col border-end">{{entry.stats?.milk?.achieved}}/<wbr>{{entry.stats?.milk?.projected}}</div>
+        <div class="col border-end d-none d-xs-inline">{{entry.stats?.butterfat?.achieved}}/<wbr>{{entry.stats?.butterfat?.projected}}</div>
+        <div class="col border-end d-none d-xs-inline">{{entry.stats?.protein?.achieved}}/<wbr>{{entry.stats?.protein?.projected}}</div>
       </div>
-      <div class="col border-end">{{entry.lactationNumber | freshening}}</div>
-      <div class="col border-end">{{entry.daysInMilk}}</div>
-      <div class="col border-end">{{entry.stats?.milk?.achieved}}/<wbr>{{entry.stats?.milk?.projected}}</div>
-      <div class="col border-end d-none d-xs-inline">{{entry.stats?.butterfat?.achieved}}/<wbr>{{entry.stats?.butterfat?.projected}}</div>
-      <div class="col border-end d-none d-xs-inline">{{entry.stats?.protein?.achieved}}/<wbr>{{entry.stats?.protein?.projected}}</div>
-    </div>
+    }
   </div>
-  <br *ngIf="currentLactation">
-  <div class="container border rounded-4" *ngIf="currentLactation">
-    <div class="row border-bottom">
-      <span class="col">Current Lactation:</span>
-    </div>
-    <div class="row border-bottom">
-      <div class="col border-end fw-bold col-xs-1" tooltip="Test Number"><span class="d-none d-lg-inline">Test<wbr></span># </div>
-      <div class="col border-end col-3 col-sm-4 fw-bold">Test Date</div>
-      <div class="col border-end col-xs-2 fw-bold" tooltip="Days in Milk">DIM</div>
-      <div class="col border-end fw-bold" tooltip="Milk (lbs)">Milk</div>
-      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Butter Fat Percentage">Fat Pct.</div>
-      <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Protein Percentage">
-        <span class="d-none d-lg-inline">Protein Pct.</span>
-        <span class="d-inline d-lg-none">Pro Pct</span>
+}
+@if (currentLactation) {
+  <br>
+  }
+  @if (currentLactation) {
+    <div class="container border rounded-4">
+      <div class="row border-bottom">
+        <span class="col">Current Lactation:</span>
       </div>
-    </div>
-    <div class="row border-top" *ngFor="let test of currentLactation.tests; index as i">
-      <div class="col border-end col-xs-1">
-        {{test.testNumber}}
+      <div class="row border-bottom">
+        <div class="col border-end fw-bold col-xs-1" tooltip="Test Number"><span class="d-none d-lg-inline">Test<wbr></span># </div>
+        <div class="col border-end col-3 col-sm-4 fw-bold">Test Date</div>
+        <div class="col border-end col-xs-2 fw-bold" tooltip="Days in Milk">DIM</div>
+        <div class="col border-end fw-bold" tooltip="Milk (lbs)">Milk</div>
+        <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Butter Fat Percentage">Fat Pct.</div>
+        <div class="col border-end fw-bold d-none d-xs-inline" tooltip="Protein Percentage">
+          <span class="d-none d-lg-inline">Protein Pct.</span>
+          <span class="d-inline d-lg-none">Pro Pct</span>
+        </div>
       </div>
-      <div class="col border-end col-3 col-sm-4">{{test.testDate | longDate}}</div>
-      <div class="col border-end col-xs-2">{{test.daysInMilk}}</div>
-      <div class="col border-end">{{test.milk}}</div>
-      <div class="col border-end d-none d-xs-inline">{{test.butterfatPct}}%</div>
-      <div class="col border-end d-none d-xs-inline">{{test.proteinPct}}%</div>
+      @for (test of currentLactation.tests; track test; let i = $index) {
+        <div class="row border-top">
+          <div class="col border-end col-xs-1">
+            {{test.testNumber}}
+          </div>
+          <div class="col border-end col-3 col-sm-4">{{test.testDate | longDate}}</div>
+          <div class="col border-end col-xs-2">{{test.daysInMilk}}</div>
+          <div class="col border-end">{{test.milk}}</div>
+          <div class="col border-end d-none d-xs-inline">{{test.butterfatPct}}%</div>
+          <div class="col border-end d-none d-xs-inline">{{test.proteinPct}}%</div>
+        </div>
+      }
     </div>
-  </div>
-  <br *ngIf="goat.awards?.length">
-  <div class="container border rounded-4" *ngIf="goat.awards && goat.awards.length">
-    <div class="row border-bottom">
-      <span class="col">Awards:</span>
-    </div>
-    <div class="row border-bottom">
-      <div class="col border-end fw-bold">Year: </div>
-      <div class="col border-end fw-bold">Count</div>
-      <div class="col border-end fw-bold" tooltip="Award Code">Code</div>
-      <div class="col fw-bold col-3 col-sm-5" tooltip="Award Descrption">Description</div>
-    </div>
-    <div class="row border-top" *ngFor="let award of goat.awards; index as i">
-      <div class="col border-end">{{award.awardYear}}</div>
-      <div class="col border-end">{{award.awardCount}}</div>
-      <div class="col border-end">{{award.awardCode}}</div>
-      <div class="col col-3 col-sm-5">{{award.awardDescription}}</div>
-    </div>
-  </div>
+  }
+  @if (goat.awards?.length) {
+    <br>
+    }
+    @if (goat.awards && goat.awards.length) {
+      <div class="container border rounded-4">
+        <div class="row border-bottom">
+          <span class="col">Awards:</span>
+        </div>
+        <div class="row border-bottom">
+          <div class="col border-end fw-bold">Year: </div>
+          <div class="col border-end fw-bold">Count</div>
+          <div class="col border-end fw-bold" tooltip="Award Code">Code</div>
+          <div class="col fw-bold col-3 col-sm-5" tooltip="Award Descrption">Description</div>
+        </div>
+        @for (award of goat.awards; track award; let i = $index) {
+          <div class="row border-top">
+            <div class="col border-end">{{award.awardYear}}</div>
+            <div class="col border-end">{{award.awardCount}}</div>
+            <div class="col border-end">{{award.awardCode}}</div>
+            <div class="col col-3 col-sm-5">{{award.awardDescription}}</div>
+          </div>
+        }
+      </div>
+    }

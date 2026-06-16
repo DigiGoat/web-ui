@@ -9,7 +9,6 @@ import imageMap from '../../../assets/images/map.json';
 export class ImageService {
   private imageMap: ImageMap = imageMap;
 
-  constructor() { }
   getImage(searchQueries: (string | undefined)[]) {
     const key = Object.keys(this.imageMap).find(directory => searchQueries.includes(directory));
     if (key && this.imageMap[key].length) {
@@ -46,10 +45,8 @@ export class ImageService {
 
   public readonly NotFound: ImageEntry = { file: './assets/images/ImageNotFound.png', alt: 'The Requested Image Does Not Exist' };
 }
-type ImageMap = {
-  [directory: string]: ImageEntry[];
-};
-export type ImageEntry = {
+type ImageMap = Record<string, ImageEntry[]>;
+export interface ImageEntry {
   file: string;
   alt?: string;
-};
+}

@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, ElementRef, Input, ViewChild, type AfterViewInit, type OnDestroy, type OnInit } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, Input, ViewChild, type AfterViewInit, type OnDestroy, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import type { Goat } from '../../../services/goat/goat.service';
 import { PlatformService } from '../../../services/platform/platform.service';
@@ -7,9 +7,15 @@ import { PlatformService } from '../../../services/platform/platform.service';
   selector: 'app-modal-goat',
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  private platformService = inject(PlatformService);
+  private element = inject<ElementRef<HTMLDivElement>>(ElementRef);
+
   prerender = false;
   @Input() goat?: Goat;
   @Input({ required: true }) searchParam!: string;
@@ -18,8 +24,6 @@ export class ModalComponent implements OnDestroy, AfterViewInit, OnInit {
   get prettySearchParam() {
     return this.searchParam.replace(/-/g, ' ');
   }
-
-  constructor(public router: Router, public route: ActivatedRoute, private platformService: PlatformService, private element: ElementRef<HTMLDivElement>) { }
   document = this.element.nativeElement.ownerDocument;
   ngOnInit() {
     this.prerender = this.platformService.isServer;

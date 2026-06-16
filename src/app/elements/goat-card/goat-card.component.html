@@ -1,38 +1,56 @@
-<div class="card color-scheme-secondary" *ngIf="goat" test-id="goat">
-  <div class="px-3 pt-3">
-    <img *ngIf="image?.file" [ngSrc]="image!.file" [alt]="image?.alt" class="card-img-top rounded object-fit-contain" width="400"
-      height="250" test-id="goat-image">
-  </div>
-  <div class="card-body color-scheme-secondary" [id]="identifier">
-    <div class="container color-scheme-tertiary pb-3">
-      <a *ngIf="identifier" class="stretched-link" [routerLink]="identifier" test-id="goat-link"
-        attr.aria-label="Link to open {{identifier}}'s modal (This link cover's the whole element - it does not contain any text)"></a>
-      <h5 class="card-title text-center mb-0" test-id="goat-name">{{name}}</h5>
-      <h6 class="card-title text-center mb-0" test-id="goat-name">{{awards}}</h6>
-      <h6 class="card-subtitle pb-1 fw-light fst-italic text-center" test-id="goat-age" *ngIf="born && !deceased">
-        {{born | age}} {{lactation ? (lactation | freshening) + ' Freshener' : ''}}
-      </h6>
-      <h6 class="card-subtitle pb-1 text-center fw-light fst-italic font-monospace" *ngIf="linearAppraisal" test-id="goat-appraisal">
-        {{linearAppraisal.generalAppearance}}{{linearAppraisal.dairyStrength}}{{linearAppraisal.bodyCapacity}}{{linearAppraisal.mammarySystem}}
-        {{linearAppraisal.finalScore}}
-      </h6>
-      <h6 class="card-subtitle pb-1 text-center" *ngIf="nickname" test-id="goat-nickname">"{{nickname}}"</h6>
-      <h6 class="card-subtitle pb-1 text-center" *ngIf="price" test-id="goat-price">{{price}}</h6>
-      <div class="card-text text-center text-truncate-3 pt-1" *ngIf="description" [innerHTML]="description" test-id="goat-description"
-        [markdown]="(id || name || nickname) ? 'goat-'+(id || name || nickname) : ''">
+@if (goat) {
+  <div class="card color-scheme-secondary" test-id="goat">
+    <div class="px-3 pt-3">
+      @if (image?.file) {
+        <img [ngSrc]="image!.file" [alt]="$safeNavigationMigration(image?.alt)" class="card-img-top rounded object-fit-contain" width="400"
+          height="250" test-id="goat-image">
+      }
+    </div>
+    <div class="card-body color-scheme-secondary" [id]="identifier">
+      <div class="container color-scheme-tertiary pb-3">
+        @if (identifier) {
+          <a class="stretched-link" [routerLink]="identifier" test-id="goat-link"
+          attr.aria-label="Link to open {{identifier}}'s modal (This link cover's the whole element - it does not contain any text)"></a>
+        }
+        <h5 class="card-title text-center mb-0" test-id="goat-name">{{name}}</h5>
+        <h6 class="card-title text-center mb-0" test-id="goat-name">{{awards}}</h6>
+        @if (born && !deceased) {
+          <h6 class="card-subtitle pb-1 fw-light fst-italic text-center" test-id="goat-age">
+            {{born | age}} {{lactation ? (lactation | freshening) + ' Freshener' : ''}}
+          </h6>
+        }
+        @if (linearAppraisal) {
+          <h6 class="card-subtitle pb-1 text-center fw-light fst-italic font-monospace" test-id="goat-appraisal">
+            {{linearAppraisal.generalAppearance}}{{linearAppraisal.dairyStrength}}{{linearAppraisal.bodyCapacity}}{{linearAppraisal.mammarySystem}}
+            {{linearAppraisal.finalScore}}
+          </h6>
+        }
+        @if (nickname) {
+          <h6 class="card-subtitle pb-1 text-center" test-id="goat-nickname">"{{nickname}}"</h6>
+        }
+        @if (price) {
+          <h6 class="card-subtitle pb-1 text-center" test-id="goat-price">{{price}}</h6>
+        }
+        @if (description) {
+          <div class="card-text text-center text-truncate-3 pt-1" [innerHTML]="description" test-id="goat-description"
+            [markdown]="(id || name || nickname) ? 'goat-'+(id || name || nickname) : ''">
+          </div>
+        }
       </div>
     </div>
   </div>
-</div>
-<div class="card color-scheme-secondary" *ngIf="!goat" test-id="placeholder">
-  <div class="px-3 pt-3 placeholder-glow">
-    <img class="card-img-top rounded border placeholder" alt="Loading..." width="400" height="200" test-id="placeholder-image">
-  </div>
-  <div class="card-body color-scheme-secondary">
-    <div class="container color-scheme-tertiary pb-3 text-center placeholder-wave">
-      <h5 class="card-title text-center placeholder" test-id="placeholder-name">SOME ANIMALS NAME</h5>
-      <br>
-      <h6 class="card-subtitle pb-2 text-center placeholder" test-id="placeholder-nickname">"Nickname"</h6>
+}
+@if (!goat) {
+  <div class="card color-scheme-secondary" test-id="placeholder">
+    <div class="px-3 pt-3 placeholder-glow">
+      <img class="card-img-top rounded border placeholder" alt="Loading..." width="400" height="200" test-id="placeholder-image">
     </div>
-  </div>
-</div>
+    <div class="card-body color-scheme-secondary">
+      <div class="container color-scheme-tertiary pb-3 text-center placeholder-wave">
+        <h5 class="card-title text-center placeholder" test-id="placeholder-name">SOME ANIMALS NAME</h5>
+        <br>
+          <h6 class="card-subtitle pb-2 text-center placeholder" test-id="placeholder-nickname">"Nickname"</h6>
+        </div>
+      </div>
+    </div>
+  }

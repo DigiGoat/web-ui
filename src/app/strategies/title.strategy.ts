@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { TitleStrategy as NgTitleStrategy, type RouterStateSnapshot } from '@angular/router';
 import { ConfigService } from '../services/config/config.service';
@@ -7,9 +7,12 @@ import { PlatformService } from '../services/platform/platform.service';
 
 @Injectable({ providedIn: 'root' })
 export class TitleStrategy extends NgTitleStrategy {
-  constructor(private readonly title: Title, private configService: ConfigService, private meta: Meta, private platform: PlatformService, private firebase: FirebaseService) {
-    super();
-  }
+  private readonly title = inject(Title);
+  private configService = inject(ConfigService);
+  private meta = inject(Meta);
+  private platform = inject(PlatformService);
+  private firebase = inject(FirebaseService);
+
   private readonly tags = ['og:title', 'og:url', 'og:site_name', 'og:type', 'og:description', 'og:image', 'og:image:alt', 'description'];
   override updateTitle(routerState: RouterStateSnapshot) {
     const title = this.buildTitle(routerState);

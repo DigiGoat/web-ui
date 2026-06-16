@@ -1,10 +1,11 @@
-import { Component, Input, type OnChanges } from '@angular/core';
+import { Component, Input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { findIDMatch, type Goat, type Kidding } from '../../services/goat/goat.service';
 
 @Component({
   selector: 'app-breeding',
   templateUrl: './breeding.component.html',
   styleUrl: './breeding.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class BreedingComponent implements OnChanges {

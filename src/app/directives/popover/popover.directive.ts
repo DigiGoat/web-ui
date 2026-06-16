@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, type AfterViewInit, type OnDestroy, inject } from '@angular/core';
 import { Popover } from 'bootstrap';
 import { PlatformService } from '../../services/platform/platform.service';
 @Directive({
@@ -6,6 +6,9 @@ import { PlatformService } from '../../services/platform/platform.service';
     standalone: false
 })
 export class PopoverDirective implements AfterViewInit, OnDestroy {
+  private el = inject(ElementRef);
+  private platformService = inject(PlatformService);
+
   private bsPopover?: Popover;
   @Input({ required: true, alias: 'popover-content' }) set content(value: string) {
     if (this.bsPopover) {
@@ -27,8 +30,6 @@ export class PopoverDirective implements AfterViewInit, OnDestroy {
   @HostBinding('attr.data-bs-custom-class') customClass = 'bs-popover';
   @HostBinding('attr.data-bs-placement') placement = 'auto';
   @HostBinding('attr.data-bs-delay') boundary = '{ "show": 200, "hide": 250 }';
-
-  constructor(private el: ElementRef, private platformService: PlatformService) { }
   ngAfterViewInit(): void {
     if (this.platformService.isBrowser) {
       this.bsPopover = bootstrap.Popover.getOrCreateInstance(this.el.nativeElement);

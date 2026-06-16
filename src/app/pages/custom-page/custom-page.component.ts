@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { type CustomPage, CustomPagesService } from '../../services/custom-pages/custom-pages.service';
@@ -8,12 +8,18 @@ import { type CustomPage, CustomPagesService } from '../../services/custom-pages
   standalone: false,
 
   templateUrl: './custom-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './custom-page.component.scss'
 })
 export class CustomPageComponent implements OnInit {
+  private customPageService = inject(CustomPagesService);
+  private route = inject(ActivatedRoute);
+  private title = inject(Title);
+  private el = inject(ElementRef);
+  private meta = inject(Meta);
+
   customPage: CustomPage = { title: this.route.snapshot.params['customPage'].replaceAll('-', ' '), content: '' };
   document = this.el.nativeElement.ownerDocument;
-  constructor(private customPageService: CustomPagesService, private route: ActivatedRoute, private title: Title, private el: ElementRef, private meta: Meta) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const query = params['customPage'];

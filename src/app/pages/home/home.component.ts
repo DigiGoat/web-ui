@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
@@ -11,11 +11,17 @@ import { PlatformService } from '../../services/platform/platform.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class HomeComponent implements OnInit {
+  config = inject(ConfigService);
+  private meta = inject(Meta);
+  private goatService = inject(GoatService);
+  private platformService = inject(PlatformService);
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
+
   public description = '';
-  constructor(public config: ConfigService, private meta: Meta, private goatService: GoatService, private platformService: PlatformService, private el: ElementRef<HTMLElement>) { }
   ngOnInit(): void {
     this.description = this.config.homeDescription;
     this.setDescription();

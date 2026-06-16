@@ -60,8 +60,7 @@ This repository uses Angular.
 ### Build / lint / tests
 If you wish to verify changes locally, prefer the existing repo scripts (usually `yarn build` / `yarn lint`). Do NOT use VSCode tasks, these are only for debugging sessions.
 
-- This repo does enforce testing, you can run tests with `yarn test`. When generating tests, use `jest` NOT `karma`.
-- Avoid large, brittle snapshot tests for UI-heavy components unless the repo already uses them.
+- This repo no longer includes an automated test harness; use build and lint for verification.
 
 
 ## Accessing the DigiGoat Space

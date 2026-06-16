@@ -1,4 +1,4 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 
 import { ConfigService } from './services/config/config.service';
 import { CustomPagesService, CustomPageSummary } from './services/custom-pages/custom-pages.service';
@@ -8,11 +8,14 @@ import { CustomPagesService, CustomPageSummary } from './services/custom-pages/c
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class AppComponent implements OnInit {
+  config = inject(ConfigService);
+  private customPageService = inject(CustomPagesService);
+
   public customPages: CustomPageSummary[] = [];
-  constructor(public config: ConfigService, private customPageService: CustomPagesService) { }
   ngOnInit(): void {
     this.customPages = this.customPageService.getPages();
   }

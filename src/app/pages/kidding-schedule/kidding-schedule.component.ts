@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, type OnInit } from '@angular/core';
+import { Component, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import type { Page } from '../../app-routing.module';
@@ -11,9 +11,15 @@ import { DatePipe } from '@angular/common';
   selector: 'app-kidding-schedule',
   templateUrl: './kidding-schedule.component.html',
   styleUrl: './kidding-schedule.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class KiddingScheduleComponent implements OnInit, Page {
+  private goatService = inject(GoatService);
+  private route = inject(ActivatedRoute);
+  private meta = inject(Meta);
+  private configService = inject(ConfigService);
+
   schedule?: Kidding[];
 
   public err?: HttpErrorResponse;
@@ -27,8 +33,6 @@ export class KiddingScheduleComponent implements OnInit, Page {
 
   public pageDescription = 'Click on a Goat Below For More Info';
   public saleTerms?: string;
-
-  constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
   setDescription() {
     const datePipe = new DatePipe('en-US');
     let description = `As of ${datePipe.transform(new Date())}, `;

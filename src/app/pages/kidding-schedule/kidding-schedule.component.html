@@ -1,23 +1,43 @@
-<div class="container" *ngIf="!err && !noSchedule" test-id="schedule">
-  <h1 class="text-center" test-id="name">Kidding Schedule:</h1>
-  <h5 class="text-center" test-id="prompt" [innerHTML]="pageDescription"></h5>
-  <app-sale-terms [sale-terms]="saleTerms" *ngIf="saleTerms"></app-sale-terms>
-  <div *ngIf="schedule">
-    <app-modal-goat *ngIf="searchParam && activeIndex === -1" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
-    <div *ngFor="let breeding of schedule; index as i">
-      <app-breeding [breeding]="breeding" [does]="does" [bucks]="bucks" [references]="references"></app-breeding>
-      <app-modal-goat *ngIf="i === activeIndex" [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
-    </div>
+@if (!err && !noSchedule) {
+  <div class="container" test-id="schedule">
+    <h1 class="text-center" test-id="name">Kidding Schedule:</h1>
+    <h5 class="text-center" test-id="prompt" [innerHTML]="pageDescription"></h5>
+    @if (saleTerms) {
+      <app-sale-terms [sale-terms]="saleTerms"></app-sale-terms>
+    }
+    @if (schedule) {
+      <div>
+        @if (searchParam && activeIndex === -1) {
+          <app-modal-goat [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
+        }
+        @for (breeding of schedule; track breeding; let i = $index) {
+          <div>
+            <app-breeding [breeding]="breeding" [does]="does" [bucks]="bucks" [references]="references"></app-breeding>
+            @if (i === activeIndex) {
+              <app-modal-goat [goat]="activeGoat" [searchParam]="searchParam!"></app-modal-goat>
+            }
+          </div>
+        }
+      </div>
+    }
+    @if (!schedule) {
+      <div>
+        @for (breeding of [1,2,3,4]; track breeding) {
+          <app-breeding></app-breeding>
+        }
+      </div>
+    }
   </div>
-  <div *ngIf="!schedule">
-    <app-breeding *ngFor="let breeding of [1,2,3,4]"></app-breeding>
+}
+@if (noSchedule) {
+  <div test-id="no-goats">
+    <h3 class="text-center" test-id="no-goats-title">No Kidding Schedule Found</h3>
+    <h6 class="text-center" test-id="no-goats-prompt">Please Try Again Later.</h6>
   </div>
-</div>
-<div *ngIf="noSchedule" test-id="no-goats">
-  <h3 class="text-center" test-id="no-goats-title">No Kidding Schedule Found</h3>
-  <h6 class="text-center" test-id="no-goats-prompt">Please Try Again Later.</h6>
-</div>
-<div *ngIf="err" test-id="error">
-  <h3 class="text-center" test-id="error-title">Failed To Load Kidding Schedule With Error: {{err.status}} - {{err.statusText}}</h3>
-  <h6 class="text-center" test-id="error-prompt">Please Check Your Connection And Try Again Later.</h6>
-</div>
+}
+@if (err) {
+  <div test-id="error">
+    <h3 class="text-center" test-id="error-title">Failed To Load Kidding Schedule With Error: {{err.status}} - {{err.statusText}}</h3>
+    <h6 class="text-center" test-id="error-prompt">Please Check Your Connection And Try Again Later.</h6>
+  </div>
+}

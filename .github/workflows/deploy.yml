@@ -55,12 +55,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -103,13 +103,19 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download previous deploy artifact
+        id: download_previous
         if: steps.last_success.outputs.run_id != ''
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: website
           path: previous-deploy/browser
           run-id: ${{ steps.last_success.outputs.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Warn if previous deploy artifact was unavailable
+        if: steps.download_previous.outcome == 'failure'
+        run: echo "Previous deploy artifact could not be downloaded (likely expired); continuing without it."
 
       - name: Check if Pages are enabled
         id: check_pages
@@ -143,7 +149,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload website
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           path: ./dist/web-ui/browser
           name: website
@@ -171,7 +177,7 @@ jobs:
 
       - name: Download website
         if: steps.check_pages.outputs.enabled == 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: website
           path: ./dist/web-ui/browser
@@ -197,7 +203,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         sparse-checkout: |
           firebase.json
@@ -205,7 +211,7 @@ jobs:
         sparse-checkout-cone-mode: false
 
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version-file: .nvmrc
 
@@ -225,7 +231,7 @@ jobs:
 
     - name: Download website
       if: steps.check_firebase.outputs.enabled == 'true'
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: website
         path: ./dist/web-ui/browser
