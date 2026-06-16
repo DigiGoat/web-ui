@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Directive, ElementRef, Input, type AfterViewInit, type OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Input, type AfterViewInit, type OnDestroy, inject } from '@angular/core';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Directive({
@@ -7,8 +7,10 @@ import { PlatformService } from '../../services/platform/platform.service';
   standalone: false
 })
 export class MarkdownDirective implements AfterViewInit, OnDestroy {
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private http = inject(HttpClient);
+  private platformService = inject(PlatformService);
 
-  constructor(private el: ElementRef<HTMLElement>, private http: HttpClient, private platformService: PlatformService) { }
   private iconEl!: HTMLElement;
   private observer?: MutationObserver;
 

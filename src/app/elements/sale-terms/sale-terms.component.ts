@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild, type ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild, type ElementRef, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,8 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './sale-terms.component.scss'
 })
 export class SaleTermsComponent implements AfterViewInit {
+  private route = inject(ActivatedRoute);
+
   @Input({ alias: 'sale-terms', required: true }) saleTerms = '';
-  constructor(private route: ActivatedRoute) { }
   @ViewChild('termsButton') termsButton?: ElementRef<HTMLButtonElement>;
   ngAfterViewInit() {
     if (this.route.snapshot.fragment?.match(/terms|pricing/i)) {

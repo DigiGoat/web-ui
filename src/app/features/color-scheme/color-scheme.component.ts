@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ConfigService } from '../../services/config/config.service';
 import { PlatformService } from '../../services/platform/platform.service';
@@ -11,7 +11,11 @@ import { PlatformService } from '../../services/platform/platform.service';
     standalone: false
 })
 export class ColorSchemeComponent implements OnInit {
-  constructor(private config: ConfigService, private platformService: PlatformService, private el: ElementRef<HTMLElement>, private meta: Meta) { }
+  private config = inject(ConfigService);
+  private platformService = inject(PlatformService);
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private meta = inject(Meta);
+
   private document = this.el.nativeElement.ownerDocument;
   ngOnInit() {
     if (this.platformService.isServer) {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Component({
@@ -9,7 +9,9 @@ import { PlatformService } from '../../services/platform/platform.service';
   standalone: false,
 })
 export class MarkdownComponent implements OnInit {
-  constructor(private platformService: PlatformService, private el: ElementRef<HTMLElement>) { }
+  private platformService = inject(PlatformService);
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
+
   private document = this.el.nativeElement.ownerDocument;
   ngOnInit() {
     if (this.platformService.isServer) {

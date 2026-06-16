@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import type { LactationRecord } from '../../services/goat/goat.service';
 import { findIDMatch, type Goat, GoatService } from '../../services/goat/goat.service';
 
@@ -11,6 +11,8 @@ import { findIDMatch, type Goat, GoatService } from '../../services/goat/goat.se
   standalone: false
 })
 export class GoatInfoComponent implements OnInit {
+  private goatService = inject(GoatService);
+
   @Input({ required: true }) goat!: Goat;
   dam?: Goat;
   sire?: Goat;
@@ -20,7 +22,6 @@ export class GoatInfoComponent implements OnInit {
   sireSire?: Goat;
   currentLactation?: LactationRecord;
   lastTestDate?: string;
-  constructor(private goatService: GoatService) { }
   ngOnInit() {
     this.goatService.related.subscribe(goats => {
       this.dam = findIDMatch(this.goat.damId, goats);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { getAnalytics, logEvent, type Analytics } from 'firebase/analytics';
 import { initializeApp, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import { initializePerformance, type FirebasePerformance } from 'firebase/performance';
@@ -8,10 +8,11 @@ import { ConfigService } from '../config/config.service';
   providedIn: 'root'
 })
 export class FirebaseService {
+  private configService = inject(ConfigService);
+
   public app?: FirebaseApp;
   public analytics?: Analytics;
   public performance?: FirebasePerformance;
-  constructor(private configService: ConfigService) { }
 
   init() {
     const firebaseConfig = this.configService.firebase as FirebaseOptions;

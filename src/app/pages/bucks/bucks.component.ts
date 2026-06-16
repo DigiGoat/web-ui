@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { GoatService } from '../../services/goat/goat.service';
 
 @Component({
@@ -9,7 +9,8 @@ import { GoatService } from '../../services/goat/goat.service';
     standalone: false
 })
 export class BucksComponent {
+  goatService = inject(GoatService);
+
   name = 'Bucks';
   getter = this.goatService.bucks;
-  constructor(public goatService: GoatService) { }
 }

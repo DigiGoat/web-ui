@@ -3,14 +3,15 @@ import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoatService {
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
+
   private _does: Goat[] = [];
   public does = new Observable<Goat[]>(observer => {
     if (this._does.length) {

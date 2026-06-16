@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, OnInit, inject } from '@angular/core';
 import { ImageService } from '../../services/image/image.service';
 
 @Directive({
@@ -6,7 +6,9 @@ import { ImageService } from '../../services/image/image.service';
     standalone: false
 })
 export class ImgDirective implements OnInit {
-  constructor(private el: ElementRef<HTMLImageElement>, private imageService: ImageService) { }
+  private el = inject<ElementRef<HTMLImageElement>>(ElementRef);
+  private imageService = inject(ImageService);
+
 
   ngOnInit() {
     setTimeout(() => {

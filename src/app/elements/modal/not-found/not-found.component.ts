@@ -1,4 +1,4 @@
-import { Component, Input, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, type OnDestroy, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 
 @Component({
@@ -9,8 +9,9 @@ import { Meta } from '@angular/platform-browser';
   standalone: false
 })
 export class NotFoundComponent implements OnInit, OnDestroy {
+  private meta = inject(Meta);
+
   @Input({ required: true }) searchParam!: string;
-  constructor(private meta: Meta) { }
   ngOnInit(): void {
     this.meta.addTag({ name: 'robots', content: 'noindex' });
   }

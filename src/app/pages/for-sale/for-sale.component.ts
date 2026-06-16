@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
@@ -15,6 +15,11 @@ import { DatePipe } from '@angular/common';
   styleUrl: './for-sale.component.scss'
 })
 export class ForSaleComponent implements OnInit {
+  private goatService = inject(GoatService);
+  private route = inject(ActivatedRoute);
+  private meta = inject(Meta);
+  private configService = inject(ConfigService);
+
   forSale?: ForSale;
 
   public err?: HttpErrorResponse;
@@ -26,9 +31,6 @@ export class ForSaleComponent implements OnInit {
   public activeGoatIndex = -1;
   public activeGoatType?: 'doe' | 'buck' | 'pet';
   public saleTerms?: string;
-
-
-  constructor(private goatService: GoatService, private route: ActivatedRoute, private meta: Meta, private configService: ConfigService) { }
   setDescription() {
     const datePipe = new DatePipe('en-US');
     let description = `As of ${datePipe.transform(new Date())}, `;

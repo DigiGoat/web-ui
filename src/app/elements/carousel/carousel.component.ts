@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewEncapsulation, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ViewChild, ViewEncapsulation, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ConfigService } from '../../services/config/config.service';
 import type { ImageEntry } from '../../services/image/image.service';
@@ -13,7 +13,10 @@ import { PlatformService } from '../../services/platform/platform.service';
     standalone: false
 })
 export class CarouselComponent implements AfterViewInit, OnDestroy, OnInit {
-  constructor(private platformService: PlatformService, private meta: Meta, private configService: ConfigService) { }
+  private platformService = inject(PlatformService);
+  private meta = inject(Meta);
+  private configService = inject(ConfigService);
+
   ngOnInit() {
     for (const image of this.images) {
       this.meta.addTag({ property: 'og:image', content: this.configService.link ? new URL(image.file, this.configService.link).toString() : image.file });

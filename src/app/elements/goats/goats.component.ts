@@ -1,6 +1,6 @@
 import type { HttpErrorResponse } from '@angular/common/http';
 
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 
 
 import { Meta } from '@angular/platform-browser';
@@ -20,14 +20,17 @@ import { DatePipe } from '@angular/common';
   standalone: false
 })
 export class GoatsComponent implements OnInit {
+  route = inject(ActivatedRoute);
+  private platformService = inject(PlatformService);
+  private configService = inject(ConfigService);
+  private meta = inject(Meta);
+
   public err?: HttpErrorResponse;
   public noGoats = false;
   public activeGoatIndex = -1;
   public prerender = false;
   public bot = false;
   public searchParam?: string;
-  constructor(public route: ActivatedRoute, private platformService: PlatformService, private configService: ConfigService, private meta: Meta) {
-  }
   public goats?: Goat[];
   @Input({ required: true, alias: 'goats' }) getter!: Observable<Goat[]>;
   @Input({ required: true }) name!: string;

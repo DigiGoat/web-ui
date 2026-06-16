@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { booleanAttribute, Component, ElementRef, Input, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, Input, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import type { Page } from '../../../app-routing.module';
@@ -16,10 +16,13 @@ import { ImageService, type ImageEntry } from '../../../services/image/image.ser
   standalone: false
 })
 export class GoatCardComponent implements OnInit, Page {
+  imageService = inject(ImageService);
+  private meta = inject(Meta);
+  private el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private goatService = inject(GoatService);
+
   @Input({ required: true }) goat!: Goat;
   @Input({ transform: booleanAttribute, alias: 'for-sale' }) forSale?: boolean = false;
-
-  constructor(public imageService: ImageService, private meta: Meta, private el: ElementRef<HTMLElement>, private goatService: GoatService) { }
   setDescription(): void | Observable<void> {
     const agePipe = new AgePipe();
     const fresheningPipe = new FresheningPipe();

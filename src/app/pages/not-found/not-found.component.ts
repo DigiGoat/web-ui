@@ -1,4 +1,4 @@
-import { Component, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, type OnDestroy, type OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import type { Page } from '../../app-routing.module';
@@ -11,7 +11,8 @@ import type { Page } from '../../app-routing.module';
     standalone: false
 })
 export class NotFoundComponent implements OnInit, Page, OnDestroy {
-  constructor(private meta: Meta) { }
+  private meta = inject(Meta);
+
   ngOnInit(): void {
     this.setDescription();
   }
