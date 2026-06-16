@@ -1,3 +1,16 @@
+## 7.3.0-beta.1
+* Many under-the-hood improvements
+  * Updated Angular from v19 to v22
+  * Updated ESLint from v8 to v10
+    * Migrated config files
+    * Fixed the newly introduced lint errors and warnings
+  * Removed Jest tests (Angular has switched to vitest and this repo was not using tests effectively, so it was not worth the effort to migrate them)
+  * Updated typescript to v6
+    * Fixed the newly introduced type errors and warnings
+  * Updated github actions dependencies to their latest versions
+    * Updated node testing to test on Node.js v22, v24, and v26 (instead of v18, v20, and v22)
+
+
 ## 7.2.1-beta.1
 * Fixed a bug that arose for digigoat.app causing deploys to fail
   * This occurred if the previous deploy artifact had expired
