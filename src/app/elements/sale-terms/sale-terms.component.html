@@ -1,7 +1,9 @@
-<h5 class="text-center" *ngIf="saleTerms"><button
+@if (saleTerms) {
+  <h5 class="text-center"><button
     class="btn btn-link btn-lg link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
     test-id="sale-terms" data-bs-toggle="modal" data-bs-target="#termsModal" type="button" #termsButton>Click Here to View the Sale Terms &
-    Pricing</button></h5>
+  Pricing</button></h5>
+}
 <!-- Sale Terms & Pricing Modal -->
 <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-lg">
