@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, type OnInit } from '@angular/core';
+import { Component, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
   standalone: false,
 
   templateUrl: './for-sale.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './for-sale.component.scss'
 })
 export class ForSaleComponent implements OnInit {

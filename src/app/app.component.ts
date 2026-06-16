@@ -1,4 +1,4 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ConfigService } from './services/config/config.service';
 import { CustomPagesService, CustomPageSummary } from './services/custom-pages/custom-pages.service';
@@ -8,6 +8,7 @@ import { CustomPagesService, CustomPageSummary } from './services/custom-pages/c
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class AppComponent implements OnInit {

@@ -9,12 +9,12 @@
         <div class="row row-cols-2 border-bottom border-3">
           <span class="col border-end border-3" bs-popover popover-title="{{dam?.name}}"
             [popover-content]="getPopoverContent(dam)">{{dam?.name}}
-            <div>{{formatAwards(dam?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(dam?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(dam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(dam?.linearAppraisals))}}</div>
           </span>
           <span class="col" bs-popover popover-title="{{sire?.name}}" [popover-content]="getPopoverContent(sire)">{{sire?.name}}
-            <div>{{formatAwards(sire?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sire?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(sire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sire?.linearAppraisals))}}</div>
           </span>
         </div>
       }
@@ -34,22 +34,22 @@
         <div class="row row-cols-4">
           <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
             [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
-            <div>{{formatAwards(damDam?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(damDam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damDam?.linearAppraisals))}}</div>
           </span>
           <span class="col border-end border-5" bs-popover popover-title="{{damSire?.name}}"
             [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
-            <div>{{formatAwards(damSire?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damSire?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(damSire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damSire?.linearAppraisals))}}</div>
           </span>
           <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
             [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
-            <div>{{formatAwards(sireDam?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireDam?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(sireDam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireDam?.linearAppraisals))}}</div>
           </span>
           <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
-            <div>{{formatAwards(sireSire?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireSire?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(sireSire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireSire?.linearAppraisals))}}</div>
           </span>
         </div>
       }
@@ -93,12 +93,12 @@
       <div class="row row-cols-2">
         <span class="col border-end border-3" bs-popover popover-title="{{damDam?.name}}"
           [popover-content]="getPopoverContent(damDam)">{{damDam?.name}}
-          <div>{{formatAwards(damDam?.awards)}}</div>
-          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damDam?.linearAppraisals)}}</div>
+          <div>{{formatAwards($safeNavigationMigration(damDam?.awards))}}</div>
+          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damDam?.linearAppraisals))}}</div>
         </span>
         <span class="col" bs-popover popover-title="{{damSire?.name}}" [popover-content]="getPopoverContent(damSire)">{{damSire?.name}}
-          <div>{{formatAwards(damSire?.awards)}}</div>
-          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(damSire?.linearAppraisals)}}</div>
+          <div>{{formatAwards($safeNavigationMigration(damSire?.awards))}}</div>
+          <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(damSire?.linearAppraisals))}}</div>
         </span>
       </div>
     }
@@ -141,12 +141,12 @@
         <div class="row row-cols-2">
           <span class="col border-end border-3" bs-popover popover-title="{{sireDam?.name}}"
             [popover-content]="getPopoverContent(sireDam)">{{sireDam?.name}}
-            <div>{{formatAwards(sireDam?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireDam?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(sireDam?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireDam?.linearAppraisals))}}</div>
           </span>
           <span class="col" bs-popover popover-title="{{sireSire?.name}}" [popover-content]="getPopoverContent(sireSire)">{{sireSire?.name}}
-            <div>{{formatAwards(sireSire?.awards)}}</div>
-            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal(sireSire?.linearAppraisals)}}</div>
+            <div>{{formatAwards($safeNavigationMigration(sireSire?.awards))}}</div>
+            <div class="fw-light fst-italic font-monospace">{{formatLinearAppraisal($safeNavigationMigration(sireSire?.linearAppraisals))}}</div>
           </span>
         </div>
       }

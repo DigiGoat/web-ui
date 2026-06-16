@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild, type ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild, type ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: false,
 
   templateUrl: './sale-terms.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './sale-terms.component.scss'
 })
 export class SaleTermsComponent implements AfterViewInit {

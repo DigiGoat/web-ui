@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { booleanAttribute, Component, Input, type OnChanges } from '@angular/core';
+import { booleanAttribute, Component, Input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../services/config/config.service';
@@ -9,6 +9,7 @@ import { ImageEntry, ImageService } from '../../services/image/image.service';
   selector: 'app-goat-card',
   templateUrl: './goat-card.component.html',
   styleUrls: ['./goat-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class GoatCardComponent implements OnChanges {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { type CustomPage, CustomPagesService } from '../../services/custom-pages/custom-pages.service';
@@ -8,6 +8,7 @@ import { type CustomPage, CustomPagesService } from '../../services/custom-pages
   standalone: false,
 
   templateUrl: './custom-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './custom-page.component.scss'
 })
 export class CustomPageComponent implements OnInit {

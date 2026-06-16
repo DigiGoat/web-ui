@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewEncapsulation, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ViewEncapsulation, type AfterViewInit, type ElementRef, type OnDestroy, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ConfigService } from '../../services/config/config.service';
 import type { ImageEntry } from '../../services/image/image.service';
@@ -9,6 +9,7 @@ import { PlatformService } from '../../services/platform/platform.service';
     templateUrl: './carousel.component.html',
     styleUrl: './carousel.component.scss',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CarouselComponent implements AfterViewInit, OnDestroy, OnInit {

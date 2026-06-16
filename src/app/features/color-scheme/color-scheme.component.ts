@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ConfigService } from '../../services/config/config.service';
 import { PlatformService } from '../../services/platform/platform.service';
@@ -7,6 +7,7 @@ import { PlatformService } from '../../services/platform/platform.service';
     selector: 'color-scheme',
     templateUrl: './color-scheme.component.html',
     styleUrl: './color-scheme.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ColorSchemeComponent implements OnInit {

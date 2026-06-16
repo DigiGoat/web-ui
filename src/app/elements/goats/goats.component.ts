@@ -1,6 +1,6 @@
 import type { HttpErrorResponse } from '@angular/common/http';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 
 import { Meta } from '@angular/platform-browser';
@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-goats',
   templateUrl: './goats.component.html',
   styleUrls: ['./goats.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class GoatsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ConfigService } from '../../services/config/config.service';
 import { FirebaseService } from '../../services/firebase/firebase.service';
 import { PlatformService } from '../../services/platform/platform.service';
@@ -7,6 +7,7 @@ import { PlatformService } from '../../services/platform/platform.service';
   selector: 'analytics',
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AnalyticsComponent implements OnInit {

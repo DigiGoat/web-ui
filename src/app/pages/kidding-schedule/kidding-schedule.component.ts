@@ -1,5 +1,5 @@
 import type { HttpErrorResponse } from '@angular/common/http';
-import { Component, type OnInit } from '@angular/core';
+import { Component, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import type { Page } from '../../app-routing.module';
@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-kidding-schedule',
   templateUrl: './kidding-schedule.component.html',
   styleUrl: './kidding-schedule.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class KiddingScheduleComponent implements OnInit, Page {

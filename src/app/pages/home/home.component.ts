@@ -1,4 +1,4 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { PlatformService } from '../../services/platform/platform.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class HomeComponent implements OnInit {

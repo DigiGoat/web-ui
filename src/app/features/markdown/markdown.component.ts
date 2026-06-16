@@ -1,10 +1,11 @@
-import { Component, ElementRef, type OnInit } from '@angular/core';
+import { Component, ElementRef, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PlatformService } from '../../services/platform/platform.service';
 
 @Component({
   selector: 'markdown-compiler',
   templateUrl: './markdown.component.html',
   styleUrl: './markdown.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MarkdownComponent implements OnInit {

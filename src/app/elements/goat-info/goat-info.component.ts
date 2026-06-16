@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, type OnInit } from '@angular/core';
+import { Component, Input, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import type { LactationRecord } from '../../services/goat/goat.service';
 import { findIDMatch, type Goat, GoatService } from '../../services/goat/goat.service';
 
@@ -7,6 +7,7 @@ import { findIDMatch, type Goat, GoatService } from '../../services/goat/goat.se
   selector: 'app-goat-info',
   templateUrl: './goat-info.component.html',
   styleUrl: './goat-info.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class GoatInfoComponent implements OnInit {

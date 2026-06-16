@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { booleanAttribute, Component, ElementRef, Input, type OnInit } from '@angular/core';
+import { booleanAttribute, Component, ElementRef, Input, type OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import type { Page } from '../../../app-routing.module';
@@ -12,6 +12,7 @@ import { ImageService, type ImageEntry } from '../../../services/image/image.ser
   selector: 'app-modal-goat-card',
   templateUrl: './goat-card.component.html',
   styleUrl: './goat-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class GoatCardComponent implements OnInit, Page {

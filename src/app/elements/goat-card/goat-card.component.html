@@ -2,7 +2,7 @@
   <div class="card color-scheme-secondary" test-id="goat">
     <div class="px-3 pt-3">
       @if (image?.file) {
-        <img [ngSrc]="image!.file" [alt]="image?.alt" class="card-img-top rounded object-fit-contain" width="400"
+        <img [ngSrc]="image!.file" [alt]="$safeNavigationMigration(image?.alt)" class="card-img-top rounded object-fit-contain" width="400"
           height="250" test-id="goat-image">
       }
     </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfigService } from '../../services/config/config.service';
 
@@ -7,6 +7,7 @@ import { ConfigService } from '../../services/config/config.service';
   standalone: false,
 
   templateUrl: './contact-us.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './contact-us.component.scss'
 })
 export class ContactUsComponent {
