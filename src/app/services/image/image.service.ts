@@ -46,10 +46,8 @@ export class ImageService {
 
   public readonly NotFound: ImageEntry = { file: './assets/images/ImageNotFound.png', alt: 'The Requested Image Does Not Exist' };
 }
-type ImageMap = {
-  [directory: string]: ImageEntry[];
-};
-export type ImageEntry = {
+type ImageMap = Record<string, ImageEntry[]>;
+export interface ImageEntry {
   file: string;
   alt?: string;
-};
+}

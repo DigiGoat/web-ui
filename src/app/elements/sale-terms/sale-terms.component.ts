@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './sale-terms.component.scss'
 })
 export class SaleTermsComponent implements AfterViewInit {
-  @Input({ alias: 'sale-terms', required: true }) saleTerms: string = '';
+  @Input({ alias: 'sale-terms', required: true }) saleTerms = '';
   constructor(private route: ActivatedRoute) { }
   @ViewChild('termsButton') termsButton?: ElementRef<HTMLButtonElement>;
   ngAfterViewInit() {
