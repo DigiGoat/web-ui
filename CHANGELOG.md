@@ -1,3 +1,7 @@
+## 7.4.0-beta.1
+
+- Refactored website to properly parse the new format for the Goat object
+
 ## 7.3.0-beta.1
 * Many under-the-hood improvements
   * Updated Angular from v19 to v22

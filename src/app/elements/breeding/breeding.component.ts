@@ -1,5 +1,5 @@
-import { Component, Input, type OnChanges, ChangeDetectionStrategy } from '@angular/core';
-import { findIDMatch, type Goat, type Kidding } from '../../services/goat/goat.service';
+import { ChangeDetectionStrategy, Component, Input, type OnChanges } from '@angular/core';
+import { findMatch, type Goat, type Kidding } from '../../services/goat/goat.service';
 
 @Component({
   selector: 'app-breeding',
@@ -11,10 +11,30 @@ import { findIDMatch, type Goat, type Kidding } from '../../services/goat/goat.s
 export class BreedingComponent implements OnChanges {
   ngOnChanges() {
     if (this.breeding) {
-      this.dam = findIDMatch(this.breeding!.dam, [...(this.does ?? []), ...(this.references ?? [])]) ?? { name: this.breeding.dam };
-      this.sire = findIDMatch(this.breeding!.sire, [...(this.bucks ?? []), ...(this.references ?? [])]) ?? { name: this.breeding.sire };
-      //this.dam = this.does?.find(goat => goat.normalizeId === this.breeding!.dam) ?? this.references?.find(goat => goat.normalizeId === this.breeding!.dam) ?? { name: this.breeding.dam };
-      //this.sire = this.bucks?.find(goat => goat.normalizeId === this.breeding!.sire) ?? this.references?.find(goat => goat.normalizeId === this.breeding!.sire) ?? { name: this.breeding.sire };
+      this.dam = { name: this.breeding.dam };
+      if (this.breeding!.dam) {
+        const doesMatchIndex = findMatch(this.breeding!.dam, this.does ?? []);
+        if (doesMatchIndex !== -1) {
+          this.dam = this.does![doesMatchIndex];
+        } else {
+          const referencesMatchIndex = findMatch(this.breeding!.dam, this.references ?? []);
+          if (referencesMatchIndex !== -1) {
+            this.dam = this.references![referencesMatchIndex];
+          }
+        }
+      }
+      this.sire = { name: this.breeding.sire };
+      if (this.breeding!.sire) {
+        const bucksMatchIndex = findMatch(this.breeding!.sire, this.bucks ?? []);
+        if (bucksMatchIndex !== -1) {
+          this.sire = this.bucks![bucksMatchIndex];
+        } else {
+          const referencesMatchIndex = findMatch(this.breeding!.sire, this.references ?? []);
+          if (referencesMatchIndex !== -1) {
+            this.sire = this.references![referencesMatchIndex];
+          }
+        }
+      }
     }
   }
   @Input() breeding?: Kidding;

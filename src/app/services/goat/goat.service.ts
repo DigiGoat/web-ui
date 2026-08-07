@@ -251,7 +251,45 @@ export class GoatService {
   }
 }
 //export type Goat = (OwnedGoats['result']['items'][number] & { nickname: string; description: string; awards: Awards['result']['items']; colorAndMarking: string; /*obtained?: string;*/ });
-export type Goat = Partial<{
+export type Goat = v1Goat | v2Goat;
+interface v2Goat {
+  nickname: string,
+  name: string,
+  description: string,
+  normalizeId: string,
+  dateOfBirth: string,
+  dateOfDeath: string,
+  colorAndMarking: string,
+  id: number,
+  sex: 'Female' | 'Male',
+  damId: number,
+  sireId: number,
+  linearAppraisals: Partial<{
+    lactationNumber: number;
+    appraisalDate: string;
+    generalAppearance: LAClassifications;
+    dairyStrength: LAClassifications;
+    bodyCapacity: LAClassifications;
+    mammarySystem: LAClassifications;
+    finalScore: number;
+    isPermanent: boolean;
+    id: number;
+  }>[],
+  pet: boolean,
+  price: string,
+  awards: Partial<{
+    awardCode: string;
+    awardDescription: string;
+    awardYear: number;
+    awardCount: number;
+  }>[];
+  usdaId: string,
+  usdaKey: string | number,
+  lactationRecords: LactationRecord[],
+  tattoos: { location: string; description: string; }[];
+  owner: string;
+}
+type v1Goat = Partial<{
   nickname: string;
   name: string;
   description: string;
@@ -259,12 +297,12 @@ export type Goat = Partial<{
   dateOfBirth: string;
   dateOfDeath: string | null;
   colorAndMarking: string;
-  animalTattoo: { tattoo?: string; tattooLocation?: { name?: string } }[];
+  animalTattoo: { tattoo?: string; tattooLocation?: { name?: string; }; }[];
   id: number;
   sex: 'Female' | 'Male';
   damId: number;
   sireId: number;
-  ownerAccount: { displayName?: string };
+  ownerAccount: { displayName?: string; };
   linearAppraisals: Partial<{
     lactationNumber: number;
     appraisalDate: string;

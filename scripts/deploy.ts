@@ -262,7 +262,7 @@ function build() {
       maxBuffer: 10 * 1024 * 1024, // Increase buffer size from 1MB to 10MB to handle large build output
     });
   } catch (error) {
-    log.error('Failed to Compile Project:', error, (error as Record<string, string>).stderr.toString());
+    log.error('Failed to Compile Project:', error, (error as Record<string, string>)['stderr'].toString());
     process.exit(1);
   }
 }
@@ -347,9 +347,7 @@ async function sitemap(link: string) {
     const newPagePath = join(rootDir, page, 'index.html');
     const prevPagePath = join(__dirname, '../previous-deploy/browser', page, 'index.html');
 
-    let oldTitle: string | null = null;
-    let oldMetaDescription: string | null = null;
-    let oldOGMetaDescription: string | null = null;
+    let oldTitle, oldMetaDescription, oldOGMetaDescription;
     let usedArtifact = false;
 
     if (existsSync(prevPagePath)) {

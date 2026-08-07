@@ -1,65 +1,84 @@
 <div class="card-header color-scheme-tertiary">
   @if (name) {
-    <h5 class="card-title text-center" test-id="name">{{name}}</h5>
+    <h5 class="card-title text-center" test-id="name">{{ name }}</h5>
   }
   @if (nickname) {
-    <h6 class="card-subtitle mb-2 text-center" test-id="nickname">"{{nickname}}"</h6>
+    <h6 class="mb-2 card-subtitle text-center" test-id="nickname">
+      "{{ nickname }}"
+    </h6>
   }
 </div>
-<div class="card-body color-scheme-quaternary p-0">
+<div class="p-0 card-body color-scheme-quaternary">
   <app-carousel [images]="images" test-id="carousel"></app-carousel>
 </div>
 <div class="card-footer color-scheme-tertiary">
-  <div class="card-text text-center container rounded-bottom ">
+  <div class="container card-text text-center rounded-bottom">
     <div class="text-capitalize">
       @if (born) {
         <div>
-          <span class="fw-bold">Born</span>: <span class="fw-light" test-id="born">{{born | longDate}}</span>
-          <br>
-          </div>
-        }
-        @if (deceased) {
-          <div>
-            <span class="fw-bold">Deceased</span>: <span class="fw-light" test-id="deceased">{{deceased | longDate}}</span>
-            <br>
-            </div>
-          }
-          @if (id) {
-            <div>
-              <span class="fw-bold">ID</span>: <span class="fw-light" test-id="id">{{id}}</span>
-              <br>
-              </div>
-            }
-            @if (animalTattoos?.length) {
-              <div>
-                <span class="fw-bold">Tattoo</span>: @for (animalTattoo of animalTattoos; track animalTattoo) {
-                <span test-id="tattoo">
-                  @if (animalTattoo.tattooLocation?.name && animalTattoo.tattoo) {
-                    <span class="fw-semibold">
-                      {{animalTattoo.tattooLocation?.name}}:<span class="fw-light">{{animalTattoo.tattoo}}</span>
-                    </span>
-                  }
+          <span class="fw-bold">Born</span>:
+          <span class="fw-light" test-id="born">{{ born | longDate }}</span>
+          <br />
+        </div>
+      }
+      @if (deceased) {
+        <div>
+          <span class="fw-bold">Deceased</span>:
+          <span class="fw-light" test-id="deceased">{{
+            deceased | longDate
+          }}</span>
+          <br />
+        </div>
+      }
+      @if (id) {
+        <div>
+          <span class="fw-bold">ID</span>:
+          <span class="fw-light" test-id="id">{{ id }}</span>
+          <br />
+        </div>
+      }
+      @if (animalTattoos?.length) {
+        <div>
+          <span class="fw-bold">Tattoo</span>:
+          @for (animalTattoo of animalTattoos; track animalTattoo) {
+            <span test-id="tattoo">
+              @if (animalTattoo.location && animalTattoo.description) {
+                <span class="fw-semibold">
+                  {{ animalTattoo.location }}:<span class="fw-light">{{
+                    animalTattoo.description
+                  }}</span>
                 </span>
               }
-              <br>
-              </div>
-            }
-            @if (colorAndMarking) {
-              <div>
-                <span class="fw-bold">Markings</span>: <span class="fw-light" test-id="markings">{{colorAndMarking.toLowerCase()}}</span>
-              </div>
-            }
-            @if (price) {
-              <div>
-                <span class="fw-bold">Price</span>: <span class="fw-light" test-id="price">{{price}}</span>
-                <br>
-                </div>
-              }
-            </div>
-            @if (description) {
-              <div test-id="description" [innerHTML]="description"
-              [markdown]="(id || name || nickname) ? 'goat-' + (id || name || nickname) : ''"></div>
-            }
-          </div>
-          <app-goat-info [goat]="goat"></app-goat-info>
+            </span>
+          }
+          <br />
         </div>
+      }
+      @if (colorAndMarking) {
+        <div>
+          <span class="fw-bold">Markings</span>:
+          <span class="fw-light" test-id="markings">{{
+            colorAndMarking.toLowerCase()
+          }}</span>
+        </div>
+      }
+      @if (price) {
+        <div>
+          <span class="fw-bold">Price</span>:
+          <span class="fw-light" test-id="price">{{ price }}</span>
+          <br />
+        </div>
+      }
+    </div>
+    @if (description) {
+      <div
+        test-id="description"
+        [innerHTML]="description"
+        [markdown]="
+          id || name || nickname ? 'goat-' + (id || name || nickname) : ''
+        "
+      ></div>
+    }
+  </div>
+  <app-goat-info [goat]="goat"></app-goat-info>
+</div>

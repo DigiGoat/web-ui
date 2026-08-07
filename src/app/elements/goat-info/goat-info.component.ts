@@ -47,7 +47,9 @@ export class GoatInfoComponent implements OnInit {
     if (goat.normalizeId) {
       popover.push(`<span class="fw-bold">ID</span>: <span class="fw-light">${goat.normalizeId}</span>`);
     }
-    if (goat.ownerAccount?.displayName) {
+    if ('owner' in goat && goat.owner) {
+      popover.push(`<span class="fw-bold">Owned By</span>: <span class="fw-light">${goat.owner}</span>`);
+    } else    if ('ownerAccount' in goat && goat.ownerAccount?.displayName) {
       popover.push(`<span class="fw-bold">Owned By</span>: <span class="fw-light">${goat.ownerAccount.displayName}</span>`);
     }
     if (goat.linearAppraisals && goat.linearAppraisals.length) {

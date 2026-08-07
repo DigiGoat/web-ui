@@ -90,7 +90,7 @@ export class GoatCardComponent implements OnInit, Page {
   id?: string;
   born?: string;
   deceased?: string | null;
-  animalTattoos?: Goat['animalTattoo'];
+  animalTattoos?: { location: string; description: string; }[];
   colorAndMarking?: string;
   price?: number | string;
   images!: ImageEntry[];
@@ -103,7 +103,11 @@ export class GoatCardComponent implements OnInit, Page {
     this.id = this.goat?.normalizeId;
     this.born = this.goat?.dateOfBirth;
     this.deceased = this.goat?.dateOfDeath;
-    this.animalTattoos = this.goat?.animalTattoo;
+    if ('tattoos' in this.goat && this.goat.tattoos) {
+      this.animalTattoos = this.goat.tattoos;
+    } else if ('animalTattoo' in this.goat && this.goat.animalTattoo) {
+      this.animalTattoos = this.goat.animalTattoo.map(tattoo => ({ location: tattoo.tattoo || '', description: tattoo.tattooLocation?.name || '' }));
+    }
     this.colorAndMarking = this.goat?.colorAndMarking;
     if (this.forSale) {
       try {
